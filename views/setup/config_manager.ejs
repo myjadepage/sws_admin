@@ -225,41 +225,41 @@
                         $('#btnInputAdmin').on('click', function() {
                             // 입력값 유효성검사
                             //<![CDATA[
-                            var f = {}
-                            f.adminId = $('input[name="adminId"]').val();
-                            f.adminName = $('input[name="adminName"]').val();
-                            f.adminPw = $('input[name="adminPw"]').val();
-                            f.siteEmail = $('input[name="siteEmail"]').val();
-                            f.siteName = $('input[name="siteName"]').val();
-                            f.ceoName = $('input[name="ceoName"]').val();
-                            f.securityName = $('input[name="securityName"]').val();
-                            f.securityEmail = $('input[name="securityEmail"]').val();
-                            f.comName = $('input[name="comName"]').val();
-                            f.comPost = $('input[name="comPost"]').val();
-                            f.comTel = $('input[name="comTel"]').val();
-                            f.bizNo = $('input[name="bizNo"]').val();
-                            f.tongsinNo = $('input[name="tongsinNo"]').val();
-                            f.hostingService = $('input[name="hostingService"]').val();
+                            // var f = {}
+                            // f.adminId = $('input[name="adminId"]').val();
+                            // f.adminName = $('input[name="adminName"]').val();
+                            // f.adminPw = $('input[name="adminPw"]').val();
+                            // f.siteEmail = $('input[name="siteEmail"]').val();
+                            // f.siteName = $('input[name="siteName"]').val();
+                            // f.ceoName = $('input[name="ceoName"]').val();
+                            // f.securityName = $('input[name="securityName"]').val();
+                            // f.securityEmail = $('input[name="securityEmail"]').val();
+                            // f.comName = $('input[name="comName"]').val();
+                            // f.comPost = $('input[name="comPost"]').val();
+                            // f.comTel = $('input[name="comTel"]').val();
+                            // f.bizNo = $('input[name="bizNo"]').val();
+                            // f.tongsinNo = $('input[name="tongsinNo"]').val();
+                            // f.hostingService = $('input[name="hostingService"]').val();
                             // console.log(JSON.stringify(f.adminId));
 
-                            if (isEmpty(f.adminId)) {
+                            if (isEmpty(f.adminId.value)) {
                                 alert("관리자 아이디을 입력해 주세요.");
                                 $('input[name="adminId"]').focus();
                                 return false;
                             }
-                            if (checkInvalidId(f.adminId, 4, 20)) {
+                            if (checkInvalidId(f.adminId.value, 4, 20)) {
                                 alert("관리자 아이디는 영문 또는 숫자 4~20자로 입력해 주세요.");
                                 $('input[name="adminId"]').focus();
                                 return false;
                             }
                             if ($("input[name='isChangePw']").prop("checked")) {
-                                if (isEmpty(f.adminPw)) {
+                                if (isEmpty(f.adminPw.value)) {
                                     alert("관리자 비밀번호를 입력해 주세요.");
                                     $('input[name="adminPw"]').focus();
                                     return false;
                                 }
 
-                                switch (checkInvalidPw(f.adminId, f.adminPw, 6, 20)) {
+                                switch (checkInvalidPw(f.adminId.value, f.adminPw.value, 6, 20)) {
                                     case 1:
                                         alert("비밀번호는 아이디와 동일하게 사용할 수 없습니다.");
                                         return false;
@@ -268,73 +268,73 @@
                                         return false;
                                 }
                             }
-                            if (isEmpty(f.adminName)) {
+                            if (isEmpty(f.adminName.value)) {
                                 alert("관리자명을 입력해 주세요.");
-                                $('input[name="adminName"]').focus();
+                                f.adminName.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.siteEmail)) {
+                            if (isEmpty(f.siteEmail.value)) {
                                 alert("관리자 메일을 입력해 주세요.");
-                                $('input[name="siteEmail"]').focus();
+                                f.siteEmail.focus();
                                 return false;
                             }
-                            if (isEmpty(f.siteName)) {
+                            if (isEmpty(f.siteName.value)) {
                                 alert("상점명을 입력해 주세요.");
-                                $('input[name="siteName"]').focus();
+                                f.siteName.focus();
                                 return false;
                             }
-                            if (isEmpty(f.ceoName)) {
+                            if (isEmpty(f.ceoName.value)) {
                                 alert("대표자명을 입력해 주세요.");
-                                $('input[name="ceoName"]').focus();
+                                f.ceoName.focus();
                                 return false;
                             }
-                            if (isEmpty(f.securityName)) {
+                            if (isEmpty(f.securityName.value)) {
                                 alert("개인정보관리자명을 입력해 주세요.");
-                                $('input[name="securityName"]').focus();
+                                f.securityName.focus();
                                 return false;
                             }
-                            if (isEmpty(f.securityEmail)) {
+                            if (isEmpty(f.securityEmail.value)) {
                                 alert("개인정보관리자 이메일을 입력해 주세요.");
-                                $('input[name="securityEmail"]').focus();
+                                f.securityEmail.focus();
                                 return false;
                             }
-                            if (isEmpty(f.comName)) {
+                            if (isEmpty(f.comName.value)) {
                                 alert("회사명을 입력해 주세요.");
-                                $('input[name="comName"]').focus();
+                                f.comName.focus();
                                 return false;
                             }
-                            if (isEmpty(f.comPost)) {
+                            if (isEmpty(f.comPost.value)) {
                                 alert("우편번호를 선택해 주세요.");
-                                $('input[name="comPost"]').focus();
+                                f.comPost.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.comTel)) {
+                            if (isEmpty(f.comTel.value)) {
                                 alert("대표전화를 입력해 주세요.");
-                                $('input[name="comTel"]').focus();
+                                f.comTel.focus();
                                 return false;
                             }
-                            if (isEmpty(f.bizNo)) {
+                            if (isEmpty(f.bizNo.value)) {
                                 alert("사업자등록번호를 입력해 주세요.");
-                                $('input[name="bizNo"]').focus();
+                                f.bizNo.focus();
                                 return false;
                             }
-                            if (isEmpty(f.tongsinNo)) {
+                            if (isEmpty(f.tongsinNo.value)) {
                                 alert("통신판매업신고번호를 입력해 주세요.");
-                                $('input[name="tongsinNo"]').focus();
+                                f.tongsinNo.focus();
                                 return false;
                             }
-                            if (isEmpty(f.hostingService)) {
+                            if (isEmpty(f.hostingService.value)) {
                                 alert("호스팅서비스 업체명을 입력해 주세요.");
-                                $('input[name="hostingService"]').focus();
+                                f.hostingService.focus();
                                 return false;
                             }
                             if (!confirm("등록하시겠습니까?")) {
                                 return false;
 
                                 ///<!--------
-                                // ajax호출등ㄹ고
+                                // ajax호출등록
                                 ///<!-------->
 
                             }

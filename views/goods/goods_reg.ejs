@@ -135,7 +135,7 @@
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
                                                         <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 등록</label>
-                                                        <input type="file" name="imgEtc1" id="imgEtc1" hidden>
+                                                        <input type="file" name="imgEtc" id="imgEtc1" hidden>
                                                         <input type="text" id="imgEtcurl1" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
 
@@ -146,7 +146,7 @@
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
                                                         <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 등록</label>
-                                                        <input type="file" name="imgEtc2" id="imgEtc2" hidden>
+                                                        <input type="file" name="imgEtc" id="imgEtc2" hidden>
                                                         <input type="text" id="imgEtcurl2" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
 
@@ -157,7 +157,7 @@
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
                                                         <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 등록</label>
-                                                        <input type="file" name="imgEtc3" id="imgEtc3" hidden>
+                                                        <input type="file" name="imgEtc" id="imgEtc3" hidden>
                                                         <input type="text" id="imgEtcurl3" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
@@ -230,7 +230,7 @@
                                 return false;
                             }
 
-                            if (isEmpty(f.goodsName)) {
+                            if (isEmpty(f.goodsName.value)) {
                                 alert("상품명을 입력해 주세요.");
                                 f.goodsName.focus();
                                 return false;
@@ -238,47 +238,49 @@
 
                             // 이미지 관련 : 시작
                             if (!f.isImgAuto.checked) {
-                                if (isEmpty(f.imgS)) {
+                                if (isEmpty(f.imgS.value)) {
                                     alert("이미지를 선택해 주세요.");
                                     f.imgS.focus();
                                     return false;
                                 }
-                                if (isEmpty(f.imgM)) {
+                                if (isEmpty(f.imgM.value)) {
                                     alert("이미지를 선택해 주세요.");
                                     f.imgM.focus();
                                     return false;
                                 }
-                                if (!isEmpty(f.imgS)) {
+                                if (!isEmpty(f.imgS.value)) {
                                     if (!checkFileExt(f.imgS, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
                                 }
-                                if (!isEmpty(f.imgM)) {
+                                if (!isEmpty(f.imgM.value)) {
                                     if (!checkFileExt(f.imgM, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
                                 }
+                            } else if (isEmpty(f.imgB.value)) {
+                                alert("이미지를 선택해 주세요.");
+                                f.imgB.focus();
+                                return false;
                             }
 
-                            if (!isEmpty(f.imgB)) {
+                            if (!isEmpty(f.imgB.value)) {
                                 if (!checkFileExt(f.imgB, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
                             }
 
                             if (typeof(f.imgEtc.length) == "undefined") {
-                                if (!isEmpty(f.imgEtc)) {
+                                if (!isEmpty(f.imgEtc.value)) {
                                     if (!checkFileExt(f.imgEtc, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
                                 }
                             } else {
                                 for (var i = 0; i < f.imgEtc.length; i++) {
-                                    if (!isEmpty(f.imgEtc[i])) {
+                                    if (!isEmpty(f.imgEtc[i].value)) {
                                         if (!checkFileExt(f.imgEtc[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
                                     }
                                 }
                             }
-                            // 이미지 관련 : 끝                           
-
+                            // 이미지 관련 : 끝      
 
                             if (confirm("등록하시겠습니까?")) {
                                 for (var i = 0; i < f.linkedRelate.length; i++) {
                                     f.linkedRelate[i].selected = true;
                                 }
-
                                 f.target = "frmProc";
                                 f.submit();
                             }
