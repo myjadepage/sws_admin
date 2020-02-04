@@ -1,0 +1,377 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>배송료에 대한 금액 및 조건을 설정하고 배송회사, 송장번호를 조회할 주소 등을 설정합니다.</li>
+                    <li>입점업체에서 사용중인 배송사는 삭제할 수 없습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+                    <div class="box">
+                        <div class="section_head">
+                            <i class="xi-check-circle"></i> 배송정책</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>배송정책 설정 폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>배송료 설정</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" name="deliveryMethod" value="101"></span></dt>
+                                            <dd><label>무료</label></dd>
+
+                                            <dt class="mgl20"><span><input type="radio" name="deliveryMethod" value="102" checked></span></dt>
+                                            <dd><label>선불</label></dd>
+
+                                            <dt class="mgl20"><span><input type="radio" name="deliveryMethod" value="103"></span></dt>
+                                            <dd><label>착불</label></dd>
+                                        </dl>
+                                        <hr>
+
+                                        <div class="mgt20" id="tbDeliveryPay">
+                                            <strong>배송료</strong>
+                                            <span>
+                                                <input name="deliveryFee" value="2,500" class="text_input" style="width:75px" > 원
+                                            </span>
+                                            <span>
+                                                (<input type="checkbox" name="cbDeliveryLimitFee" checked>무료배송 설정 : 
+                                                <input name="deliveryLimit" value="100,000" class="text_input" style="width: 75px;"> 원 이상 구매시 배송비 무료)</span>
+                                        </div>
+
+                                        <div class="mgt20" id="tbDeliveryFree" style="display: none;">
+                                            <strong>배송료는 무료 입니다.</strong>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 배송회사 설정</h4>
+                        </div>
+
+                        <table id="tb_delivery_company" class="t_list">
+                            <caption>배송회사 리스트</caption>
+                            <colgroup>
+                                <col width="50">
+                                <col width="130">
+                                <col width="90">
+                                <col width="200">
+                                <col width="*">
+                                <col width="100">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>사용</th>
+                                    <th>배송회사</th>
+                                    <th>연락처</th>
+                                    <th>배송사 URL</th>
+                                    <th>배송조회 URL</th>
+                                    <th><button type="button" class="btn btn-sm btn-secondary">추가</button></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="1">
+                                        <input type="hidden" name="isUse" value="T">
+                                        <input type="checkbox" name="cbList" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="한진택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-0011" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.hanjin.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.hanjin.co.kr/Delivery_html/inquiry/result_waybill.jsp?wbl_num=" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="2"><input type="hidden" name="isUse" value="T">
+                                        <input type="checkbox" name="cbList" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="현대택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-2121" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.hlc.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.hlc.co.kr/hydex/jsp/tracking/trackingViewCus.jsp?InvNo=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="4"><input type="hidden" name="isUse" value="T">
+                                        <input type="checkbox" name="cbList" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="KGB택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1577-4577" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.kgbls.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.kgbls.co.kr/sub5/trace.asp?f_slipno=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="7"><input type="hidden" name="isUse" value="T">
+                                        <input type="checkbox" name="cbList" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="대한통운" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-1255" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.doortodoor.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="https://www.doortodoor.co.kr/parcel/doortodoor.do?fsp_action=PARC_ACT_002&amp;fsp_cmd=retrieveInvNoACT&amp;invc_no=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="8"><input type="hidden" name="isUse" value="T">
+                                        <input type="checkbox" name="cbList" checked>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="로젠택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-9988" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://d2d.ilogen.com" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://d2d.ilogen.com/d2d/delivery/invoice_tracesearch_quick.jsp?slipno=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="9"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="CJ GLS" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-3312" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://nexs.cjgls.com" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://nexs.cjgls.com/web/service02_01.jsp?slipno=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="10"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList"></td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="옐로우캡" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-0123" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.yellowcap.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.yellowcap.co.kr/custom/inquiry_result.asp?invoice_no=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delRow(this)">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="12"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="우체국택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-1300" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://service.epost.go.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://service.epost.go.kr/trace.RetrieveRegiPrclDeliv.postal?sid1=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delRow(this)">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="13"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="동부택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-8848" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.dongbups.com" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.dongbups.com/Html/Delivery/DeliveryCheckView.jsp?item_no=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delFail()">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="15"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="일양로지스택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-0002" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.ilyanglogis.com" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.ilyanglogis.com/functionality/tracking_result.asp?hawb_no=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delRow(this)">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="16"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="경동택배" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="080-873-2178" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.kdexp.com" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.kdexp.com/newDeliverySearch.kd?barcode=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="delRow(this)">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="17"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="KGLogis" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="1588-0123" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="http://www.kglogis.co.kr" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="http://www.kglogis.co.kr/delivery/delivery_result.jsp?item_no=" style="width:80%"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="idx" value="27"><input type="hidden" name="isUse" value="F">
+                                        <input type="checkbox" name="cbList">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="name" class="text_input" maxlength="25" value="DSA" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="tel" class="text_input" maxlength="20" value="" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="url" class="text_input" maxlength="300" value="" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="trackingUrl" class="text_input" maxlength="300" value="" style="width:80%">
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button>
+                    </div>
+
+                </form>
+
+
+
+
+
+                <%- include('../inc/footer') %>
+
+
+
+                    </body>
+
+                    </html>

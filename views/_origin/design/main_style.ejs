@@ -1,0 +1,231 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>메인스타일관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>메인페이지관리</li>
+                    <li class="on">메인스타일관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>메인페이지 스타일을 관리하실 수 있습니다.</li>
+                </ul>
+
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
+
+                    <div class="section_head">
+                        <h4>메인스타일 목록</h4>
+                    </div>
+
+                    <table class="t_list">
+                        <caption>메인 스타일 리스트</caption>
+                        <colgroup>
+                            <col width="100">
+                            <col width="200">
+                            <col width="*">
+                            <col width="200">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th colspan="2">스타일</th>
+                                <th>구성</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>1</td>
+                                <td>카테고리</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/noimg_style.gif" alt="" onerror="this.src='/img/noimg_style.gif'">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em"></td>
+                                <td>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td>메인이미지</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/main_visual_thum.jpg" alt="" onerror="this.src='/img/noimg_style.gif'">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">슬라이드 사용<br><span style="font-size:11px">(배너)</span></td>
+                                <td>
+
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(21)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(21)">삭제</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td>상품슬라이드</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/02style.gif" alt="" onerror="this.src='/img/noimg_style.gif'">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">슬라이드 사용<br><span style="font-size:11px">(상품)</span></td>
+                                <td>
+
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(22)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(22)">삭제</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>4</td>
+                                <td>배너2열</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/03style.gif" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="73">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">배너 포함</td>
+                                <td>
+
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(23)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(23)">삭제</button>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>5</td>
+                                <td>상품+배너탭</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/md_recom_thum.jpg" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="278">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">탭 사용<br><span style="font-size:11px">(상품, 배너)</span></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(23)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(23)">삭제</button>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>6</td>
+                                <td>배너슬라이드</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/05style.gif" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="43">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">슬라이드 사용<br><span style="font-size:11px">(배너)</span></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(25)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(25)">삭제</button>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>7</td>
+                                <td>상품탭</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/06style.gif" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="304">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">탭 사용<br><span style="font-size:11px">(상품)</span></td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(26)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(26)">삭제</button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>8</td>
+                                <td>인스타그램</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/07style.gif" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="168">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em"></td>
+                                <td>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>9</td>
+                                <td>전체배너</td>
+                                <td>
+                                    <div class="adjust_image_container" style="overflow:hidden">
+                                        <img src="/img/08style.gif" alt="" onerror="this.src='/img/noimg_style.gif'" ow="380" oh="36">
+                                    </div>
+                                </td>
+                                <td style="line-height:1.5em">배너 포함</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="edit(28)">수정</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="del(28)">삭제</button>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="reg()">등록</button>
+                    </div>
+
+                </form>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function reg() {
+                            location.href = "main_style_reg";
+                        }
+
+                        function edit(idx) {
+                            location.href = "main_style_reg?idx=" + idx;
+                        }
+
+                        function del(idx) {
+                            var f = document.Frm;
+                            if (confirm("선택한 스타일을 삭제하시겠습니까?")) {
+                                f.mode.value = "DEL";
+                                f.idx.value = idx;
+                                f.action = "main_style.act";
+                                f.encoding = "multipart/form-data";
+                                f.submit();
+                            }
+                        }
+
+                        $(function() {
+                            $('.adjust_image_container').adjustImage();
+                        });
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>

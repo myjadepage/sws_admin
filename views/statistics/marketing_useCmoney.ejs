@@ -1,0 +1,641 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>적립금사용 통계</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>통계/분석</li>
+                    <li>마케팅통계</li>
+                    <li class="on">적립금사용 통계</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>아래의 통계는 <span class="red">발송완료</span>기준의 통계 입니다.</li>
+                    <li>판매금액은 발송완료된 주문의 주문금액[(판매가+옵션가)×수량]으로써 <span class="red">발송완료일자</span> 기준의 합계 금액입니다.</li>
+                </ul>
+
+                <form name="sFrm" method="get" action="/statistics/marketing_useCmoney">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>검색 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>검색</th>
+                                <td>
+                                    <div class="fl">
+                                        <div>
+                                            <input type="text" id="sdate" name="sdate" value="2020-01-01" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                            <input type="text" id="edate" name="edate" value="2020-01-28" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'edate', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'tm')">이번달</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't', -1)">어제</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -30)">30일간</button></span>
+                                        </div>
+                                    </div>
+                                    <div class="fr"><span class="button black"><button type="submit">검색</button></span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4>2020년 01월 01일부터 2020년 01월 28일까지의 검색결과 입니다.</h4>
+                        <div><span class="button black"><a href="/statistics/marketing_useCmoney.excel?sdate=2020-01-01&edate=2020-01-28">엑셀로받기</a></span></div>
+                    </div>
+
+                </form>
+
+
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_list">
+                    <caption>적립금 사용 통계 내역</caption>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>판매금액</th>
+                            <th>회원할인</th>
+                            <th>쿠폰할인</th>
+                            <th>사용적립금액</th>
+                            <th>구매획득적립금</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>2020-01-01</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-02</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-03</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-04</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-05</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-06</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-07</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-08</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-09</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-10</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-11</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-12</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-13</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-14</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-15</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-16</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-17</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-18</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-19</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-20</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-21</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-22</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-23</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-24</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-25</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-26</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-27</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>2020-01-28</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>합계</td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                            <td>
+                                <font color="#C0C0C0">0</font>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/js/class.js"></script>
+
+                    </body>
+
+                    </html>

@@ -1,0 +1,147 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>회원등급관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li>회원등급관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>회원별 권한을 설정할수 있는 메뉴 입니다.</li>
+                    <li>기본등급은 삭제가 되지 않습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>회원등급관리</h4>
+                        </div>
+
+                        <table width="100%" class="t_list">
+                            <caption>회원등급 리스트</caption>
+                            <colgroup>
+                                <col width="50">
+                                <col width="10%">
+                                <col width="13%">
+                                <col width="*">
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="100">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                    <th>등급</th>
+                                    <th>등급명</th>
+                                    <th>이미지</th>
+                                    <th>할인율</th>
+                                    <th>적립률</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="11" disabled></td>
+                                    <td>1등급</td>
+                                    <td>일반회원_01</td>
+                                    <td>
+                                        <div class="adjust_image_container"></div>
+                                    </td>
+                                    <td>2 %</td>
+                                    <td>결제가의 10 %</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary" onclick="edit(11)">상세정보</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="132"></td>
+                                    <td>2등급</td>
+                                    <td>1</td>
+                                    <td>
+                                        <div class="adjust_image_container"></div>
+                                    </td>
+                                    <td>5 %</td>
+                                    <td>미지급</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary" onclick="edit(132)">상세정보</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="120"></td>
+                                    <td>3등급</td>
+                                    <td>에이전시회원</td>
+                                    <td>
+                                        <div class="adjust_image_container"><img src="http://mimd.mallstore.co.kr/data/base/icon/Koala.jpg"></div>
+                                    </td>
+                                    <td>3 %</td>
+                                    <td>결제가의 10 %</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary" onclick="edit(120)">상세정보</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="regist()">등록</button>
+                        <button type="button" class="btn btn-secondary" onclick="delList()">선택삭제</button>
+                    </div>
+                </form>
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function regist() {
+                            location.href = "member_level_reg";
+                        }
+
+                        function edit(idx) {
+                            location.href = "member_level_reg?idx=" + idx;
+                        }
+
+                        function delList() {
+                            var f = document.Frm;
+                            var items = "";
+
+                            if (!f.cbList) return;
+
+                            if (typeof(f.cbList.length) == "undefined") {
+                                if (f.cbList.checked) items = f.cbList.value;
+                            } else {
+                                for (var i = 0; i < f.cbList.length; i++) {
+                                    if (f.cbList[i].checked) items += (items ? "," : "") + f.cbList[i].value;
+                                }
+                            }
+
+                            if (items == "") {
+                                alert("삭제하려는 데이터를 선택해주세요.");
+                                return;
+                            }
+
+                            if (confirm("선택된 데이터를 삭제하시겠습니까?\n(현재 사용되는 회원등급은 삭제되지 않습니다.)")) {
+                                f.mode.value = "DEL";
+                                f.idx.value = items;
+                                f.encoding = "multipart/form-data";
+                                f.action = "member_level_act";
+                                f.submit();
+                            }
+                        }
+
+                        $(function() {
+                            $('.adjust_image_container').adjustImage({
+                                realtime: true
+                            });
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

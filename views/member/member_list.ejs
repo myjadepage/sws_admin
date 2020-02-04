@@ -1,0 +1,333 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>회원목록</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>회원관리</li>
+                    <li>회원관리</li>
+                    <li class="on">회원목록</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>다음은 사이트에 가입한 회원목록 입니다.</li>
+                    <li><strong>총구매금액</strong> 산출 = (판매가 + 옵션가) × 수량</li>
+                    <li>배송비 및 적립금, 쿠폰 등의 할인내역은 금액에 포함되지 않습니다.</li>
+                </ul>
+
+
+                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>회원 검색 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>가입일</th>
+                                <td>
+                                    <div>
+                                        <input type="text" id="sregdts" name="sregdts" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'sregdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                        <input type="text" id="sregdte" name="sregdte" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'sregdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    </div>
+                                    <div class="mgt5">
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte')">전체</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 't')">오늘</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 't', -1)">어제</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -3)">3일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -7)">7일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -10)">10일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -20)">20일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -30)">30일간</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>최근접속일</th>
+                                <td>
+                                    <div>
+                                        <input type="text" id="svisitdts" name="svisitdts" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'svisitdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                        <input type="text" id="svisitdte" name="svisitdte" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'svisitdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    </div>
+                                    <div class="mgt5">
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte')">전체</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 't')">오늘</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 't', -1)">어제</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -3)">3일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -7)">7일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -10)">10일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -20)">20일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -30)">30일간</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>그룹별</th>
+                                <td>
+                                    <select id="slevel" name="slevel" onchange="change();"><option value="">회원등급</option><option value="1">일반회원</option><option value="4">코알라회원</option></select>
+                                    <select id="sgender" name="sgender" onchange="change();"><option value="">성별</option><option value="100">남자</option><option value="200">여자</option></select>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>회원상태</th>
+                                <td>
+                                    <input type="radio" name="ssleep" value="0" checked="">전체
+                                    <input type="radio" name="ssleep" value="1">일반
+                                    <input type="radio" name="ssleep" value="2">휴면
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>총구매금액</th>
+                                <td>
+                                    <input type="text" name="sbuyprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)"> 원 ~
+                                    <input type="text" name="ebuyprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)"> 원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>보유적립금</th>
+                                <td>
+                                    <input type="text" name="scmoney" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)"> 원 ~
+                                    <input type="text" name="ecmoney" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)"> 원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>직접검색</th>
+                                <td>
+                                    <select id="skey" name="skey"><option value="">전체</option><option value="id">회원아이디</option><option value="name">회원명</option><option value="tel">전화번호</option><option value="mobile">휴대폰번호</option><option value="email">이메일</option></select>
+
+                                    <input type="text" name="sword" value="" class="text_input" style="width:300px">
+                                    <span class="button small black"><button type="submit">검색</button></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4>총 <strong class="red">16</strong> 명의 회원이 조회 되었으며, 오늘 가입한 회원은 <strong class="red">0</strong> 명입니다.</h4>
+                        <div>
+                            <select id="psize" name="psize" onchange="change()"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
+                            <select id="psort" name="psort" onchange="change()"><option value="regdt" selected="">회원가입일</option><option value="visitdt">최근접속일</option><option value="buyprice">총구매금액</option><option value="visitcnt">접속수</option><option value="age">나이순</option><option value="name">이름순</option><option value="cmoney">적립금순</option></select>
+
+                        </div>
+                    </div>
+                </form>
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="no">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="params" value="sregdts=^sregdte=^svisitdts=^svisitdte=^slevel=0^sgender=^ssleep=0^sbuyprice=^ebuyprice=^scmoney=^ecmoney=^skey=^sword=^psort=regdt^psize=10^page=">
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list">
+                        <caption>가입한 회원 목록</caption>
+                        <colgroup>
+                            <col width="30">
+                            <col width="7%">
+                            <col width="*">
+                            <col width="10%">
+                            <col width="12%">
+                            <col width="35">
+                            <col width="35">
+                            <col width="12%">
+                            <col width="7%">
+                            <col width="9%">
+                            <col width="12%">
+                            <col width="9%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                <th>상태</th>
+                                <th>아이디</th>
+                                <th>회원등급</th>
+                                <th>성명</th>
+                                <th>성별</th>
+                                <th>나이</th>
+                                <th>적립금</th>
+                                <th>접속수</th>
+                                <th>최근<br>접속일</th>
+                                <th>총구매금액</th>
+                                <th>가입일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><input type="checkbox" name="cbList" value="75"></td>
+                                <td>일반</td>
+                                <td><a href="javascript:;" ezi="75" onclick="ezpop.member.open(event)">whtjsgks</a></td>
+                                <td>일반회원</td>
+                                <td>조선한</td>
+                                <td><img src=" /img/icon_man.gif" alt=""></td>
+                                <td>29</td>
+                                <td>3,000</td>
+                                <td>2</td>
+                                <td>2019-12-23<br>16:41:54</td>
+                                <td>0</td>
+                                <td>2019-12-23</td>
+                            </tr>
+
+                            <tr style="background-color:#f2efe6">
+                                <td><input type="checkbox" name="cbList" value="68"></td>
+                                <td>휴면</td>
+                                <td><a href="javascript:;" ezi="68" onclick="ezpop.member.open(event)">mallmaster</a></td>
+                                <td>일반회원</td>
+                                <td>alf</td>
+                                <td>-</td>
+                                <td>48</td>
+                                <td>3,000</td>
+                                <td>1</td>
+                                <td>2018-12-03<br>19:46:43</td>
+                                <td>0</td>
+                                <td>2018-12-03</td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="paging">
+                        <span><a href="/member/member_list.asp?page=1&sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10"><strong>1</strong></a><a href="/member/member_list.asp?page=2&sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10">2</a></span>
+                    </div>
+
+                    <div class="section_head">
+                        <h4>회원상태변경</h4>
+                    </div>
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>회원상태변경 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>일괄변경</th>
+                                <td>
+                                    선택한 회원을 일반회원으로 <span class="button"><button type="button" onclick="setBatchMember()">전환하기</button></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn_right">
+                        <span class="button large black"><button type="button" onclick="delList()">선택삭제</button></span>
+                        <span class="button large black"><a href="/member/member_list.excel?sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10">엑셀로 받기</a></span>
+                    </div>
+
+                </form>
+
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function change() {
+                            var f = document.sFrm;
+
+                            validSearch(f);
+
+                            f.submit();
+                        }
+
+                        function validSearch(f) {
+                            if (!isDate(f.sregdts.value)) f.sregdts.value = "";
+                            if (!isDate(f.sregdte.value)) f.sregdte.value = "";
+                            if (!isDate(f.svisitdts.value)) f.svisitdts.value = "";
+                            if (!isDate(f.svisitdte.value)) f.svisitdte.value = "";
+                        }
+                        //]]>
+                    </script>
+
+
+                    <script type="text/javascript" src="/js/ezpop.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        ezpop.member.bind('detail', '회원정보', function(uno) {
+                            location.href = "member_detail.asp?no=" + uno + "&params=sregdts=^sregdte=^svisitdts=^svisitdte=^slevel=0^sgender=^ssleep=0^sbuyprice=^ebuyprice=^scmoney=^ecmoney=^skey=^sword=^psort=regdt^psize=10^page=";
+                        });
+                        ezpop.member.bind('email', '메일발송', function(uno) {
+                            openPopup("send_email.pop.asp?uno=" + uno, "ezEmail", 740, 570);
+                        });
+                        ezpop.member.bind('sms', 'SMS전송', function(uno) {
+                            openPopup("../sms/send_sms_direct.pop.asp?uno=" + uno, "ezSms", 80, 340, "scrollbars=yes");
+                        });
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function delList() {
+                            var f = document.Frm;
+                            var items = "";
+
+                            if ($('input[name="cbList"]').length == 0) {
+                                return false;
+                            }
+
+                            var $cb = $('input[name="cbList"]:checked');
+
+                            if ($cb.length == 0) {
+                                alert("회원을 선택해 주세요.");
+                                return false;
+                            }
+
+                            $cb.each(function() {
+                                items += (items ? ',' : '') + this.value;
+                            });
+
+                            if (confirm("선택하신 회원을 삭제하시겠습니까?")) {
+                                f.mode.value = "DEL";
+                                f.no.value = items;
+                                f.action = "member_reg.act.asp";
+                                //f.target="frmProc_";
+                                f.submit();
+                            }
+                        }
+
+                        function setBatchMember() {
+                            var f = document.Frm;
+                            var items = "";
+
+                            if ($('input[name="cbList"]').length == 0) {
+                                return false;
+                            }
+
+                            var $cb = $('input[name="cbList"]:checked');
+
+                            if ($cb.length == 0) {
+                                alert("일반회원으로 전환하실 휴면회원을 선택해 주세요.");
+                                return false;
+                            }
+
+                            $cb.each(function() {
+                                items += (items ? ',' : '') + this.value;
+                            });
+
+                            if (confirm("선택하신 휴면회원을 일반회원으로 전환하시겠습니까?")) {
+                                f.mode.value = "MEMBER";
+                                f.no.value = items;
+                                f.action = "member_reg.act.asp";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

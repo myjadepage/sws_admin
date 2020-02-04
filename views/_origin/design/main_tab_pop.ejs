@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0073)http://java.mysql.mallstore.co.kr/nmanager/design/main_tab_pop.do?main=30 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>(주)솔로몬테크노서플라이 관리자사이트</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Imagetoolbar" content="no">
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+
+    <!-- solution default //-->
+    <script type="text/javascript" src="/js/underscore-min.js "></script>
+    <script type="text/javascript" src="/js/mallstore.js "></script>
+    <script type="text/javascript" src="/js/mallGoodsAddition.js "></script>
+    <script type="text/javascript" src="/js/mallGoodsStockPriceOption.js "></script>
+    <script type="text/javascript" src="/js/common.js "></script>
+    <script type="text/javascript" src="/js/embed.js "></script>
+    <script type="text/javascript" src="/js/cookie.js "></script>
+    <script type="text/javascript" src="/js/misc.js "></script>
+    <script type="text/javascript" src="/js/JSON.js "></script>
+    <!-- jquery //-->
+    <script type="text/javascript" src="/js/jquery-1.10.2.min.js "></script>
+    <script type="text/javascript" src="/js/jquery-migrate-1.2.1.min.js "></script>
+    <script type="text/javascript" src="/js/jquery.browser.js "></script>
+    <script type="text/javascript" src="/js/jquery.adjustImage.js "></script>
+    <script type="text/javascript" src="/js/jquery.laybox.js "></script>
+
+    <!-- handlbarsJS // -->
+    <script type="text/javascript" src="/js/handlebars.min.js "></script>
+    <script type="text/javascript" src="/js/handlebarsHepler.js "></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var ADMIN_PATH = "/nmanager";
+        var GUEST_ID = "guest";
+        var CATEGORY_DEPTH = 3;
+        //]]>
+    </script>
+
+    <style type="text/css">
+        /*------------- 로딩 관련 -------------*/
+        
+        .wrap-loading {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            filter: progid: DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');
+            z-index: 10000;
+        }
+        /*마스크*/
+        
+        .wrap-loading div {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            margin-left: -25px;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+        }
+        /*로딩 이미지*/
+        
+        .wrap-loading div>img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .display-none {
+            display: none;
+        }
+        /*감추기*/
+    </style>
+
+</head>
+
+<body>
+    <div class="wrap-loading display-none">
+        <div><img src="/img/ajax_loader.gif"></div>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        function checkDisabled(obj, target) {
+            target.disabled = obj.checked;
+        }
+
+        function validSubmit() {
+            var f = document.Frm;
+            var invalid = false;
+
+            $(f.no).each(function() {
+                var no = $(this).val();
+
+                if (isEmpty(f['title' + no])) {
+                    alert("탭명을 입력해 주세요.");
+                    f['title' + no].focus();
+                    invalid = true;
+                    return false;
+                }
+
+                if (!isEmpty(f['imgIndicator' + no])) {
+                    if (!checkFileExt(f['imgIndicator' + no], "jpg,gif,png", "이미지(jpg, gif, png) 파일만 선택해 주세요.")) {
+                        invalid = true;
+                        return false;
+                    }
+                }
+
+                if (!isEmpty(f['imgOver' + no])) {
+                    if (!checkFileExt(f['imgOver' + no], "jpg,gif,png", "이미지(jpg, gif, png) 파일만 선택해 주세요.")) {
+                        invalid = true;
+                        return false;
+                    }
+                }
+            });
+
+            if (invalid) return false;
+
+            if (confirm("등록하시겠습니까?")) {
+                f.submit();
+            }
+        }
+
+        function cancel() {
+            self.close();
+        }
+
+        $(function() {
+            $('.adjust_image_container').adjustImage();
+        });
+        //]]>
+    </script>
+
+    <form name="Frm" method="post" action="/design/main_tab_act" enctype="multipart/form-data">
+        <input type="hidden" name="main" value="30">
+
+        <div style="padding:20px">
+
+            <div class="section_head" style="margin-top:0">
+                <h4>메인 탭 관리</h4>
+            </div>
+
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list">
+                <caption>등록된 탭 리스트</caption>
+                <colgroup>
+                    <col width="50">
+                    <col width="*">
+                    <col width="230">
+                    <col width="230">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>탭명</th>
+                        <th>기본 이미지</th>
+                        <th>활성 이미지</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="1">1</td>
+                        <td valign="top"><input type="text" name="title1" value="신제품 출시기념 이벤트" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator1" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                            <div class="adjust_image_container" style="margin-top:5px;overflow:hidden"><img src="/js/d7f938ca5e0d468c803df0a67b162b2b.png" alt="" ow="166" oh="33"></div>
+                            <div style="float:right"><label><input type="checkbox" name="isDelIndicator1" value="T" onclick="checkDisabled(this, this.form.imgIndicator1)" style="vertical-align:middle">삭제</label></div>
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver1" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                            <div class="adjust_image_container" style="margin-top:5px;overflow:hidden"><img src="/js/cd43a6f1389348b1ab449af487aa391b.png" alt="" ow="168" oh="38"></div>
+                            <div style="float:right"><label><input type="checkbox" name="isDelOver1" value="T" onclick="checkDisabled(this, this.form.imgOver1)" style="vertical-align:middle">삭제</label></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="2">2</td>
+                        <td valign="top"><input type="text" name="title2" value="20주년 기념 한정판" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator2" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                            <div class="adjust_image_container" style="margin-top:5px;overflow:hidden"><img src="/img/fdc12f7d41d94c30bf88d574e876f423.png" alt="" ow="166" oh="33"></div>
+                            <div style="float:right"><label><input type="checkbox" name="isDelIndicator2" value="T" onclick="checkDisabled(this, this.form.imgIndicator2)" style="vertical-align:middle">삭제</label></div>
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver2" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                            <div class="adjust_image_container" style="margin-top:5px;overflow:hidden"><img src="/img/b4ef100cd0044db080c6a34f3f251161.png" alt="" ow="168" oh="38"></div>
+                            <div style="float:right"><label><input type="checkbox" name="isDelOver2" value="T" onclick="checkDisabled(this, this.form.imgOver2)" style="vertical-align:middle">삭제</label></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="3">3</td>
+                        <td valign="top"><input type="text" name="title3" value="신제품2" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator3" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver3" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="4">4</td>
+                        <td valign="top"><input type="text" name="title4" value="20주년 2" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator4" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver4" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="5">5</td>
+                        <td valign="top"><input type="text" name="title5" value="신제품3" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator5" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver5" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="hidden" name="no" value="6">6</td>
+                        <td valign="top"><input type="text" name="title6" value="20주년 3" class="text_input" maxlength="50"></td>
+                        <td valign="top">
+                            <input type="file" name="imgIndicator6" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                        <td valign="top">
+                            <input type="file" name="imgOver6" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="btn">
+                <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+            </div>
+
+        </div>
+
+    </form>
+</body>
+
+</html>

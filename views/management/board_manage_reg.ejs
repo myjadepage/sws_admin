@@ -1,0 +1,712 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+
+            <div id="contents">
+                <h3>게시판통합관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>운영관리</li>
+                    <li>상점운영관리</li>
+                    <li class="on">게시판통합관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>입점업체와 관련된 게시판은 관리자의 메뉴에 영향을 받지 않습니다.</li>
+                    <li>공지사항 경우 관리자 로그인을 하신 뒤 일반게시판처럼 글쓰기를 하시면 됩니다.</li>
+                    <li>관리자 로그인을 하시면 모든 게시물의 비밀번호가 자동으로 보여집니다. 불필요한 게시물은 바로바로 삭제하세요~ ^^</li>
+                </ul>
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode" value="REG">
+                    <input type="hidden" name="idx" value="0">
+                    <input type="hidden" name="boardId" value="">
+                    <input type="hidden" name="isFix" value="">
+                    <input type="hidden" name="uploadMaxSize" value="7">
+
+                    <div class="section_head">
+                        <h4>게시판 등록</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>게시판 등록,수정 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+
+                        <tbody>
+                            <tr>
+                                <th>게시판 아이디</th>
+                                <td colspan="3">
+                                    <input type="text" name="idInput" class="text_input" style="width:150px;" maxlength="20">
+                                    <span class="button small"><button type="button" onclick="checkOverlapId()">아이디 중복확인</button></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>게시판 유형</th>
+                                <td colspan="3">
+                                    <dl class="choose">
+                                        <dt><input type="radio" name="boardType" value="100" onclick="checkBoardType()" checked=""></dt>
+                                        <dd class="mr20">일반형</dd>
+                                        <dt><input type="radio" name="boardType" value="200" onclick="checkBoardType()"></dt>
+                                        <dd class="mr20">앨범형</dd>
+                                        <dt><input type="radio" name="boardType" value="300" onclick="checkBoardType()"></dt>
+                                        <dd class="mr20">자료실형</dd>
+                                        <dt><input type="radio" name="boardType" value="400" onclick="checkBoardType()"></dt>
+                                        <dd>웹진형</dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>게시판명</th>
+                                <td colspan="3">
+                                    <input type="text" name="title" class="text_input" style="width:98%" value="" maxlength="50">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>좌측메뉴</th>
+                                <td colspan="3">
+                                    <select id="leftmenu" name="leftmenu" style="width:100%"><option value="">메뉴 없음</option><optgroup label="- 고정 메뉴 -"></optgroup><option value="-1">마이페이지 메뉴</option><option value="-2">고객센터 메뉴</option></select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>목록당 게시물수</th>
+                                <td colspan="3">
+                                    <input type="text" name="pageSize" class="text_input" style="width:50px;" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" value="20"> 개
+                                    <span class="blue">(예 : 20)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>게시판 가로폭</th>
+                                <td colspan="3">
+                                    <input type="text" name="width" class="text_input" style="width:50px;" maxlength="5" value="100">
+                                    <select id="widthUnit" name="widthUnit" style="font-size:11px;"><option value="px">픽셀</option><option value="%" selected="">%</option></select>
+
+                                    <span class="blue">(예 : 100% 또는 650픽셀)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>제목글자수 제한</th>
+                                <td colspan="3">
+                                    <input type="text" name="subjectLimit" class="text_input" style="width:50px;" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" value="20"> 글자
+                                    <span class="blue">(공백 또는 0 으로 설정하면 제한없음)</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>답글 설정</th>
+                                <td colspan="3">
+                                    <input type="radio" name="isReply" value="T" onclick="checkReply()" checked="">답글 허용
+                                    <input type="radio" name="isReply" value="F" onclick="checkReply()">허용 안함 &nbsp;&nbsp;&nbsp; (
+                                    <input type="checkbox" name="isReplyEmail" value="T" checked=""> 답글 등록시 질문작성자에게 메일발송)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>댓글 설정</th>
+                                <td colspan="3">
+                                    <input type="radio" name="isComment" value="T" onclick="checkComment()" checked="">댓글 허용
+                                    <input type="radio" name="isComment" value="F" onclick="checkComment()">허용 안함
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>비밀글 설정</th>
+                                <td>
+                                    <input type="radio" name="isSecret" value="T" checked="">비밀글 허용
+                                    <input type="radio" name="isSecret" value="F">허용 안함
+                                </td>
+                                <th>링크 설정</th>
+                                <td>
+                                    <input type="radio" name="isLink" value="T">링크 허용
+                                    <input type="radio" name="isLink" value="F" checked="">허용 안함
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tbody id="bodyImage" style="display:none;">
+                            <tr>
+                                <th>썸네일 배열개수</th>
+                                <td>
+                                    <input type="radio" name="gridCols" value="2" disabled=""> 2개
+                                    <input type="radio" name="gridCols" value="3" disabled=""> 3개
+                                    <input type="radio" name="gridCols" value="4" checked="" disabled=""> 4개
+                                    <input type="radio" name="gridCols" value="5" disabled=""> 5개
+                                </td>
+                                <th>썸네일 사이즈</th>
+                                <td>
+                                    <input type="text" name="thumbWidth" class="text_input" style="width:50px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" value=""> ×
+                                    <input type="text" name="thumbHeight" class="text_input" style="width:50px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" value="">
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            <tr>
+                                <th>게시판 분류 사용</th>
+                                <td colspan="3">
+
+                                    <input type="radio" name="isUseGroup" value="T" onclick="checkUseGroup()"> 분류 사용
+                                    <input type="radio" name="isUseGroup" value="F" onclick="checkUseGroup()" checked=""> 사용 안함 &nbsp;&nbsp;&nbsp;
+                                    <span class="blue">설명) 게시물의 종류을 분리하여 각각 게시물의 내용을 쉽게 구분해줍니다.</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tbody id="bodyGroup" style="display:none">
+                            <tr>
+                                <th>게시판 분류 입력</th>
+                                <td colspan="3">
+                                    <div class="over_h">
+                                        <div class="fl" style="width:300px">
+                                            <div>
+                                                <select id="sGroup" name="sGroup" size="5" style="width:300px" onclick="checkGroup();">
+
+                        </select>
+                                            </div>
+
+                                            <div class="mgt5 over_h">
+                                                <div class="fl">
+                                                    <span class="button small"><button type="button" onclick="moveGroup('UP');">▲</button></span>
+                                                    <span class="button small"><button type="button" onclick="moveGroup('DOWN');">▼</button></span>
+                                                </div>
+                                                <div class="fr">
+                                                    <span class="button small"><button type="button" onclick="delGroup();">삭제</button></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="fl" style="margin-left:20px">
+                                            <input type="text" name="groupInput" class="text_input" style="width:200px;" maxlength="30" onkeyup="if (event.keyCode==13) addGroup();">
+                                            <span class="button small"><button id="btnGroupInput" type="button" mode="add" onclick="addGroup()">추가</button></span>
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                        <tbody>
+                            <tr>
+                                <th>업로드 개수제한</th>
+                                <td>
+                                    <select id="uploadLimitAmount" name="uploadLimitAmount" onchange="checkUploadLimitAmount()"><option value="">업로드 허용 안함</option><option value="1">1 개까지 허용</option><option value="2">2 개까지 허용</option><option value="3">3 개까지 허용</option><option value="4">4 개까지 허용</option><option value="5">5 개까지 허용</option><option value="6">6 개까지 허용</option><option value="7">7 개까지 허용</option><option value="8">8 개까지 허용</option><option value="9">9 개까지 허용</option><option value="10">10 개까지 허용</option></select>
+                                </td>
+                                <th>업로드 용량제한</th>
+                                <td>
+                                    <input type="text" name="uploadLimitSize" value="7" class="text_input" style="width: 30px; background-color: silver;" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" onblur="checkUploadLimitSize()" disabled="">                                    MB 이하
+                                    <span class="blue">(최대 7MB 까지 설정가능)</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>권한설정</th>
+                                <td colspan="3" style="border:0;padding:0">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top:none;" class="t_list">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="*">
+                                            <col width="*">
+                                            <col width="*">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-bottom:0">작성</th>
+                                                <th style="padding-bottom:0">목록</th>
+                                                <th style="padding-bottom:0">보기</th>
+                                                <th style="padding-bottom:0">댓글</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><select id="permReg" name="permReg" style="width:80%"><option value="0">제한없음</option><option value="16-1">일반회원 이상</option><option value="16-4">코알라회원 이상</option><option value="2">부운영자 이상</option><option value="1">관리자 이상</option></select></td>
+                                                <td><select id="permList" name="permList" style="width:80%"><option value="0">제한없음</option><option value="16-1">일반회원 이상</option><option value="16-4">코알라회원 이상</option><option value="2">부운영자 이상</option><option value="1">관리자 이상</option></select></td>
+                                                <td><select id="permView" name="permView" style="width:80%"><option value="0">제한없음</option><option value="16-1">일반회원 이상</option><option value="16-4">코알라회원 이상</option><option value="2">부운영자 이상</option><option value="1">관리자 이상</option></select></td>
+                                                <td><select id="permComment" name="permComment" style="width:80%"><option value="0">제한없음</option><option value="16-1">일반회원 이상</option><option value="16-4">코알라회원 이상</option><option value="2">부운영자 이상</option><option value="1">관리자 이상</option></select></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>댓글 스팸방지</th>
+                                <td colspan="3">
+                                    <input type="radio" name="isAntiSpam" value="T">스팸방지 허용
+                                    <input type="radio" name="isAntiSpam" value="F" checked="">허용 안함
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>코멘트 스팸방지</th>
+                                <td colspan="3">
+                                    <input type="radio" name="isAntiSpamComment" value="T">스팸방지 허용
+                                    <input type="radio" name="isAntiSpamComment" value="F" checked="">허용 안함
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>필터링</th>
+                                <td colspan="3">
+                                    <div><textarea name="filtering" rows="3" style="width:90%" class="text_input"></textarea></div>
+                                    <div class="mgt5 blue">","(콤마)로 구분 (예 : 년,새끼,병신)</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4>게시판 디자인</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list" style="border:solid 1px #ddd;">
+                        <thead>
+                            <tr>
+                                <th>상단 디자인</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0">
+                                    <div><textarea name="topDecor" style="width: 100%; height: 150px; display: none;" id="topDecor-placeholder"></textarea><iframe id="__se2_frame_topDecor-placeholder" name="__se2_frame_topDecor-placeholder" frameborder="0"
+                                            scrolling="no" style="width: 100%; height: 252px;" src="/js/SmartEditor2Skin.html"></iframe></div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th>하단 디자인</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:0">
+                                    <div><textarea name="bottomDecor" style="width: 100%; height: 150px; display: none;" id="bottomDecor-placeholder"></textarea><iframe id="__se2_frame_bottomDecor-placeholder" name="__se2_frame_bottomDecor-placeholder" frameborder="0"
+                                            scrolling="no" style="width: 100%; height: 252px;" src="/js/SmartEditor2Skin(1).html"></iframe></div>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        nhn.husky.EZCreator.createInIFrame({
+                                            elPlaceHolder: 'bottomDecor'
+                                        });
+                                        //]]>
+                                    </script>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js.download"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkOverlapId() {
+                            var f = document.Frm;
+
+                            if (f.idInput.value.stripspace() == "") {
+                                alert("게시판 아이디를 입력해 주세요.");
+                                f.idInput.focus();
+                                return false;
+                            }
+
+                            if (checkInvalidId(f.idInput.value.trim(), 4, 20)) {
+                                alert("아이디는 영문 혹은 숫자 4자~20자리로 해주세요.");
+                                f.idInput.focus();
+                                return false;
+                            }
+
+                            f.target = "frmProc";
+                            f.action = "board_overlap_id.asp";
+                            f.submit();
+                        }
+
+                        function checkOverlapIdOk(id) {
+                            var f = document.Frm;
+                            f.boardId.value = id;
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkBoardType() {
+                            var f = document.Frm;
+                            var boardType = getRadio(f.boardType);
+
+                            _es('bodyImage').display = "none";
+
+                            setRadioDisabledAll(f.isReply, false);
+                            setRadioDisabledAll(f.gridCols, true);
+
+                            switch (boardType) {
+                                case '100':
+                                case '300':
+                                    break;
+                                case '200':
+                                    setRadio(f.isReply, "F");
+                                    setRadioDisabledAll(f.isReply, true);
+                                    setRadioDisabledAll(f.gridCols, false);
+
+                                    _es('bodyImage').display = "";
+                                    break;
+                                case '400':
+                                    setRadio(f.isReply, "F");
+                                    setRadioDisabledAll(f.isReply, true);
+
+                                    _es('bodyImage').display = "";
+                                    break;
+                            }
+
+                            checkReply();
+                        }
+
+                        function checkReply() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.isReply) == "T") {
+                                f.isReplyEmail.disabled = false;
+                            } else {
+                                f.isReplyEmail.checked = false;
+                                f.isReplyEmail.disabled = true;
+                            }
+                        }
+
+                        function checkComment() {
+                            var f = document.Frm;
+
+                            if (f.permComment) {
+                                if (getRadio(f.isComment) == "T") {
+                                    f.permComment.disabled = false;
+                                } else {
+                                    f.permComment.disabled = true;
+                                }
+                            }
+                        }
+
+                        function checkUploadLimitAmount() {
+                            var f = document.Frm;
+
+                            if (f.uploadLimitAmount.value.toNumeric() > 0) {
+                                f.uploadLimitSize.disabled = false;
+                                f.uploadLimitSize.style.backgroundColor = "";
+                            } else {
+                                f.uploadLimitSize.disabled = true;
+                                f.uploadLimitSize.style.backgroundColor = "silver";
+                            }
+                        }
+
+                        function checkUploadLimitSize() {
+                            var f = document.Frm;
+
+                            var uploadMaxSize = f.uploadMaxSize.value.toNumeric();
+                            var uploadLimitSize = f.uploadLimitSize.value.toNumeric();
+
+                            if (f.uploadLimitSize.disabled) return true;
+
+                            if (uploadLimitSize < 1) {
+                                alert("업로드 용량제한을 1 이상으로 입력해 주세요.");
+                                f.uploadLimitSize.focus();
+                                return false;
+                            }
+
+                            if (uploadMaxSize < uploadLimitSize) {
+                                alert("업로드 용량제한은 최대 7MB 까지 가능합니다.");
+                                f.uploadLimitSize.value = uploadMaxSize;
+                                f.uploadLimitSize.focus();
+                                return false;
+                            }
+
+                            return true;
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkUseGroup() {
+                            var f = document.Frm;
+                            _es("bodyGroup").display = (getRadio(f.isUseGroup) == "T" ? "" : "none");
+                        }
+
+                        // 분류 항목 선택처리
+                        function checkGroup() {
+                            var f = document.Frm;
+                            var objSelect = _e("sGroup");
+                            var objBtn = _e("btnGroupInput");
+
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx < 0) return false;
+
+                            objBtn.innerHTML = "수정";
+                            objBtn.setAttribute('mode', "edit");
+                            f.groupInput.value = objSelect[currIdx].text;
+                        }
+
+                        // 분류 추가/수정
+                        function addGroup() {
+                            var f = document.Frm;
+                            var objSelect = _e("sGroup");
+                            var mode = _e("btnGroupInput").getAttribute('mode');
+
+                            if (isEmpty(f.groupInput)) {
+                                alert("분류명을 입력해 주세요.");
+                                f.groupInput.focus();
+                                return false;
+                            }
+
+                            var group = f.groupInput.value.trim();
+
+                            if (mode == "add") {
+                                for (var i = 0; i < objSelect.length; i++) {
+                                    if (objSelect[i].text == group) {
+                                        alert("동일한 분류명이 존재합니다.");
+                                        f.groupInput.focus();
+                                        return false;
+                                    }
+                                }
+
+                                addSelectOption(f.sGroup, group, "");
+                            } else {
+                                var currIdx = objSelect.selectedIndex;
+
+                                for (var i = 0; i < objSelect.length; i++) {
+                                    if (i != currIdx && objSelect[i].text == group) {
+                                        alert("동일한 분류명이 존재합니다.");
+                                        f.groupInput.focus();
+                                        return false;
+                                    }
+                                }
+
+                                objSelect[currIdx].text = group;
+                            }
+
+                            resetGroupInput();
+                        }
+
+                        // 분류 삭제
+                        function delGroup() {
+                            var f = document.Frm;
+
+                            var objSelect = _e("sGroup");
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx == -1) return false;
+
+                            var checker = 0;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect[i].selected) ++checker;
+                            }
+                            if (checker > 1) {
+                                alert("하나의 분류만 선택해 주세요.");
+                                return false;
+                            }
+
+                            removeSelectOption(objSelect, currIdx);
+
+                            resetGroupInput();
+                        }
+
+                        // 분류 이동
+                        function moveGroup(direction) {
+                            var objSelect = _e("sGroup");
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx == -1) return false;
+
+                            if ((currIdx <= 0 && direction == "UP") || (currIdx >= objSelect.length - 1 && direction == "DOWN")) return false;
+
+                            var currText = objSelect.options[currIdx].text;
+                            var currValue = objSelect.options[currIdx].value;
+
+                            if (direction == "UP") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx - 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx - 1].value;
+                                objSelect.options[currIdx - 1].text = currText;
+                                objSelect.options[currIdx - 1].value = currValue;
+
+                                currIdx = currIdx - 1;
+                            } else if (direction == "DOWN") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx + 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx + 1].value;
+                                objSelect.options[currIdx + 1].text = currText;
+                                objSelect.options[currIdx + 1].value = currValue;
+
+                                currIdx = currIdx + 1;
+                            }
+
+                            objSelect[currIdx].selected = true;
+                        }
+
+                        function resetGroupInput() {
+                            var f = document.Frm;
+                            var objBtn = _e("btnGroupInput");
+
+                            objBtn.innerHTML = "추가";
+                            objBtn.setAttribute('mode', "add");
+                            f.groupInput.value = "";
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+                            var boardType = getRadio(f.boardType);
+                            var isUseGroup;
+
+                            if (f.mode.value == "REG") {
+                                if (isEmpty(f.idInput)) {
+                                    alert("아이디를 입력해 주세요.");
+                                    f.idInput.focus();
+                                    return false;
+                                }
+
+                                if (checkInvalidId(f.idInput.value, 4, 20)) {
+                                    alert("아이디는 영문 혹은 숫자 4자~20자리로 해주세요.");
+                                    f.idInput.focus();
+                                    return false;
+                                }
+
+                                if (f.boardId.value != f.idInput.value) {
+                                    alert("아이디 중복확인을 해주세요.");
+                                    f.idInput.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (isEmpty(f.title)) {
+                                alert("게시판명을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            if (f.pageSize.value.toNumeric() < 1) {
+                                alert("목록당 게시물수를 1 이상으로 입력해 주세요.");
+                                f.pageSize.focus();
+                                return false;
+                            }
+
+                            if (f.width.value.toNumeric() < 1) {
+                                alert("게시판 가로폭을 1 이상으로 입력해 주세요.");
+                                f.width.focus();
+                                return false;
+                            }
+
+                            switch (boardType) {
+                                case '200':
+                                    var pageSize = f.pageSize.value.toNumeric();
+                                    var gridCols = getRadio(f.gridCols).toNumeric();
+
+                                    if (pageSize % gridCols != 0) {
+                                        pageSize = parseInt(pageSize / gridCols) * gridCols;
+                                        if (pageSize <= 0) pageSize = gridCols;
+                                        f.pageSize.value = pageSize;
+
+                                        alert("목록당 게시물수를 썸네일 배열개수(" + gridCols + ")의 배수로 설정합니다.\n확인해 주세요.");
+                                        f.pageSize.focus();
+                                        return false;
+                                    }
+                                case '400':
+                                    if (f.thumbWidth.value.toNumeric() < 1) {
+                                        alert("썸네일 가로 사이즈를 1 이상으로 입력해 주세요.");
+                                        f.thumbWidth.focus();
+                                        return false;
+                                    }
+
+                                    if (f.thumbHeight.value.toNumeric() < 1) {
+                                        alert("썸네일 세로 사이즈를 1 이상으로 입력해 주세요.");
+                                        f.thumbHeight.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            if (typeof(f.isUseGroup.length) != "undefined") {
+                                if (getRadio(f.isUseGroup) == "T" && f.sGroup.length == 0) {
+                                    alert("게시판 분류를 추가해 주세요.");
+                                    return false;
+                                }
+                                isUseGroup = getRadio(f.isUseGroup);
+                            } else {
+                                isUseGroup = f.isUseGroup.value;
+                            }
+
+                            switch (boardType) {
+                                case '200':
+                                case '300':
+                                case '400':
+                                    if (f.uploadLimitAmount.value.toNumeric() == 0) {
+                                        alert("앨범, 자료실, 웹진 게시판은 반드시 업로드를 허용해야 합니다.");
+                                        f.uploadLimitAmount.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            if (f.uploadLimitSize.value.toNumeric() < 1) {
+                                alert("업로드 용량제한을 입력해 주세요.");
+                                f.uploadLimitSize.focus();
+                                return false;
+                            }
+
+                            if (!checkUploadLimitSize()) return false;
+
+                            if (confirm("게시판을 등록하시겠습니까?")) {
+                                if (isUseGroup == "T") {
+                                    for (var i = 0; i < f.sGroup.length; i++) {
+                                        addInput(f, 'hidden', 'group_idx', f.sGroup.options[i].value);
+                                        addInput(f, 'hidden', 'group_name', f.sGroup.options[i].text);
+                                    }
+                                }
+
+                                f.target = "_self";
+                                f.action = "board_manage.act.asp";
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            location.href = "board_manage.asp";
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        checkBoardType();
+                        checkReply();
+                        checkComment();
+                        checkUseGroup();
+                        checkUploadLimitAmount();
+                        //]]>
+                    </script>
+
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        nhn.husky.EZCreator.createInIFrame({
+                            elPlaceHolder: 'topDecor'
+                        });
+                        //]]>
+                    </script>
+
+
+
+                    </body>
+
+                    </html>

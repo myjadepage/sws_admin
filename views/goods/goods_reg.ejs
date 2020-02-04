@@ -1,0 +1,292 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>상품관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>가격과 상품이미지 설정하여 상품등록합니다.</li>
+                    <li><strong class="red">*</strong>로 설정된 부분은 필수 입력하셔야 합니다.</li>
+                    <li>시중가를 적으면 세일이 적용됩니다. (필요할 경우에만 입력하세요.)</li>
+                </ul>
+
+                <form name="Frm" method="post" enctype="multipart/form-data">
+                    <div class="box">
+                        <table summary="상품기본정보 등록 폼 입니다." class="t_form">
+                            <caption>상품기본정보 등록 폼</caption>
+                            <colgroup>
+                                <col width="200">
+                                <col width="*">
+                                <col width="200">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>상품공급 업체 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <select id="goodsDealer" class="text_input" name="goodsDealer"></select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품명 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <input type="text" name="goodsName" class="text_input" style="width:99%" value="" maxlength="100">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>상품 아이콘
+                                        <button type="button" class="btn btn-sm btn-dark" onclick="openIcon()">아이콘 관리</button>
+                                    </th>
+                                    <td colspan="3" class="icons">
+                                        <ul>
+                                            <li>
+                                                <input type="checkbox" id="cb_icon_1" name="icon" value="1">
+                                                <div><label for="cb_icon_1"><img id="icon_1" src="/img/ico_pro_sale.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_2" name="icon" value="2">
+                                                <div><label for="cb_icon_2"><img id="icon_2" src="/img/ico_pro_best.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_4" name="icon" value="4">
+                                                <div><label for="cb_icon_4"><img id="icon_4" src="/img/ico_pro_good.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_8" name="icon" value="8">
+                                                <div><label for="cb_icon_8"><img id="icon_8" src="/img/ico_pro_free.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_16" name="icon" value="16">
+                                                <div><label for="cb_icon_16"><img id="icon_16" src="/img/freedel.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_32" name="icon" value="32">
+                                                <div><label for="cb_icon_32"><img id="icon_32" src="/img/icon_cybermoney.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_64" name="icon" value="64">
+                                                <div><label for="cb_icon_64"><img id="icon_64" src="/img/icon_hit(0).gif" ></label></div>
+                                            </li>
+                                        </ul>
+
+                                    </td>
+                                </tr>
+
+                                <!-- 상품 이미지 : 시작 -->
+                                <tr>
+                                    <th>큰이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgB" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgB" id="imgB" hidden>
+                                        <input type="text" id="imgBurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+
+                                        <span class="light_gray">(500px * 500px)</span>
+                                        <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
+                                        <label for="img_auto">자동등록</label>
+
+                                        <dl class="explain blue mgt5">
+                                            <dt><strong>※ 자동등록이란?</strong></dt>
+                                            <dd>큰이미지만 올리시면 사이트 정보에서 지정해 놓은 사이즈로 중간이미지, 작은이미지가 자동 생성되어 저장됩니다.</dd>
+                                            <dd>각각 올리기를 원하실 경우 자동등록의 체크를 해제하시면 됩니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                                <tr class="imgManuals" style="display:none">
+                                    <th>중간이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgM" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgM" id="imgM" hidden>
+                                        <input type="text" id="imgMurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <span class="light_gray">(500px * 500px)</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="imgManuals" style="display:none">
+                                    <th>작은이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgS" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgS" id="imgS" hidden>
+                                        <input type="text" id="imgSurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <span class="light_gray">(250px * 250px)</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>다른이미지</th>
+                                    <td colspan="3" class="img_etc">
+                                        <table id="tb_img_etc" width="100%" summary="다른 이미지 목록입니다." max="10" noblank="1">
+                                            <caption>다른 이미지 목록</caption>
+                                            <colgroup>
+                                                <col width="25">
+                                                <col width="20">
+                                                <col width="*">
+
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="numbering">1</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc1" id="imgEtc1" hidden>
+                                                        <input type="text" id="imgEtcurl1" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><span class="numbering">2</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc2" id="imgEtc2" hidden>
+                                                        <input type="text" id="imgEtcurl2" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><span class="numbering">3</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc3" id="imgEtc3" hidden>
+                                                        <input type="text" id="imgEtcurl3" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- 상품 이미지 : 끝 -->
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-secondary" onclick="validSubmit()">확인</button>
+                        <button type="button" class="btn btn-danger" onclick="cancle('reload')">취소</button>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+                    <script>
+                        // api
+                        supplySelect(); // <!-- 상품공급업체 ajax select -->
+                    </script>
+
+                    <script>
+                        //이미지 자동등록 radio button
+                        function changeImgRegAuto(obj) {
+                            if (obj.checked) {
+                                $('.imgManuals').hide();
+                            } else {
+                                $('.imgManuals').show();
+                            }
+                        }
+
+                        // 이미지파일 등록시 파일이름 보이기                  
+                        document.getElementById("imgB").onchange = function() {
+                            document.getElementById("imgBurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgM").onchange = function() {
+                            document.getElementById("imgMurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgS").onchange = function() {
+                            document.getElementById("imgSurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc1").onchange = function() {
+                            document.getElementById("imgEtcurl1").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc2").onchange = function() {
+                            document.getElementById("imgEtcurl2").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc3").onchange = function() {
+                            document.getElementById("imgEtcurl3").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        // document.getElementById("attach").onchange = function() {
+                        //     document.getElementById("attachurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        // };
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+                            console.log(f.goodsDealer.value);
+
+                            if (isEmpty(f.goodsDealer.value)) {
+                                alert("상품공급업체를 선택해 주세요.");
+                                f.goodsDealer.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.goodsName)) {
+                                alert("상품명을 입력해 주세요.");
+                                f.goodsName.focus();
+                                return false;
+                            }
+
+                            // 이미지 관련 : 시작
+                            if (!f.isImgAuto.checked) {
+                                if (isEmpty(f.imgS)) {
+                                    alert("이미지를 선택해 주세요.");
+                                    f.imgS.focus();
+                                    return false;
+                                }
+                                if (isEmpty(f.imgM)) {
+                                    alert("이미지를 선택해 주세요.");
+                                    f.imgM.focus();
+                                    return false;
+                                }
+                                if (!isEmpty(f.imgS)) {
+                                    if (!checkFileExt(f.imgS, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+                                if (!isEmpty(f.imgM)) {
+                                    if (!checkFileExt(f.imgM, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+                            }
+
+                            if (!isEmpty(f.imgB)) {
+                                if (!checkFileExt(f.imgB, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                            }
+
+                            if (typeof(f.imgEtc.length) == "undefined") {
+                                if (!isEmpty(f.imgEtc)) {
+                                    if (!checkFileExt(f.imgEtc, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+                            } else {
+                                for (var i = 0; i < f.imgEtc.length; i++) {
+                                    if (!isEmpty(f.imgEtc[i])) {
+                                        if (!checkFileExt(f.imgEtc[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                    }
+                                }
+                            }
+                            // 이미지 관련 : 끝                           
+
+
+                            if (confirm("등록하시겠습니까?")) {
+                                for (var i = 0; i < f.linkedRelate.length; i++) {
+                                    f.linkedRelate[i].selected = true;
+                                }
+
+                                f.target = "frmProc";
+                                f.submit();
+                            }
+                        }
+
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

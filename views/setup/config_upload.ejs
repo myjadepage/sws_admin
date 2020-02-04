@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <title>몰인몰 관리자사이트</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Imagetoolbar" content="no" />
+
+
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/button.css" />
+
+    <style type="text/css">
+        html,
+        body {
+            overflow: hidden;
+        }
+        
+        body {
+            background: none;
+            background-color: transparent
+        }
+    </style>
+
+
+    <!-- solution default //-->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/misc.js"></script>
+
+    <!-- jquery //-->
+    <script type="text/javascript" src="/js/jquery-1.10.2.min.js"></script>
+
+
+</head>
+
+
+<body>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+        function checkAttach(item) {
+            var f = document.Frm;
+
+            if (!isEmpty(item)) {
+                if (f.code.value == "favicon" && !checkFileExt(item, "ico", "아이콘(ICO) 파일만 선택해 주세요.")) {
+                    item.focus();
+                    return false;
+                } else if (f.code.value == "stamp" && !checkFileExt(item, "gif", "이미지(GIF) 파일만 선택해 주세요.")) {
+                    item.focus();
+                    return false;
+                }
+            }
+        }
+
+        function validSubmit() {
+            var f = document.Frm;
+
+            if (isEmpty(f.attach)) {
+                alert("업로드 파일을 선택해 주세요.");
+                f.attach.focus();
+                return false;
+            }
+
+            if (f.code.value == "favicon" && !checkFileExt(f.attach, "ico", "아이콘(ICO) 파일만 선택해 주세요.")) {
+                f.attach.focus();
+                return false;
+            } else if (f.code.value == "stamp" && !checkFileExt(f.attach, "gif", "이미지(GIF) 파일만 선택해 주세요.")) {
+                f.attach.focus();
+                return false;
+            }
+
+            if (confirm("등록하시겠습니까?")) {
+                f.submit();
+            }
+        }
+        //]]>
+    </script>
+
+    <div style="width:450px">
+        <div class="section_head" style="margin-top:0">
+            <h4>파비콘 업로드</h4>
+        </div>
+
+        <form name="Frm" method="post" action="config_upload" enctype="multipart/form-data">
+            <input type="hidden" name="code" value="favicon">
+
+            <div style='text-align:center; margin-top:20px;'>"favicon.ico" 파일이 등록되어 있습니다.</div>
+
+            <div class="mgt20 mgb20 tc"><input type="file" name="attach" onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" /></div>
+
+            <div>
+
+                <span class="square_blue">사이즈 16×16 의 아이콘 이미지(확장자 : ico)</span><br />
+
+            </div>
+
+            <div class="btn">
+                <span class="button black large"><button type="button" onClick="validSubmit()">확인</button></span>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

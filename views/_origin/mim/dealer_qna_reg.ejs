@@ -1,0 +1,103 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>판매자 문의하기</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>입점업체관리</li>
+                    <li>판매자관리</li>
+                    <li class="on">판매자 문의하기</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>판매자에게 궁금한 사항을 질문합니다.</li>
+                </ul>
+
+
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode" value="REG">
+                    <input type="hidden" name="idx" value="0">
+                    <input type="hidden" name="params" value="">
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>판매자 문의 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>판매자</th>
+                                <td>
+                                    <select id="dealer" name="dealer"><option value="">선택하세요</option><option value="8">dealers [내친구몰]</option></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>제목</th>
+                                <td>
+                                    <input type="text" name="subject" value="" class="text_input" maxlength="100" style="width:98%">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>질문사항</th>
+                                <td>
+                                    <textarea name="content" rows="10" class="text_input" style="width:98%"></textarea>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (isEmpty(f.dealer)) {
+                                alert("판매자를 선택해 주세요.");
+                                f.dealer.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.subject)) {
+                                alert("제목을 입력해 주세요.");
+                                f.subject.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.content)) {
+                                alert("내용을 입력해 주세요.");
+                                f.content.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.action = "dealer_qna.act";
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            location.href = "dealer_qna_list?";
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

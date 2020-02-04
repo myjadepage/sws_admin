@@ -1,0 +1,288 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>팝업관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>기타</li>
+                    <li class="on">팝업관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>쇼핑몰의 공지 및 이벤트에서 활용할 수 있는 팝업창을 간단하게 제작하는 툴입니다.</li>
+                </ul>
+
+                <form name="Frm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="mode" value="REG">
+                    <input type="hidden" name="idx" value="0">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>팝업내용</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>팝업 등록폼</caption>
+
+                            <tbody>
+                                <tr>
+                                    <th>제목</th>
+                                    <td>
+                                        <input type="text" name="title" class="text_input" style="width:98%" value="" maxlength="50">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>팝업기간설정</th>
+                                    <td>
+                                        <div style="vertical-align:middle">
+                                            <span>
+                    <input type="text" id="startDate" name="startDate" value="" class="text_input" style="width:80px">
+                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'startDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                </span>
+                                            <span style="width:30px; text-align:center;">~</span>
+                                            <input type="text" id="endDate" name="endDate" value="" class="text_input" style="width:80px">
+                                            <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'endDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                                            <span style="padding-left:10px;padding-top:3px">직접 입력시에는 “2009-01-01” 형식으로 입력해주세요.</span>
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 't')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 'd', 3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 'd', 7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 'd', 10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 'd', 20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('startDate', 'endDate', 'd', 30)">30일간</button></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>팝업종류</th>
+                                    <td>
+                                        <div style="float:left"><input type="radio" name="kind" value="100" onclick="checkKind()" checked="">윈도우창</div>
+                                        <div style="float:left; margin-left:20px;"><input type="radio" name="kind" value="200" onclick="checkKind()">고정레이어</div>
+                                        <div style="float:left; margin-left:20px;"><input type="radio" name="kind" value="300" onclick="checkKind()">이동레이어</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>내용입력선택</th>
+                                    <td>
+                                        <div style="float:left"><input type="radio" name="isHtml" value="F" onclick="checkHtml();" checked="">이미지등록 &amp; 링크걸기</div>
+                                        <div style="float:left; margin-left:20px;"><input type="radio" name="isHtml" value="T" onclick="checkHtml();">HTML로 입력</div>
+                                    </td>
+                                </tr>
+
+                                <tr class="kind-img">
+                                    <th>이미지등록</th>
+                                    <td>
+
+                                        <div><input type="file" name="attach" onkeypress="blockKey(event)" onkeydown="blockKey(event)"></div>
+                                    </td>
+                                </tr>
+                                <tr class="kind-img">
+                                    <th>링크 주소</th>
+                                    <td>
+                                        <input name="linkUrl" value="" class="text_input" style="width:98%" maxlength="150">
+                                    </td>
+                                </tr>
+
+                                <tr class="kind-html" style="display: none;">
+                                    <th>공지내용</th>
+                                    <td style="padding:0">
+                                        <div><textarea name="content" style="width: 100%; height: 250px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0"
+                                                scrolling="no" style="width: 100%; height: 297px;" src="/js/SmartEditor2Skin.html"></iframe></div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>팝업 크기</th>
+                                    <td>
+                                        <div>
+                                            폭 : <input type="text" name="width" value="" maxlength="3" class="text_input" style="width:50px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> pixel, 높이 : <input type="text" name="height" value=""
+                                                maxlength="3" class="text_input" style="width:50px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> pixel
+                                        </div>
+                                        <div style="color:#3191b7; margin-top:5px;">※ 높이 설정시 "오늘 이창 띄우지 않음" 부분 높이(20px)를 포함하여 입력해 주세요.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>배경색상</th>
+                                    <td>
+                                        <input type="text" id="backColor" name="backColor" value="#FFFFFF" maxlength="7" class="text_input" style="width:70px; background:#FFFFFF">
+                                        <span class="button small"><button type="button" onclick="colorpicker.open(event, setColor, 'backColor')">색상선택</button></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>글자색상</th>
+                                    <td>
+                                        <input type="text" id="foreColor" name="foreColor" value="#999999" maxlength="7" class="text_input" style="width:70px; background:#999999">
+                                        <span class="button small"><button type="button" onclick="colorpicker.open(event, setColor, 'foreColor')">색상선택</button></span> &nbsp;
+                                        <span style="color:#3191b7">"오늘 이창을 다시 띄우지 않음"의 글자색
+        </span></td>
+                                </tr>
+                                <tr>
+                                    <th>팝업 위치</th>
+                                    <td>
+                                        <div style="float:left; margin-top:2px;"><select id="baseX" name="baseX" selected=""><option value="0">화면</option></select></div>
+                                        <div style="float:left; margin-left:3px;">좌측부터 <input type="text" name="x" value="" class="text_input" style="width:30px" maxlength="4" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">pixel,</div>
+                                        <div style="float:left; margin-left:10px;">상단에서 <input type="text" name="y" value="" class="text_input" style="width:30px" maxlength="4" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">pixel</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>진행상태</th>
+                                    <td>
+                                        <div style="float:left"><input type="radio" name="isApply" value="F" checked="">대기중</div>
+                                        <div style="float:left; margin-left:20px;"><input type="radio" name="isApply" value="T">등록후 바로띄움</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button></span>
+                        <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
+                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkKind() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.kind) == '100') {
+                                removeSelectOptionAll(f.baseX);
+                                addSelectOption(f.baseX, '화면', 0);
+                            } else {
+                                removeSelectOptionAll(f.baseX);
+                                addSelectOption(f.baseX, '브라우져', 0);
+                                addSelectOption(f.baseX, '페이지', 1);
+
+                                if (f.baseX.getAttribute('selected').toString().toNumeric()) {
+                                    f.baseX.value = f.baseX.getAttribute('selected');
+                                }
+                            }
+                        }
+
+                        function checkHtml() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.isHtml) == "T") {
+                                $('.kind-img').hide();
+                                $('.kind-html').show();
+                            } else {
+                                $('.kind-html').hide();
+                                $('.kind-img').show();
+                                $('.adjust_image_container').adjustImage();
+                            }
+                        }
+
+                        function setColor(elementNm, color) {
+                            var f = document.Frm;
+                            f[elementNm].value = color;
+                            f[elementNm].style.backgroundColor = color;
+                        }
+
+                        function validSubmit() {
+                            f = document.Frm;
+
+                            if (isEmpty(f.title)) {
+                                alert("제목을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.startDate)) {
+                                alert("팝업기간 시작일을 입력해 주세요.");
+                                f.startDate.focus();
+                                return false;
+                            }
+
+                            if (!isDate(f.startDate.value)) {
+                                alert("유효하지 않은 일자입니다.\n팝업기간 시작일을 입력해 주세요.");
+                                f.startDate.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.endDate)) {
+                                alert("팝업기간 종료일을 입력해 주세요.");
+                                f.endDate.focus();
+                                return false;
+                            }
+
+                            if (!isDate(f.endDate.value)) {
+                                alert("유효하지 않은 일자입니다.\n팝업기간 종료일을 입력해 주세요.");
+                                f.endDate.focus();
+                                return false;
+                            }
+
+                            if (f.startDate.value > f.endDate.value) {
+                                alert("팝업기간 종료일이 시작일보다 빠릅니다.\n팝업기간 종료일을 다시 입력해 주세요.");
+                                f.endDate.focus();
+                                return false;
+                            }
+
+                            if (getRadio(f.isHtml) == "F") {
+                                if (f.mode.value == "REG" && isEmpty(f.attach)) {
+                                    alert("팝업에 표시에 이미지를 선택해 주세요.");
+                                    f.attach.focus();
+                                    return false;
+                                }
+                            } else {
+                                if (isEmpty(f.content)) {
+                                    alert("팝업에 표시할 내용을 입력해 주세요.");
+                                    return false;
+                                }
+                            }
+
+                            if (f.width.value.toNumeric() <= 0) {
+                                alert("팝업창 가로사이즈를 입력해 주세요.");
+                                f.width.focus();
+                                return false;
+                            }
+
+                            if (f.height.value.toNumeric() <= 0) {
+                                alert("팝업창 세로사이즈를 입력해 주세요.");
+                                f.height.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.backColor)) {
+                                alert("팝업창 배경색상을 입력해 주세요.");
+                                f.backColor.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.action = "popup.act.asp";
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            location.href = "popup.asp";
+                        }
+
+                        $(function() {
+                            checkKind();
+
+                            nhn.husky.EZCreator.createInIFrame({
+                                elPlaceHolder: 'content',
+                                fOnAppLoad: function() {
+                                    checkHtml();
+                                }
+                            });
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

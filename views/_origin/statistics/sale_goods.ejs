@@ -1,0 +1,139 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>상품별 매출통계</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>통계/분석</li>
+                    <li>매출통계</li>
+                    <li class="on">상품별 매출통계</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>아래의 매출 통계는 <span class="red">발송완료</span>기준의 매출통계 입니다.</li>
+                    <li>판매가는 옵션 항목을 뺀 금액입니다.</li>
+                    <li>총매출은 발송완료된 주문의 주문금액[(판매가+옵션가)×수량]으로써 <span class="red">발송완료일자</span> 기준의 합계 금액입니다.</li>
+                    <li>판매수는 발송완료된 주문의 주문수량으로써 <span class="red">발송완료일자</span> 기준의 합계 수량입니다.</li>
+                </ul>
+
+
+                <form name="sFrm" method="get" action="/statistics/sale_goods" onsubmit="validSearch(this)">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>검색 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>기간 검색</th>
+                                <td>
+                                    <div class="fl">
+                                        <div>
+                                            <input type="text" id="sdate" name="sdate" value="2020-01-01" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                            <input type="text" id="edate" name="edate" value="2020-01-28" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'edate', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'tm')">이번달</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't', -1)">어제</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -30)">30일간</button></span>
+                                        </div>
+                                        <div class="mgt5">
+                                            <input type="hidden" name="cate" value="">
+                                            <select id="cate_1" name="cate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select>
+                                            <select id="cate_2" name="cate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select>
+                                            <select id="cate_3" name="cate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select>
+
+                                            <script type="text/javascript">
+                                                //<![CDATA[
+                                                var sc = new SelectCategory();
+                                                sc.init(document.sFrm.cate);
+                                                //]]>
+                                            </script>
+                                        </div>
+                                        <div class="mgt5">
+                                            <select id="skey" name="skey"><option value="">++ 검색영역선택 ++</option><option value="name">상품명</option><option value="code">상품코드</option></select>
+
+                                            <input type="text" name="sword" value="" class="text_input" style="width:300px">
+                                        </div>
+                                    </div>
+                                    <div class="fr"><span class="button black"><button type="submit">검색</button></span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4>2020년 01월 01일부터 2020년 01월 28일까지의 검색결과 입니다.</h4>
+                        <div><span class="button black"><a href="/statistics/sale_goods.excel?cate=0&;sdate=2020-01-01&edate=2020-01-28&amp;skey=&amp;sword=">엑셀로받기</a></span></div>
+                    </div>
+
+                </form>
+
+
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_list">
+                    <caption>상품별 매출 통계 내역</caption>
+                    <thead>
+                        <tr>
+                            <th>상품명</th>
+                            <th>공급가</th>
+                            <th>판매가</th>
+                            <th>총매출/판매수</th>
+                            <th>전체판매상의%</th>
+                            <th>상품판매개시일</th>
+                            <th>판매순위</th>
+                            <th>구매고객</th>
+                            <th>이미지로 보기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="9" height="50">상품별 매출통계가 없습니다.</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>합계</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0/0</td>
+                            <td>0%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
+                    <script type="text/javascript" src="/js/class.js"></script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSearch(f) {
+                            for (var i = 1; i <= CATEGORY_DEPTH; i++) {
+                                f['cate_' + i].disabled = true;
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

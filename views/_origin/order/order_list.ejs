@@ -1,0 +1,2497 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>전체주문</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>주문/매출관리</li>
+                    <li>전체주문</li>
+                    <li class="on">전체주문</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>전체 주문목록을 보실 수 있습니다.</li>
+                </ul>
+
+
+                <form name="loginFrm" method="post" target="_blank" action="/mim/dealer_login.asp">
+                    <input type="hidden" name="no">
+                </form>
+
+                <!-- 검색 폼 : 시작 ###################################################################### -->
+                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
+                    <input type="hidden" name="menu" value="">
+                    <input type="hidden" name="sstep" value="">
+                    <input type="hidden" name="psort" value="orddt">
+                    <input type="hidden" name="psize" value="10">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>주문 검색</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+
+                        <tbody>
+                            <tr>
+                                <th>진행상태</th>
+                                <td>
+                                    <div>
+                                        <input type="checkbox" name="cstep" value="101">입금확인중
+                                        <input type="checkbox" name="cstep" value="102">결제완료
+                                        <input type="checkbox" name="cstep" value="103">상품준비중
+                                        <input type="checkbox" name="cstep" value="104">발송완료
+                                        <input type="checkbox" name="cstep" value="105">구매확정
+                                        <input type="checkbox" name="cstep" value="106">주문취소
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="cstep" value="210">주문취소신청
+                                        <input type="checkbox" name="cstep" value="220">주문교환신청
+                                        <input type="checkbox" name="cstep" value="221">주문교환완료
+                                        <input type="checkbox" name="cstep" value="230">주문반품신청
+                                        <input type="checkbox" name="cstep" value="231">주문반품완료
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>결제수단</th>
+                                <td>
+                                    <input type="radio" name="spayway" value="" checked="">전체
+                                    <input type="radio" name="spayway" value="online">온라인입금
+                                    <input type="radio" name="spayway" value="card">신용카드
+                                    <input type="radio" name="spayway" value="bank">계좌이체
+                                    <input type="radio" name="spayway" value="virtual">가상계좌
+                                    <input type="radio" name="spayway" value="escrow">에스크로
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>기간</th>
+                                <td>
+                                    <div>
+                                        <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                        <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px">
+                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    </div>
+                                    <div class="mgt5">
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't')">오늘</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't', -1)">어제</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -3)">3일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -7)">7일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -10)">10일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -20)">20일간</button></span>
+                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -30)">30일간</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>주문금액</th>
+                                <td>
+                                    <input type="text" name="ssprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
+                                    <input type="text" name="seprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>상품분류</th>
+                                <td>
+                                    <input type="hidden" name="scate" value="">
+                                    <div style="float:left; margin-right:5px;"><select id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
+                                    <div style="float:left; margin-right:5px;"><select id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select></div>
+                                    <div style="float:left; margin-right:5px;"><select id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select></div>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        var sc = new SelectCategory();
+                                        sc.init(document.sFrm.scate);
+                                        //]]>
+                                    </script>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>그룹별</th>
+                                <td>
+                                    <select id="sdealer" name="sdealer" onchange="change();"><option value="">상품입점업체</option><option value="-1">몰인몰</option><option value="8">내친구몰 [dealers]</option></select>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>직접검색</th>
+                                <td>
+                                    <select id="skey" name="skey"><option value="">전체</option><option value="ordno">주문번호</option><option value="id">주문자ID</option><option value="ordname">주문자명</option><option value="ordemail">주문자이메일</option><option value="ordtel">주문자연락처</option><option value="rcvname">수령인명</option><option value="rcvtel">수령인전화번호</option><option value="remittor">입금자명</option><option value="gcode">상품코드</option><option value="gname">상품명</option></select>
+
+                                    <input type="text" name="sword" value="" class="text_input" style="width:300px">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button large black"><button type="submit">검색</button></span>
+                    </div>
+
+                </form>
+                <!-- 검색 폼 : 끝 ###################################################################### -->
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="menu" value="">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
+                    <input type="hidden" name="goodsIdx">
+                    <input type="hidden" name="redirect" value="/nmanager/order/order_list.asp">
+                    <input type="hidden" name="params" value="menu=^sstep=^spayway=^sdts=^sdte=^ssprice=^seprice=^scate=0^sdealer=0^snoacct=0^skey=^sword=^psort=orddt^psize=10^page=">
+
+                    <input type="hidden" name="isCheckCbListAll" value="F">
+
+                    <div class="section_head">
+                        <h4>총 <span><strong>23</strong></span>건의 주문이 조회되었습니다.</h4>
+                        <div>
+                            <select id="psize" name="psize" onchange="changeList()"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
+                            <select id="psort" name="psort" onchange="changeList()"><option value="orddt" selected="">주문일</option><option value="ordno">주문번호</option><option value="ordprice">주문금액순</option><option value="id">주문자아이디순</option><option value="ordname">주문자명순</option><option value="rcvname">수령인순</option><option value="claimdt">취소/반품/교환접수일</option></select>
+
+                        </div>
+                    </div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_list">
+                        <caption>주문 리스트</caption>
+                        <colgroup>
+                            <col width="30">
+                            <col width="50">
+                            <col width="110">
+                            <col width="85">
+                            <col width="13%">
+                            <col width="10%">
+                            <col width="14%">
+                            <col width="9%">
+                            <col width="*">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="cbListAll" onclick="checkCbListAll()"></th>
+                                <th>NO</th>
+                                <th>주문번호</th>
+                                <th>주문일시</th>
+                                <th>총주문금액</th>
+                                <th>배송비</th>
+                                <th>주문자</th>
+                                <th>결제상태</th>
+                                <th>진행상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="284" onclick="checkCbList(this)"></td>
+                                <td>23</td>
+                                <td>
+                                    <div><u>A1929039662520</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(284)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-10-17<br>11:01:03</td>
+                                <td>50,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>김기동</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(284);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 284);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>50,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : 김기동</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>김기동,&nbsp;서울 서초구 서초동 1376-8 124-1&nbsp;[010-4200-5322]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_284" value="409">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/43.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=234&cate=24" target="_blank">[NCGN] Sports Goggle</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\42,500</td>
+                                                <td>\50,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_284_409" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_284_409" name="delivery_284_409" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_284_409" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="409" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="283" onclick="checkCbList(this)"></td>
+                                <td>22</td>
+                                <td>
+                                    <div><u>A1929039225477</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(283)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-10-17<br>10:53:46</td>
+                                <td>50,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>김기동</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(283);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 283);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>50,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : 김기동</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>김기동,&nbsp;서울 서초구 강남대로 231-2 (서초동, 가로판매대)&nbsp;[010-4200-5322]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_283" value="408">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/57.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=197&cate=24" target="_blank">[NCGN] FLAT TRACK GREASER TEE</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\42,500</td>
+                                                <td>\50,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_283_408" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_283_408" name="delivery_283_408" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_283_408" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="408" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="282" onclick="checkCbList(this)"></td>
+                                <td>21</td>
+                                <td>
+                                    <div><u>A1919165399107</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(282)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-07-10<br>18:09:59</td>
+                                <td>50,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>테스트</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(282);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 282);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>50,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : 테스트</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>테스트,&nbsp;서울 영등포구 당산로 34 (문래동3가, 로데오 왘 쇼핑몰)&nbsp;[010-2313-0593]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_282" value="407">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/56.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=196&cate=24" target="_blank">[NCGN] FEDERAL TRUCKS BLACKLABEL TEE</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\42,500</td>
+                                                <td>\50,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_282_407" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_282_407" name="delivery_282_407" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_282_407" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="407" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="690">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="280" onclick="checkCbList(this)"></td>
+                                <td>20</td>
+                                <td>
+                                    <div><u>A1916946551530</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(280)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-06-18<br>12:55:52</td>
+                                <td>55,000원</td>
+                                <td>5,500원</td>
+                                <td>
+                                    <div>몰스토어</div>
+                                    <div><a href="javascript:;" ezi="2" onclick="ezpop.member.open(event)">(mallstore)</a></div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">주문취소완료</div>
+                                    </div>
+                                    <div class="order_step">
+                                    </div>
+                                    <div class="order_remove"><span class="button small"><button type="button" onclick="del(280)">삭제</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금<span class="orange">[모바일]</span></strong>
+                                        <span class="red"><strong>0원</strong> [취소 결제금액: 49,500원]</span>
+                                        <span class="font11">(회원할인: 11,000원)</span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : 몰스토어</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>환불</strong></td>
+                                <td colspan="7" class="left">
+                                    <ul class="over_h">
+                                        <li class="fl font11" style="line-height:17px">
+                                            현재 1건의 클레임이 처리 완료 / 환불 승인취소 오류 0건 / 환불 총액 49,500원 (현금: 49,500원, 적립금: 0원)
+                                        </li>
+                                        <li class="fr"><span class="button small"><button type="button" onclick="checkClaimHistory(this, 280)">상세보기</button></span></li>
+                                    </ul>
+                                    <div class="claim_history" style="display:none"></div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>몰스토어,&nbsp;서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층&nbsp;[010-0000-0000]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_280" value="404">
+                                            <input type="hidden" name="ordStepGoods" value="690">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/201324740693527.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=121&cate=78" target="_blank">그레이블루 와인</a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\45,000</td>
+                                                <td>\45,000</td>
+                                                <td rowspan="1">\2,500</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_280_404" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_280_404" name="delivery_280_404" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="1">한진택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_280_404" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">주문취소완료</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="404" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <span class="button small"><button type="button" onclick="checkModHistory(this, 404)">변경이력</button></span>
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                            <input type="hidden" name="goodsIdx_280" value="405">
+                                            <input type="hidden" name="ordStepGoods" value="690">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/201721660706400.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=239&cate=327" target="_blank">SUN_추가상품_개별_선불12000원이상 무료</a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\10,000</td>
+                                                <td>\10,000</td>
+                                                <td rowspan="1">\3,000</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_280_405" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_280_405" name="delivery_280_405" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="1">한진택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_280_405" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">주문취소완료</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="405" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <span class="button small"><button type="button" onclick="checkModHistory(this, 405)">변경이력</button></span>
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="276" onclick="checkCbList(this)"></td>
+                                <td>19</td>
+                                <td>
+                                    <div><u>A1912254844750</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(276)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-05-02<br>15:14:05</td>
+                                <td>50,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>원은정</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(276);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 276);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>50,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 신한은행&nbsp;12341111111111, 입금자명 : 원은정</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>원은정,&nbsp;경기 부천시 괴안동 91-3 201호&nbsp;[010-9031-8194]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_276" value="397">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/56.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=196&cate=24" target="_blank">[NCGN] FEDERAL TRUCKS BLACKLABEL TEE</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\42,500</td>
+                                                <td>\50,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_276_397" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_276_397" name="delivery_276_397" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_276_397" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="397" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="272" onclick="checkCbList(this)"></td>
+                                <td>18</td>
+                                <td>
+                                    <div><u>A1910170705303</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(272)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-04-11<br>19:38:25</td>
+                                <td>60,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>ㅂㅂ</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(272);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 272);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>60,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : ㅁ</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>ㅂㅂ,&nbsp;광주 동구 지산동 201-7 1&nbsp;[1111-111-1111]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_272" value="393">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/201324739120470.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=90&cate=6" target="_blank">배색 트렌치 코트</a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\54,000</td>
+                                                <td>\60,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_272_393" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_272_393" name="delivery_272_393" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="1">한진택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_272_393" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="393" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="271" onclick="checkCbList(this)"></td>
+                                <td>17</td>
+                                <td>
+                                    <div><u>A1910170508013</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(271)">상세정보</button></span></div>
+                                </td>
+                                <td>2019-04-11<br>19:35:08</td>
+                                <td>50,000원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>ㅁ</div>
+                                    <div>(비회원)</div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(271);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 271);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>50,000원</strong></span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : ㅁ</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>1,&nbsp;서울 강동구 고덕로 162 (명일동)&nbsp;[1111-1111-1111]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_271" value="392">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="./몰인몰 관리자사이트_files/43.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=234&cate=24" target="_blank">[NCGN] Sports Goggle</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\42,500</td>
+                                                <td>\50,000</td>
+                                                <td rowspan="1">\0</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_271_392" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_271_392" name="delivery_271_392" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_271_392" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="392" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        &nbsp;
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="128">
+                            <input type="hidden" name="ordStep" value="100">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="267" onclick="checkCbList(this)"></td>
+                                <td>16</td>
+                                <td>
+                                    <div><u>A1832772781843</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(267)">상세정보</button></span></div>
+                                </td>
+                                <td>2018-11-23<br>20:13:02</td>
+                                <td>28,500원</td>
+                                <td>2,500원</td>
+                                <td>
+                                    <div>테스트</div>
+                                    <div><a href="javascript:;" ezi="67" onclick="ezpop.member.open(event)">(test1111)</a></div>
+                                </td>
+                                <td><span class="font11">[입금확인전]<br>처리 전</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">입금확인중</div>
+                                    </div>
+                                    <div class="order_step">
+                                        <a href="javascript:;" onclick="setConfirm(267);return false;">결제완료로 이동</a>
+                                    </div>
+                                    <div class="order_remove"><a href="javascript:;" onclick="openRequestClaim('100', 267);return false;">주문취소신청</a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">온라인입금</strong>
+                                        <span class="red"><strong>27,150원</strong></span>
+                                        <span class="font11">(회원할인: 2,850원, 적립금사용: 1,000원)</span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;00000000000000, 입금자명 : 테스트</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>테스트,&nbsp;서울 강남구 일원동 700-9 111&nbsp;[010-3975-3890]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_267" value="388">
+                                            <input type="hidden" name="ordStepGoods" value="100">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="/img/201324740888174.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="/goods/detail.asp?gno=125&cate=4" target="_blank">핀탁 레이스 블라우스</a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\25,650</td>
+                                                <td>\28,500</td>
+                                                <td rowspan="1">\2,500</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_267_388" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_267_388" name="delivery_267_388" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="1">한진택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_267_388" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">입금확인중</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="388" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div> </div>
+                                                    <div class="mgt5">
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="512">
+                            <input type="hidden" name="ordStep" value="690">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="265" onclick="checkCbList(this)"></td>
+                                <td>15</td>
+                                <td>
+                                    <div><u>A1805335624760</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(265)">상세정보</button></span></div>
+                                </td>
+                                <td>2018-02-22<br>09:53:45</td>
+                                <td>11,111원</td>
+                                <td>0원</td>
+                                <td>
+                                    <div>몰스토어</div>
+                                    <div><a href="javascript:;" ezi="2" onclick="ezpop.member.open(event)">(mallstore)</a></div>
+                                </td>
+                                <td><span class="font11">[입금확인]<br>2018-02-22<br>09:53:45</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">주문취소완료</div>
+                                    </div>
+                                    <div class="order_step">
+                                    </div>
+                                    <div class="order_remove"><span class="button small"><button type="button" onclick="del(265)">삭제</button></span>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">기타<span class="orange">[모바일]</span></strong>
+                                        <span class="red"><strong>0원</strong></span>
+                                        <span class="font11">(회원할인: 2,200원, 적립금사용: 8,911원)</span>
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>환불</strong></td>
+                                <td colspan="7" class="left">
+                                    <ul class="over_h">
+                                        <li class="fl font11" style="line-height:17px">
+                                            현재 1건의 클레임이 처리 완료 / 환불 승인취소 오류 0건 / 환불 총액 8,911원 (현금: 0원, 적립금: 8,911원)
+                                        </li>
+                                        <li class="fr"><span class="button small"><button type="button" onclick="checkClaimHistory(this, 265)">상세보기</button></span></li>
+                                    </ul>
+                                    <div class="claim_history" style="display:none"></div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>몰스토어,&nbsp;서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층&nbsp;[010-0000-0000]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_265" value="386">
+                                            <input type="hidden" name="ordStepGoods" value="690">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="/img/201331561130573.jpg" class="photo" onerror="this.src='/img/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="/goods/detail?gno=143&cate=4" target="_blank">버든배낭</a></div>
+                                                        <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
+                                                        <div class="mgt5 font11 light_gray">
+                                                            <div>색상: 노란색</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\9,900</td>
+                                                <td>\11,000</td>
+                                                <td rowspan="2">\0</td>
+                                                <td rowspan="2" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_265_386" value="0">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_265_386" name="delivery_265_386" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="7">대한통운</option><option value="8">로젠택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_265_386" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="" maxlength="50" disabled="disabled">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="2">
+                                                    <div><span style="text-decoration:underline">주문취소완료</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="2"><input type="checkbox" name="cbGoods" value="386" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="2">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <span class="button small"><button type="button" onclick="checkModHistory(this, 386)">변경이력</button></span>
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr class="addition">
+                                                <td class="goods">[추가구성] 1 : 11</td>
+                                                <td>1</td>
+                                                <td>\100</td>
+                                                <td>\111</td>
+                                            </tr>
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                            <input type="hidden" name="payway" value="4">
+                            <input type="hidden" name="ordStep" value="890">
+                            <input type="hidden" name="eswStep" value="0">
+
+                            <tr style="background-color:#f9f9f9">
+                                <td><input type="checkbox" name="cbList" value="263" onclick="checkCbList(this)"></td>
+                                <td>14</td>
+                                <td>
+                                    <div><u>A1724355485627</u></div>
+                                    <div class="mgt5"><span class="button small"><button type="button" onclick="openDetail(263)">상세정보</button></span></div>
+                                </td>
+                                <td>2017-08-31<br>15:24:46</td>
+                                <td>2,000원</td>
+                                <td>2,500원</td>
+                                <td>
+                                    <div>몰스토어</div>
+                                    <div><a href="javascript:;" ezi="2" onclick="ezpop.member.open(event)">(mallstore)</a></div>
+                                </td>
+                                <td><span class="font11">[입금확인]<br>2017-08-31<br>15:25:15</span></td>
+                                <td>
+                                    <div>
+                                        <div style="text-decoration:underline;">반품완료</div>
+                                    </div>
+                                    <div class="order_step">
+                                    </div>
+                                    <div class="order_remove"></div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>결제</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>
+                                        <strong class="blue">가상계좌</strong>
+                                        <span class="red"><strong>0원</strong> [취소 결제금액: 4,100원]</span>
+                                        <span class="font11">(회원할인: 400원)</span>
+                                    </div>
+                                    <div style="font-size:11px; margin-top:3px; color:gray;">입금계좌 : 국민은행&nbsp;70219014855971, 예금주 : 이니시스, 입금자명 : 몰스토어</div>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>환불</strong></td>
+                                <td colspan="7" class="left">
+                                    <ul class="over_h">
+                                        <li class="fl font11" style="line-height:17px">
+                                            현재 1건의 클레임이 처리 완료 / 환불 승인취소 오류 1건 / 환불 총액 4,100원 (현금: 4,100원, 적립금: 0원)
+                                        </li>
+                                        <li class="fr"><span class="button small"><button type="button" onclick="checkClaimHistory(this, 263)">상세보기</button></span></li>
+                                    </ul>
+                                    <div class="claim_history" style="display:none"></div>
+                                </td>
+                            </tr>
+
+                            <tr style="background-color:#fffbec">
+                                <td colspan="2"><strong>수령인</strong></td>
+                                <td colspan="7" class="left">
+                                    <div>몰스토어,&nbsp;서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층&nbsp;[010-0000-0000]</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="9" style="padding:0">
+
+                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                        <colgroup>
+                                            <col width="*">
+                                            <col width="6%">
+                                            <col width="10%">
+                                            <col width="10%">
+                                            <col width="8%">
+                                            <col width="155">
+                                            <col width="12%">
+                                            <col width="25">
+                                            <col width="70">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>주문상품</th>
+                                                <th>수량</th>
+                                                <th>공급가</th>
+                                                <th>판매가</th>
+                                                <th>배송비</th>
+                                                <th>배송정보
+
+                                                </th>
+                                                <th>진행상태</th>
+                                                <td><input type="checkbox" name="cbGoodsAll" onclick="checkCbGoodsAll(this)"></td>
+                                                <th>수량변경<br>변경이력</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <input type="hidden" name="goodsIdx_263" value="384">
+                                            <input type="hidden" name="ordStepGoods" value="890">
+
+                                            <tr>
+                                                <td class="goods">
+                                                    <img src="/img/201324740873258.jpg" class="photo" onerror="this.src='/img/blank.gif'">
+                                                    <div class="info">
+                                                        <div><a href="/goods/detail?gno=123&cate=81" target="_blank">미니크로 백</a></div>
+                                                    </div>
+                                                </td>
+                                                <td>1</td>
+                                                <td>\2,000</td>
+                                                <td>\2,000</td>
+                                                <td rowspan="1">\2,500</td>
+                                                <td rowspan="1" class="delivery">
+                                                    <input type="hidden" name="invoiceIdx_263_384" value="423">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_263_384" name="delivery_263_384" class="vm" style="width:105px;background:#f0f0f0;" disabled="disabled"><option value="">배송업체선택</option><optgroup label="----------------"></optgroup><option value="1" selected="">한진택배</option></select>
+                                                        <span class="button small"><button type="button" disabled="disabled">확인</button></span>
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <input name="deliveryNo_263_384" type="text" class="text_input" style="width:135px;background:#f0f0f0;" value="789789798" maxlength="50" disabled="disabled">
+                                                    </div>
+                                                    <div class="mgt5 font11">발송일자: 2017-08-31 15:25</div>
+
+                                                </td>
+                                                <td rowspan="1">
+                                                    <div><span style="text-decoration:underline">반품완료</span></div>
+                                                    <div class="order_step">
+                                                    </div>
+                                                    <div class="order_remove">
+                                                    </div>
+
+                                                </td>
+                                                <td rowspan="1"><input type="checkbox" name="cbGoods" value="384" onclick="checkCbGoods(this)" disabled=""></td>
+                                                <td rowspan="1">
+                                                    <div>
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="mgt5">
+                                                        <span class="button small"><button type="button" onclick="checkModHistory(this, 384)">변경이력</button></span>
+                                                        <div>
+
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+
+
+                                            <!-- 취소/반품/교환 내역 : 시작 -->
+                                            <tr class="mod_history" style="display:none">
+                                                <td colspan="9"></td>
+                                            </tr>
+                                            <!-- 취소/반품/교환 내역 : 끝 //-->
+
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <input type="hidden" name="isSetDecision" value="F">
+                            <input type="hidden" name="isDecision" value="F">
+
+                        </tbody>
+                    </table>
+
+                    <div class="paging" style="margin-top:10px">
+                        <span><a href="/order/order_list?page=1&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10"><strong>1</strong></a><a href="/order/order_list.asp?page=2&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10">2</a><a href="/order/order_list.asp?page=3&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10">3</a></span>
+                    </div>
+
+                    <div class="btn_right">
+                        <span class="button large black"><button type="button" onclick="checkCbListAll()">전체선택</button></span>
+                    </div>
+
+                    <ul class="order_list_btn">
+
+                        <li class="title">일괄수정 :</li>
+                        <li>
+                            선택한 주문건을
+                            <select id="batchOrdStep" name="batchOrdStep"><option value="">선택</option><option value="100">입금확인중</option><option value="200">결제완료</option></select> 로(으로)
+                            <span class="button"><button type="button" onclick="setStepList()">수정하기</button></span>
+                        </li>
+
+                        <li class="title">일괄상품수정 :</li>
+                        <li>
+                            선택한 주문 상품을
+                            <span class="button"><button type="button" onclick="setReadyList()">상품준비중으로 이동</button></span>
+                        </li>
+
+                        <li class="title">엑셀다운 :</li>
+                        <li>
+                            선택한 주문건을
+                            <span class="button"><button type="button" onclick="downExcel(true)">엑셀로받기</button></span> 현재 페이지의 모든 주문건을
+                            <span class="button"><button type="button" onclick="downExcel()">엑셀로받기</button></span>
+                        </li>
+                    </ul>
+
+                </form>
+
+
+                <!-- 엑셀다운 폼 : 시작 ###################################################################### -->
+                <form name="FrmExcel" method="post">
+
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
+                </form>
+                <!-- 엑셀다운 폼 : 끝 ###################################################################### -->
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function change() {
+                            var f = document.sFrm;
+
+                            validSearch(f);
+
+                            f.submit();
+                        }
+
+                        function validSearch(f) {
+                            var sstep = '';
+
+                            if (f.cstep) {
+                                for (var i = 0; i < f.cstep.length; i++) {
+                                    if (f.cstep[i].checked) sstep += (sstep ? ',' : '') + f.cstep[i].value;
+                                    f.cstep[i].disabled = true;
+                                }
+                                f.sstep.value = sstep;
+                            }
+
+                            var selects = _ee(_pe(f.scate, 'td'), 'select');
+                            for (var i = 0; i < selects.length; i++) {
+                                selects[i].disabled = true;
+                            }
+
+                            if (!isDate(f.sdts.value)) f.sdts.value = '';
+                            if (!isDate(f.sdte.value)) f.sdte.value = '';
+
+                            f.target = "_self";
+                        }
+
+                        function loginDealer(no) {
+                            var f = document.loginFrm;
+
+                            f.no.value = no;
+                            f.submit();
+                        }
+                        //]]>
+                    </script>
+
+
+                    <script type="text/javascript" src="/js/ezpop.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        ezpop.member.bind('detail', '회원정보', function(uno) {
+                            $.laybox({
+                                type: 'iframe',
+                                source: '../member/member_detail.ifrm?uno=' + uno
+                            });
+                        });
+                        ezpop.member.bind('email', '메일발송', function(uno) {
+                            openPopup("../member/send_email.pop?uno=" + uno, "ezEmail", 740, 570);
+                        });
+                        ezpop.member.bind('sms', 'SMS전송', function(uno) {
+                            openPopup("../sms/send_sms_direct.pop?uno=" + uno, "ezSms", 80, 340, "scrollbars=yes");
+                        });
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function changeList() {
+                            var f = document.Frm;
+                            var sf = document.sFrm;
+
+                            sf.psort.value = f.psort.value;
+                            sf.psize.value = f.psize.value;
+
+                            validSearch(sf);
+
+                            sf.submit();
+                        }
+
+                        function checkCbList(obj) {
+                            var f = obj.form;
+                            var total = checked = 0;
+
+                            $(f[obj.name]).each(function() {
+                                ++total;
+                                if ($(this).is(':checked')) ++checked;
+                            });
+                            f.cbListAll.checked = (total == checked ? true : false);
+                            f.isCheckCbListAll.value = (total == checked ? 'T' : 'F');
+                        }
+
+                        function checkCbListAll() {
+                            var f = document.Frm;
+
+                            if (f.isCheckCbListAll.value != "T") {
+                                checkCbAll(f.cbList, true);
+                                f.cbListAll.checked = true;
+                                f.isCheckCbListAll.value = "T";
+                            } else {
+                                checkCbAll(f.cbList, false);
+                                f.cbListAll.checked = false;
+                                f.isCheckCbListAll.value = "F";
+                            }
+                        }
+
+                        function checkCbGoods(obj) {
+                            var $table = $(obj).parents('table').first();
+                            var total = checked = 0;
+
+                            $table.find('input[name="cbGoods"]').each(function() {
+                                if (!this.disabled) {
+                                    ++total;
+                                    if ($(this).is(':checked')) ++checked;
+                                }
+                            });
+                            $table.find('input[name="cbGoodsAll"]').prop('checked', (total == checked ? true : false));
+                        }
+
+                        function checkCbGoodsAll(obj) {
+                            $(obj).parents('table').first().find('input[name="cbGoods"]').each(function() {
+                                if (!this.disabled) {
+                                    this.checked = obj.checked;
+                                }
+                            });
+                        }
+
+                        // 배송정보 입력확인(주문상품_일련번호 수준)
+                        function checkDeliveryInfo(idx, goodsIdx) {
+                            var f = document.Frm;
+
+                            var objDelivery = f['delivery_' + idx + '_' + goodsIdx];
+                            var objDeliveryNo = f['deliveryNo_' + idx + '_' + goodsIdx];
+
+                            if (!objDelivery || (objDeliveryNo.disabled && isEmpty(objDeliveryNo))) {
+                                alert("배송정보를 등록할 수 없습니다.");
+                                return false;
+                            }
+
+                            if (isEmpty(objDelivery)) {
+                                alert("배송업체를 선택해 주세요.");
+                                objDelivery.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(objDeliveryNo)) {
+                                alert("송장번호를 입력해 주세요.");
+                                objDeliveryNo.focus();
+                                return false;
+                            }
+
+                            return true;
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function openDetail(idx) { // 주문정보 상세보기
+                            openPopup("order_detail.pop.asp?menu=&idx=" + idx, "Detail", 820, 600, "scrollbars=1");
+                        }
+
+                        function openDeliveryBatch(idx) { // 일괄 발송완료 처리
+                            openPopup("order_delivery_batch.pop.asp?idx=" + idx, "DeliveryBatch", 618, 500, "scrollbars=1");
+                        }
+
+                        function openRequestClaim(type, idx, goodsIdx) { // 취소/교환/반품 신청
+                            openPopup(
+                                "../../mypage/order_claim_request.pop.asp?caller=admin&type=" + type + "&idx=" + idx + (typeof(goodsIdx) != 'undefined' ? "&ogidx=" + goodsIdx : ''),
+                                "ClaimOrder",
+                                800,
+                                750,
+                                "left=0,top=0,scrollbars=1"
+                            );
+                        }
+
+                        function setConfirm(idx) { // 입금확인
+                            var f = document.Frm;
+
+                            if (confirm("해당 주문을 결제완료로 설정 하시겠습니까?")) {
+                                f.idx.value = idx;
+                                f.action = "order_confirm.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setReady(idx, goodsIdx, block) { // 상품준비중
+                            var f = document.Frm;
+
+                            if (block) {
+                                alert("현재 취소신청이 접수된 주문상품입니다.\n\n취소처리 완료 후 실행하실 수 있습니다.");
+                                return false;
+                            } else if (confirm("해당 주문상품을 확인처리 하시겠습니까?\n\n확인하신 주문상품은 상품준비중으로 이동됩니다.")) {
+                                f.idx.value = idx;
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_ready.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setReadyList() {
+                            var f = document.Frm;
+                            var items = '';
+
+                            if (!f.cbGoods) return false;
+
+                            var arrStateGoods = new Array();
+
+                            var $ordStepGoods = $(f.ordStepGoods);
+
+                            $(f.cbGoods).each(function(index) {
+                                if (this.checked) {
+                                    items += (items ? ',' : '') + this.value;
+                                    arrStateGoods[arrStateGoods.length] = $ordStepGoods.eq(index).val();
+                                }
+                            });
+
+                            if (items == '') {
+                                alert("주문상품 확인처리를 하실 주문상품을 선택해 주세요.");
+                                return false;
+                            }
+
+                            for (var i = 0; i < arrStateGoods.length; i++) {
+                                if (arrStateGoods[i] != '200') {
+                                    alert("진행상태가 \"결제완료\"인 주문상품만 상품준비중으로 설정이 가능합니다.");
+                                    return false;
+                                }
+                            }
+
+                            if (confirm("선택한 주문상품을 일괄 주문상품 확인처리 하시겠습니까?")) {
+                                f.idx.value = "";
+                                f.goodsIdx.value = items;
+                                f.action = "order_ready.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setDelivery(idx, goodsIdx, block) { // 발송완료
+                            var f = document.Frm;
+
+                            if (block) {
+                                alert("현재 클레임(취소/반품/교환)이 진행 중인 경우\n해당 클레임을 완료하신 후 처리하실 수 있습니다.");
+                                return false;
+                            } else {
+                                if (!checkDeliveryInfo(idx, goodsIdx)) return false;
+
+                                if (confirm("입력하신 배송정보로 수정하시겠습니까?\n\n해당 주문상품 진행상태는 발송완료로 설정됩니다.")) {
+                                    f.idx.value = idx;
+                                    f.goodsIdx.value = goodsIdx;
+                                    f.action = "order_delivery.act.asp";
+                                    f.submit();
+                                }
+                            }
+                        }
+
+                        function setCancel(goodsIdx, ordStep) { // 취소확인
+                            var f = document.Frm;
+                            var msg;
+
+                            switch (ordStep) {
+                                case '611':
+                                case '612':
+                                    msg = "선택한 주문의 취소신청을 승인하시겠습니까?";
+                                    break;
+                                default:
+                                    alert("처리할 수 없는 주문입니다.");
+                                    return false;
+                            }
+
+                            if (confirm(msg)) {
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_cancel.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setChange(goodsIdx, mode) { // 교환승인/상품수령확인
+                            var f = document.Frm;
+
+                            if (mode == 'DELIVERY') {
+                                $.laybox({
+                                    type: 'iframe',
+                                    source: 'order_change_invoice.ifrm.asp?menu=&cgidx=' + goodsIdx + "&params=menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10"
+                                });
+                            } else {
+                                switch (mode) {
+                                    case 'AGREE':
+                                        msg = "선택한 주문의 교환신청에 동의 하시겠습니까?";
+                                        break;
+                                    case 'RECEIVE':
+                                        msg = "교환상품의 수령확인을 하시겠습니까?";
+                                        break;
+                                }
+                                if (confirm(msg)) {
+                                    f.mode.value = mode;
+                                    f.goodsIdx.value = goodsIdx;
+                                    f.action = "order_change.act.asp";
+                                    f.target = "_self";
+                                    f.submit();
+                                }
+                            }
+                        }
+
+                        function setReturn(goodsIdx, mode) { // 반품승인/상품수령확인
+                            var f = document.Frm;
+
+                            switch (mode) {
+                                case 'AGREE':
+                                    msg = "선택한 주문의 반품신청에 동의 하시겠습니까?";
+                                    break;
+                                case 'RECEIVE':
+                                    msg = "반품상품의 상품수령확인을 하시겠습니까?\n\n해당 반품상품의 환불요청을 진행합니다.";
+                                    break;
+                            }
+                            if (confirm(msg)) {
+                                f.mode.value = mode;
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_return.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setRestore(goodsIdx, ordStep) { // 클레임거절
+                            var f = document.Frm;
+                            var msg;
+
+                            switch (ordStep) {
+                                case '611':
+                                case '612':
+                                    msg = "선택한 주문상품의 취소신청을 거절하시겠습니까?";
+                                    break;
+                                case '710':
+                                    msg = "선택한 주문상품의 교환신청을 거절하시겠습니까?";
+                                    break;
+                                case '810':
+                                    msg = "선택한 주문상품의 반품신청을 거절하시겠습니까?";
+                                    break;
+                                default:
+                                    alert("처리할 수 없는 주문입니다.");
+                                    return false;
+                            }
+
+                            if (confirm(msg)) {
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_restore.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setRollback(goodsIdx, ordStep) { // 클레임 롤백
+                            var f = document.Frm;
+                            var msg;
+
+                            switch (ordStep) {
+                                case '720':
+                                    msg = "교환을 취소하시겠습니까?";
+                                    break;
+                                case '730':
+                                    msg = "교환상품 반송을 취소하시겠습니까?";
+                                    break;
+                                case '750':
+                                    msg = "교환상품 수령을 취소하시겠습니까?";
+                                    break;
+                                case '820':
+                                    msg = "반품을 취소하시겠습니까?";
+                                    break;
+                                case '830':
+                                    msg = "반품상품 반송을 취소하시겠습니까?";
+                                    break;
+                                default:
+                                    alert("처리할 수 없는 주문입니다.");
+                                    return false;
+                            }
+
+                            if (confirm(msg)) {
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_rollback.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setClaimRefund(idx, mode) {
+                            var f = document.Frm;
+                            var msg;
+
+                            switch (mode) {
+                                case '200':
+                                    msg = "해당 취소/반품건에 대한 환불계좌 송금처리를 하시겠습니까?";
+                                    break;
+                                default:
+                                    mode = '';
+                                    msg = "해당 취소/반품건에 대한 환불처리를 하시겠습니까?";
+                                    break;
+                            }
+
+                            if (confirm(msg)) {
+                                f.mode.value = mode;
+                                f.idx.value = idx;
+                                f.action = "order_claim_refund.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function escrowDelivery(idx, pg) { // 에스크로배송
+                            var f = document.Frm;
+                            var action;
+
+                            switch (pg) {
+                                case "ALLTHEGATE":
+                                    f.mode.value = "delivery";
+                                    action = "http://mimd.mallstore.co.kr/pay/allthegate/AGS_escrow_ing.asp";
+                                    break;
+                                case "INICIS":
+                                    action = "/pay/inicis/INIescrow_delivery.asp";
+                                    break;
+                                case "KCP":
+                                    f.mode.value = "delivery";
+                                    action = "/pay/kcp/mod_escw.asp";
+                                    break;
+                                case "UPLUS":
+                                    action = "/pay/uplus/escrow_delivery.asp";
+                                    break;
+
+                                default:
+                                    alert("처리할 수 없습니다.");
+                                    return false;
+                                    break;
+                            }
+
+                            f.idx.value = idx;
+                            f.action = action;
+                            f.target = "_self";
+                            f.submit();
+                        }
+
+                        function del(idx) { // 삭제
+                            var f = document.Frm;
+
+                            if (confirm("선택한 주문을 삭제하시겠습니까?\n\n삭제를 하시면 해당 주문과 관련된 내용을 복구 할 수 없습니다.")) {
+                                f.idx.value = idx;
+                                f.action = "order_del.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setDecision(idx, goodsIdx) { // 관리자 구매확인
+                            var f = document.Frm;
+
+                            if (confirm("발송완료된 주문상품을 구매확정 하시겠습니까?")) {
+                                f.mode.value = "CONFIRM";
+                                f.idx.value = idx;
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_decision.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setDecisionList() {
+                            var f = document.Frm;
+                            var items = '';
+                            var isBlockDecision = false;
+
+                            if (!f.cbList) return false;
+
+                            var $isSetDecision = $(f.isSetDecision);
+
+                            $(f.cbList).each(function(index) {
+                                if (this.checked) {
+                                    items += (items ? ',' : '') + this.value;
+                                    if ($isSetDecision.eq(index).val() != 'T') isBlockDecision = true;
+                                }
+                            });
+
+                            if (items == '') {
+                                alert("구매확정 하실 주문을 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (isBlockDecision) {
+                                alert("구매확정 할 수 없는 주문상품이 포함된 주문이 있습니다.\n확인 후 다시 시도해 주세요.");
+                                return false;
+                            }
+
+                            if (confirm("선택한 주문에 포함된 발송완료된 주문상품을 구매확정 하시겠습니까?")) {
+                                f.mode.value = "CONFIRM";
+                                f.idx.value = items;
+                                f.goodsIdx.value = '';
+                                f.action = "order_decision.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+                        function setDecisionRollback(idx, goodsIdx) { // 구매확인 취소(발송완료로 이동)
+                            var f = document.Frm;
+
+                            if (confirm("구매확정된 주문상품을 발송완료 단계로 설정하시겠습니까?")) {
+                                f.mode.value = "CANCEL";
+                                f.idx.value = idx;
+                                f.goodsIdx.value = goodsIdx;
+                                f.action = "order_decision.act.asp";
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkClaimHistory(obj, idx) {
+                            var $container = $(obj).parent().parent().parent().next();
+
+                            if ($container.is(':visible')) {
+                                $container.hide().children().remove();
+                            } else {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "order_list_claim_history.ajax.asp",
+                                    data: {
+                                        idx: idx
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        $('<div />').append(data).appendTo($container).parent().show();
+                                    }
+                                });
+                            }
+                        }
+
+                        function checkModHistory(obj, idx) {
+                            var $container = $(obj).closest('tr').next('.mod_history');
+
+                            if ($container.is(':visible')) {
+                                $container.hide().children().children().remove();
+                            } else {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "order_list_mod_history.ajax.asp",
+                                    data: {
+                                        idx: idx
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        $('<div />').append(data).appendTo($container.children()).parent().parent().show();
+                                    }
+                                });
+                            }
+                        }
+
+                        function checkClaimRequest(obj, idx) {
+                            var $container = $(obj).next();
+
+                            if ($container.is(':visible')) {
+                                $container.hide().children().remove();
+                            } else {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "order_list_claim_request.ajax.asp",
+                                    data: {
+                                        idx: idx
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        $('<div />').append(data).appendTo($container).parent().show();
+                                    }
+                                });
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function setStepList() {
+                            var f = document.Frm;
+                            var items = '';
+                            var action;
+
+                            var arrPayway = new Array();
+                            var arrStep = new Array();
+                            var isEscrow = false;
+                            var isDecision = false;
+
+                            var stepText = f.batchOrdStep.options[f.batchOrdStep.selectedIndex].text;
+                            var stepValue = f.batchOrdStep.options[f.batchOrdStep.selectedIndex].value;
+
+                            if (!f.cbList) return false;
+
+                            if (stepValue == '') {
+                                alert("수정할 상태를 선택해 주세요.");
+                                f.batchOrdStep.focus();
+                                return false;
+                            }
+
+                            var $payway = $(f.payway);
+                            var $ordStep = $(f.ordStep);
+                            var $eswStep = $(f.eswStep);
+                            var $isDecision = $(f.isDecision);
+
+                            $(f.cbList).each(function(index) {
+                                if (this.checked) {
+                                    items += (items ? ',' : '') + this.value;
+
+                                    arrPayway[arrPayway.length] = $payway.eq(index).val();
+                                    arrStep[arrStep.length] = $ordStep.eq(index).val();
+                                    if ($eswStep.eq(index).val().toNumeric() > 0) isEscrow = true;
+                                    if ($isDecision.eq(index).val() == 'T') isDecision = true;
+                                }
+                            });
+
+                            if (items == '') {
+                                alert(stepText + "로(으로) 수정하실 주문을 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (isDecision && (stepValue == '100' || stepValue == '200')) {
+                                alert("구매확정된 주문상품이 포함된 주문은 정산에 영향을 미치므로 수정하실 수 없습니다");
+                                return false;
+                            }
+
+                            // 입금확인중
+                            if (stepValue == '100') {
+                                if (isEscrow) {
+                                    alert("에스크로로 결제된 주문이 포함되어 있습니다. 입금확인중으로 수정할 수 없습니다.");
+                                    return false;
+                                }
+
+                                for (var i = 0; i < arrStep.length; i++) {
+                                    if (arrStep[i] != '200' || arrPayway[i] != '128') {
+                                        alert("진행상태가 \"결제완료\"이고 \"온라인입금\"으로 결제된 주문만 입금확인중으로 설정이 가능합니다.");
+                                        return false;
+                                    }
+                                }
+
+                                action = "order_new.act.asp";
+                            }
+
+                            // 결제완료
+                            else if (stepValue == '200') {
+                                for (var i = 0; i < arrStep.length; i++) {
+                                    if (arrStep[i] != '100' && arrStep[i] != '300') {
+                                        alert("진행상태가 \"입금확인중\" 또는 \"상품준비중\"인 주문만 결제완료으로 설정이 가능합니다.");
+                                        return false;
+                                    }
+                                }
+
+                                action = "order_confirm.act.asp";
+                            }
+
+                            if (confirm("선택한 주문을 " + stepText + "로(으로) 수정하시겠습니까?")) {
+                                f.idx.value = items;
+                                f.action = action;
+                                f.target = "_self";
+                                f.submit();
+                            }
+                        }
+
+
+
+                        function downExcel(isSelect) {
+                            var f = document.Frm;
+                            var fe = document.FrmExcel;
+                            var mode = '';
+                            var items = '';
+
+                            if (!isSelect) isSelect = false;
+
+                            if (!f.cbList) return false;
+
+                            if (isSelect) {
+                                $(f.cbList).each(function() {
+                                    if (this.checked) items += (items ? ',' : '') + this.value;
+                                });
+
+                                if (items == '') {
+                                    alert("주문을 선택해 주세요.");
+                                    return false;
+                                }
+
+                                mode = "SELECT";
+                            }
+
+                            fe.mode.value = mode;
+                            fe.idx.value = items;
+                            fe.action = "order_list.excel.asp";
+                            fe.target = "frmProc";
+                            fe.submit();
+                        }
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>

@@ -1,0 +1,618 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>문구관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>운영관리</li>
+                    <li>SMS관리</li>
+                    <li class="on">문구관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>SMS 문구관리을 합니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/sms/ment_manage.act">
+
+                    <div class="section_head">
+                        <h4>SMS 문구설정</h4>
+                    </div>
+
+                    <div class="tip_box2">
+                        <span>[사용자모드]게시판 답글 은 1:1 친절상담의 답변을 할때 발송됩니다.</span><br>
+                        <span>[입점업체모드] 에서 메세지를 발송할시 마스터가 부담합니다.</span><br><br>
+                        <strong class="blue">주의사항</strong><br>
+                        <span>내용 입력시 80 Bytes 이상 적으시면 발송이 안됩니다. 참고하시기 바랍니다.</span><br>
+                        <span>[자동발송]으로 설정이 안되어있거나 휴대폰번호가 정확하기 않을 시에는 발송되지 않습니다.</span><br>
+                        <span>도움문구는 다음과 같습니다.</span><br>
+                        <span style="background:none;padding-left:10px">[NAME] : 회원이름, [SHOPNAME] : 상점명, [ORDERNUMBER] : 주문번호</span><br>
+                        <span style="background:none;padding-left:10px">[NAME] 회원 정보가 없을 경우 '회원' 보이게 함, [DATE] 날짜</span><br>
+                    </div>
+
+
+                    <h5 class="subtit">
+                        [사용자모드] : 고객에게 보내지는 메세지를 설정합니다.
+
+                    </h5>
+
+                    <ul style="overflow:hidden;margin:20px 0">
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="42">
+                            <p>회원가입</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[DATE]에 [NAME]님, [SHOPNAME]에 회원가입해 주셔서 감사합니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_42" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="44">
+                            <p>회원탈퇴</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 [SHOPNAME]에서 회원탈퇴 처리되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_44" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="75">
+                            <p>자동탈퇴안내</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 장기간 [SHOPNAME]에 미접속하여 탈퇴 예정이오니 참고바랍니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_75" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="46">
+                            <p>주문완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님께서 신청하신 주문이 완료되었습니다. 주문번호는 [ORDERNUMBER]입니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_46" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="49">
+                            <p>주문입금확인</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 [SHOPNAME]에서 [ORDERNUMBER] 주문의 입금이 확인되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_49" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="52">
+                            <p>주문발송완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 주문하신 물품의 발송이 완료 되었습니다. 구매확정 부탁드립니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_52" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="55">
+                            <p>취소신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문을 취소신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_55" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="58">
+                            <p>취소완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 주문이 취소되었습니다. 취소 주문번호는 [ORDERNUMBER] 입니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_58" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="61">
+                            <p>교환신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 물품을 교환신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_61" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="64">
+                            <p>교환완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 교환신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_64" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="67">
+                            <p>반품신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 물품을 반품신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_67" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="70">
+                            <p>반품완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 반품신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_70" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="73">
+                            <p>1:1문의답변</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님께서 문의하신 내용에 대한 답변이 등록되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_73" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <h5 class="subtit">
+                        [입점업체모드] : 입점업체에게 보내지는 메세지를 설정합니다.
+
+                    </h5>
+
+                    <ul style="overflow:hidden;margin:20px 0">
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="48">
+                            <p>주문완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[DATE] [SHOPNAME]에서 [ORDERNUMBER]로 주문이 접수되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_48" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="51">
+                            <p>주문입금확인</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[DATE] [SHOPNAME]에서 [ORDERNUMBER]로 주문이 접수되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_51" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="54">
+                            <p>주문발송완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[DATE] [SHOPNAME]에서 [ORDERNUMBER] 주문의 물품이 발송되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_54" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="57">
+                            <p>취소신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문이 취소신청되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_57" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="60">
+                            <p>취소완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문이 취소되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_60" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="63">
+                            <p>교환신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 물품이 교환신청되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_63" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="66">
+                            <p>교환완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 교환신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_66" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="69">
+                            <p>반품신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 물품이 반품신청되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_69" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="72">
+                            <p>반품완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME]에서 [ORDERNUMBER] 주문의 반품신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_72" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                    <h5 class="subtit">
+                        [관리자모드] : 관리자에게 보내지는 메세지를 설정합니다.
+
+                    </h5>
+
+                    <ul style="overflow:hidden;margin:20px 0">
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="43">
+                            <p>회원가입</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">관리자님 [NAME]회원님이 회원가입해 주셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_43" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="45">
+                            <p>회원탈퇴</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 회원탈퇴 처리되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_45" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="47">
+                            <p>주문완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님께서 주문을 신청하셨습니다. 주문번호는 [ORDERNUMBER]입니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_47" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="50">
+                            <p>주문입금확인</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 [ORDERNUMBER] 주문의 입금이 확인되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_50" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="53">
+                            <p>주문발송완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[SHOPNAME] 에서 [NAME]님 주문하신 상품이 발송되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_53" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="56">
+                            <p>취소신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 [ORDERNUMBER] 주문을 취소신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_56" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="59">
+                            <p>취소완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님 주문이 취소되었습니다. 취소 주문번호는 [ORDERNUMBER] 입니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_59" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="62">
+                            <p>교환신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 [ORDERNUMBER] 주문의 물품을 교환신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_62" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="65">
+                            <p>교환완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 신청하신 [ORDERNUMBER] 주문의 교환신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_65" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="68">
+                            <p>반품신청</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 [ORDERNUMBER] 주문의 물품을 반품신청하셨습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_68" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="71">
+                            <p>반품완료</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님이 신청하신 [ORDERNUMBER] 주문의 반품신청이 완료되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_71" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li style="float:left;width:25%;text-align:center;height:240px">
+                            <input type="hidden" name="idx" value="74">
+                            <p>1:1문의답변</p>
+                            <ul class="sms_view" style="margin:0 auto">
+                                <li><img src="/img/sms_top.gif"></li>
+                                <li class="cont"><textarea name="content" cols="16" rows="5" onkeyup="checkSmsContent(this)" onchange="checkSmsContent(this)">[NAME]님께서 문의하신 내용에 대한 답변이 등록되었습니다.</textarea></li>
+                                <li class="byte">
+                                    <p><input type="text" name="bytes" style="width:20px;text-align:right;border:0;font-size:11px;font-style:verdana;" value="0" readonly="">/80 Bytes</p>
+                                </li>
+                                <li class="mgt5 tc">
+                                    <input type="checkbox" name="isAuto_74" value="T" checked=""> 자동발송
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+
+                    <div class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/img/sms_func.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            var invalid = false;
+                            $('textarea[name="content"]', 'form[name="Frm"]').each(function() {
+                                if (isEmpty(this)) {
+                                    alert("문구를 입력해 주세요.");
+                                    this.focus();
+                                    invalid = true;
+                                    return false;
+                                }
+                            });
+                            if (invalid) return false;
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.submit();
+                            }
+                        }
+
+                        $(function() {
+                            $('textarea[name="content"]', 'form[name="Frm"]').each(function() {
+                                var byteInfo = getSmsByte($(this).val(), 80);
+                                $(this).parent().parent().find('input[name="bytes"]').val(byteInfo.size);
+                            });
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

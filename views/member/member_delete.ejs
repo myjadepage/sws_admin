@@ -1,0 +1,128 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>탈퇴회원목록</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>회원관리</li>
+                    <li>회원관리</li>
+                    <li class="on">탈퇴회원목록</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>회원탈퇴처리가 될 경우 해당회원의 아이디와 성명을 남기고 그외 기타 적립금 및 Wishlist 등 삭제됩니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/member/member_delete">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="no">
+                    <input type="hidden" name="params" value="code=">
+
+                    <div class="section_head">
+                        <h4>전체 정보 <span>- 총 <strong>1</strong>개의 정보가 등록되어있습니다.</span></h4>
+                        <div>
+                            <select id="code" name="code" onchange="changeOption(this);"><option value="">전체</option><option value="no">미확인 내역</option><option value="ok">처리된 내역</option><option value="3m">3개월 지난 내역</option></select>
+                        </div>
+                    </div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_list">
+                        <caption>탈퇴 회원목록</caption>
+                        <colgroup>
+                            <col width="70">
+                            <col width="130">
+                            <col width="*">
+                            <col width="80">
+                            <col width="80">
+                            <col width="100">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>아이디</th>
+                                <th>불편사항</th>
+                                <th>등록일</th>
+                                <th>진행</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr bgcolor="#FFF0F8">
+                                <td>1</td>
+                                <td>wonej99</td>
+                                <td class="left">교환/환불/반품에 대한 불만<br>이벤트/회원서비스가 다양하지 않음<br>개인정보 유출우려</td>
+                                <td>2019-05-03</td>
+                                <td>미확인</td>
+                                <td>
+
+                                    <div><span class="button small"><button type="button" onclick="secession(71)">탈퇴처리</button></span></div>
+                                    <div class="mgt3"><span class="button small red"><button type="button" onclick="del(71)">처리않고 삭제</button></span></div>
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="fclear" style="margin-top:10px;">
+                        <div style="float:right;">
+                            <div style="float:left; width:15px; height:15px; border:1px solid #CCC; background-color:#FFF0F8;"></div>
+                            <div style="float:left; margin:2px 0 0 3px;">미확인 내역</div>
+                            <div style="float:left; width:15px; height:15px; border:1px solid #CCC; background-color:#FFF; margin-left:20px;"></div>
+                            <div style="float:left; margin:2px 0 0 3px;">처리된 내역</div>
+                        </div>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function changeOption(item) {
+                            location.href = "member_delete?code=" + item.options[item.selectedIndex].value;
+                        }
+
+                        function secession(no) { // 탈퇴
+                            var f = document.Frm;
+
+                            if (confirm("선택하신 항목을 탈퇴 처리하시겠습니까?")) {
+                                f.mode.value = "SECESSION";
+                                f.no.value = no;
+                                f.action = "member_delete.act";
+                                f.submit();
+                            }
+                        }
+
+                        function del(no) { // 탈퇴요청 삭제
+                            var f = document.Frm;
+
+                            if (confirm("선택하신 항목을 탈퇴 처리하지 않고 바로 삭제하시겠습니까?")) {
+                                f.mode.value = "DEL";
+                                f.no.value = no;
+                                f.action = "member_delete.act";
+                                f.submit();
+                            }
+                        }
+
+                        function erase(no) { // 탈퇴완료 항목 삭제
+                            var f = document.Frm;
+
+                            if (confirm("선택하신 항목을 완전 삭제하시겠습니까?")) {
+                                f.mode.value = "ERASE";
+                                f.no.value = no;
+                                f.action = "member_delete.act";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

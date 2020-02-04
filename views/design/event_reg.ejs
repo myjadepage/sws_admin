@@ -1,0 +1,978 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>이벤트 등록</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>이벤트관리</li>
+                    <li class="on">이벤트 등록</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>이벤트를 생성하고 관리하는 페이지입니다.</li>
+                    <li>분류이벤트 경우, 먼저 이벤트의 기본정보를 입력후 수정에서 지정된 분류별로 상품이 등록가능합니다.</li>
+                </ul>
+
+                <style type="text/css">
+                    #tb_discount_goods {
+                        margin-top: 5px;
+                        border-top: 1px solid #ddd;
+                        border-left: 1px solid #ddd
+                    }
+                    
+                    #tb_discount_goods thead th {
+                        padding: 5px 0;
+                        text-align: center;
+                        border: none;
+                        border-bottom: 1px solid #ddd;
+                        border-right: 1px solid #ddd
+                    }
+                    
+                    #tb_discount_goods tbody td {
+                        padding: 5px;
+                        text-align: center;
+                        border: none;
+                        border-bottom: 1px solid #ddd;
+                        border-right: 1px solid #ddd
+                    }
+                </style>
+
+
+
+                <form name="Frm" method="post" action="/design/event" enctype="multipart/form-data">
+                    <input type="hidden" name="mode" value="REG">
+                    <input type="hidden" name="idx" value="0">
+                    <input type="hidden" name="params" value="">
+
+                    <div class="section_head">
+                        <h4>이벤트 등록하기</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>이벤트 등록 폼</caption>
+                        <colgroup>
+                            <col width="155">
+                            <col width="*">
+                        </colgroup>
+
+                        <tbody>
+                            <tr>
+                                <th>이벤트구분</th>
+                                <td>
+                                    <dl class="choose">
+                                        <dt><input type="radio" name="method" value="100" onclick="checkMethod()" checked=""></dt>
+                                        <dd class="mr10">일반이벤트</dd>
+                                        <dt><input type="radio" name="method" value="200" onclick="checkMethod()"></dt>
+                                        <dd class="mr10">분류이벤트
+                                        </dd><dt><input type="radio" name="method" value="300" onclick="checkMethod()"></dt>
+                                        <dd class="mr10">쿠폰이벤트
+                                        </dd><dt><input type="radio" name="method" value="400" onclick="checkMethod()"></dt>
+                                        <dd>할인이벤트
+                                        </dd>
+                                    </dl>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>제목</th>
+                                <td>
+                                    <input type="text" name="subject" class="text_input" style="width:98%" maxlength="100" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>행사기간</th>
+                                <td>
+
+                                    <input type="text" id="startDate" name="startDate" value="" class="text_input" style="width:70px" maxlength="10">
+                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'startDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                                    <select id="startHour" name="startHour"><option value="0" selected="">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option></select>                                    : <select id="startMinute" name="startMinute"><option value="0" selected="">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select>
+                                    <span style="padding:0 5px 0 5px">~</span>
+                                    <input type="text" id="endDate" name="endDate" value="" class="text_input" style="width:70px" maxlength="10">
+                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'endDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                                    <select id="endHour" name="endHour"><option value="0" selected="">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option></select>                                    : <select id="endMinute" name="endMinute"><option value="0" selected="">00</option><option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option><option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option><option value="9">09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option></select>
+                                    <span class="blue">직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>리스트이미지</th>
+                                <td>
+
+                                    <div>
+                                        <input type="file" name="imgEvent" onkeydown="blockKey(event)" onkeypress="blockKey(event)">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>리스트이미지(Mobile)</th>
+                                <td>
+
+                                    <div>
+                                        <input type="file" name="imgEventMobile" onkeydown="blockKey(event)" onkeypress="blockKey(event)">
+                                    </div>
+                                </td>
+                            </tr>
+
+
+                            <!-- 일반이벤트 상품관리 : 시작 -->
+                        </tbody>
+                        <tbody id="bodyNormal">
+                            <tr>
+                                <th>상품</th>
+                                <td>
+                                    <select id="sGoods" name="sGoods" size="10" style="width:100%">
+
+            </select>
+
+                                    <div class="over_h mgt3">
+                                        <div class="fl">
+                                            <span class="button small"><button type="button" onclick="moveItem('UP', 'sGoods');">▲</button></span>
+                                            <span class="button small"><button type="button" onclick="moveItem('DOWN', 'sGoods');">▼</button></span>
+                                            <span class="button small"><button type="button" onclick="delItem('sGoods');">삭제</button></span>
+                                        </div>
+                                        <div class="fr">
+                                            <span class="button small"><button type="button" onclick="openSelectGoods('sGoods');">상품선택</button></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- 일반이벤트 상품관리 : 끝 -->
+
+                        <!-- 분류이벤트 분류/상품관리 : 시작 -->
+                        <tbody id="bodyCategory" style="display:none;">
+                            <tr>
+                                <th>분류/상품</th>
+                                <td style="padding:0">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                        <colgroup>
+                                            <col width="300">
+                                            <col width="*">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th>분류</th>
+                                                <th class="bdr">상품</th>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-bottom:none;">
+                                                    <select id="sCategory" name="sCategory" size="10" style="width:100%" onclick="checkCate();">
+
+                    </select>
+
+                                                    <div class="over_h mgt3">
+                                                        <div class="fl">
+                                                            <span class="button small"><button type="button" onclick="moveItem('UP', 'sCategory');">▲</button></span>
+                                                            <span class="button small"><button type="button" onclick="moveItem('DOWN', 'sCategory');">▼</button></span>
+                                                            <span class="button small"><button type="button" onclick="delItem('sCategory');">삭제</button></span>
+                                                        </div>
+                                                        <div class="fr">
+                                                            <input type="text" name="cateInput" class="text_input" style="width:130px;padding-top:1px;padding-bottom:1px" maxlength="50" onkeyup="if (event.keyCode==13) regCate();">
+                                                            <span class="button small"><button id="btnCateInput" type="button" mode="add" onclick="regCate();">추가</button></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="border-bottom:none;">
+                                                    <select id="sCategoryGoods" name="sCategoryGoods" size="10" style="width:100%"></select>
+
+                                                    <div class="over_h mgt3">
+                                                        <div class="fl">
+                                                            <span class="button small"><button type="button" onclick="moveItem('UP', 'sCategoryGoods');">▲</button></span>
+                                                            <span class="button small"><button type="button" onclick="moveItem('DOWN', 'sCategoryGoods');">▼</button></span>
+                                                            <span class="button small"><button type="button" onclick="delItem('sCategoryGoods');">삭제</button></span>
+                                                        </div>
+                                                        <div class="fr">
+                                                            <span class="button small"><button type="button" onclick="openSelectGoods('sCategoryGoods');">상품선택</button></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- 분류이벤트 분류/상품관리 : 끝 -->
+
+                        <!-- 쿠폰이벤트 쿠폰관리 : 시작 -->
+                        <tbody id="bodyCoupon" style="display:none;">
+                            <tr>
+                                <th>쿠폰</th>
+                                <td>
+                                    <select id="sCoupon" name="sCoupon" size="10" style="width:100%">
+
+            </select>
+
+                                    <div class="over_h mgt3">
+                                        <div class="fl">
+                                            <span class="button small"><button type="button" onclick="delItem('sCoupon');">삭제</button></span>
+                                        </div>
+                                        <div class="fr">
+                                            <span class="button small"><button type="button" onclick="openSelectCoupon('sCoupon');">쿠폰선택</button></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- 쿠폰이벤트 쿠폰관리 : 끝 -->
+
+                        <!-- 할인이벤트 상품관리 : 시작 -->
+                        <tbody id="bodyDiscount" style="display:none;">
+                            <tr>
+                                <th rowspan="2">상품</th>
+                                <td>
+                                    선택된 할인이벤트 상품의 할인율을&nbsp;<input type="hidden" name="discountBatchUnit" value="rate"><input type="text" name="discountBatch" maxlength="20" class="text_input" style="width:70px" onkeyup="toNumericDiscountBatch(this)"
+                                        onblur="toNumericDiscountBatch(this)"><span id="txtDiscountBatchUnit">%</span>로&nbsp;<span class="button small"><button type="button" onclick="setDiscountBatch()">일괄적용</button></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tr">
+                                        <span class="button small"><button type="button" onclick="openSelectGoods('sDiscountGoods');">상품 추가</button></span>
+                                        <span class="button small"><button type="button" onclick="delRow('tb_discount_goods');">상품 삭제</button></span>
+                                    </div>
+
+                                    <table id="tb_discount_goods" width="100%" summary="할인 상품 목록입니다.">
+                                        <colgroup>
+                                            <col width="30">
+                                            <col width="*">
+                                            <col width="14%">
+                                            <col width="14%">
+                                            <col width="70">
+                                            <col width="100">
+                                            <col width="25">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                                <th>상품명</th>
+                                                <th>판매가</th>
+                                                <th>공급가</th>
+                                                <th>할인율</th>
+                                                <th>할인액</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <th>내용</th>
+                                <td style="padding:0">
+                                    <div><textarea name="content" style="width: 100%; height: 250px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0" scrolling="no"
+                                            style="width: 100%; height: 297px;" src="/js/SmartEditor2Skin.html"></iframe></div>
+                                    <div class="blue" style="border-top:1px solid #E6E6E6;padding:8px">
+                                        ※ 내용은 필요하실 경우에만 작성하셔서 사용하시면 됩니다.
+                                    </div>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        nhn.husky.EZCreator.createInIFrame({
+                                            elPlaceHolder: 'content'
+                                        });
+                                        //]]>
+                                    </script>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>내용(Mobile)</th>
+                                <td style="padding:0">
+                                    <div><textarea name="contentMobile" style="width: 100%; height: 200px; display: none;" id="contentMobile-placeholder"></textarea><iframe id="__se2_frame_contentMobile-placeholder" name="__se2_frame_contentMobile-placeholder"
+                                            frameborder="0" scrolling="no" style="width: 100%; height: 252px;" src="/js/SmartEditor2Skin.html"></iframe></div>
+                                    <div class="blue" style="border-top:1px solid #E6E6E6;padding:8px">
+                                        ※ 내용은 필요하실 경우에만 작성하셔서 사용하시면 됩니다.
+                                    </div>
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        nhn.husky.EZCreator.createInIFrame({
+                                            elPlaceHolder: 'contentMobile'
+                                        });
+                                        //]]>
+                                    </script>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        checkMethod();
+                        //]]>
+                    </script>
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
+                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function cgoods(code, name) {
+                            this.code = code;
+                            this.name = name;
+                        }
+
+                        var cateGoods = new Array();
+
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkMethod() {
+                            var f = document.Frm;
+                            var method = getRadio(f.method);
+
+                            _es('bodyNormal').display = "none";
+                            _es('bodyCategory').display = "none";
+                            _es('bodyCoupon').display = "none";
+                            _es('bodyDiscount').display = "none";
+
+                            switch (method) {
+                                case '100':
+                                    _es('bodyNormal').display = "";
+                                    break;
+                                case '200':
+                                    _es('bodyCategory').display = "";
+                                    break;
+                                case '300':
+                                    _es('bodyCoupon').display = "";
+                                    break;
+                                case '400':
+                                    _es('bodyDiscount').display = "";
+                                    break;
+                            }
+                        }
+
+                        function toNumericDiscountBatch(item) {
+                            var f = document.Frm;
+                            if (f.discountBatchUnit.value == "rate") {
+                                onlyFloat(item);
+                            } else {
+                                toCurrency(item);
+                            }
+                        }
+
+                        function checkDiscountBatch() {
+                            var f = document.Frm;
+                            _e("txtDiscountBatchUnit").innerHTML = (f.discountBatchUnit.value == "rate" ? "%" : "원");
+                        }
+
+                        function setDiscountBatch() {
+                            var f = document.Frm;
+                            var discountBatchUnit = f.discountBatchUnit.value;
+                            var objDiscount = (discountBatchUnit == "rate" ? f.discountRate : f.discountPrice);
+
+                            if (f.discountBatch.value.toNumeric() < 1) {
+                                alert((discountBatchUnit == "rate" ? "할인율" : "할인액") + "을 1 이상으로 입력해 주세요.");
+                                f.discountBatch.value = "";
+                                f.discountBatch.focus();
+                                return false;
+                            }
+
+                            if (!objDiscount) {
+                                alert("상품을 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (discountBatchUnit == "rate" && f.discountBatch.value.toNumeric() > 100) {
+                                alert("할인율은 100% 이하로 설정되어야 합니다.");
+                                f.discountBatch.value = "";
+                                f.discountBatch.focus();
+                                return false;
+                            }
+
+                            if (typeof(objDiscount.length) == "undefined") {
+                                objDiscount.value = f.discountBatch.value;
+                                if (!calcDiscount(objDiscount, 1)) return false;
+                            } else {
+                                for (var i = 0; i < objDiscount.length; i++) {
+                                    objDiscount[i].value = f.discountBatch.value;
+                                    if (!calcDiscount(objDiscount[i], 1)) return false;
+                                }
+                            }
+                        }
+
+                        function calcDiscount(item, blur) {
+                            var f = document.Frm;
+                            var objPrice, objDiscountRate, objDiscountPrice;
+
+                            // 가격 계산시 절사단위
+                            var priceRoundUnit = '-1'.toNumeric();
+
+                            if (!blur) blur = 0;
+
+                            var objTr = _pe(item, 'tr');
+                            var objTb = _pe(objTr, 'table');
+
+                            objTr.setAttribute('target', 1);
+
+                            var currIdx = 0;
+                            for (var i = 0; i < objTb.rows.length; i++) {
+                                if (objTb.rows[i].getAttribute('target') != null) {
+                                    break;
+                                }
+                                ++currIdx;
+                            }
+                            --currIdx;
+
+                            objTr.removeAttribute('target');
+
+                            if (typeof f.discountRate.length == "undefined") {
+                                objPrice = f.price;
+                                objDiscountRate = f.discountRate;
+                                objDiscountPrice = f.discountPrice;
+                            } else {
+                                objPrice = f.price[currIdx];
+                                objDiscountRate = f.discountRate[currIdx];
+                                objDiscountPrice = f.discountPrice[currIdx];
+                            }
+                            objDiscountRate.value = objDiscountRate.value.stripspace();
+                            objDiscountPrice.value = objDiscountPrice.value.stripspace();
+
+                            var price = objPrice.value.toNumeric();
+                            var discountRate = objDiscountRate.value.toNumeric();
+                            var discountPrice = objDiscountPrice.value.toNumeric();
+
+                            if (price == 0) {
+                                objDiscountRate.value = 0;
+                                objDiscountPrice.value = 0;
+                            } else {
+                                if (item.name == "discountRate") {
+                                    if (discountRate > 100) {
+                                        alert("할인율은 100% 이하로 설정되어야 합니다.");
+                                        objDiscountRate.value = "";
+                                        objDiscountPrice.value = "";
+                                        objDiscountRate.focus();
+                                        return false;
+                                    }
+
+                                    discountPrice = setRound(price * (discountRate / 100), priceRoundUnit);
+
+                                    objDiscountPrice.value = formatComma(discountPrice);
+
+                                    if (blur) { // 절사로 인하여 할인율이 달라질수 있으므로 계산된 할인액으로 할인율 재계산
+                                        objDiscountRate.value = setRound((discountPrice / price) * 100, 2);
+                                    }
+                                } else {
+                                    discountRate = (discountPrice == 0 ? 0 : (discountPrice / price) * 100);
+
+                                    if (discountRate > 100) {
+                                        alert("할인율은 100% 이하로 설정되어야 합니다.");
+                                        objDiscountRate.value = "";
+                                        objDiscountPrice.value = "";
+                                        objDiscountRate.focus();
+                                        return false;
+                                    }
+
+                                    objDiscountRate.value = setRound(discountRate, 2);
+                                }
+                            }
+
+                            return true;
+                        }
+
+                        function changeDisplayCols(obj) {
+                            var f = document.Frm;
+                            var size;
+                            switch (obj.value.toNumeric()) {
+                                case 2:
+                                    size = 250;
+                                    break;
+                                case 3:
+                                    size = 200;
+                                    break;
+                                case 4:
+                                    size = 150;
+                                    break;
+                                case 5:
+                                    size = 120;
+                                    break;
+                            }
+                            f.imgWidth.value = size;
+                            f.imgHeight.value = size;
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var cellHtmls = new Array();
+                        cellHtmls[0] = {
+                            html: '<input type="checkbox" name="cbList" />'
+                        };
+                        cellHtmls[1] = {
+                            html: '<input type="hidden" name="gno" value="#GOODS_NO#" /><a href="../../goods/detail.asp?gno=#GOODS_NO#" target="_blank">#GOODS_NAME#</a>',
+                            css: 'left'
+                        };
+                        cellHtmls[2] = {
+                            html: '<input type="hidden" name="price" value="#PRICE#" />#PRICE_COMMA# 원'
+                        };
+                        cellHtmls[3] = {
+                            html: '<input type="hidden" name="originalPrice" value="#ORIGINALPRICE#" />#ORIGINALPRICE_COMMA# 원'
+                        };
+                        cellHtmls[4] = {
+                            html: '<input type="text" name="discountRate" maxlength="5" class="text_input" style="width:25px;" onFocus="this.select()" onKeyUp="onlyFloat(this); calcDiscount(this);" onBlur="calcDiscount(this, 1);"> %'
+                        };
+                        cellHtmls[5] = {
+                            html: '<input type="text" name="discountPrice" maxlength="10" class="text_input" style="width:55px; text-align:right;" onKeyUp="toCurrency(this); calcDiscount(this);" readOnly /> 원'
+                        };
+                        cellHtmls[6] = {
+                            html: '<img src="../imgs/button/btn_up.gif" onClick="moveRow(this, \'UP\')" style="cursor:pointer" /><br /><img src="../imgs/button/btn_down.gif" onClick="moveRow(this, \'DOWN\')" style="cursor:pointer" />'
+                        };
+
+                        function addRow(tableId, data) {
+                            var $row = $('<tr />');
+                            for (i = 0; i < cellHtmls.length; i++) {
+                                var html = cellHtmls[i].html;
+                                html = html.replaceAll('#GOODS_NO#', data.gno);
+                                html = html.replaceAll('#GOODS_NAME#', data.name);
+                                html = html.replaceAll('#PRICE#', data.price);
+                                html = html.replaceAll('#PRICE_COMMA#', formatComma(data.price));
+                                html = html.replaceAll('#ORIGINALPRICE#', data.originalPrice);
+                                html = html.replaceAll('#ORIGINALPRICE_COMMA#', formatComma(data.originalPrice));
+
+                                var $cell = $('<td />').html(html).appendTo($row);
+                                if (cellHtmls[i].css) $cell.addClass(cellHtmls[i].css);
+                            }
+                            $('#' + tableId).children('tbody').append($row);
+                        }
+
+                        function delRow(tableId) {
+                            $('#' + tableId).find('input[name="cbList"]:checked').each(function() {
+                                $(this).parent().parent().remove();
+                            });
+                        }
+
+                        function moveRow(obj, direction) {
+                            var $row = $(obj).parents('tr').eq(0);
+                            var rows = $row.parent().children().length;
+                            var index = $row.parent().children().index($row);
+
+                            if ((index < 1 && direction == "UP") || (index >= rows - 1 && direction == "DOWN")) return false;
+
+                            if (direction == "UP") {
+                                $row.insertBefore($row.prev());
+                            } else if (direction == "DOWN") {
+                                $row.insertAfter($row.next());
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        // 상품선택 오픈
+                        function openSelectGoods(elmId) {
+                            if (elmId == "sCategoryGoods") {
+                                if (_e("sCategory").selectedIndex == -1) {
+                                    alert("상품을 등록할 분류를 지정해 주세요.");
+                                    return false;
+                                }
+                            }
+
+                            openPopup("../../common/select/select_goods.pop.asp?target=" + elmId, "SelectGoods", 900, 545);
+                        }
+
+                        // 상품선택 처리
+                        function takeSelectGoods(elmId, gno, cate, name, price, img, originalPrice) {
+                            var f = document.Frm;
+                            var isExist = false;
+
+                            if (elmId == 'sDiscountGoods') {
+                                if (f.gno) {
+                                    if (typeof f.gno.length == "undefined") {
+                                        if (f.gno.value == gno.toString()) isExist = true;
+                                    } else {
+                                        for (var i = 0; i < f.gno.length; i++) {
+                                            if (f.gno[i].value == gno.toString()) isExist = true;
+                                        }
+                                    }
+                                }
+
+                                if (isExist) alert("이미 추가된 상품입니다.");
+                                else {
+                                    addRow('tb_discount_goods', {
+                                        gno: gno,
+                                        name: name,
+                                        price: price,
+                                        originalPrice: originalPrice
+                                    });
+                                    return true;
+                                }
+                            } else {
+                                var objSelect = _e(elmId);
+
+                                var text = name;
+                                var value = gno + '-' + cate;
+
+                                for (var i = 0; i < objSelect.length; i++) {
+                                    if (objSelect.options[i].value == value) isExist = true;
+                                }
+
+                                if (isExist) alert("이미 추가된 상품입니다.");
+                                else {
+                                    addSelectOption(objSelect, text, value);
+
+                                    if (elmId == 'sCategoryGoods') {
+                                        var currIdx = _e('sCategory').selectedIndex;
+
+                                        if (currIdx < 0) return false;
+
+                                        cateGoods[currIdx][cateGoods[currIdx].length] = new cgoods(value, name);
+                                    }
+
+                                    return true;
+                                }
+                            }
+                        }
+
+                        // 쿠폰선택 오픈
+                        function openSelectCoupon(elmId) {
+                            openPopup("../../common/select/select_coupon.pop.asp?target=" + elmId, "SelectCoupon", 600, 600);
+                        }
+
+                        // 쿠폰선택 처리
+                        function takeSelectCoupon(elmId, idx, title) {
+                            var objSelect = _e(elmId);
+                            var text = title;
+                            var value = idx;
+
+                            var isExist = false;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect.options[i].value == value) isExist = true;
+                            }
+
+                            if (isExist) alert("이미 추가된 쿠폰입니다.");
+                            else {
+                                addSelectOption(objSelect, text, value);
+                                return true;
+                            }
+                        }
+
+                        // SelectBox 항목 삭제
+                        function delItem(elmId) {
+                            var f = document.Frm;
+
+                            var objSelect = _e(elmId);
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx == -1) return false;
+
+                            removeSelectOption(objSelect, currIdx);
+
+                            if (elmId == 'sCategory') {
+                                resetCateInput();
+
+                                for (var i = currIdx; i < cateGoods.length - 1; i++) {
+                                    cateGoods[i] = cateGoods[i + 1];
+                                }
+                                cateGoods.length -= 1;
+
+                                _e('sCategoryGoods').length = 0;
+                            } else if (elmId == 'sCategoryGoods') {
+                                var currIdxCate = _e('sCategory').selectedIndex;
+
+                                if (currIdxCate == -1) return false;
+
+                                for (var i = currIdx; i < cateGoods[currIdxCate].length - 1; i++) {
+                                    cateGoods[currIdxCate][i] = cateGoods[currIdxCate][i + 1];
+                                }
+                                cateGoods[currIdxCate].length -= 1;
+                            }
+                        }
+
+                        // SelectBox 항목 이동
+                        function moveItem(direction, elmId) {
+                            var f = document.Frm;
+
+                            var objSelect = _e(elmId);
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx == -1) return false;
+
+                            if ((currIdx <= 0 && direction == "UP") || (currIdx >= objSelect.length - 1 && direction == "DOWN")) return false;
+
+                            var currText = objSelect.options[currIdx].text;
+                            var currValue = objSelect.options[currIdx].value;
+
+                            if (direction == "UP") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx - 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx - 1].value;
+                                objSelect.options[currIdx - 1].text = currText;
+                                objSelect.options[currIdx - 1].value = currValue;
+
+                                switch (elmId) {
+                                    case 'sCategory':
+                                        var currItem = cateGoods[currIdx];
+                                        cateGoods[currIdx] = cateGoods[currIdx - 1];
+                                        cateGoods[currIdx - 1] = currItem;
+                                        break;
+                                    case 'sCategoryGoods':
+                                        var currIdxCate = _e('sCategory').selectedIndex;
+                                        var currItem = cateGoods[currIdxCate][currIdx];
+                                        cateGoods[currIdxCate][currIdx] = cateGoods[currIdxCate][currIdx - 1];
+                                        cateGoods[currIdxCate][currIdx - 1] = currItem;
+                                        break;
+                                }
+
+                                currIdx = currIdx - 1;
+                            } else if (direction == "DOWN") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx + 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx + 1].value;
+                                objSelect.options[currIdx + 1].text = currText;
+                                objSelect.options[currIdx + 1].value = currValue;
+
+                                switch (elmId) {
+                                    case 'sCategory':
+                                        var currItem = cateGoods[currIdx];
+                                        cateGoods[currIdx] = cateGoods[currIdx + 1];
+                                        cateGoods[currIdx + 1] = currItem;
+                                        break;
+                                    case 'sCategoryGoods':
+                                        var currIdxCate = _e("sCategory").selectedIndex;
+                                        var currItem = cateGoods[currIdxCate][currIdx];
+                                        cateGoods[currIdxCate][currIdx] = cateGoods[currIdxCate][currIdx + 1];
+                                        cateGoods[currIdxCate][currIdx + 1] = currItem;
+                                        break;
+                                }
+
+                                currIdx = currIdx + 1;
+                            }
+
+                            objSelect[currIdx].selected = true;
+                        }
+
+                        // 분류 항목 선택처리
+                        function checkCate() {
+                            var f = document.Frm;
+                            var objSelect = _e('sCategory');
+                            var objBtn = _e('btnCateInput');
+
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx < 0) return false;
+
+                            objBtn.innerHTML = "수정";
+                            objBtn.setAttribute('mode', "edit");
+                            f.cateInput.value = objSelect[currIdx].text;
+
+                            setCateGoods(currIdx);
+                        }
+
+                        // 분류 상품 SelectBox 설정 처리
+                        function setCateGoods(index) {
+                            var objSelect = _e('sCategoryGoods');
+
+                            if (index < 0) return false;
+
+                            objSelect.length = 0;
+
+                            for (var i = 0; i < cateGoods[index].length; i++) {
+                                addSelectOption(objSelect, cateGoods[index][i].name, cateGoods[index][i].code);
+                            }
+                        }
+
+                        function resetCateInput() {
+                            var f = document.Frm;
+                            var objBtn = _e('btnCateInput');
+
+                            objBtn.innerHTML = "추가";
+                            objBtn.setAttribute('mode', "add");
+                            f.cateInput.value = "";
+                        }
+
+                        // 분류 등록/수정
+                        function regCate() {
+                            var f = document.Frm;
+                            var objSelect = _e('sCategory');
+                            var mode = _e('btnCateInput').getAttribute('mode');
+
+                            if (isEmpty(f.cateInput)) {
+                                alert("분류명을 입력해 주세요.");
+                                f.cateInput.focus();
+                                return false;
+                            }
+
+                            var category = f.cateInput.value.trim();
+
+                            if (mode == "add") {
+                                for (var i = 0; i < objSelect.length; i++) {
+                                    if (objSelect[i].text == category) {
+                                        alert("동일한 분류명이 존재합니다.");
+                                        f.cateInput.focus();
+                                        return false;
+                                    }
+                                }
+
+                                addSelectOption(f.sCategory, category, "");
+                                cateGoods[cateGoods.length] = new Array();
+                            } else {
+                                var currIdx = objSelect.selectedIndex;
+
+                                for (var i = 0; i < objSelect.length; i++) {
+                                    if (i != currIdx && objSelect[i].text == category) {
+                                        alert("동일한 분류명이 존재합니다.");
+                                        f.cateInput.focus();
+                                        return false;
+                                    }
+                                }
+
+                                objSelect[currIdx].text = category;
+                            }
+
+                            resetCateInput();
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (isEmpty(f.subject)) {
+                                alert("제목을 입력해 주세요.");
+                                f.subject.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.startDate)) {
+                                alert("행사기간 시작일을 선택해 주세요.");
+                                f.startDate.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.endDate)) {
+                                alert("행사기간 종료일을 선택해 주세요.");
+                                f.endDate.focus();
+                                return false;
+                            }
+
+                            var startDt = f.startDate.value + ' ' + f.startHour.value + ':' + f.startMinute.value;
+                            var endDt = f.endDate.value + ' ' + f.endHour.value + ':' + f.endMinute.value;
+
+                            if (startDt >= endDt) {
+                                alert("행사기간 종료일시가 시작일시와 같거나 빠릅니다.\n종료일시를 다시 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (!isEmpty(f.imgEvent)) {
+                                if (!checkFileName(f.imgEvent)) return false;
+                                if (!checkFileExt(f.imgEvent, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                            }
+
+
+                            if (!isEmpty(f.imgEventMobile)) {
+                                if (!checkFileName(f.imgEventMobile)) return false;
+                                if (!checkFileExt(f.imgEventMobile, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                            }
+
+
+                            switch (getRadio(f.method)) {
+                                case '100':
+                                    if (f.sGoods.length == 0) {
+                                        alert("진열할 상품을 선택해 주세요.");
+                                        return false;
+                                    }
+                                    break;
+                                case '200':
+                                    if (f.sCategory.length == 0) {
+                                        alert("분류를 지정해 주세요.");
+                                        return false;
+                                    }
+
+                                    for (var i = 0; i < f.sCategory.length; i++) {
+                                        if (cateGoods[i].length == 0) {
+                                            alert(f.sCategory.options[i].text + " 분류의 상품을 선택해 주세요.");
+                                            return false;
+                                        }
+                                    }
+                                    break;
+                                case '300':
+                                    if (f.sCoupon.length == 0) {
+                                        alert("진열할 쿠폰을 선택해 주세요.");
+                                        return false;
+                                    }
+                                    break;
+                                case '400':
+                                    if (typeof f.gno == "undefined") {
+                                        alert("진열할 상품을 선택해 주세요.");
+                                        return false;
+                                    }
+
+                                    if (typeof f.gno.length == "undefined") {
+                                        if (f.discountPrice.value.toNumeric() < 1) {
+                                            alert("할인율 또는 할인액을 1 이상으로 입력해 주세요.");
+                                            f.discountPrice.focus();
+                                            return false;
+                                        }
+                                    } else {
+                                        for (var i = 0; i < f.gno.length; i++) {
+                                            if (f.discountPrice[i].value.toNumeric() < 1) {
+                                                alert("할인율 또는 할인액을 1 이상으로 입력해 주세요.");
+                                                f.discountPrice[i].focus();
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                switch (getRadio(f.method)) {
+                                    case '100':
+                                        for (var i = 0; i < f.sGoods.length; i++) {
+                                            addInput(f, 'hidden', 'goods', f.sGoods.options[i].value);
+                                        }
+                                        break;
+                                    case '200':
+                                        for (var i = 0; i < f.sCategory.length; i++) {
+                                            addInput(f, 'hidden', 'category', f.sCategory.options[i].text);
+
+                                            for (var m = 0; m < cateGoods[i].length; m++) {
+                                                addInput(f, 'hidden', 'goods' + (i + 1), cateGoods[i][m].code);
+                                            }
+                                        }
+                                        break;
+                                    case '300':
+                                        for (var i = 0; i < f.sCoupon.length; i++) {
+                                            addInput(f, 'hidden', 'coupon', f.sCoupon.options[i].value);
+                                        }
+                                        break;
+                                }
+
+                                f.target = "frmProc";
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            location.href = "event_list?method=100"
+                        }
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>

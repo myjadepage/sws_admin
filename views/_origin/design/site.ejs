@@ -1,0 +1,110 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>전체디자인설정</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>전체디자인</li>
+                    <li>전체디자인설정</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>사이트 전체 정렬 및 백그라운드, 사이트 테두리 라인 색상을 설정 할 수 있습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/design/site_act">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>전체디자인설정</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>전체 디자인 설정 폼</caption>
+
+                            <tbody>
+                                <tr>
+                                    <th>사이트 정렬</th>
+                                    <td>
+                                        <input type="radio" id="site_align_left" name="siteAlign" value="left"><label for="site_align_left">왼쪽정렬</label>&nbsp;
+                                        <input type="radio" id="site_align_center" name="siteAlign" value="center" checked=""><label for="site_align_center">가운데정렬</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>배경 색상</th>
+                                    <td>
+                                        <input type="text" id="bg_color" name="bgColor" value="#FFFFFF" class="text_input" style="background:#FFFFFF" maxlength="7">
+                                        <button type="button" class="btn btn-sm btn-dark" onclick="colorpicker.open(event, setColor, 'bg_color')">색상선택</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>가격 스타일<br>(메인제외)</th>
+                                    <td>
+                                        <ul class="arrange">
+                                            <li>
+                                                <input type="text" id="price_color" name="priceColor" value="#FF0000" class="text_input" style="background:#FF0000" maxlength="7">
+                                                <button type="button" class="btn btn-sm btn-dark" onclick="colorpicker.open(event, setColor, 'price_color')">색상선택</button>
+                                            </li>
+                                            <li> 크기 <input type="text" name="priceSize" value="0" class="text_input" style="width:30px;" maxlength="2" onkeyup="onlyInt(this)"> px</li>
+                                            <li class="text_input_none"><input type="checkbox" id="price_bold" name="priceBold" value="1"><label for="price_bold" style="font-weight:bold">굵게</label></li>
+                                            <li class="text_input_none"><input type="checkbox" id="price_underline" name="priceUnderline" value="1"><label for="price_underline" style="text-decoration:underline">밑줄</label></li>
+                                            <li class="text_input_none"><input type="checkbox" id="price_italic" name="priceItalic" value="1"><label for="price_italic" style="font-style:italic">기울림꼴</label></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>강조 스타일</th>
+                                    <td>
+                                        <ul class="arrange">
+                                            <li>
+                                                <input type="text" id="highlight_color" name="highlightColor" value="#FF0000" class="text_input" style="background:#FF0000" maxlength="7">
+                                                <button type="button" class="btn btn-sm btn-dark" onclick="colorpicker.open(event, setColor, 'highlight_color')">색상선택</button>
+                                            </li>
+                                            <li> 크기 <input type="text" name="highlightSize" value="0" class="text_input" style="width:30px;" maxlength="2" onkeyup="onlyInt(this)"> px</li>
+                                            <li class="text_input_none"><input type="checkbox" id="highlight_bold" name="highlightBold" value="1"><label for="highlight_bold" style="font-weight:bold">굵게</label></li>
+                                            <li class="text_input_none"><input type="checkbox" id="highlight_underline" name="highlightUnderline" value="1"><label for="highlight_underline" style="text-decoration:underline">밑줄</label></li>
+                                            <li class="text_input_none"><input type="checkbox" id="highlight_italic" name="highlightItalic" value="1"><label for="highlight_italic" style="font-style:italic">기울림꼴</label></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button></span>
+                    </div>
+
+                </form>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.submit();
+                            }
+                        }
+
+                        function setColor(elementNm, color) {
+                            var f = document.Frm;
+                            f[elementNm].value = color;
+                            f[elementNm].style.backgroundColor = color;
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

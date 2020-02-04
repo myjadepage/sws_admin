@@ -1,0 +1,2593 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>상품관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>가격과 상품이미지 설정하여 상품등록합니다.</li>
+                    <li><strong class="red">*</strong>로 설정된 부분은 필수 입력하셔야 합니다.</li>
+                    <li>시중가를 적으면 세일이 적용됩니다. (필요할 경우에만 입력하세요.)</li>
+                </ul>
+
+                <form name="Frm" method="post" enctype="multipart/form-data">
+
+                    <div class="box">
+                        <table summary="상품기본정보 등록 폼 입니다." class="t_form">
+                            <caption>상품기본정보 등록 폼</caption>
+                            <colgroup>
+                                <col width="200">
+                                <col width="*">
+                                <col width="200">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>상품공급 업체 <strong>*</strong></th>
+                                    <td colspan="3">
+                                        <select id="supply_name" class="text_input" name="supply_name">
+                                            <option value="">선택</option>                                                                                                   
+                                            <option value="">(주)내친구네트웍스</option> 
+                                        </select>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">분류 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <select id="cate_1" class="text_input" name="cate_1" depth="1" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                            <option value="2" name="" >OUTER [0%]</option>                                                                     
+                                        </select>
+                                        <select id="cate_2" class="text_input" name="cate_2" depth="2" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <select id="cate_3" class="text_input" name="cate_3" depth="3" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="addCate()">추가</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="category">
+                                        <table id="tb_category" summary="상품 분류 목록 입니다.">
+                                            <caption>상품 분류 목록</caption>
+                                            <colgroup>
+                                                <col width="100">
+                                                <col width="*">
+                                                <col width="100">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>기본</th>
+                                                    <th>분류</th>
+                                                    <th>삭제</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="hidden" name="cate" value="1624">
+                                                        <input type="radio" name="cateDefault">
+                                                    </td>
+                                                    <td class="txt">의류11 〉상의 〉 블라우스 [50%]</td>
+                                                    <td><button type="button" class="btn btn-sm btn-danger" onclick="delCate(this)">삭제</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <dl class="explain blue">
+                                            <dt><strong>※ 다중 분류로 선택할 경우</strong></dt>
+                                            <dd>기본으로 선택된 분류가 해당 상품의 대표 분류입니다. 검색 결과에서는 기본 분류를 기준으로 출력됩니다.</dd>
+                                            <dd>각각 다른상품으로 인식되기 때문에 상품 목록에 해당 상품이 중복 노출될 수 있습니다.</dd>
+                                            <dd class="red">다중 카테고리 선택 후 수수료율을 다르게 추가 할 경우 기본 카테고리 수수료율로 설정됩니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품명 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <input type="text" name="goodsName" class="text_input" style="width:99%" value="" maxlength="100">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>간략한설명</th>
+                                    <td colspan="3">
+                                        <input type="text" name="summary" class="text_input" style="width:99%" value="" maxlength="100">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>브랜드</th>
+                                    <td colspan="3">
+                                        <select id="brandIdx" name="brandIdx" class="text_input"> 
+                                            <option value="">선택</option>                                                                           
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품 아이콘
+                                        <div class="mgt3">
+                                            <button type="button" class="btn btn-sm btn-dark" onclick="openIcon()">아이콘 관리</button>
+                                        </div>
+
+                                    </th>
+                                    <td colspan="3" class="icons">
+                                        <ul>
+                                            <li>
+                                                <input type="checkbox" id="cb_icon_1" name="icon" value="1">
+                                                <div><label for="cb_icon_1"><img id="icon_1" src="/img/ico_pro_sale.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_2" name="icon" value="2">
+                                                <div><label for="cb_icon_2"><img id="icon_2" src="/img/ico_pro_best.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_4" name="icon" value="4">
+                                                <div><label for="cb_icon_4"><img id="icon_4" src="/img/ico_pro_good.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_8" name="icon" value="8">
+                                                <div><label for="cb_icon_8"><img id="icon_8" src="/img/ico_pro_free.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_16" name="icon" value="16">
+                                                <div><label for="cb_icon_16"><img id="icon_16" src="/img/freedel.gif"></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_32" name="icon" value="32">
+                                                <div><label for="cb_icon_32"><img id="icon_32" src="/img/icon_cybermoney.gif" ></label></div>
+                                            </li>
+                                            <li><input type="checkbox" id="cb_icon_64" name="icon" value="64">
+                                                <div><label for="cb_icon_64"><img id="icon_64" src="/img/icon_hit(0).gif" ></label></div>
+                                            </li>
+                                        </ul>
+
+                                    </td>
+                                </tr>
+
+                                <!-- 상품 이미지 : 시작 -->
+                                <tr>
+                                    <th>큰이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgB" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgB" id="imgB" hidden>
+                                        <input type="text" id="imgBurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+
+                                        <span class="light_gray">(500px * 500px)</span>
+                                        <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
+                                        <label for="img_auto">자동등록</label>
+
+                                        <dl class="explain blue mgt5">
+                                            <dt><strong>※ 자동등록이란?</strong></dt>
+                                            <dd>큰이미지만 올리시면 사이트 정보에서 지정해 놓은 사이즈로 중간이미지, 작은이미지가 자동 생성되어 저장됩니다.</dd>
+                                            <dd>각각 올리기를 원하실 경우 자동등록의 체크를 해제하시면 됩니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                                <tr class="imgManuals" style="display:none">
+                                    <th>중간이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgM" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgM" id="imgM" hidden>
+                                        <input type="text" id="imgMurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <span class="light_gray">(500px * 500px)</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="imgManuals" style="display:none">
+                                    <th>작은이미지 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <label for="imgS" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="imgS" id="imgS" hidden>
+                                        <input type="text" id="imgSurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <span class="light_gray">(250px * 250px)</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>다른이미지</th>
+                                    <td colspan="3" class="img_etc">
+                                        <!-- <div class="tr mgt5">
+                                            <button type="button" class="btn btn-sm btn-secondary">이미지 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger">이미지 삭제</button>
+                                        </div> -->
+                                        <table id="tb_img_etc" width="100%" summary="다른 이미지 목록입니다." max="10" noblank="1">
+                                            <caption>다른 이미지 목록</caption>
+                                            <colgroup>
+                                                <col width="25">
+                                                <col width="20">
+                                                <col width="*">
+
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="numbering">1</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc1" id="imgEtc1" hidden>
+                                                        <input type="text" id="imgEtcurl1" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><span class="numbering">2</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc2" id="imgEtc2" hidden>
+                                                        <input type="text" id="imgEtcurl2" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td><span class="numbering">3</span>.</td>
+                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td>
+                                                        <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <input type="file" name="imgEtc3" id="imgEtc3" hidden>
+                                                        <input type="text" id="imgEtcurl3" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <!-- 상품 이미지 : 끝 -->
+
+                                <tr>
+                                    <th>재고설정</th>
+                                    <td>
+
+                                        <span>
+                                            <input type="radio" id="stock_limitless" name="stock" value="0" onclick="checkStock()" checked>
+                                            <label for="stock_limitless">무제한</label>
+                                        </span>
+                                        <span class="mgl20">
+                                            <input type="radio" id="stock_quantity" name="stock" value="1" onclick="checkStock()">
+                                            <label for="stock_quantity">수량</label>
+                                        </span>
+                                        <span>
+                                            <input type="text" name="quantity" value="" maxlength="7" class="text_input" style="width: 60px; "  disabled> 
+                                        </span>
+                                        <span class="mgl20">
+                                            <input type="checkbox" id="soldout" name="soldout" value="2">
+                                            <label for="soldout" class="red">일시품절</label>
+                                        </span>
+                                    </td>
+                                    <th>진열설정</th>
+                                    <td>
+                                        <input type="radio" id="display_T" name="isDisplay" value="T" checked><label for="display_T">진열</label>&nbsp;
+                                        <input type="radio" id="display_F" name="isDisplay" value="F" class="mgl20"><label for="display_F">미진열</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>시중가격</th>
+                                    <td>
+                                        <input type="text" name="marketPrice" value="" class="text_input"></input> 원
+                                    </td>
+                                    <th>부가가치세 설정</th>
+                                    <td>
+                                        <input type="radio" id="tax_free_F" name="isTaxFree" value="F" checked=""><label for="tax_free_F">과세상품</label>&nbsp;
+                                        <input type="radio" id="tax_free_T" name="isTaxFree" value="T" class="mgl20"><label for="tax_free_T">면세상품</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>수수료 설정 <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <input type="radio" id="cms_type_ctg" name="cmsType" value="CTGMIM" checked onclick="checkCmsType()">
+                                        <label for="cms_type_ctg" class="pad_right10">기본 수수료설정 (입점업체 또는 카테고리)</label>
+                                        <input type="radio" id="cms_type_gos" name="cmsType" value="GOS" class="mgl20" onclick="checkCmsType()">
+                                        <label for="cms_type_gos">개별 수수료 설정(상품별)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>가격 <strong class="red">*</strong></th>
+                                    <td colspan="3" class="price">
+                                        <div>
+                                            <input type="radio" id="price_split_supply" name="priceSplit" value="100" onclick="checkPriceSplit(this.value)" checked>
+                                            <label for="price_split_supply">공급가기준<span>(수수료 자동입력)</span>
+                                            </label><br>
+                                            <input type="radio" id="price_split_margin" name="priceSplit" value="200" onclick="checkPriceSplit(this.value)">
+                                            <label for="price_split_margin">수수료기준<span>(공급가 자동입력)</span>
+                                            </label>
+                                        </div>
+                                        <hr/>
+                                        <ul class="mgt10">
+                                            <li>판매가<br><input type="text" name="price" value="" class="text_input" style="width:130px" autocomplete="off"> 원</li>
+                                            <li>수수료율<br><input type="text" name="margin" value="" maxlength="5" class="text_input" style="width:80px; background-color:#e0e0e0;" readonly autocomplete="off"> %</li>
+                                            <li>공급가<br><input type="text" name="originalPrice" value="" class="text_input" style="width:130px; " autocomplete="off"> 원</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>적립금</th>
+                                    <td colspan="3" class="cmoney">
+                                        <ul>
+                                            <li>
+                                                <input type="radio" id="cmoney_policy_dealer" name="cmoneyPolicy" value="128" onclick="checkCmoneyPolicy()" disabled>
+                                                <label for="cmoney_policy_dealer">판매자 정책</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="cmoney_policy_default" name="cmoneyPolicy" value="256" onclick="checkCmoneyPolicy()" checked>
+                                                <label for="cmoney_policy_default">기본 정책</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="cmoney_policy_none" name="cmoneyPolicy" value="0" onclick="checkCmoneyPolicy()">
+                                                <label for="cmoney_policy_none">적립금 지급 안함</label>
+                                            </li>
+                                        </ul>
+                                        <ul class="goods">
+                                            <li>
+                                                <input type="radio" id="cmoney_policy_price" name="cmoneyPolicy" value="6" onclick="checkCmoneyPolicy()">
+                                                <label for="cmoney_policy_price">
+                                                    <select id="cmoneyPolicyPrice" name="cmoneyPolicyPrice" class="text_input" style="width: 150px;"  disabled>
+                                                        <option value="2">판매가</option><option value="4">결제가</option>
+                                                    </select> 의
+                                                    <input type="text" name="cmoneyPercent" value="" maxlength="5" class="text_input" style="width:70px" disabled> % 지급
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="cmoney_policy_amount" name="cmoneyPolicy" value="8" onclick="checkCmoneyPolicy()">
+                                                <label for="cmoney_policy_amount">구매 상품(개수) 당
+                                                    <input type="text" name="cmoneyMoney" value="" class="text_input" style="width:70px" onkeyup="toCurrency(this)"  disabled> 원 지급
+                                                </label>
+                                            </li>
+                                        </ul>
+
+                                        <dl class="explain blue " style="clear:both">
+                                            <dt><strong>※ 적립금 부담</strong></dt>
+                                            <dd>"<strong>기본 정책</strong>" 이외 설정으로 적립금 지급시, 적립금 설정과 관계없이 <strong>판매자에게 부담</strong>됩니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>제조사</th>
+                                    <td>
+                                        <input type="text" name="product" value="" class="text_input" style="width:97%" maxlength="50">
+                                    </td>
+                                    <th>원산지</th>
+                                    <td>
+                                        <input type="text" name="origin" value="" class="text_input" style="width:97%" maxlength="50">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">상품정보고시 <strong class="red">*</strong></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4">
+                                        <dl class="explain fl">
+                                            <dt><a href="http://www.ftc.go.kr/policy/legi/legiView.jsp?lgslt_noti_no=112" target="blank"><strong class="red">※ 공정거래 위원회에서 공고한 전자상거래법 상품정보제공 고시에 관한 내용을 필독해 주세요!</strong></a></dt>
+                                            <dd>전자상거래법에 의거하여 판매상품의 필수(상세)정보 등록이 필요합니다.</dd>
+                                            <dd>등록된 정보는 쇼핑몰 상품상세페이지에 상품기본정보 아래에 표형태로 출력되어 보여집니다.</dd>
+                                        </dl>
+                                        <span class="fr"><a class="btn btn-primary" href="http://www.mallstore.co.kr/data/base/DownLoad/information/commodity_guide.zip">품목별 상품고시</a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="notify">
+                                        <select id="notify" name="notify" class="text_input" onchange="getNotify(this)">
+                                            <option value="">등록할 상품의 상품군을 선택하세요</option>          
+                                        </select>
+
+                                        <div class="fr">
+                                            <button class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">추가</button>
+                                            <button class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">삭제</button>
+                                        </div>
+                                        <table width="100%" summary="상품정보고시 표 제목 입니다.">
+                                            <caption>상품정보고시 표 제목</caption>
+                                            <colgroup>
+                                                <col width="30">
+                                                <col width="30">
+                                                <col width="200">
+                                                <col width="*">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th><input type="checkbox" name="cbNotifyAll"></th>
+                                                    <th>항목</th>
+                                                    <th class="last">내용</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다." noblank="1">
+                                            <caption>상품정보고시 목록</caption>
+                                            <colgroup>
+                                                <col width="30">
+                                                <col width="30">
+                                                <col width="200">
+                                                <col width="*">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="numbering">1</span></td>
+                                                    <td><input type="checkbox" name="cbNotify"></td>
+                                                    <td><input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100"></td>
+                                                    <td class="last"><textarea name="notifyData" rows="2" class="text_input"></textarea></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">상품설명 <strong class="red">*</strong></th>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="editor">
+                                        <textarea name="content" style="width: 100%; height: 380px;" id="content-placeholder"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>첨부파일</th>
+                                    <td colspan="3">
+
+                                        <label for="attach" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <input type="file" name="attach" id="attach" hidden>
+                                        <input type="text" id="attachurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>관련추천상품</th>
+                                    <td colspan="3">
+                                        <select id="linkedRelate" name="linkedRelate" max="40" multiple="" size="7" style="width:100%"></select>
+
+                                        <ul class="mgt5">
+                                            <li class="fl">
+                                                <span class="button small"><button type="button" onclick="moveGoods('linkedRelate', 'UP')">▲</button></span>
+                                                <span class="button small"><button type="button" onclick="moveGoods('linkedRelate', 'DOWN')">▼</button></span>
+                                            </li>
+                                            <li class="fr">
+                                                <span class="button small"><button type="button" onclick="addGoods('linkedRelate');">상품 추가</button></span>
+                                                <span class="button small"><button type="button" onclick="delGoods('linkedRelate');">상품 삭제</button></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <!-- 배송 옵션 -->
+                        <div class="section_head">
+                            <h4>배송비 옵션
+                                <em>(선택하지 않을시 기본설정에 따릅니다.)</em>
+                            </h4>
+                        </div>
+                        <table summary="배송비옵션 등록 폼 입니다." class="t_form">
+                            <caption>배송비옵션 등록 폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>배송비 구분</th>
+                                    <td>
+                                        <dl class="delivery_method">
+                                            <dt>
+                                                <input type="radio" id="delivery_free" name="deliveryMethod" value="101" onclick="checkDeliveryMethod()">
+                                                <label for="delivery_free">기본무료배송</label>
+                                            </dt>
+                                            <dd>해당상품이 포함되었을 경우 무료배송합니다.</dd>
+
+                                            <dt>
+                                                <input type="radio" id="delivery_free02" name="deliveryMethod" value="102" onclick="checkDeliveryMethod()">
+                                                <label for="delivery_free02">상품별 무료배송</label>
+                                            </dt>
+                                            <dd>해당상품을 무료배송합니다.</dd>
+
+                                            <hr/>
+
+                                            <dt>
+                                                <input type="radio" id="delivery_collect" name="deliveryMethod" value="103" onclick="checkDeliveryMethod()">
+                                                <label for="delivery_collect">착불</label>
+                                            </dt>
+                                            <dd>
+                                                <input type="text" name="deliveryFeeCollect" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
+                                                <input type="text" name="deliveryLimitCollect" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
+                                            </dd>
+
+                                            <hr/>
+
+                                            <dt>
+                                                <input type="radio" id="delivery_prepay" name="deliveryMethod" value="102" onclick="checkDeliveryMethod()">
+                                                <label for="delivery_prepay">선불</label>
+                                            </dt>
+                                            <dd>
+                                                <input type="text" name="deliveryFeePrepay" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
+                                                <input type="text" name="deliveryLimitPrepay" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
+                                            </dd>
+
+                                            <hr/>
+
+                                            <dt>
+                                                <input type="radio" id="delivery_default" name="deliveryMethod" value="990" checked="" onclick="checkDeliveryMethod()">
+                                                <label for="delivery_default">기본정책</label>
+                                            </dt>
+                                            <dd>쇼핑몰의 기본정책을 따릅니다.</dd>
+
+                                            <hr/>
+                                        </dl>
+
+                                        <dl class="explain blue mgt5">
+                                            <dt><strong>※ 착불, 선불 배송비</strong></dt>
+                                            <dd>무료배송 기준금액을 "공백" 또는 "0"으로 입력할 경우 주문금액과 관계없이 무조건 배송비를 부과합니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">배송정책 (설정시 기본 배송정책보다 우선으로 표시 됩니다.)</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="editor">
+                                        <textarea name="deliveryContent" style="width: 100%; height: 200px; " id="deliveryContent-placeholder"></textarea>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- 상품 옵션 -->
+                    </div>
+
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 상품 옵션</h4>
+                        </div>
+
+
+                        <table summary="상품 옵션 등록 폼 입니다." class="t_form">
+                            <caption>상품 옵션 등록 폼</caption>
+                            <colgroup>
+                                <col width="130">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>옵션구분</th>
+                                    <td class="option_kind">
+                                        <ul>
+                                            <li>
+                                                <input type="radio" id="option_kind_0" name="optionKind" value="0" onclick="checkOptionKind()" checked>
+                                                <label for="option_kind_0">옵션없음</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="option_kind_1" name="optionKind" value="100" onclick="checkOptionKind()">
+                                                <label for="option_kind_1">일반옵션</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="option_kind_2" name="optionKind" value="201" onclick="checkOptionKind()">
+                                                <label for="option_kind_2">재고(단일)옵션</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="option_kind_3" name="optionKind" value="202" onclick="checkOptionKind()">
+                                                <label for="option_kind_3">재고(조합)옵션</label>
+                                            </li>
+                                            <li>
+                                                <input type="radio" id="option_kind_4" name="optionKind" value="300" onclick="checkOptionKind()">
+                                                <label for="option_kind_4">서술형옵션</label>
+                                            </li>
+                                        </ul>
+                                        <ul class="option_explain blue mgt5">
+                                            <li>상품 등록시 한가지 옵션만 선택이 가능하고, 등록 후 수정시에는 변경할 수 없습니다.<br>(단, "옵션없음" 상태에서 변경은 가능)</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                <!-- # 일반옵션 ###################################################################### -->
+                                <tr class="option_100" style="display:none">
+                                    <td colspan="2">
+                                        <ul class="option_explain">
+                                            <li>재고를 설정할 수 없는 입력방식입니다. (옵션가격 설정가능)</li>
+                                            <li>각 옵션항목은 " <strong>;</strong> "로 구분하여 입력하고, 옵션가격이 있는 경우 각 옵션항목내에서 " <strong>^</strong> "로 구분하여 입력합니다.<br>(옵션가격이 없는 경우 제외 가능)</li>
+                                            <li><strong class="red">옵션가격은 반드시 ","(콤마) 없이 숫자로만 입력해야 합니다.</span></li>
+                                            <li>품절된 옵션항목은 각 옵션항목의 마지막에 구분자를 삽입하고 <strong class="red">"품절"</span> 을 입력해 주세요. 예)옵션^0^품절</li>
+                                            <li>옵션항목은 최대 <strong class="red">2,000자</span> 까지 입력할 수 있습니다.</li>
+                                        </ul>
+
+                                        <dl class="option_exam mgt10">
+                                            <dt><strong>입력 예)</strong></dt>
+                                                <dd>
+                                                    1. 기본입력: 선택안함;옵션 A^1000;옵션 B^-1000^품절;옵션 C^2000<br> 2. 품절입력: 옵션 A^품절;옵션 B^1500^품절;옵션 C^1000<br> 3. 추가구성: 선택안함;A상품^10000;B상품^11000<br>
+                                                </dd>
+                                                </dl>
+
+                                                <div class="tr mgb5">
+                                                    <span class="button small"><button type="button" onclick="addRowOpt('100');" disabled>옵션 추가</button></span>
+                                                    <span class="button small"><button type="button" onclick="delRowOpt('100');" disabled>옵션 삭제</button></span>
+                                                </div>
+                                                <table id="tb_option_100" width="100%" summary="상품 일반옵션 폼 테이블 입니다." class="option_gnenral">
+                                                    <caption>상품 일반옵션 폼 테이블</caption>
+                                                    <colgroup>
+                                                        <col width="30">
+                                                        <col width="150">
+                                                        <col width="*">
+                                                        <col width="40">
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th><input type="checkbox" name="cbOptAll100" onclick="checkCbAll(this.form.cbOpt100, this.checked)" disabled></th>
+                                                            <th>옵션명</th>
+                                                            <th colspan="2">옵션항목</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td><input type="hidden" name="optNo100" disabled><input type="checkbox" name="cbOpt100" disabled></td>
+                                                            <td><input type="text" name="optName100" class="text_input" maxlength="50" disabled></td>
+                                                            <td class="txt"><textarea rows="3" name="optItem100" class="text_input" disabled></textarea></td>
+                                                            <td class="size"><span>0</span><br>자</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                    </td>
+                                </tr>
+
+                                <!-- # 재고(단일)옵션 ###################################################################### -->
+                                <tr class="option_201" style="display:none">
+                                    <td colspan="2">
+                                        <ul class="option_explain">
+                                            <li>단일 옵션 항목별 재고 및 가격을 설정할 수 있는 입력방식입니다.</li>
+                                            <li>하나의 행에 하나의 옵션항목 및 재고수량을 입력해 주세요. (각 옵션항목별 <strong class="red">"품절"</span> 설정 가능)</li>
+                                        </ul>
+
+                                        <input type="hidden" name="optNo201" value="0" disabled>
+
+                                        <div class="over_h mgt5">
+                                            <dl class="option_solo_name">
+                                                <dt>옵션명</dt>
+                                                <dd>
+                                                    <input type="text" name="optName201" value="" class="text_input" maxlength="100" disabled>
+                                                </dd>
+                                            </dl>
+                                            <table id="tb_option_201" summary="상품 재고(단일)옵션 폼 테이블 입니다." max="999" class="option_solo">
+                                                <caption>상품 재고(단일)옵션 폼 테이블</caption>
+                                                <colgroup>
+                                                    <col width="*">
+                                                    <col width="15%">
+                                                    <col width="15%">
+                                                    <col width="15%">
+                                                    <col width="54">
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>옵션항목</th>
+                                                        <th>옵션가격</th>
+                                                        <th>재고수량</th>
+                                                        <th>품절여부</th>
+                                                        <th class="btns"><button type="button" onclick="addRowOpt('201');" disabled><img src="/img/btn_plus.gif" alt="옵션항목 추가"></button></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" name="optItem201" class="text_input" maxlength="100" disabled>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="optPrice201" class="text_input" onkeyup="toCurrency(this)" disabled>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="optQuantity201" maxlength="7" class="text_input" onkeyup="onlyInt(this);calcTotalQuantity();" disabled>
+                                                        </td>
+                                                        <td>
+                                                            <input type="hidden" name="optSoldout201" disabled><input type="checkbox" name="cbOptSoldout" onclick="checkOptionSoldout(this)" disabled>
+                                                        </td>
+                                                        <td class="btns">
+                                                            <button type="button" onclick="delRowOpt('201', this);" disabled><img src="/img/btn_minus.gif" alt="옵션항목 삭제"></button>
+                                                            <button type="button" onclick="addRowOpt('201', this);" disabled><img src="/img/btn_plus.gif" alt="옵션항목 추가"></button>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td>합계</td>
+                                                        <td></td>
+                                                        <td><input type="text" name="optTotalQuantity201" class="text_input" value="" readonly="readOnly" disabled></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- # 재고(조합)옵션 ###################################################################### -->
+                                <tr class="option_202" style="display:none">
+                                    <td colspan="2">
+                                        <ul class="option_explain">
+                                            <li>조합 옵션의 재고와 가격을 설정할 수 있는 입력방식입니다. 옵션종류는 2개로 제한되며 최대 10개까지 입력이 가능합니다.</li>
+                                            <li>옵션1과 옵션2가 교차하는 박스에 수량을 넣어주세요.</li>
+                                            <li>옵션별 가격은 옵션1의 항목에만 설정이 가능합니다.</li>
+                                        </ul>
+
+                                        <input type="hidden" name="optNo1" value="0" disabled>
+                                        <input type="hidden" name="optNo2" value="0" disabled>
+
+                                        <table width="100%" summary="상품 재고(조합)옵션 폼 테이블 입니다." class="option_grid">
+                                            <caption>상품 재고(조합)옵션 폼 테이블</caption>
+                                            <colgroup>
+                                                <col width="110">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="*">
+                                                <col width="80">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2" class="first">옵션1<br><input type="text" name="optName1" maxlength="50" value="" disabled></th>
+                                                    <th colspan="10">옵션2 <input type="text" name="optName2" maxlength="50" value="" disabled></th>
+                                                    <th rowspan="2">옵션가격</th>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="hidden" name="optItemNo2" value="11" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="12" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="13" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="14" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="15" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="16" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="17" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="18" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td><input type="hidden" name="optItemNo2" value="19" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+                                                    <td class="last"><input type="hidden" name="optItemNo2" value="20" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th class="roof"><input type="hidden" name="optItemNo1" value="1" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td class="roof"><input type="text" name="optQuantity_0_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_1_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_2_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_3_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_4_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_5_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_6_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_7_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_8_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="roof"><input type="text" name="optQuantity_9_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 0);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price roof"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="2" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 1);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="3" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 2);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="4" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 3);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="5" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 4);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="6" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 5);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="7" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 6);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="8" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 7);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="9" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 8);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><input type="hidden" name="optItemNo1" value="10" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
+                                                    <td><input type="text" name="optQuantity_0_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_1_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_2_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_3_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_4_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_5_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_6_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_7_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_8_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td><input type="text" name="optQuantity_9_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 9);" onblur="calcTotalQuantity()"
+                                                            disabled></td>
+                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                </tr>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="10">
+                                                        <div>전체 재고 수량 <input type="text" name="optTotalQuantity202" value="" readonly="" disabled></div>
+                                                    </th>
+                                                    <th class="last"></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- # 서술형옵션 ###################################################################### -->
+
+                                <tr class="option_300" style="display:none">
+                                    <td colspan="2">
+                                        <ul class="option_explain">
+                                            <li>일반옵션, 재고옵션을 사용하시기 어려운 경우, 서술형 옵션을 선택하시면 아래 입력한 내용이 구매자에게 안내되고,<br>상품구매옵션을 서술형으로 입력할 수 있습니다.</li>
+                                        </ul>
+
+                                        <dl class="option_exam mgt10">
+                                            <dt><strong>입력 예)</strong></dt>
+                                                <dd>
+                                                    넥타이타입은 A~J, 셔츠타입은 A~J, 사이즈는 95,100,105입니다. 원하는 색상 및 사이즈를 적어주세요.
+                                                </dd>
+                                                </dl>
+
+                                                <input type="hidden" name="optNo300" value="0" disabled>
+
+                                                <div class="option_text">
+                                                    <textarea name="optName300" rows="3" class="text_input" onkeyup="checkTextLen(this, 250)" disabled></textarea>
+                                                </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    <!-- 추가 구성 -->
+                    <div class="section_head">
+                        <h4>추가 구성</h4>
+                    </div>
+
+                    <table width="100%" summary="추가 구성 등록 폼 입니다." class="t_form">
+                        <caption>추가 구성 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>추가구성</th>
+                                <td class="addition_usable">
+                                    <ul>
+                                        <li><input type="radio" id="use_addition_0" name="useAddition" value="0" onclick="checkUseAddition()" checked=""><label for="use_addition_0">미사용</label></li>
+                                        <li><input type="radio" id="use_addition_1" name="useAddition" value="1" onclick="checkUseAddition()"><label for="use_addition_1">사용</label></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="addition_container" style="display:none">
+                                <td colspan="2">
+                                    <ul class="over_h mgb10">
+                                        <li class="fl"><button type="button" class="btn btn-sm btn-secondary" onclick="cbAdtAll()">전체선택</button>
+                                        </li>
+                                        <li class="fr">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="addAddition()">추가구성 추가</button>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="delAddition()">추가구성 삭제</button>
+                                        </li>
+                                    </ul>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-secondary" onclick="validSubmit()">확인</button>
+                        <button type="button" class="btn btn-danger" onclick="cancle('reload')">취소</button>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+                    <script type="text/javascript">
+                        //<![CDATA[ 테이블 Row 추가/삭제
+                        var cellHtmls = new Array();
+
+                        cellHtmls['tb_category'] = new Array();
+                        cellHtmls['tb_category'][0] = {
+                            html: '<input type="hidden" name="cate" value="#CODE#" cms="#CMS#" /><input type="radio" name="cateDefault" value="#CODE#" onClick="cateDefaultCms(this)" />'
+                        };
+                        cellHtmls['tb_category'][1] = {
+                            html: '#CATEGORY#',
+                            css: 'txt'
+                        };
+                        cellHtmls['tb_category'][2] = {
+                            html: '<span class="button black small"><button type="button" onClick="delCate(this)">삭제</button></span>'
+                        };
+
+                        cellHtmls['tb_img_etc'] = new Array();
+                        cellHtmls['tb_img_etc'][0] = {
+                            html: '<span class="numbering"></span>.'
+                        };
+                        cellHtmls['tb_img_etc'][1] = {
+                            html: '<input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" />'
+                        };
+                        cellHtmls['tb_img_etc'][2] = {
+                            html: '<input type="file" name="imgEtc"  onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" />'
+                        };
+                        cellHtmls['tb_img_etc'][3] = {
+                            html: ''
+                        };
+
+                        cellHtmls['tb_notify'] = new Array();
+                        cellHtmls['tb_notify'][0] = {
+                            html: '<span class="numbering"></span>'
+                        };
+                        cellHtmls['tb_notify'][1] = {
+                            html: '<input type="checkbox" name="cbNotify" />'
+                        };
+                        cellHtmls['tb_notify'][2] = {
+                            html: '<input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100" />'
+                        };
+                        cellHtmls['tb_notify'][3] = {
+                            html: '<textarea name="notifyData" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)"></textarea>',
+                            css: 'last'
+                        };
+
+                        function addRow(tbId, replacements, htmlKey) {
+                            var $table = $('#' + tbId);
+
+                            var headSize = ($table.attr('head') ? $table.attr('head').toString().toNumeric() : 0);
+                            var maxSize = ($table.attr('max') ? $table.attr('max').toString().toNumeric() : 0);
+                            var rowSize = $('tr', $table).length;
+
+                            if (maxSize > 0 && (rowSize - headSize) >= maxSize) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + maxSize + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            var htmls = cellHtmls[(htmlKey ? htmlKey : tbId)];
+
+                            var $tr = $('<tr />');
+                            for (i = 0; i < htmls.length; i++) {
+                                var html = htmls[i].html;
+
+                                if (replacements) {
+                                    for (var key in replacements) {
+                                        html = html.replaceAll(key, replacements[key]);
+                                    }
+                                }
+
+                                $('<td' + (htmls[i].css ? ' class="' + htmls[i].css + '"' : '') + ' />').html(html).appendTo($tr);
+                            }
+                            $table.append($tr);
+
+                            numbering(tbId);
+
+                            return true;
+                        }
+
+                        function delRow(obj, tbId) {
+                            var $table = null;
+                            if (typeof(tbId) == 'undefined') {
+                                $table = $(obj).parents('table').first();
+                                tbId = $table.attr('id');
+                            } else {
+                                $table = $('#' + tbId);
+                            }
+
+                            var headSize = ($table.attr('head') ? $table.attr('head').toString().toNumeric() : 0);
+                            var noBlank = ($table.attr('noBlank') ? $table.attr('noBlank').toString().toNumeric() : 0);
+
+                            $(obj).parents('tr').first().remove();
+
+                            numbering(tbId);
+
+                            if (noBlank && ($('tr', $table).length - headSize) < 1) addRow(tbId);
+
+                            return true;
+                        }
+
+                        function delRowList(tbId) {
+                            var f = document.Frm;
+
+                            var $table = $('#' + tbId);
+                            var $cb = null;
+
+                            switch (tbId) {
+                                case 'tb_img_etc':
+                                    $cb = $(f.cbImgEtc);
+                                    break;
+                                case 'tb_notify':
+                                    $cb = $(f.cbNotify);
+                                    break;
+                            }
+
+                            var headSize = ($table.attr('head') ? $table.attr('head').toString().toNumeric() : 0);
+                            var noBlank = ($table.attr('noBlank') ? $table.attr('noBlank').toString().toNumeric() : 0);
+
+                            var checker = 0;
+                            $cb.each(function() {
+                                if (this.checked) ++checker;
+                            });
+
+                            if (checker <= 0) {
+                                alert("삭제할 항목을 선택해주세요.");
+                                return;
+                            }
+
+                            $cb.each(function() {
+                                if (this.checked) {
+                                    $(this).parents('tr').first().remove();
+                                }
+                            });
+
+                            numbering(tbId);
+
+                            if (noBlank && ($('tr', $table).length - headSize) < 1) addRow(tbId);
+
+                            return true;
+                        }
+
+                        function numbering(tbId) {
+                            $('span.numbering', $('#' + tbId)).each(function(index) {
+                                $(this).text(index + 1);
+                            });
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //이미지 자동등ㄹ고
+                        function changeImgRegAuto(obj) {
+                            if (obj.checked) {
+                                $('.imgManuals').hide();
+                            } else {
+                                $('.imgManuals').show();
+                            }
+                        }
+
+                        //<![CDATA[ 카테고리 설정
+                        var cateDepth = '3'.toNumeric();
+                        var cateDepthGoods = '2'.toNumeric();
+
+                        function changeCate(obj) {
+                            var f = document.Frm;
+                            var depth = (obj ? obj.getAttribute('depth').toString().toNumeric() : 0);
+                            var parent = (obj ? obj.value : 0);
+
+                            if (cateDepth > depth) {
+                                $.ajax({
+                                    type: "GET",
+                                    dataType: "json",
+                                    url: "",
+                                    data: {
+                                        parent: parent,
+                                        depth: depth
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        var depth = data.depth.toString().toNumeric();
+
+                                        for (i = depth; i <= cateDepth; i++) {
+                                            removeSelectOptionAll(f['cate_' + i]);
+                                            addSelectOption(f['cate_' + i], '선택', '');
+                                        }
+
+                                        var objSelect = f["cate_" + depth];
+
+                                        if (data.list) {
+                                            for (var i = 0; i < data.list.length; i++) {
+                                                var objOption = document.createElement("option");
+                                                with(objOption) {
+                                                    text = data.list[i].name + " [" + data.list[i].cms + "%]";
+                                                    value = data.list[i].cate;
+                                                    setAttribute('name', data.list[i].name);
+                                                    setAttribute('cms', data.list[i].cms);
+                                                    setAttribute('child', data.list[i].child);
+                                                }
+                                                objSelect.options.add(objOption);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                        // 카테고리 처리
+                        function addCate() {
+                            var f = document.Frm;
+                            var cate = cms = child = depth = 0;
+                            var category = '';
+
+                            for (var i = 1; i <= cateDepth; i++) {
+                                var objOption = f['cate_' + i].options[f['cate_' + i].selectedIndex];
+
+                                if (!isEmpty(objOption)) {
+                                    cate = objOption.value.toNumeric();
+                                    cms = objOption.getAttribute('cms').toString().toNumeric();
+                                    child = objOption.getAttribute('child').toString().toNumeric();
+
+                                    category += (category ? '>' : '') + objOption.getAttribute('name');
+                                    depth = i;
+                                }
+                            }
+                            category += " [" + cms + "%]";
+
+                            if (cate == 0) {
+                                alert("카테고리를 선택해 주세요.");
+                                f.cate_1.focus();
+                                return false;
+                            }
+
+                            if (cateDepthGoods > depth) {
+                                alert("카테고리를 " + cateDepthGoods + "단계 이상 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (child > 0) {
+                                alert("하위 카테고리가 존재하지 않는 카테고리만 선택할 수 있습니다.");
+                                return false;
+                            }
+
+                            if (f.cate) {
+                                if (typeof(f.cate.length) == 'undefined') {
+                                    if (f.cate.value == cate.toString()) {
+                                        alert("이미 추가된 상품분류 입니다.");
+                                        return false;
+                                    }
+                                } else {
+                                    for (var i = 0; i < f.cate.length; i++) {
+                                        if (f.cate[i].value == cate.toString()) {
+                                            alert("이미 추가된 상품분류 입니다.");
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (f.dealerCmsType.value == 'CTG') { // 입점업체 수수료 설정 : 카테고리 경우
+                                if (typeof(f.cate) == 'undefined') { // 등록한 카테고리가 없는 경우
+                                    f.margin.value = cms;
+                                } else if (getRadio(f.cmsType) != 'GOS' && f.margin.value.toNumeric() != cms) {
+                                    alert("수수료율이 서로 다른 다중 카테고리를 선택하셨습니다.\n기본카테고리 수수료율로 설정합니다.");
+                                    if (checkCmsType() == false) {
+                                        return;
+                                    }
+                                }
+                            } else { // 입점업체 수수료 설정 : 입점업체 경우
+                                f.margin.value = f.dealerCmsRate.value.toNumeric();
+                            }
+
+                            if (addRow('tb_category', {
+                                    '#CODE#': cate,
+                                    '#CATEGORY#': category,
+                                    '#CMS#': cms
+                                })) {
+                                setCateDefault();
+                            }
+
+                            calcPrice();
+                        }
+
+                        function delCate(obj) {
+                            if (delRow(obj) == true) {
+                                setCateDefault();
+                            }
+                        }
+
+                        function setCateDefault() {
+                            var f = document.Frm;
+                            if (f.cateDefault) {
+                                if (typeof(f.cateDefault.length) == 'undefined') {
+                                    f.cateDefault.checked = true;
+                                    cateDefaultCms(f.cateDefault);
+                                } else if (getRadio(f.cateDefault) == '') {
+                                    f.cateDefault[0].checked = true;
+                                    cateDefaultCms(f.cateDefault[0]);
+                                }
+                            }
+                        }
+
+                        function cateDefaultCms(obj) {
+                            var f = document.Frm;
+
+                            if (getRadio(f.cmsType) != 'GOS' && f.dealerCmsType.value != 'MIM') {
+                                var cateCms = $(obj).prev().attr('cms');
+
+                                f.margin.value = cateCms;
+
+                                calcPrice();
+                            }
+                        }
+
+                        function checkDifferCateCms() {
+                            var f = document.Frm;
+                            var previous = -1;
+                            var result = false;
+
+                            if (f.cate && typeof(f.cate.length) != 'undefined') {
+                                for (var i = 0; i < f.cate.length; i++) {
+                                    var cms = f.cate[i].getAttribute('cms').toString().toNumeric();
+                                    if (previous > 0 && previous != cms) result = true;
+                                    previous = cms;
+                                }
+                            }
+                            return result;
+                        }
+                        //]]>
+                    </script>
+                    <script>
+                        // 재고설정 확인
+                        function checkStock() {
+                            var f = document.Frm;
+                            var optionKind = getRadio(f.optionKind);
+
+                            if (getRadio(f.stock) == '0') {
+                                f.quantity.readOnly = false;
+                                f.quantity.disabled = true;
+                                f.quantity.style.backgroundColor = "#e0e0e0";
+                            } else if ($.inArray(optionKind, ['201', '202']) > -1) {
+                                f.quantity.readOnly = true;
+                                f.quantity.disabled = false;
+                                f.quantity.style.backgroundColor = "#e0e0e0";
+                                if (optionKind == '201') {
+                                    f.quantity.value = f['optTotalQuantity201'].value;
+                                } else {
+                                    f.quantity.value = f['optTotalQuantity202'].value;
+                                }
+                            } else {
+                                f.quantity.readOnly = false;
+                                f.quantity.disabled = false;
+                                f.quantity.style.backgroundColor = "";
+                            }
+                        }
+
+                        // 적립금정책 확인
+                        function checkCmoneyPolicy() {
+                            var f = document.Frm;
+
+                            if ($('input[name="cmoneyPolicy"]').length > 0) {
+                                $('input[name="cmoneyPolicy"]').first().parent().parent().find('input:text, select').prop('disabled', true);
+
+                                switch (getRadio(f.cmoneyPolicy)) {
+                                    case '6':
+                                        f.cmoneyPolicyPrice.disabled = false;
+                                        f.cmoneyPercent.disabled = false;
+                                        break;
+                                    case '8':
+                                        f.cmoneyMoney.disabled = false;
+                                        break;
+                                }
+                            }
+                        }
+
+                        // 정책 설정
+                        function setPolicy() {
+                            var f = document.Frm;
+
+                            if (f.dealerNo.value.toNumeric() > 0) {
+                                if ($(f.cmoneyPolicy).is(':radio')) {
+                                    setRadioDisabled(f.cmoneyPolicy, '128', false);
+                                }
+
+                                setRadioDisabled(f.deliveryMethod, '920', false);
+                            } else {
+                                if ($(f.cmoneyPolicy).is(':radio')) {
+                                    setRadioDisabled(f.cmoneyPolicy, '128', true);
+
+                                    if (getRadio(f.cmoneyPolicy) == '128') {
+                                        setRadio(f.cmoneyPolicy, '256');
+                                    }
+                                }
+
+                                setRadioDisabled(f.deliveryMethod, '920', true);
+
+                                if (getRadio(f.deliveryMethod) == '920') {
+                                    setRadio(f.deliveryMethod, '990');
+                                }
+                            }
+                        }
+
+
+
+
+
+                        // 배송료설정 확인
+                        function checkDeliveryMethod() {
+                            var f = document.Frm;
+                            f.deliveryFeeCollect.disabled = true;
+                            f.deliveryFeeCollect.style.backgroundColor = "#e0e0e0";
+                            f.deliveryLimitCollect.disabled = true;
+                            f.deliveryLimitCollect.style.backgroundColor = "#e0e0e0";
+                            f.deliveryFeePrepay.disabled = true;
+                            f.deliveryFeePrepay.style.backgroundColor = "#e0e0e0";
+                            f.deliveryLimitPrepay.disabled = true;
+                            f.deliveryLimitPrepay.style.backgroundColor = "#e0e0e0";
+
+                            switch (getRadio(f.deliveryMethod)) {
+                                case "103":
+                                    f.deliveryFeeCollect.disabled = false;
+                                    f.deliveryFeeCollect.style.backgroundColor = "";
+                                    f.deliveryLimitCollect.disabled = false;
+                                    f.deliveryLimitCollect.style.backgroundColor = "";
+                                    break;
+                                case "102":
+                                    f.deliveryFeePrepay.disabled = false;
+                                    f.deliveryFeePrepay.style.backgroundColor = "";
+                                    f.deliveryLimitPrepay.disabled = false;
+                                    f.deliveryLimitPrepay.style.backgroundColor = "";
+                                    break;
+                            }
+                        }
+
+                        //상품옵션
+                        function checkOptionKind() {
+                            var f = document.Frm;
+                            var kind = $('input[name="optionKind"]:checked', f).val();
+
+                            $('input[name="optionKind"]', f).each(function() {
+                                if (!isEmpty(this)) {
+                                    var $container = $('.option_' + this.value);
+                                    if (this.value == kind) $container.show().find(':input').prop('disabled', false);
+                                    else $container.hide().find(':input').prop('disabled', true);
+                                }
+                            });
+
+                            switch (kind) {
+                                case '201':
+                                case '202':
+                                    setRadio(f.stock, '1');
+                                    setRadioDisabled(f.stock, '0', true);
+                                    break;
+                                default:
+                                    setRadioDisabled(f.stock, '0', false);
+                                    break;
+                            }
+
+                            checkStock();
+                        }
+                    </script>
+
+
+                    <script type="text/javascript">
+                        //<![CDATA[//관련추천상품                        
+                        function takeSelectGoods(elmId, gno, cate, gname) {
+                            var f = document.Frm;
+                            var objSelect = f[elmId];
+                            var max = (objSelect.getAttribute('max') == null ? 0 : objSelect.getAttribute('max').toString().toNumeric());
+
+                            if (max > 0 && max <= objSelect.length) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + max + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            var isExist = false;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect.options[i].value == gno.toString()) isExist = true;
+                            }
+
+                            if (isExist) alert("이미 추가된 상품입니다.");
+                            else {
+                                addSelectOption(objSelect, gname, gno);
+                                return true;
+                            }
+                        }
+
+                        function delGoods(target) {
+                            var f = document.Frm;
+                            var objSelect = f[target];
+
+                            for (var i = objSelect.length - 1; i > -1; i--) {
+                                if (objSelect[i].selected) removeSelectOption(objSelect, i);
+                            }
+                        }
+
+                        function moveGoods(target, direction) {
+                            var f = document.Frm;
+
+                            var objSelect = f[target];
+
+                            var checker = 0;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect[i].selected) {
+                                    if (checker > 0) objSelect[i].selected = false;
+                                    else checker = 1;
+                                }
+                            }
+
+                            var currIdx = objSelect.selectedIndex;
+
+                            if (currIdx == -1) return false;
+
+                            if ((currIdx <= 0 && direction == "UP") || (currIdx >= objSelect.length - 1 && direction == "DOWN")) return false;
+
+                            var currText = objSelect.options[currIdx].text;
+                            var currValue = objSelect.options[currIdx].value;
+
+                            if (direction == "UP") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx - 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx - 1].value;
+                                objSelect.options[currIdx - 1].text = currText;
+                                objSelect.options[currIdx - 1].value = currValue;
+                                currIdx = currIdx - 1;
+                            } else if (direction == "DOWN") {
+                                objSelect.options[currIdx].text = objSelect.options[currIdx + 1].text;
+                                objSelect.options[currIdx].value = objSelect.options[currIdx + 1].value;
+                                objSelect.options[currIdx + 1].text = currText;
+                                objSelect.options[currIdx + 1].value = currValue;
+                                currIdx = currIdx + 1;
+                            }
+
+                            for (var i = 0; i < objSelect.length; i++) {
+                                objSelect[i].selected = false;
+                            }
+                            objSelect[currIdx].selected = true;
+                        }
+
+                        function getNotify(obj) { //등록할 상품군 선택 ajax
+                            if (!isEmpty(obj)) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "",
+                                    data: {
+                                        idx: obj.value
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        $('#tb_notify').remove();
+                                        $('.notify').append(data)
+                                    }
+                                });
+                            }
+                            obj.value = "";
+                        }
+                        //]]>
+                    </script>
+
+
+
+                    <script type="text/javascript">
+                        //<![CDATA[ 추가구성
+                        function checkUseAddition() {
+                            var f = document.Frm;
+                            if (getRadio(f.useAddition).toNumeric() > 0) {
+                                $('.addition_usable div').show();
+                                $('.addition_container').show();
+                            } else {
+                                $('.addition_usable div').hide();
+                                $('.addition_container').hide();
+                            }
+                        }
+
+                        function cbAdtAll() {
+                            $('input[name="cbAdt"]').prop('checked', true);
+                        }
+
+                        function checkCbAdt(obj) {
+                            switch (obj.name) {
+                                case 'cbAdtStock':
+                                    var $quantity = $(obj).parent().find('input:text');
+                                    if (obj.checked) {
+                                        $quantity.prop('readonly', false).removeClass('limitless').val('').focus();
+                                    } else {
+                                        $quantity.val('무제한').addClass('limitless').prop('readonly', true);
+                                    }
+                                    break;
+                            }
+                            $(obj).parent().find('input:hidden').val(obj.checked ? obj.value : '');
+                        }
+
+                        function validAddition() {
+                            var f = document.Frm;
+                            var invalid = false;
+
+                            if (getRadio(f.useAddition).toNumeric() > 0) {
+                                $('input[name="adtNo"]').each(function() {
+                                    var $addition = $(this).closest('.addition');
+                                    var $adtName = $('input[name="adtName"]', $addition);
+                                    var adtNo = this.value;
+
+                                    if (isEmpty($adtName[0])) {
+                                        alert("추가구성명을 입력해 주세요.");
+                                        $adtName.focus();
+                                        invalid = true;
+                                        return false;
+                                    }
+
+                                    $('input[name="adtItemIdx' + adtNo + '"]').each(function() {
+                                        var $tr = $(this).closest('tr'),
+                                            $adtItem = $('input[name="adtItem' + adtNo + '"]', $tr),
+                                            $adtPrice = $('input[name="adtPrice' + adtNo + '"]', $tr);
+
+                                        if (isEmpty($adtItem[0])) {
+                                            alert("추가구성 항목을 입력해 주세요.");
+                                            $adtItem.focus();
+                                            invalid = true;
+                                            return false;
+                                        }
+                                    });
+
+                                    if (invalid) {
+                                        return false;
+                                    }
+                                });
+                            }
+
+                            return (invalid ? false : true);
+                        }
+
+                        $(function() {
+                            checkUseAddition();
+
+                            $(document).on('click', '.additions_opener', function() {
+                                var $table = $(this).prev();
+                                if ($(this).data('scrolled')) {
+                                    $table.scrolltable('destroy');
+                                    $(this).text('▲').data('scrolled', 0);
+                                } else {
+                                    var rows = $table.find('tbody').children().length;
+
+                                    $table.scrolltable({
+                                        height: 165
+                                    });
+                                    $(this).text('▼').data('scrolled', 1);
+
+                                    if (rows <= maxStRowAdt) {
+                                        $(this).prop('disabled', true);
+                                    }
+                                }
+                            });
+
+                            $(document).on('keyup', 'input[name^="adtQuantity"]', function() {
+                                if ($(this).hasClass('limitless')) this.blur();
+                                else onlyInt(this);
+                            });
+
+                            $('.additions_opener').trigger('click');
+                        });
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var maxStRowAdt = 5;
+                        var maxRowAdt = '10'.toNumeric();
+
+                        var htmlAdt = '<div class="addition">' +
+                            '<dl class="addition_title">' +
+                            '<dt>추가구성명</dt>' +
+                            '<dd>' +
+                            '<input type="hidden" name="adtNo" value="#NO#" />' +
+                            '<input type="hidden" name="adtIdx" value="" />' +
+                            '<input type="checkbox" name="cbAdt" /><input type="text" name="adtName" value="" class="text_input" maxlength="50" />' +
+                            '</dd>' +
+                            '</dl>' +
+                            '<table summary="추가 구성 폼 테이블 입니다." max="999" class="addition_list">' +
+                            '<caption>상품 재고(단일)옵션 폼 테이블</caption>' +
+                            '<colgroup>' +
+                            '<col width="*" />' +
+                            '<col width="15%" />' +
+                            '<col width="17%" />' +
+                            '<col width="12%" />' +
+                            '<col width="12%" />' +
+                            '<col width="54" />' +
+                            '</colgroup>' +
+                            '<thead>' +
+                            '<tr>' +
+                            '<th>추가구성 항목</th>' +
+                            '<th>추가금액</th>' +
+                            '<th>재고수량</th>' +
+                            '<th>품절여부</th>' +
+                            '<th>숨김여부</th>' +
+                            '<th class="btns"><button type="button" first="1" onClick="addRowAdt(this)"><img src="/img/btn_plus.gif" alt="추가구성 항목 추가" /></button></th>' +
+                            '</tr>' +
+                            '</thead>' +
+                            '<tbody>' +
+                            '<tr>' +
+                            '<td><input type="hidden" name="adtItemIdx#NO#" value="" /><input type="text" name="adtItem#NO#" value="" class="text_input" maxlength="100" /></td>' +
+                            '<td><input type="text" name="adtPrice#NO#" value="" class="text_input" onKeyUp="toCurrency(this)" /></td>' +
+                            '<td><input type="hidden" name="adtStock#NO#" value="" /><input type="checkbox" name="cbAdtStock" value="1" onClick="checkCbAdt(this)" />' +
+                            '<input type="text" name="adtQuantity#NO#" value="무제한" maxlength="7" class="text_input limitless" style="width:65%" onKeyPress="blockNotNumber(event)" onKeyUp="toCurrency(this)" readonly="readonly" /></td>' +
+                            '<td><input type="hidden" name="adtSoldout#NO#" value="" /><input type="checkbox" name="cbAdtSoldout#NO#" value="2" onClick="checkCbAdt(this)" /></td>' +
+                            '<td><input type="hidden" name="adtHidden#NO#" value="" /><input type="checkbox" name="cbAdtHidden#NO#" value="1" onClick="checkCbAdt(this)" /></td>' +
+                            '<td class="btns"><button type="button" onClick="delRowAdt(this);"><img src="/img/btn_minus.gif" alt="추가구성 항목 삭제" /></button>' +
+                            ' <button type="button" onClick="addRowAdt(this);"><img src="/img/btn_plus.gif" alt="추가구성 항목 추가" /></button></td>' +
+                            '</tr>' +
+                            '</tbody>' +
+                            '</table>' +
+                            '<button type="button" class="additions_opener">▼</button>' +
+                            '</div>';
+
+                        var cellHtmlAdtItem = new Array();
+                        cellHtmlAdtItem[0] = {
+                            html: '<input type="hidden" name="adtItemIdx#NO#" value="" /><input type="text" name="adtItem#NO#" value="" class="text_input" maxlength="100" />'
+                        };
+                        cellHtmlAdtItem[1] = {
+                            html: '<input type="text" name="adtPrice#NO#" value="" class="text_input" onKeyUp="toCurrency(this)" />'
+                        };
+                        cellHtmlAdtItem[2] = {
+                            html: '<input type="hidden" name="adtStock#NO#" value="" /><input type="checkbox" name="cbAdtStock" value="1" onClick="checkCbAdt(this)" />' +
+                                '<input type="text" name="adtQuantity#NO#" value="무제한" maxlength="7" class="text_input limitless" style="width:65%" readonly="readonly" />'
+                        };
+                        cellHtmlAdtItem[3] = {
+                            html: '<input type="hidden" name="adtSoldout#NO#" value="" /><input type="checkbox" name="cbAdtSoldout#NO#" value="2" onClick="checkCbAdt(this)" />'
+                        };
+                        cellHtmlAdtItem[4] = {
+                            html: '<input type="hidden" name="adtHidden#NO#" value="" /><input type="checkbox" name="cbAdtHidden#NO#" value="1" onClick="checkCbAdt(this)" />'
+                        };
+                        cellHtmlAdtItem[5] = {
+                            html: '<button type="button" onClick="delRowAdt(this);"><img src="/img/btn_minus.gif" alt="추가구성 항목 삭제" /></button>' +
+                                ' <button type="button" onClick="addRowAdt(this);"><img src="/img/btn_plus.gif" alt="추가구성 항목 추가" /></button>',
+                            css: 'btns'
+                        };
+
+                        function addAddition() {
+                            var adtNo = ($('input[name="adtNo"]').length > 0 ? $('input[name="adtNo"]:last').val() : '0').toNumeric() + 1;
+                            $('.addition_container').children()
+                                .append(htmlAdt.replaceAll('#NO#', adtNo)).children('.addition:last')
+                                .find('.additions_opener').trigger('click').end();
+                        }
+
+                        function delAddition() {
+                            var $cb = $('input[name="cbAdt"]:checked');
+
+                            if ($cb.length <= 0) {
+                                alert("삭제할 추가구성을 선택해주세요.");
+                                return false;
+                            }
+
+                            $cb.each(function() {
+                                $(this).closest('.addition').remove();
+                            });
+                        }
+
+                        function addRowAdt(obj) {
+                            var $table = $(obj).closest('table.addition_list'),
+                                $tbody = $table.find('tbody:last');
+                            var maxRow = ($table.attr('max') ? $table.attr('max').toNumeric() : maxRowAdt);
+
+                            if (maxRow <= $tbody.children().length) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + maxRow + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            var adtNo = $table.closest('.addition').find('input[name="adtNo"]').val();
+
+                            var $row = $('<tr />');
+                            for (i = 0; i < cellHtmlAdtItem.length; i++) {
+                                var $cell = $('<td />').html(cellHtmlAdtItem[i].html.replaceAll('#NO#', adtNo)).appendTo($row);
+                                if (cellHtmlAdtItem[i].css) $cell.addClass(cellHtmlAdtItem[i].css);
+                            }
+
+                            if ($(obj).attr('first')) {
+                                if ($tbody.children().length > 0) {
+                                    $tbody.children(':first-child').before($row);
+                                } else {
+                                    $tbody.append($row);
+                                }
+                            } else {
+                                $(obj).closest('tr').after($row);
+                            }
+
+                            switchOpenerAdt($table);
+                        }
+
+                        function delRowAdt(obj) {
+                            var $table = $(obj).closest('table.addition_list');
+
+                            $(obj).closest('tr').remove();
+
+                            if ($table.find('tbody:last').children().length == 0) {
+                                addRowAdt($table.find('thead:last button')[0]);
+                            }
+
+                            switchOpenerAdt($table);
+                        }
+
+                        function switchOpenerAdt($table) {
+                            var $opener = $table.next();
+                            if ($table.find('tbody:last').children().length > maxStRowAdt) {
+                                $opener.prop('disabled', false);
+                            } else {
+                                if (!$opener.data('scrolled')) {
+                                    $opener.trigger('click');
+                                }
+                                $opener.prop('disabled', true);
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        // 가격 계산시 절사단위
+                        var priceRoundUnit = '-1'.toNumeric();
+
+
+
+                        // 수수료 설정 확인
+                        function checkCmsType() {
+                            var f = document.Frm;
+
+
+
+                            // (다중카테고리 || 다른 수수료율의 카테고리를 선택한 경우) && 카테고리 또는 공급업체 수수료로 수정한 경우
+                            /*
+                            if (checkDifferCateCms() && getRadio(f.cmsType) != 'GOS') {
+                                alert("각각 다른 수수료의 카테고리가 선택된 경우는 선택하실수 없습니다.");
+                                setRadio(f.cmsType, 'GOS');
+                                return false;
+                            }
+                            */
+
+                            if (getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료로 설정한 경우
+                                checkPriceSplit('100');
+
+                                if (f.dealerCmsType.value == 'CTG') { // 입점업체 수수료 설정 : 카테고리 경우
+                                    if (typeof(f.cate) == 'undefined') {
+                                        f.margin.value = 0;
+                                    } else if (typeof(f.cate.length) == 'undefined') {
+                                        f.margin.value = f.cate.getAttribute('cms');
+                                    } else {
+                                        f.margin.value = f.cate[0].getAttribute('cms');
+                                    }
+                                } else { // 입점업체 수수료 설정 : 입점업체 경우
+                                    f.margin.value = f.dealerCmsRate.value.toNumeric();
+                                }
+
+                                calcPrice();
+                            }
+                        }
+
+                        // 가격입력 : 기준 설정
+                        function checkPriceSplit(code) {
+                            var f = document.Frm;
+
+                            if (code == '100') { // 공급가 기준
+                                f.originalPrice.style.backgroundColor = '';
+                                f.margin.style.backgroundColor = "#e0e0e0";
+                                f.originalPrice.readOnly = false;
+                                f.margin.readOnly = true;
+                                setRadio(f.priceSplit, '100');
+                            } else { // 수수료 기준
+                                if (getRadio(f.cmsType) != 'GOS') {
+                                    setRadio(f.priceSplit, '100');
+                                    alert("수수료 설정이 상품별 수수료 설정일 경우에만 선택이 가능합니다.");
+                                    return false;
+                                }
+
+                                f.originalPrice.style.backgroundColor = "#e0e0e0";
+                                f.margin.style.backgroundColor = '';
+                                f.originalPrice.readOnly = true;
+                                f.margin.readOnly = false;
+                            }
+                        }
+
+                        // 가격입력 : 계산
+                        function calcPrice(caller) {
+                            var f = document.Frm;
+
+                            if (typeof(caller) == 'undefined') caller = f.price;
+
+                            var price = f.price.value.toNumeric();
+                            var margin = f.margin.value.toNumeric();
+                            var originalPrice = f.originalPrice.value.toNumeric();
+
+                            if (margin > 100) {
+                                alert("수수료는 100% 이하로 설정하셔야 됩니다.");
+                                margin = 100;
+                                f.margin.value = margin;
+                            }
+
+                            if (getRadio(f.priceSplit) == '100') { // 공급가 기준 경우
+                                if (getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료 설정
+                                    // 판매가 입력 경우
+                                    if (caller.name == 'price') {
+                                        originalPrice = setRound(price - (price * margin / 100), priceRoundUnit);
+                                        f.originalPrice.value = formatComma(originalPrice);
+                                    }
+                                    // 공급가 입력 경우
+                                    else if (margin == 100) {
+                                        f.price.value = 0;
+                                        f.originalPrice.value = 0;
+                                    } else {
+                                        price = setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
+                                        f.price.value = formatComma(price);
+                                    }
+                                } else { // 상품별 수수료 설정
+                                    margin = (price == 0 ? 0 : 100 - (originalPrice / price * 100));
+                                    f.margin.value = setRound(margin, 2);
+                                }
+                            } else { // 수수료 기준 경우
+                                originalPrice = setRound(price * (100 - margin) / 100, priceRoundUnit);
+                                f.originalPrice.value = formatComma(originalPrice);
+                            }
+                        }
+
+                        // 절사단위 확인
+                        function checkPriceRound(obj) {
+                            var f = document.Frm;
+
+                            if (typeof(f.cate) == 'undefined') return false;
+
+                            var value = obj.value.toNumeric();
+                            if (value != setRound(value, priceRoundUnit)) {
+                                obj.value = formatComma(setRound(value, priceRoundUnit));
+                                calcPrice(obj);
+                            }
+                        }
+                        //]]>
+                    </script>
+
+
+
+                    <script>
+                        // 이미지파일 등록시 파일이름 보이기                  
+                        document.getElementById("imgB").onchange = function() {
+                            document.getElementById("imgBurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgM").onchange = function() {
+                            document.getElementById("imgMurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgS").onchange = function() {
+                            document.getElementById("imgSurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc1").onchange = function() {
+                            document.getElementById("imgEtcurl1").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc2").onchange = function() {
+                            document.getElementById("imgEtcurl2").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("imgEtc3").onchange = function() {
+                            document.getElementById("imgEtcurl3").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                        document.getElementById("attach").onchange = function() {
+                            document.getElementById("attachurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (f.goodsDealer && isEmpty(f.goodsDealer)) {
+                                alert("상품공급업체를 선택해 주세요.");
+                                f.goodsDealer.focus();
+                                return false;
+                            }
+
+                            if (typeof(f.cate) == 'undefined') {
+                                alert("카테고리를 선택해 주세요.");
+                                f.cate_1.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.goodsName)) {
+                                alert("상품명을 입력해 주세요.");
+                                f.goodsName.focus();
+                                return false;
+                            }
+
+                            // 이미지 관련 : 시작
+                            if (!f.isImgAuto.checked) {
+                                if (f.mode.value == "REG") {
+                                    if (isEmpty(f.imgS)) {
+                                        alert("이미지를 선택해 주세요.");
+                                        f.imgS.focus();
+                                        return false;
+                                    }
+
+                                    if (isEmpty(f.imgM)) {
+                                        alert("이미지를 선택해 주세요.");
+                                        f.imgM.focus();
+                                        return false;
+                                    }
+                                }
+
+                                if (!isEmpty(f.imgS)) {
+                                    if (!checkFileExt(f.imgS, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+
+                                if (!isEmpty(f.imgM)) {
+                                    if (!checkFileExt(f.imgM, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+                            }
+
+                            if (f.mode.value == "REG") {
+                                if (isEmpty(f.imgB)) {
+                                    alert("이미지를 선택해 주세요.");
+                                    f.imgB.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (!isEmpty(f.imgB)) {
+                                if (!checkFileExt(f.imgB, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                            }
+
+                            if (typeof(f.imgEtc.length) == "undefined") {
+                                if (!isEmpty(f.imgEtc)) {
+                                    if (!checkFileExt(f.imgEtc, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                }
+                            } else {
+                                for (var i = 0; i < f.imgEtc.length; i++) {
+                                    if (!isEmpty(f.imgEtc[i])) {
+                                        if (!checkFileExt(f.imgEtc[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                    }
+                                }
+                            }
+                            // 이미지 관련 : 끝
+
+                            if (!f.quantity.disabled && f.quantity.value.toNumeric() >= '1000000'.toNumeric()) {
+                                alert("재고 수량은 1,000,000 미만으로 설정이 가능합니다.");
+                                f.quantity.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.price)) {
+                                alert("판매가격을 입력해 주세요.");
+                                f.price.focus();
+                                return false;
+                            }
+
+                            if (f.margin.value.toNumeric() < 0) {
+                                alert("수수료율을 0 이상으로 설정해 주세요.");
+                                f.margin.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.originalPrice)) {
+                                alert("공급가격을 입력해 주세요.");
+                                f.originalPrice.focus();
+                                return false;
+                            }
+
+                            if ($('input[name="cmoneyPolicy"]').length > 0) {
+                                switch (getRadio(f.cmoneyPolicy)) {
+                                    case '6':
+                                        if (f.cmoneyPercent.value.toNumeric() <= 0) {
+                                            alert("적립률을 입력해 주세요.");
+                                            f.cmoneyPercent.focus();
+                                            return false;
+                                        }
+
+                                        if (f.cmoneyPercent.value.toNumeric() > 100) {
+                                            alert("100% 이하로 입력해 주세요.");
+                                            f.cmoneyPercent.value = "100";
+                                            f.cmoneyPercent.focus();
+                                            return false;
+                                        }
+
+                                        if (!isEmpty(f.cmoneyPercent) && !checkRound(f.cmoneyPercent.value, 2)) {
+                                            alert("소수점 2자리수 이상은 불가능합니다.");
+                                            f.cmoneyPercent.focus();
+                                            return false;
+                                        }
+                                        break;
+                                    case '8':
+                                        if (f.cmoneyMoney.value.toNumeric() <= 0) {
+                                            alert("적립금을 입력해 주세요.");
+                                            f.cmoneyMoney.focus();
+                                            return false;
+                                        }
+                                        break;
+                                }
+                            }
+
+                            var checker = 0;
+                            if (f.cbNotify) {
+                                if (typeof(f.cbNotify.length) == 'undefined') {
+                                    if (!isEmpty(f.notifyName) && !isEmpty(f.notifyData)) ++checker;
+                                } else {
+                                    for (var i = 0; i < f.cbNotify.length; i++) {
+                                        if (!isEmpty(f.notifyName[i]) && !isEmpty(f.notifyData[i])) ++checker;
+                                    }
+                                }
+                            }
+                            if (checker == 0) {
+                                alert("상품정보고시를 입력해 주세요.");
+                                return false;
+                            }
+
+                            if (isEmpty(f.content)) {
+                                alert("상품의 상세정보를 입력해 주세요.");
+                                return false;
+                            }
+
+                            switch (getRadio(f.deliveryMethod)) {
+                                case '103':
+                                    if (isEmpty(f.deliveryFeeCollect)) {
+                                        alert("착불금액을 입력해 주세요.");
+                                        f.deliveryFeeCollect.focus();
+                                        return false;
+                                    }
+                                    break;
+                                case '102':
+                                    if (isEmpty(f.deliveryFeePrepay)) {
+                                        alert("선불금액을 적어주세요");
+                                        f.deliveryFeePrepay.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            if (!validOption()) return false;
+                            if (!validAddition()) return false;
+
+                            if (confirm("등록하시겠습니까?")) {
+                                for (var i = 0; i < f.linkedRelate.length; i++) {
+                                    f.linkedRelate[i].selected = true;
+                                }
+
+                                f.target = "frmProc";
+                                f.submit();
+                            }
+                        }
+
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var maxRowOpt = '10'.toNumeric();
+
+                        var cellHtmlOpts = new Array();
+
+                        cellHtmlOpts['100'] = new Array();
+                        cellHtmlOpts['100'][0] = {
+                            html: '<input type="hidden" name="optNo#OPTION_KIND#" /><input type="checkbox" name="cbOpt#OPTION_KIND#" />'
+                        };
+                        cellHtmlOpts['100'][1] = {
+                            html: '<input type="text" name="optName#OPTION_KIND#" class="text_input" maxlength="50" />'
+                        };
+                        cellHtmlOpts['100'][2] = {
+                            html: '<textarea rows="3" name="optItem#OPTION_KIND#" class="text_input"></textarea>',
+                            css: 'txt'
+                        };
+                        cellHtmlOpts['100'][3] = {
+                            html: '<span>0</span><br />자',
+                            css: 'size'
+                        };
+
+                        cellHtmlOpts['201'] = new Array();
+                        cellHtmlOpts['201'][0] = {
+                            html: '<input type="text" name="optItem#OPTION_KIND#" class="text_input" maxlength="100" />'
+                        };
+                        cellHtmlOpts['201'][1] = {
+                            html: '<input type="text" name="optPrice#OPTION_KIND#" class="text_input" onKeyUp="toCurrency(this)" />'
+                        };
+                        cellHtmlOpts['201'][2] = {
+                            html: '<input type="text" name="optQuantity#OPTION_KIND#" maxlength="7" class="text_input" onKeyUp="onlyInt(this);calcTotalQuantity();" />'
+                        };
+                        cellHtmlOpts['201'][3] = {
+                            html: '<input type="hidden" name="optSoldout#OPTION_KIND#" /><input type="checkbox" name="cbOptSoldout" onClick="checkOptionSoldout(this)" />'
+                        };
+                        cellHtmlOpts['201'][4] = {
+                            html: '<button type="button" onClick="delRowOpt(\'#OPTION_KIND#\', this);"><img src="../imgs/button/btn_minus.gif" alt="옵션항목 삭제" /></button>' +
+                                ' <button type="button" onClick="addRowOpt(\'#OPTION_KIND#\', this);"><img src="../imgs/button/btn_plus.gif" alt="옵션항목 추가" /></button>',
+                            css: 'btns'
+                        };
+
+                        function addRowOpt(kind, obj) {
+                            var $table = $('#tb_option_' + kind),
+                                $tbody = $table.children('tbody');
+                            var maxRow = ($table.attr('max') ? $table.attr('max').toNumeric() : maxRowOpt);
+
+                            if (maxRow <= $tbody.children().length) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + maxRow + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            var cellHtmls = cellHtmlOpts[kind];
+
+                            var $row = $('<tr />');
+                            for (i = 0; i < cellHtmls.length; i++) {
+                                var $cell = $('<td />').html(cellHtmls[i].html.replaceAll('#OPTION_KIND#', kind)).appendTo($row);
+                                if (cellHtmls[i].css) $cell.addClass(cellHtmls[i].css);
+                            }
+
+                            switch (kind) {
+                                case '100':
+                                    $tbody.append($row);
+                                    break;
+                                case '201':
+                                    if (obj) {
+                                        $(obj).closest('tr').after($row);
+                                    } else if ($tbody.children().length > 0) {
+                                        $tbody.children(':first-child').before($row);
+                                    } else {
+                                        $tbody.append($row);
+                                    }
+                                    break;
+                            }
+                        }
+
+                        function delRowOpt(kind, obj) {
+                            var $tbody = $('#tb_option_' + kind).children('tbody');
+
+                            if (obj) {
+                                $(obj).closest('tr').remove();
+                            } else {
+                                var $cb = $('input[name="cbOpt' + kind + '"]:checked');
+
+                                if ($cb.length <= 0) {
+                                    alert("삭제할 옵션을 선택해주세요.");
+                                    return false;
+                                }
+
+                                $cb.each(function() {
+                                    $(this).parent().parent().remove();
+                                });
+
+                                $('input[name="cbOptAll' + kind + '"]').prop('checked', false);
+                            }
+
+                            if ($tbody.children().length == 0) {
+                                addRowOpt(kind);
+                            }
+
+                            switch (kind) {
+                                case '201':
+                                    calcTotalQuantity();
+                                    break;
+                            }
+                            return false;
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkOptionKind() {
+                            var f = document.Frm;
+                            var kind = $('input[name="optionKind"]:checked', f).val();
+
+                            $('input[name="optionKind"]', f).each(function() {
+                                if (!isEmpty(this)) {
+                                    var $container = $('.option_' + this.value);
+                                    if (this.value == kind) $container.show().find(':input').prop('disabled', false);
+                                    else $container.hide().find(':input').prop('disabled', true);
+                                }
+                            });
+
+                            switch (kind) {
+                                case '201':
+                                case '202':
+                                    setRadio(f.stock, '1');
+                                    setRadioDisabled(f.stock, '0', true);
+                                    break;
+                                default:
+                                    setRadioDisabled(f.stock, '0', false);
+                                    break;
+                            }
+
+                            checkStock();
+                        }
+
+                        function checkOptionItem(obj, col, row) {
+                            var f = document.Frm;
+
+                            if (event.keyCode == 9) return;
+
+                            if (isEmpty(f.optItem1[row])) {
+                                alert("먼저 옵션항목을 입력해 주세요.");
+                                obj.value = "";
+                                f.optItem1[row].focus();
+                                return false;
+                            }
+
+                            if (col > 0) {
+                                if (isEmpty(f.optItem2[col])) {
+                                    alert("먼저 옵션항목을 입력해 주세요.");
+                                    obj.value = "";
+                                    f.optItem2[col].focus();
+                                    return false;
+                                }
+                            }
+
+                            return true;
+                        }
+
+                        function checkOptionSoldout(obj) {
+                            $(obj).parent().find('input[name^="optSoldout"]').val(obj.checked ? 1 : 0);
+                        }
+
+                        function calcTotalQuantity() {
+                            var f = document.Frm;
+                            var totalQuantity = 0;
+                            var kind = getRadio(f.optionKind);
+
+                            switch (kind) {
+                                case '201':
+                                    $('input[name="optQuantity201"]').each(function() {
+                                        totalQuantity += (isEmpty(this) ? 0 : this.value.toNumeric());
+                                    });
+                                    break;
+                                case '202':
+                                    for (var row = 0; row < 10; row++) {
+                                        for (var col = 0; col < 10; col++) {
+                                            totalQuantity += $('input[name="optQuantity_' + col + '_' + row + '"]').val().toNumeric();
+                                        }
+                                    }
+                                    break;
+                            }
+
+                            f['optTotalQuantity' + kind].value = (totalQuantity > 0 ? formatComma(totalQuantity) : '');
+                            f.quantity.value = f['optTotalQuantity' + kind].value;
+                        }
+
+                        function validOption() {
+                            var f = document.Frm;
+
+                            var optionDelimiter = 'ː';
+
+                            switch (getRadio(f.optionKind)) {
+                                case '100':
+                                    var invalid = false;
+                                    $('textarea[name="optItem100"]', f).each(function() {
+                                        var objOptName = $(this).parent().prev().children('input')[0];
+
+                                        if (isEmpty(objOptName)) {
+                                            alert("옵션명을 입력해 주세요.");
+                                            objOptName.focus();
+                                            invalid = true;
+                                            return false;
+                                        }
+
+                                        if (isEmpty(this)) {
+                                            alert("옵션항목을 입력해 주세요.");
+                                            this.focus();
+                                            invalid = true;
+                                            return false;
+                                        }
+
+                                        if (this.value.indexOf(optionDelimiter) >= 0) {
+                                            alert("\"" + optionDelimiter + "\" 문자는 옵션항목에 사용할 수 없습니다.");
+                                            this.focus();
+                                            invalid = true;
+                                            return false;
+                                        }
+
+                                        var arrValue = this.value.split(';');
+
+                                        for (var i = 0; i < arrValue.length; i++) {
+                                            var arrItem = arrValue[i].split('^');
+
+                                            if (arrItem.length > 3) {
+                                                alert("옵션항목을 정확히 입력해 주세요.\n\n예) 옵션항목,옵션항목^옵션가격,옵션항목^옵션가격^품절");
+                                                this.focus();
+                                                invalid = true;
+                                                return false;
+                                            }
+
+                                            switch (arrItem.length) {
+                                                case 3:
+                                                    if (arrItem[2] != '품절') {
+                                                        alert("각 옵션항목의 마지막자리에는 \"품절\" 정보만 입력할 수 있습니다.");
+                                                        this.focus();
+                                                        invalid = true;
+                                                        return false;
+                                                    }
+                                                case 2:
+                                                    if (arrItem[1] != '품절' && !isNumeric(arrItem[1])) {
+                                                        alert("옵션가격은 숫자만 입력이 가능합니다.");
+                                                        this.focus();
+                                                        invalid = true;
+                                                        return false;
+                                                    }
+                                                case 1:
+                                            }
+
+                                            if (i == 0 && arrItem.length > 1 && arrItem[1].toNumeric() != 0) {
+                                                alert("첫번째 옵션항목은 옵션가격을 입력하지 않거나 \"0\" 이어야 합니다. (기본값)");
+                                                this.focus();
+                                                invalid = true;
+                                                return false;
+                                            }
+
+                                            if (arrItem[0].length > 100) {
+                                                alert("옵션항목은 항목당 최대 100자까지 입력할 수 있습니다.(품절 문자 포함)");
+                                                this.focus();
+                                                invalid = true;
+                                                return false;
+                                            }
+                                        }
+                                    });
+                                    if (invalid) return false;
+                                    break;
+                                case '201':
+                                    var objOptName = f['optName201'];
+
+                                    if (isEmpty(objOptName)) {
+                                        alert("옵션명을 입력해 주세요.");
+                                        objOptName.focus();
+                                        return false;
+                                    }
+
+                                    var invalid = false;
+                                    $('input[name="optItem201"]', f).each(function() {
+                                        if (isEmpty(this)) {
+                                            alert("옵션항목을 입력해 주세요.");
+                                            this.focus();
+                                            invalid = true;
+                                            return false;
+                                        }
+                                    });
+                                    if (invalid) return false;
+                                    break;
+                                case '202':
+                                    var arrOptItem = new Array(f.optItem1, f.optItem2);
+                                    var arrMaxExistItem = new Array(-1, -1);
+
+                                    if (isEmpty(arrOptItem[0][0])) {
+                                        alert("옵션항목을 입력해 주세요.");
+                                        arrOptItem[0][0].focus();
+                                        return false;
+                                    }
+
+                                    for (var i = 0; i < 2; i++) {
+                                        for (var s = 9; s >= 0; s--) {
+                                            if (!isEmpty(arrOptItem[i][s])) {
+                                                arrMaxExistItem[i] = s;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    for (var i = 0; i < 2; i++) {
+                                        for (var s = 0; s <= arrMaxExistItem[i]; s++) {
+                                            if (isEmpty(arrOptItem[i][s])) {
+                                                alert("옵션항목을 입력해 주세요.");
+                                                arrOptItem[i][s].focus();
+                                                return false;
+                                            }
+
+                                            if (arrOptItem[i][s].value.indexOf(optionDelimiter) >= 0) {
+                                                alert("\"" + optionDelimiter + "\" 문자는 옵션항목에 사용할 수 없습니다.");
+                                                arrOptItem[i][s].focus();
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case '300':
+                                    var objOptName = f['optName300'];
+
+                                    if (isEmpty(objOptName)) {
+                                        alert("옵션내용을 입력해 주세요.");
+                                        objOptName.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            return true;
+                        }
+
+                        // $(function() {
+                        //     var MAX_SIZE = 2000;
+
+                        //     $('#tb_option_100').find('textarea').live({
+                        //         keydown: function(e) {
+                        //             if (e.which == 13) {
+                        //                 e.preventDefault();
+                        //             }
+                        //         },
+                        //         keyup: function() {
+                        //             if ($(this).val().length > MAX_SIZE) {
+                        //                 alert("옵션항목은 최대 " + MAX_SIZE + "자 까지 입력할 수 있습니다.");
+                        //                 $(this).val(function(i, val) {
+                        //                     return val.substring(0, MAX_SIZE);
+                        //                 });
+                        //             }
+                        //             $(this).parent().next().children().text($(this).val().length);
+                        //         }
+                        //     });
+
+                        //     checkOptionKind();
+                        // });
+                        //]]>
+                    </script>
+                    </body>
+
+                    </html>

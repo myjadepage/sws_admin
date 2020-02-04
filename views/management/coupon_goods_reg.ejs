@@ -1,0 +1,842 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>쿠폰관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>운영관리</li>
+                    <li>상점운영관리</li>
+                    <li class="on">쿠폰관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>상품쿠폰을 발행하고 쿠폰지급 내역을 확인할 수 있습니다.</li>
+                    <li>회원별, 상품별로 쿠폰을 부여하여 쇼핑몰이 활성화 하는데 도움을 줍니다.</li>
+                </ul>
+                <style type="text/css">
+
+                </style>
+
+
+
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode" value="REG">
+                    <input type="hidden" name="idx" value="0">
+                    <input type="hidden" name="kind" value="100">
+                    <input type="hidden" name="params" value="">
+
+                    <input type="hidden" name="issueSize" value="0">
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_form">
+                        <caption>쿠폰 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th><span class="red">*</span> 쿠폰방식</th>
+                                <td colspan="3">
+
+                                    <ul class="arrange method">
+                                        <li><input type="radio" id="method_1" name="method" value="101" checked=""><label for="method_1">상품 발급</label></li>
+                                        <li><input type="radio" id="method_2" name="method" value="102"><label for="method_2">구매보상 발급</label></li>
+                                        <li><input type="radio" id="method_3" name="method" value="103"><label for="method_3">회원선택 발급</label></li>
+                                        <li><input type="radio" id="method_5" name="method" value="201"><label for="method_5">회원가입 발급</label></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><span class="red">*</span> 쿠폰명</th>
+                                <td>
+                                    <input type="text" name="title" value="" class="text_input" style="width:97%" maxlength="50">
+                                </td>
+                                <th>간략 설명</th>
+                                <td>
+                                    <input type="text" name="summary" value="" class="text_input" style="width:97%" maxlength="100">
+                                </td>
+                            </tr>
+
+                            <tr class="method_goods" style="display: table-row;">
+                                <th><span class="red">*</span> 진행기간</th>
+                                <td colspan="3">
+                                    <input type="text" id="startDate" name="startDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10">
+                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'startDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle"> ~
+                                    <input type="text" id="endDate" name="endDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10">
+                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'endDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                                </td>
+                            </tr>
+
+                            <tr class="method_offline" style="display: none;">
+                                <th>쿠폰코드</th>
+                                <td colspan="3">
+                                    <div>
+                                        <input type="file" name="csvOffline" onkeydown="blockKey(event)" onkeypress="blockKey(event)" disabled="">
+
+                                    </div>
+
+                                    <!-- 설명 -->
+                                    <div class="mgt10"><img src="/img/icon_tip.gif"></div>
+                                    <div style="border:1px solid #ddd;padding:10px;">
+                                        <div class="hint">쿠폰코드는 쿠폰 등록시에만 올릴 수 있습니다. <span class="red">(수정불가)</span></div>
+                                        <div class="hint mgt8">아래 <span class="red">"쿠폰코드 입력양식"</span>에 맞게 쿠폰코드를 입력하신 후, <span class="red"><strong>"CSV (쉼표로 분리) (.csv)"</strong>로 저장</span>하여 업로드하시면 됩니다.</div>
+
+                                        <div class="mgt8 over_h">
+                                            <div class="hint fl">쿠폰코드 입력양식 : </div>
+                                            <div class="fl" style="margin-left:10px">
+                                                <table cellpadding="0" cellspacing="0" border="0" style="border:solid 1px #ddd;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>ABCDE1010</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ABCDE1011</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>ABCDE1012</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="hint mgt8">입력 내용 중 <span class="red">쿠폰코드 이외의 다른 문자, 공백 또는 쉼표가 있으면 안됩니다.</span> 등록 처리 중 오류가 발생할 수 있습니다.</div>
+                                    </div>
+                                    <!-- 설명 -->
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><span class="red">*</span> 사용기간</th>
+                                <td colspan="3">
+                                    <div class="over_h">
+                                        <div class="fl" style="width:130px">
+                                            <input type="radio" id="use_limit_day_t" name="isUseLimitDay" value="T" onclick="checkUseLimit()" checked=""><label for="use_limit_day_t">사용일자 설정</label>
+                                        </div>
+                                        <div class="fl">
+                                            <ul class="arrange">
+                                                <li style="padding-top:3px">발행 후</li>
+                                                <li><input type="text" id="useLimitDay" name="useLimitDay" value="" min="0" class="text_input" style="width:35px;" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"></li>
+                                                <li>
+                                                    <button type="button" adjust="+" onclick="controlNum(this, 'useLimitDay');" class="block"><img src="/img/btn_up.gif" alt="+"></button>
+                                                    <button type="button" adjust="-" onclick="controlNum(this, 'useLimitDay');" class="block"><img src="/img/btn_down.gif" alt="-"></button>
+                                                </li>
+                                                <li style="padding-top:3px">일간 사용</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="over_h mgt5">
+                                        <div class="fl" style="width:130px">
+                                            <input type="radio" id="use_limit_day_f" name="isUseLimitDay" value="F" onclick="checkUseLimit()"><label for="use_limit_day_f">사용기간 설정</label>
+                                        </div>
+                                        <div class="fl">
+                                            <input type="text" id="useStartDate" name="useStartDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10" disabled="">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'useStartDate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                            <input type="text" id="useEndDate" name="useEndDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10" disabled="">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'useEndDate', 'YYYY-MM-DD')" style="vertical-align:middle">
+                                            <span style="padding-left:20px"><input type="radio" id="use_weekend_0" name="useWeekend" value="0" checked="" disabled=""><label for="use_weekend_0">고정진행</label></span>
+                                            <input type="radio" id="use_weekend_1" name="useWeekend" value="1" disabled=""><label for="use_weekend_1">주말만 진행</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><span class="red">*</span> 할인폭</th>
+                                <td colspan="3">
+                                    <input type="text" name="discountValue" class="text_input" style="width:80px;" maxlength="10" value="" onkeyup="toNumericData(this)">
+                                    <input type="radio" name="discountUnit" value="100" checked="" onclick="checkDiscountUnit()"> 원
+                                    <input type="radio" name="discountUnit" value="200" onclick="checkDiscountUnit()"> %
+                                    <span style="padding-left:20px">최대할인금액 : </span>
+                                    <input type="text" name="maxDiscountPrice" class="text_input" style="width:80px;" value="" disabled="" onkeyup="toCurrency(this)"> 원
+                                    <span class="square_blue">0 또는 미입력시 할인금액 제한안함.</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>쿠폰사용시<br>최저/최대금액</th>
+                                <td colspan="3">
+                                    <div>
+                                        <input type="radio" id="use_limit_price_f" name="isUseLimitPrice" value="F" checked=""><label for="use_limit_price_f">제한없음</label>
+                                    </div>
+                                    <div class="mgt5">
+                                        <input type="radio" id="use_limit_price_t" name="isUseLimitPrice" value="T"><label for="use_limit_price_t">개별 상품의 주문금액<span class="font11">[(판매가＋옵션가) × 수량]</span>이
+                <input type="text" name="useLowPrice" class="text_input" style="width:70px;" value="" onkeyup="toCurrency(this)"> 원 이상
+                <input type="text" name="useHighPrice" class="text_input" style="width:70px;" value="" onkeyup="toCurrency(this)"> 원 이하
+                </label>
+                                    </div>
+                                    <div class="square_blue" style="margin:3px 0 0 17px">최소, 최대금액중 하나는 0원 이상으로 반드시 입력해야 합니다.</div>
+                                </td>
+                            </tr>
+
+                            <tr class="method_goods" style="display: table-row;">
+                                <th rowspan="2"><span class="red">*</span> 적용등급</th>
+                                <td colspan="3">
+                                    <ul class="arrange">
+                                        <li><input type="checkbox" id="member_level_0" onclick="checkCbAll(this.form.memberLevel, this.checked)"><label for="member_level_0"><strong>전체 등급</strong></label></li>
+
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="method_goods" style="display: table-row;">
+                                <td colspan="3">
+                                    <ul class="arrange">
+                                        <li class="mgr10"><input type="checkbox" id="member_level_1" name="memberLevel" value="1"><label for="member_level_1">일반회원</label></li>
+                                        <li class="mgr10"><input type="checkbox" id="member_level_4" name="memberLevel" value="4"><label for="member_level_4">코알라회원</label></li>
+                                    </ul>
+
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th><span style="color:red;">*</span> 쿠폰이미지</th>
+                                <td colspan="3">
+
+                                    <input type="file" name="imgCoupon" onkeydown="blockKey(event)" onkeypress="blockKey(event)">
+                                </td>
+                            </tr>
+
+                            <!--
+    <tr class="method_goods">
+        <th>배너이미지</th>
+        <td colspan="3">
+
+            <input type="file" name="imgBanner" onKeyDown="blockKey(event)" onKeyPress="blockKey(event)" />
+        </td>
+    </tr>
+//-->
+
+                            <tr class="method_reward" style="display: none;">
+                                <th>발급상품</th>
+                                <td colspan="3">
+                                    <select id="issueGoods" name="issueGoods" multiple="" size="5" style="width:100%;" disabled=""></select>
+                                    <div class="over_h mgt5">
+                                        <div class="fl">
+                                            <span class="button small"><button type="button" onclick="delSelect('issueGoods');">삭제</button></span>
+                                        </div>
+                                        <div class="fr">
+                                            <span class="button small"><button type="button" onclick="openSelectGoods('issueGoods');">상품선택</button></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="method_member" style="display: none;">
+                                <th>발급회원</th>
+                                <td colspan="3">
+                                    <select id="issueMember" name="issueMember" multiple="" size="5" style="width:100%;" disabled=""></select>
+
+                                    <div class="over_h mgt5">
+                                        <div class="fl">
+                                            <span class="button small"><button type="button" onclick="delSelect('issueMember');">삭제</button></span>
+                                        </div>
+                                        <div class="fr">
+                                            <select id="issue_member_selector">
+<optgroup label="- 회원별 추가 -------------------------">
+<option value="0">회원 선택</option>
+<option value="-1">전체 회원</option>
+</optgroup>
+<optgroup label="- 등급별 추가 -------------------------">
+<option value="1">일반회원 [6]</option>
+<option value="4">코알라회원 [1]</option>
+</optgroup>
+
+                    </select>
+                                            <span class="button small"><button type="button" onclick="addMember()">추가</button></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th rowspan="3">적용상품</th>
+
+                                <td colspan="3"><input type="radio" id="apply_mode_all" name="applyMode" value="100" onclick="checkApply()" checked=""><label for="apply_mode_all">전체 상품</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="over_h">
+                                        <div class="fl" style="width:180px"><input type="radio" id="apply_mode_goods" name="applyMode" value="200" onclick="checkApply()"><label for="apply_mode_goods">해당 상품</label></div>
+                                        <div class="fl" style="width:70%">
+                                            <select id="applyGoods" name="applyGoods" multiple="" size="5" style="width:100%" disabled=""></select>
+
+                                            <div class="over_h mgt5">
+                                                <div class="fl">
+                                                    <span class="button small"><button type="button" onclick="delSelect('applyGoods');">삭제</button></span>
+                                                </div>
+                                                <div class="fr">
+                                                    <span class="button small"><button type="button" onclick="openSelectGoods('applyGoods');">상품선택</button></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="over_h">
+                                        <div class="fl" style="width:180px"><input type="radio" id="apply_mode_cate" name="applyMode" value="300" onclick="checkApply()"><label for="apply_mode_cate">해당 카테고리이하 상품</label></div>
+                                        <input type="hidden" name="applyCate" value="" disabled="">
+                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_1" name="applyCate_1" head="선택" depth="1" onchange="sc.get(this)" disabled=""><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
+                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_2" name="applyCate_2" head="선택" depth="2" onchange="sc.get(this)" disabled=""><option value="">선택</option></select></div>
+                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_3" name="applyCate_3" head="선택" depth="3" onchange="sc.get(this)" disabled=""><option value="">선택</option></select></div>
+                                        <script type="text/javascript">
+                                            //<![CDATA[
+                                            var sc = new SelectCategory();
+                                            sc.init(document.Frm.applyCate);
+                                            //]]>
+                                        </script>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="method_goods" style="display: table-row;">
+                                <th>쿠폰갯수</th>
+                                <td colspan="3">
+                                    <input type="text" name="issueLimit" value="" class="text_input" style="width:70px;" maxlength="10" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> 개
+
+                                    <span class="square_blue">쿠폰 갯수를 제한하여 선착순으로 발급할 수 있습니다.</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>재발급여부</th>
+                                <td colspan="3">
+                                    <ul class="arrange">
+                                        <li><input type="checkbox" id="reissue_none" name="reissue" value="0" checked="" onclick="checkReissue(this)"><label for="reissue_none">재발급 안함</label></li>
+                                        <li class="mgl10"><input type="checkbox" id="reissue_cancel" name="reissue" value="1" onclick="checkReissue(this)"><label for="reissue_cancel">취소시 재발급</label></li>
+                                        <li class="mgl10"><input type="checkbox" id="reissue_return" name="reissue" value="2" onclick="checkReissue(this)"><label for="reissue_return">반품시 재발급</label></li>
+                                    </ul>
+                                    <ul class="mgt5">
+                                        <li class="square_blue">주문시 사용된 쿠폰에 대해서 취소/반품시 재발급 여부를 설정합니다.</li>
+                                        <li class="square_blue">사용기간이 만료된 쿠폰은 위 설정과 관계없이 재발급되지 않습니다.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>사용여부</th>
+                                <td colspan="3">
+                                    <ul class="arrange">
+                                        <li><input type="radio" id="use_t" name="isUse" value="T" checked=""><label for="use_t">사용함</label></li>
+                                        <li class="mgl10"><input type="radio" id="use_f" name="isUse" value="F"><label for="use_f">사용하지 않음</label></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/SelectCategory.js.download"></script>
+                    <script type="text/javascript" src="/js/class.js.download"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkDisabled(obj, target) {
+                            target.disabled = obj.checked;
+                        }
+
+                        function checkMethod() {
+                            var f = document.Frm;
+                            var method = getRadio(f.method);
+
+                            $('.method_goods, .method_reward, .method_member, .method_offline').hide();
+
+                            f.startDate.disabled = true;
+                            f.endDate.disabled = true;
+                            f.csvOffline.disabled = true;
+                            //f.imgBanner.disabled = true;
+                            f.issueGoods.disabled = true;
+                            f.issueMember.disabled = true;
+                            f.issueLimit.disabled = true;
+
+                            setRadioDisabledAll(f.memberLevel, true);
+
+                            switch (method) {
+                                case '101':
+                                case '102':
+                                    f.startDate.disabled = false;
+                                    f.endDate.disabled = false;
+                                    //f.imgBanner.disabled = false;
+                                    f.issueLimit.disabled = false;
+
+                                    setRadioDisabledAll(f.memberLevel, false);
+
+                                    $('.method_goods').show();
+
+                                    if (method == '102') {
+                                        f.issueGoods.disabled = false;
+
+                                        $('.method_reward').show();
+                                    }
+                                    break;
+                                case '103':
+                                    f.issueMember.disabled = false;
+
+                                    $('.method_member').show();
+                                    break;
+                                case '104':
+                                    if (f.idx.value.toNumeric() == 0) f.csvOffline.disabled = false;
+
+                                    $('.method_offline').show();
+                                    break;
+                            }
+                        }
+
+                        function checkUseLimit() {
+                            var f = document.Frm;
+
+                            f.useLimitDay.disabled = true;
+                            f.useStartDate.disabled = true;
+                            f.useEndDate.disabled = true;
+
+                            setRadioDisabledAll(f.useWeekend, true);
+
+                            if (getRadio(f.isUseLimitDay) == 'T') {
+                                f.useLimitDay.disabled = false;
+                            } else {
+                                f.useStartDate.disabled = false;
+                                f.useEndDate.disabled = false;
+
+                                setRadioDisabledAll(f.useWeekend, false);
+                            }
+                        }
+
+                        function checkApply() {
+                            var f = document.Frm;
+                            var cateDepth = "3".toNumeric();
+
+                            f.applyGoods.disabled = true;
+                            f.applyCate.disabled = true;
+                            for (var i = 1; i <= cateDepth; i++) {
+                                f['applyCate_' + i].disabled = true;
+                            }
+
+                            switch (getRadio(f.applyMode)) {
+                                case '200':
+                                    f.applyGoods.disabled = false;
+                                    break;
+                                case '300':
+                                    for (var i = 1; i <= cateDepth; i++) {
+                                        f['applyCate_' + i].disabled = false;
+                                    }
+                                    f.applyCate.disabled = false;
+                                    break;
+                            }
+                        }
+
+                        function toNumericData(obj) {
+                            var f = document.Frm;
+
+                            if (getRadio(f.discountUnit) == "200") {
+                                onlyFloat(obj);
+                            } else {
+                                toCurrency(obj);
+                            }
+                        }
+
+                        var prevDiscountUnit = "100";
+
+                        function checkDiscountUnit() {
+                            var f = document.Frm;
+                            var discountUnit = getRadio(f.discountUnit);
+
+                            if (discountUnit != prevDiscountUnit) {
+                                f.discountValue.value = "";
+                                prevDiscountUnit = discountUnit;
+                            }
+                            f.maxDiscountPrice.disabled = (discountUnit == '200' ? false : true);
+                        }
+
+                        function downCodeExcel() {
+                            var f = document.Frm;
+                            f.target = "frmProc";
+                            f.encoding = "application/x-www-form-urlencoded";
+                            f.action = "coupon_code.excel.asp";
+                            f.submit();
+                        }
+
+                        function checkReissue(obj) {
+                            var f = document.Frm;
+                            var reissue = obj.value.toNumeric();
+
+                            var checker = 0;
+                            $(f.reissue).each(function() {
+                                var value = this.value.toNumeric();
+                                if ((reissue == 0 && value > 0) || (reissue > 0 && value == 0)) {
+                                    this.checked = false;
+                                }
+                                if (this.checked) ++checker;
+                            });
+                            if (checker == 0) {
+                                $(f.reissue).eq(0).prop('checked', true);
+                            }
+                        }
+
+                        function openImage(obj) {
+                            $.laybox({
+                                type: 'image',
+                                source: obj.href
+                            });
+                        }
+
+                        function openIssueList() {
+                            var f = document.Frm;
+                            var idx = f.idx.value.toNumeric();
+
+                            if (idx > 0) {
+                                $.laybox({
+                                    type: 'iframe',
+                                    source: 'coupon_issue_list.ifrm.asp?idx=' + idx
+                                });
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function openSelectGoods(elmId) {
+                            var f = document.Frm;
+
+                            if (!f[elmId].disabled) {
+                                openPopup("../../common/select/select_goods.pop.asp?target=" + elmId, "SelectGoods", 900, 545);
+                            }
+                        }
+
+                        function takeSelectGoods(elmId, gno, cate, name) {
+                            var objSelect = $('#' + elmId)[0];
+
+                            var text = name;
+                            var value = gno.toString();
+
+                            var isExist = false;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect.options[i].value == value) isExist = true;
+                            }
+
+                            if (isExist) alert("이미 추가된 상품입니다.");
+                            else {
+                                addSelectOption(objSelect, text, value);
+                                return true;
+                            }
+                        }
+
+                        function addMember() {
+                            var $option = $('#issue_member_selector option:selected');
+                            var value = $option.val().toNumeric();
+
+                            if (value > -1 && $('#issueMember option[value="-1"]').length > 0) {
+                                alert("\"전체 회원\" 발급 경우, 회원 및 등급 추가를 할 수 없습니다.");
+                                return false;
+                            }
+
+                            switch (value) {
+                                case 0: // 회원선택
+                                    openPopup("../../common/select/select_member.pop.asp?target=issueMember", "SelectMember", 700, 670);
+                                    break;
+                                case -1: // 전체회원
+                                    $('#issueMember').children().remove().end().append(
+                                        '<option value="' + value + '" class="total">' + $option.text() + '</option>'
+                                    );
+                                    break;
+                                default: // 등급
+                                    var levelSize = $('#issueMember option.level').length;
+                                    var value = 'LV-' + value;
+                                    var text = '[등급] ' + $option.text();
+
+                                    var invalid = false;
+                                    $('#issueMember option').each(function() {
+                                        if (this.value == value) {
+                                            alert("이미 추가된 등급입니다.");
+                                            invalid = true;
+                                            return false;
+                                        }
+                                    });
+                                    if (invalid) return false;
+
+                                    if (levelSize > 0) {
+                                        $('#issueMember option:eq(' + (levelSize - 1) + ')').after(
+                                            '<option value="' + value + '" class="level">' + text + '</option>'
+                                        );
+                                    } else if ($('#issueMember option').length > 0) {
+                                        $('#issueMember option:eq(0)').before(
+                                            '<option value="' + value + '" class="level">' + text + '</option>'
+                                        );
+                                    } else {
+                                        $('#issueMember').append(
+                                            '<option value="' + value + '" class="level">' + text + '</option>'
+                                        );
+                                    }
+                                    break;
+                            }
+                        }
+
+                        function takeSelectMember(elmId, no, id, name) {
+                            var objSelect = $('#' + elmId)[0];
+
+                            var text = id + " [" + name + "]";
+                            var value = no;
+
+                            var isExist = false;
+                            for (var i = 0; i < objSelect.length; i++) {
+                                if (objSelect.options[i].value == value) isExist = true;
+                            }
+
+                            if (isExist) alert("이미 추가된 회원입니다.");
+                            else {
+                                addSelectOption(objSelect, text, value);
+                                return true;
+                            }
+                        }
+
+                        function delSelect(elmId) {
+                            var objSelect = $('#' + elmId)[0];
+
+                            for (var i = (objSelect.length - 1); i >= 0; i--) {
+                                if (objSelect[i].selected) {
+                                    removeSelectOption(objSelect, i);
+                                }
+                            }
+
+                            for (var i = 0; i < objSelect.length; i++) {
+                                objSelect[i].selected = false;
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.Frm;
+                            var method = getRadio(f.method);
+                            var discountUnit = getRadio(f.discountUnit);
+                            var applyMode = getRadio(f.applyMode);
+
+                            setSelectBox(f.issueGoods, false);
+                            setSelectBox(f.issueMember, false);
+                            setSelectBox(f.applyGoods, false);
+
+                            if (isEmpty(f.title)) {
+                                alert("쿠폰명을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            switch (method) {
+                                case '101':
+                                case '102':
+                                    if (isEmpty(f.startDate) || !isDate(f.startDate.value)) {
+                                        alert("진행기간 시작일자를 정확하게 입력해 주세요.");
+                                        f.startDate.focus();
+                                        return false;
+                                    }
+
+                                    if (isEmpty(f.endDate) || !isDate(f.endDate.value)) {
+                                        alert("진행기간 종료일자를 정확하게 입력해 주세요.");
+                                        f.endDate.focus();
+                                        return false;
+                                    }
+
+                                    if (f.startDate.value > f.endDate.value) {
+                                        alert("진행기간 시작일자가 종료일자보다 늦습니다.\n다시 입력해 주세요.");
+                                        f.startDate.focus();
+                                        return false;
+                                    }
+                                    break;
+                                case '104':
+                                    if (!f.csvOffline.disabled) {
+                                        if (isEmpty(f.csvOffline)) {
+                                            alert("쿠폰코드 CSV파일을 선택해 주세요.");
+                                            f.csvOffline.focus();
+                                            return false;
+                                        }
+
+                                        if (!checkFileExt(f.csvOffline, "csv", "CSV(.csv) 파일만 선택해 주세요.")) return false;
+                                    }
+                                    break;
+                            }
+
+                            if (getRadio(f.isUseLimitDay) == "T") {
+                                if (f.useLimitDay.value.toNumeric() < 1) {
+                                    alert("사용일자를 입력해 주세요.");
+                                    f.useLimitDay.focus();
+                                    return false;
+                                }
+                            } else {
+                                if (isEmpty(f.useStartDate) || !isDate(f.useStartDate.value)) {
+                                    alert("사용기간 시작일자를 정확하게 입력해 주세요.");
+                                    return false;
+                                }
+
+                                if (isEmpty(f.useEndDate) || !isDate(f.useEndDate.value)) {
+                                    alert("사용기간 종료일자를 정확하게 입력해 주세요.");
+                                    return false;
+                                }
+
+                                if (f.useStartDate.value > f.useEndDate.value) {
+                                    alert("사용기간 시작일자가 종료일자보다 늦습니다.\n다시 입력해 주세요.");
+                                    f.useStartDate.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (f.discountValue.value.toNumeric() <= 0) {
+                                alert("할인" + (discountUnit == '200' ? '률' : '금액') + "을 입력해 주세요.");
+                                f.discountValue.focus();
+                                return false;
+                            }
+
+                            if (discountUnit == '100' && f.discountValue.value.toNumeric() < 1) {
+                                alert("할인금액을 1원 이상으로 입력해 주세요.");
+                                f.discountValue.focus();
+                                return false;
+                            }
+
+                            if (getRadio(f.isUseLimitPrice) == "T") {
+                                if (f.useLowPrice.value.toNumeric() < 1 && f.useHighPrice.value.toNumeric() < 1) {
+                                    alert("최소금액 또는 최대금액 중 하나를 1원 이상으로 입력해 주세요.");
+                                    return false;
+                                }
+                            }
+
+                            switch (method) {
+                                case '101':
+                                case '102':
+                                    var checker = 0;
+                                    if (typeof(f.memberLevel.length) == 'undefined') {
+                                        if (f.memberLevel.checked) ++checker;
+                                    } else {
+                                        for (var i = 0; i < f.memberLevel.length; i++) {
+                                            if (f.memberLevel[i].checked) ++checker;
+                                        }
+                                    }
+                                    if (checker == 0) {
+                                        alert("적용등급을 하나 이상 선택해 주세요.");
+                                        if (typeof(f.memberLevel.length) == 'undefined') {
+                                            f.memberLevel.focus();
+                                        } else {
+                                            f.memberLevel[0].focus();
+                                        }
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            if (f.idx.value.toNumeric() == 0) {
+                                if (isEmpty(f.imgCoupon)) {
+                                    alert("쿠폰이미지를 선택해 주세요.");
+                                    f.imgCoupon.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (!isEmpty(f.imgCoupon)) {
+                                if (!checkFileName(f.imgCoupon)) return false;
+                                if (!checkFileExt(f.imgCoupon, "jpg,gif,png", "이미지(jpg, gif, png) 파일만 선택해 주세요.")) return false;
+                            }
+
+                            /*
+                            if (!f.imgBanner.disabled && !isEmpty(f.imgBanner)) {
+                                if (!checkFileName(f.imgBanner)) return false;
+                                if (!checkFileExt(f.imgBanner, "jpg,gif,png", "이미지(jpg, gif, png) 파일만 선택해 주세요.")) return false;
+                            }
+                            */
+
+                            switch (method) {
+                                case '102':
+                                    if (f.issueGoods.length == 0) {
+                                        alert("쿠폰을 발급할 상품을 선택해 주세요.");
+                                        f.issueGoods.focus();
+                                        return false;
+                                    }
+                                    break;
+                                case '103':
+                                    if ((f.issueSize.value.toNumeric() + f.issueMember.length) == 0) {
+                                        alert("쿠폰을 발급할 회원을 선택해 주세요.");
+                                        f.issueMember.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            switch (applyMode) {
+                                case '200':
+                                    if (f.applyGoods.length == 0) {
+                                        alert("쿠폰을 적용할 상품들을 선택해 주세요.");
+                                        f.applyGoods.focus();
+                                        return false;
+                                    }
+                                    break;
+                                case '300':
+                                    if (isEmpty(f.applyCate)) {
+                                        alert("쿠폰을 적용할 카테고리를 선택해 주세요.");
+                                        f.applyCate_1.focus();
+                                        return false;
+                                    }
+                                    break;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                switch (method) {
+                                    case '102':
+                                        setSelectBox(f.issueGoods, true);
+                                        break;
+                                    case '103':
+                                        setSelectBox(f.issueMember, true);
+                                        break;
+                                }
+
+                                if (applyMode == "200") {
+                                    setSelectBox(f.applyGoods, true);
+                                }
+
+                                f.target = "_self";
+                                f.encoding = "multipart/form-data";
+                                f.action = "coupon.act.asp";
+                                f.submit();
+                            }
+                        }
+
+                        function setSelectBox(obj, selected) {
+                            if (obj.tagName == "SELECT") {
+                                for (var i = 0; i < obj.length; i++) {
+                                    obj[i].selected = selected;
+                                }
+                            }
+                        }
+
+                        function cancel() {
+                            location.href = "coupon_list.asp?";
+                        }
+
+                        $(function() {
+                            $('input[name="method"]').bind('click', function() {
+                                checkMethod();
+                            });
+
+                            checkMethod();
+                            checkUseLimit();
+                            checkApply();
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

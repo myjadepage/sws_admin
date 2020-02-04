@@ -1,0 +1,76 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title%>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>전화번호 지역번호, 휴대폰 사업자번호 등 사이트에서 사용되는 어휘를 설정합니다.</li>
+                </ul>
+
+                <form name="Frm" method="post">
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 어휘 설정</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>어휘 설정 폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>어휘 분류</th>
+                                    <td>
+                                        <select id="code" name="code" class="text_input">
+                                            <option value="101" selected="">전화번호 지역번호</option>
+                                            <option value="102">휴대폰 인식번호</option>
+                                            <option value="103">이메일주소 도메인</option>
+                                            <option value="104">은행</option>
+                                            <option value="105">취소사유</option>
+                                            <option value="106">교환사유</option>
+                                            <option value="107">반품사유</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>항목 설정</th>
+                                    <td>
+                                        <ul>
+                                            <li style="float: left;">
+                                                <textarea id="words" name="words" rows="2" class="text_input">02031</textarea>
+                                            </li>
+                                            <li>
+                                                <span class="square_blue"><i class="xi-error"></i> 한줄에 한 항목씩 입력해 주세요.</span><br>
+                                                <span class="square_blue"><i class="xi-error"></i> 한 항목당 4자의 한글, 영문, 숫자를 입력 할 수 있습니다.</span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="btn_center ">
+                        <button type="button " class="btn btn-info ">확인</button>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

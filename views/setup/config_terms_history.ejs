@@ -1,0 +1,109 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>약관관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>서비스 이용정책 중 '이용약관'의 이력을 관리하실 수 있습니다.</li>
+                    <li>적용 위치 : 없음.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 총 <span><strong>3개</strong></span>의 정보가 등록되어있습니다.</h4>
+                        </div>
+
+                        <table class="t_list">
+                            <caption>이용약관 이력 리스트</caption>
+                            <colgroup>
+                                <col width="5%">
+                                <col width="35%">
+                                <col width="15%">
+                                <col width="18%">
+                                <col width="12%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <input type="checkbox" name="cbListAll">
+                                    </th>
+                                    <th>약관명 [Version]</th>
+                                    <th>등록일시</th>
+                                    <th>등록자ID</th>
+                                    <th>노출상태</th>
+                                    <th>기능</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td class="left">이용약관 [ver 4.1]</td>
+                                    <td>2019-01-29 15:58:41</td>
+                                    <td>admin</td>
+                                    <td><input type="radio" name="iscurrent" value="F"></td>
+                                    <td>
+                                        <!-- <button type="button" class="btn btn-sm btn-secondary">수정</button> -->
+                                        <a href="/setup/config_terms_history_reg" class="btn btn-sm btn-secondary">수정</a>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td class="left">이용약관 [ver 4.0]</td>
+                                    <td>2018-12-06 17:05:06</td>
+                                    <td>admin</td>
+                                    <td><input type="radio" name="iscurrent" value="F"></td>
+                                    <td>
+                                        <!-- <button type="button" class="btn btn-sm btn-secondary">수정</button> -->
+                                        <a href="/setup/config_terms_history_reg" class="btn btn-sm btn-secondary">수정</a>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td class="left">이용약관 [ver 3.6]</td>
+                                    <td>2018-12-06 16:50:47</td>
+                                    <td>admin</td>
+                                    <td>
+                                        <input type="radio" name="iscurrent" value="T" checked>
+                                    </td>
+                                    <td>
+                                        <!-- <button type="button" class="btn btn-sm btn-secondary">수정</button> -->
+                                        <a href="/setup/config_terms_history_reg" class="btn btn-sm btn-secondary">수정</a>
+                                        <button type="button" class="btn btn-sm btn-danger">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+
+                <!-- <div class="paging">
+                    <span><a href="/setup/config_terms_history?code=101"><strong>1</strong></a></span>
+                </div> -->
+
+                <div class="btn_center">
+                    <button type="button" class="btn btn-info">등록</button>
+                    <button type="button" class="btn btn-secondary">선택삭제</button>
+                </div>
+
+                <%- include('../inc/footer') %>
+                    </body>
+
+                    </html>

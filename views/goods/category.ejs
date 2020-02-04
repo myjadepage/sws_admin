@@ -1,0 +1,322 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>상품관리</li>
+                    <li>카테고리관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>카테고리를 설정합니다.</li>
+                    <li>이미지파일은 GIF, JPG로 올려주시기 바랍니다.</li>
+                </ul>
+
+                <table id="frameBox">
+                    <colgroup>
+                        <col width="250">
+                        <col width="10">
+                        <col width="*">
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <th class="frame_cate">
+                                <div class="border">
+                                    <div class="menu">
+                                        <ul>
+                                            <li><a href="" class="total">전체 펼쳐보기</a></li>
+                                            <li class="choice"><a href="">전체 닫기</a></li>
+                                        </ul>
+                                    </div>
+                                    <div id="treeBox">
+                                        <div id="category">
+                                            <ul style="list-style: outside none; margin: 0px 0px 4px 15px; padding: 0px; background: url('/img/tree_branch.gif') repeat-y;">
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px; background: none;">&nbsp;</a></li>
+                                                <li no="2" code="_2_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_2" href="javascript:;">OUTER</a><img id="hidden_2" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="14" code="_14_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_14" href="javascript:;">TOP</a><img id="hidden_14" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="15" code="_15_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_15" href="javascript:;">BOTTOM</a><img id="hidden_15" src="/img/icon_cate_show.gif" class="hidden"
+                                                        style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="7" code="_7_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_7" href="javascript:;">DRESS</a><img id="hidden_7" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="12" code="_12_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_12" href="javascript:;">ACC</a><img id="hidden_12" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="304" code="_304_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_304" href="javascript:;">SHOES</a><img id="hidden_304" src="/img/icon_cate_show.gif" class="hidden"
+                                                        style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li no="314" code="_314_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_314" href="javascript:;">BAG</a><img id="hidden_314" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
+                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
+                                                <li><img src="/img/tree_add.gif" class="node" style="vertical-align: middle;"><img src="/img/icon_cate_regist.gif" style="vertical-align: middle; cursor: pointer;"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <td></td>
+                            <td>
+
+                                <form name="Frm" method="post">
+                                    <div id="wrap_body">
+                                        <!-- 카테고리 정보 : 시작 -->
+                                        <div class="box" style="padding-top:0">
+                                            <div class="section_head" style="margin-top: 0;">
+                                                <h4><i class="xi-check-circle"></i> 카테고리 추가</h4>
+                                            </div>
+
+                                            <table class="t_form">
+                                                <caption>카테고리 내용 입력폼</caption>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>현재 카테고리</th>
+                                                        <td class="category">
+                                                            <u id="target_category">추가</u>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>카테고리명</th>
+                                                        <td>
+                                                            <input type="text" name="name" value="" class="text_input" style="width:98%" maxlength="100">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>수수료율</th>
+                                                        <td>
+                                                            <input type="text" name="cms" class="text_input" style="width:50px" value="" maxlength="5" onkeyup="onlyFloat(this)" onblur="onlyFloat(this)"> %
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>숨김 여부</th>
+                                                        <td>
+                                                            <span><input type="radio" name="hidden" value="0" checked="">노출</span>
+                                                            <span style="padding-left:10px"><input type="radio" name="hidden" value="1">숨김</span>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- 카테고리 정보 : 끝 //-->
+
+                                        <!-- 상단 꾸미기 : 시작 -->
+                                        <div class="box">
+                                            <div class="section_head">
+                                                <h4><i class="xi-check-circle"></i> 카테고리 상단 디자인</h4>
+                                            </div>
+                                            <div class="editor">
+                                                <textarea name="topDecor" style="width: 99.5%; height: 200px;" id="topDecor-placeholder"></textarea>
+                                            </div>
+
+                                            <table class="t_form">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>하위 적용</th>
+                                                        <td>
+                                                            <input type="checkbox" name="isInheritTopDecor" value="T"> 하위 카테고리에도 동일 하게 적용.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- 상단 꾸미기 : 끝 //-->
+
+                                        <!-- 카테고리 슬라이드 배너 : 시작 -->
+                                        <div class="box">
+                                            <div class="sortable_title">
+                                                <h4><i class="xi-check-circle"></i> 카테고리 슬라이드 배너</h4>
+                                                <p>
+                                                    <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                                                    <button type="button" class="btn btn-sm btn-info mgl20">배너추가</button>
+                                                    <button type="button" class="btn btn-sm btn-danger">배너삭제</button>
+                                                    <button type="button" class="btn btn-sm btn-secondary">저장</button>
+                                                </p>
+                                            </div>
+                                            <ul class="sortable sortable_banner ui-sortable">
+                                                <li>
+                                                    <input type="checkbox" name="cbBanner" value="2" class="cb">
+                                                    <div class="mover">
+                                                        <div><strong>MOVE</strong></div>
+                                                    </div>
+                                                    <div class="banner">
+                                                        <img src="/img/event_category_2_1_1.jpg" style="width: auto; height: 138px; margin-left: -33.9512px; margin-top: 0px;" alt="배너1" ow="790" oh="410">
+                                                    </div>
+                                                    <div class="caption">
+                                                        <p class="ellipsis"><span class="ellipsis">배너1</span></p>
+                                                        <div>
+                                                            <span class="button small"><button type="button" >수정</button></span>
+                                                            <span class="button small"><a href="/img/event_category_2_1_1.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <input type="checkbox" name="cbBanner" value="3" class="cb">
+                                                    <div class="mover">
+                                                        <div><strong>MOVE</strong></div>
+                                                    </div>
+                                                    <div class="banner">
+                                                        <img src="/img/event_category_2_2_1.jpg" style="width: auto; height: 138px; margin-left: -33.9512px; margin-top: 0px;" alt="배너2" ow="790" oh="410">
+                                                    </div>
+                                                    <div class="caption">
+                                                        <p class="ellipsis"><span class="ellipsis">배너2</span></p>
+                                                        <div>
+                                                            <span class="button small"><button type="button" onclick="editBanner(3)">수정</button></span>
+                                                            <span class="button small"><a href="/img/event_category_2_2_1.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+
+                                        </div>
+                                        <!-- 카테고리 슬라이드 배너 : 끝 //-->
+
+                                        <div class="box">
+                                            <div class="section_head">
+                                                <h4><i class="xi-check-circle"></i> Best 추천상품 관리</h4>
+                                            </div>
+
+                                            <table class="t_form">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>출력여부</th>
+                                                        <td>
+                                                            <input type="radio" name="areaHiddenCMA" value="0" checked="">출력
+                                                            <input type="radio" name="areaHiddenCMA" value="1">숨김
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>상품관리</th>
+                                                        <td>
+                                                            <select id="areaGoodsCMA" name="areaGoodsCMA" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
+                            
+                                        </select>
+
+                                                            <div class="over_h mgt5">
+                                                                <div class="fl">
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMA', 'UP');">▲</button></span>
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMA', 'DOWN');">▼</button></span>
+                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMA');">삭제</button></span>
+                                                                </div>
+                                                                <div class="fr">
+                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMA');">상품선택</button></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="box">
+                                            <div class="section_head">
+                                                <h4><i class="xi-check-circle"></i> New 상품 관리</h4>
+                                            </div>
+
+                                            <table class="t_form">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>출력여부</th>
+                                                        <td>
+                                                            <input type="radio" name="areaHiddenCMB" value="0" checked="">출력
+                                                            <input type="radio" name="areaHiddenCMB" value="1">숨김
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>상품관리</th>
+                                                        <td>
+                                                            <select id="areaGoodsCMB" name="areaGoodsCMB" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
+                            
+                                        </select>
+
+                                                            <div class="over_h mgt5">
+                                                                <div class="fl">
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMB', 'UP');">▲</button></span>
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMB', 'DOWN');">▼</button></span>
+                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMB');">삭제</button></span>
+                                                                </div>
+                                                                <div class="fr">
+                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMB');">상품선택</button></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="box">
+                                            <div class="section_head">
+                                                <h4><i class="xi-check-circle"></i> MD 추천상품 관리</h4>
+                                            </div>
+
+                                            <table class="t_form">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>출력여부</th>
+                                                        <td>
+                                                            <input type="radio" name="areaHiddenCMC" value="0" checked="">출력
+                                                            <input type="radio" name="areaHiddenCMC" value="1">숨김
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <th>상품관리</th>
+                                                        <td>
+                                                            <select id="areaGoodsCMC" name="areaGoodsCMC" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
+                            
+                                        </select>
+
+                                                            <div class="over_h mgt5">
+                                                                <div class="fl">
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMC', 'UP');">▲</button></span>
+                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMC', 'DOWN');">▼</button></span>
+                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMC');">삭제</button></span>
+                                                                </div>
+                                                                <div class="fr">
+                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMC');">상품선택</button></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="btn_center">
+                                            <button type="button" class="btn btn-info">확인</button>
+                                            <button type="button" class="btn btn-danger">삭제</button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <%- include('../inc/footer') %>
+
+
+
+                    </body>
+
+                    </html>

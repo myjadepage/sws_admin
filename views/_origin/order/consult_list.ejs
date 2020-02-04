@@ -1,0 +1,134 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>주문상담</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>주문/매출관리</li>
+                    <li>주문관리</li>
+                    <li class="on">주문상담</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>주문상담 관리 페이지입니다.</li>
+                </ul>
+
+                <form name="sFrm" method="get" action="/order/consult_list.asp" onsubmit="return validSearch(this)">
+
+                    <div class="section_head">
+                        <h4>총 <span><strong>13</strong></span>건이 조회 되었습니다.</h4>
+                        <div>
+                            <select id="skey" name="skey"><option value="">선택</option><option value="ordno">주문번호</option><option value="id">아이디</option><option value="name">주문자명</option><option value="tel">주문자 전화번호</option><option value="mobile">주문자 휴대폰번호</option><option value="email">주문자 이메일</option><option value="goods">상품명</option></select>
+
+                            <input type="text" name="sword" value="" class="text_input" style="width:200px">
+                            <span class="button small black"><button type="submit">검색</button></span>
+                        </div>
+                    </div>
+                </form>
+
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list">
+                    <caption>주문상담 리스트</caption>
+                    <colgroup>
+                        <col width="120">
+                        <col width="80">
+                        <col width="80">
+                        <col width="120">
+                        <col width="*">
+                        <col width="20%">
+                        <col width="130">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>등급</th>
+                            <th>이름</th>
+                            <th>휴대폰번호</th>
+                            <th>주소</th>
+                            <th>최근주문상품</th>
+                            <th>주문일자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr onclick="detail(75, 0)" style="cursor:pointer">
+                            <td>whtjsgks</td>
+                            <td>일반회원</td>
+                            <td>조선한</td>
+                            <td>010-5109-4248</td>
+                            <td class="left">서울 강서구 양천로 520 202 (등촌동, 강변샤르망1단지)</td>
+                            <td class="left">-</td>
+                            <td>-</td>
+                        </tr>
+
+                        <tr onclick="detail(0, 284)" style="cursor:pointer">
+                            <td>guest</td>
+                            <td>비회원</td>
+                            <td>김기동</td>
+                            <td>010-4200-5322</td>
+                            <td class="left"></td>
+                            <td class="left">[NCGN] Sports Goggle</td>
+                            <td>2019-10-17 11:01:03</td>
+                        </tr>
+
+                        <tr onclick="detail(0, 283)" style="cursor:pointer">
+                            <td>guest</td>
+                            <td>비회원</td>
+                            <td>김기동</td>
+                            <td>010-4200-5322</td>
+                            <td class="left"></td>
+                            <td class="left">[NCGN] FLAT TRACK GREASER TEE</td>
+                            <td>2019-10-17 10:53:46</td>
+                        </tr>
+
+                        <tr onclick="detail(74, 0)" style="cursor:pointer">
+                            <td>dlgkswn222</td>
+                            <td>일반회원</td>
+                            <td>이한주</td>
+                            <td>010-3451-3158</td>
+                            <td class="left">서울 서대문구 가좌로2길 60 (홍은동, 코오롱빌라)</td>
+                            <td class="left">-</td>
+                            <td>-</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+                <div class="paging">
+                    <span><a href="/order/consult_list?page=1&skey=&sword="><strong>1</strong></a></span>
+                </div>
+
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSearch(f) {
+                            if (isEmpty(f.skey)) {
+                                alert("검색 영역을 선택해 주세요.");
+                                f.skey.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.sword)) {
+                                alert("검색어를 입력해 주세요.");
+                                f.sword.focus();
+                                return false;
+                            }
+                        }
+
+                        function detail(userNo, orderIdx) {
+                            location.href = "consult_detail?userNo=" + userNo + "&orderIdx=" + orderIdx + "&params=skey=^sword=^page=";
+                        }
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>

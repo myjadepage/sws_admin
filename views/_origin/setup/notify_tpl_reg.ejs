@@ -1,0 +1,259 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>상품정보고시관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li>상품정보고시관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>공정거래위원회에서 공시한 상품별 정보제공 항목을 설정합니다.</li>
+                    <li>등록한 상품정보고시 상품군은 상품등록시 사용할 수 있습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+
+                    <input type="hidden" name="mode" value="EDIT">
+                    <input type="hidden" name="idx" value="1">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>상품정보고시관리</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>상품정보 고시 사용여부</caption>
+                            <colgroup>
+                                <col width="170">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="fl">
+                                            <div><a href="http://www.ftc.go.kr/policy/legi/legiView.jsp?lgslt_noti_no=112" target="blank"><span class="red">※ 공정거래위원회에서 공고한 전자상거래법 상품정보제공 고시에 관한 내용을 필독해 주세요!</span></a></div>
+                                            <div class="mgt5 mgl15 light_gray">전자상거래법에 의거하여 판매상품의 필수(상세)정보 등록이 필요합니다.<br>등록된 정보는 쇼핑몰 상품상세페이지에 상품기본정보 아래에 표형태로 출력되어 보여집니다.</div>
+                                        </div>
+                                        <div class="fr mgt20">
+                                            <a href="http://java.mysql.mallstore.co.kr/data/base/Download/information/commodity_guide.zip" class="btn btn-sm btn-dark">품목별 상품고시</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품군</th>
+                                    <td>
+                                        <input type="text" name="title" value="의류" maxlength="100" class="text_input">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>사용여부</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><input type="radio" name="isUse" value="T"></dt>
+                                            <dd class="mr10">예</dd>
+                                            <dt><input type="radio" name="isUse" value="F" checked=""></dt>
+                                            <dd>아니오</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>상품정보고시 항목</h4>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="addRow()">추가</button>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="delRow()">삭제</button>
+                            </div>
+                        </div>
+
+                        <table id="tbNotify" class="t_list">
+                            <caption>상품정보고시 항목 입력폼</caption>
+                            <colgroup>
+                                <col width="50">
+                                <col width="50">
+                                <col width="200">
+                                <col width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th><input type="checkbox" name="cbAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                    <th>항목</th>
+                                    <th>내용</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span>1</span></td>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td><input type="text" name="notifyName" value="소재" class="text_input" style="width:90%" maxlength="100"></td>
+                                    <td><textarea name="notifyData" rows="3" class="text_input" style="width:90%" onkeyup="checkTextLen(this, 2000)">111</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><span>2</span></td>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td><input type="text" name="notifyName" value="색상" class="text_input" style="width:90%" maxlength="100"></td>
+                                    <td><textarea name="notifyData" rows="3" class="text_input" style="width:90%" onkeyup="checkTextLen(this, 2000)">333</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><span>3</span></td>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td><input type="text" name="notifyName" value="제조사" class="text_input" style="width:90%" maxlength="100"></td>
+                                    <td><textarea name="notifyData" rows="3" class="text_input" style="width:90%" onkeyup="checkTextLen(this, 2000)"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td><span>4</span></td>
+                                    <td><input type="checkbox" name="cbList"></td>
+                                    <td><input type="text" name="notifyName" value="세탁방법 및 취급시 주의사항" class="text_input" style="width:90%" maxlength="100"></td>
+                                    <td><textarea name="notifyData" rows="3" class="text_input" style="width:90%" onkeyup="checkTextLen(this, 2000)"></textarea></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+
+
+                <div class="btn_center">
+                    <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button>
+                    <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        // 테이블 Row 추가/삭제
+                        var cellHtmls = new Array();
+                        cellHtmls[0] = '<span></span>';
+                        cellHtmls[1] = '<input type="checkbox" name="cbList" />';
+                        cellHtmls[2] = '<input type="text" name="notifyName" class="text_input" style="width:90%" maxlength="100" />';
+                        cellHtmls[3] = '<textarea name="notifyData" rows="3" class="text_input" style="width:90%" onKeyUp="checkTextLen(this, 2000)"></textarea>';
+
+                        function addRow() {
+                            var objTb = document.getElementById('tbNotify');
+                            var rowSize = objTb.rows.length;
+                            var objRow = objTb.insertRow(rowSize);
+                            objRow.bgColor = "#FFFFFF"
+                            objRow.align = "center"
+
+                            for (i = 0; i < cellHtmls.length; i++) {
+                                var objCell = objRow.insertCell(i);
+                                objCell.innerHTML = cellHtmls[i];
+                            }
+
+                            numbering();
+                        }
+
+                        function delRow() {
+                            var f = document.Frm;
+                            var objTb = document.getElementById('tbNotify');
+                            var objCb = f.cbList;
+
+                            if (typeof(objCb) == "undefined") return false;
+                            var cbLen = objCb.length;
+
+                            var checker = 0;
+                            if (typeof(objCb.length) == "undefined") {
+                                if (objCb.checked) ++checker;
+                            } else {
+                                for (var i = 0; i < cbLen; i++) {
+                                    if (objCb[i].checked) ++checker;
+                                }
+                            }
+
+                            if (checker <= 0) {
+                                alert("삭제할 항목을 선택해주세요.");
+                                return;
+                            }
+
+                            if (typeof(objCb.length) == "undefined") {
+                                if (objCb.checked) {
+                                    objTb.deleteRow(1);
+                                }
+                            } else {
+                                for (i = cbLen - 1; i > -1; i--) {
+                                    if (objCb[i].checked) {
+                                        objTb.deleteRow(i + 1);
+                                    }
+                                }
+                            }
+
+                            numbering();
+
+                            if (objCb.length == 0) {
+                                addRow();
+                            }
+                        }
+
+                        function numbering() {
+                            var no = 1;
+                            var spans = document.getElementById('tbNotify').getElementsByTagName('span');
+
+                            for (var i = 0; i < spans.length; i++) {
+                                spans[i].innerHTML = no;
+                                ++no;
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function cancel() {
+                            history.back();
+                        }
+
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (isEmpty(f.title)) {
+                                alert("상품군을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            var notifys = 0;
+                            if (f.cbList) {
+                                if (typeof(f.cbList.length) == 'undefined') {
+                                    // 			if (!isEmpty(f.notifyName) && !isEmpty(f.notifyData)) {
+                                    if (!isEmpty(f.notifyName)) {
+                                        ++notifys;
+                                    }
+                                } else {
+                                    for (var i = 0; i < f.cbList.length; i++) {
+                                        // 				if (!isEmpty(f.notifyName[i]) && !isEmpty(f.notifyData[i])) {
+                                        if (!isEmpty(f.notifyName[i])) {
+                                            ++notifys;
+                                        }
+                                    }
+                                }
+                            }
+                            if (notifys == 0) {
+                                alert("상품정보고시 항목을 입력해 주세요.");
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.action = "notify_tpl_act";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

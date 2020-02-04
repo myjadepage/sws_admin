@@ -1,0 +1,117 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>결제정보관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>
+                        <%= title %>를 설정 관리합니다.</li>
+                </ul>
+
+                <form name="Frm" method="post">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> PAYCO 사용여부</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>PAYCO 사용여부</caption>
+                            <tbody>
+                                <tr>
+                                    <th>PAYCO 사용여부</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="checkbox" name="usePayway" value="64" checked></span></dt>
+                                            <dd>PAYCO를 사용합니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="divPaycoArea">
+
+                        <!-- 결제 설정 -->
+                        <div class="box">
+                            <div class="section_head">
+                                <h4><i class="xi-check-circle"></i> 결제 설정</h4>
+                            </div>
+                            <span id="pg_container">
+                                <table class="t_form">
+                                    <caption>PAYCO 결제 설정 입력폼</caption>
+                                    <tbody>
+                                        <tr>
+                                            <th>상점ID</th>
+                                            <td>
+                                                <input type="text" name="merchantId" class="text_input" style="width:200px; font-weight:bold;" maxlength="40" value="PARTNERTEST">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상점키</th>
+                                            <td>
+                                                <input type="text" name="merchantKey" class="text_input" style="width:99%" maxlength="100" value="S0FSJE">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상품ID</th>
+                                            <td>
+                                                <input type="text" name="productId" class="text_input" style="width:99%" maxlength="100" value="PROD_EASY">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>부가세 설정</th>
+                                            <td>
+                                                <span>
+                                                    <input type="radio" id="allow_tax_free_F" name="isAllowTaxFreeForPayco" value="F"><label for="allow_tax_free_F">과세만 가능</label>
+                                                </span>
+                            <span class="mgl20">
+                                                    <input type="radio" id="allow_tax_free_T" name="isAllowTaxFreeForPayco" value="T" checked=""><label for="allow_tax_free_T">과세+면세 가능</label>
+                                                </span>
+                            <span class="square_blue"><i class="xi-error"></i> (반드시 선택하신 PG사와 계약 후에 사용해야 합니다.)</span>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th><input type="hidden" name="feePayway" value="64">결제 수수료</th>
+                                <td>
+                                    <input name="payFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6"> %
+                                    <input type="hidden" name="payFeeUnit" value="200">
+                                </td>
+                            </tr>
+
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--// 결제 설정 -->
+
+            </div>
+
+            <div class="btn_center">
+                <button type="button" class="btn btn-info">확인</button>
+            </div>
+
+            </form>
+
+
+
+
+
+            <%- include('../inc/footer') %>
+
+                </body>
+
+                </html>

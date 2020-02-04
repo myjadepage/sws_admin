@@ -1,0 +1,385 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>상단부분관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>전체디자인</li>
+                    <li>상단부분관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>상단 부분의 디자인 변경 및 아이콘, 로고 변경등을 하실 수 있습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode" value="">
+                    <input type="hidden" name="method" value="prog">
+
+
+
+                    <!-- # 프로그램 : 시작 ###################################################################### -->
+                    <div id="tb_prog">
+                        <div class="box">
+                            <div class="sortable_title">
+                                <h4>상단 로고<span>(최대 1개)</span></h4>
+                                <p>
+                                    <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택 </span>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="addBanner(this)">배너추가</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeBanner(this)">배너삭제</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="saveBanner(this)"> 저장</button>
+                                </p>
+                            </div>
+                            <ul class="sortable sortable_banner ui-sortable" area="T01" main="0" child="0" max="1">
+                                <li>
+                                    <input type="checkbox" name="cbBanner" value="1395" class="cb">
+                                    <div class="mover">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner">
+                                        <img src="/img/bd8ba18cdd6d40a79672b5b094ec288d.png" style="margin-left: -4.5px; margin-top: 54px;" alt="상단로고" ow="207" oh="30"></div>
+                                    <div class="caption">
+                                        <p class="ellipsis"><span class="ellipsis">상단로고</span></p>
+                                        <div>
+                                            <span class="button small"><button type="button" onclick="editBanner(1395)">수정</button></span>
+                                            <span class="button small"><a href="/img/bd8ba18cdd6d40a79672b5b094ec288d.png" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="box">
+                            <div class="sortable_title">
+                                <h4>상단 광고<span>(최대 1개)</span></h4>
+                                <p>
+                                    <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="addBanner(this)">배너추가</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeBanner(this)">배너삭제</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="saveBanner(this)"> 저장</button>
+                                </p>
+                            </div>
+                            <ul class="sortable sortable_banner ui-sortable" area="T02" main="0" child="0" max="1">
+                                <li>
+                                    <input type="checkbox" name="cbBanner" value="1396" class="cb">
+                                    <div class="mover">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner">
+                                        <img src="/img/1ed584a473b84a01bf99536df8621d86.jpg" style="margin-left: -861px; margin-top: 26.5px;" alt="상단광고" ow="1920" oh="85"></div>
+                                    <div class="caption">
+                                        <p class="ellipsis"><span class="ellipsis">상단광고</span></p>
+                                        <div>
+                                            <span class="button small"><button type="button" onclick="editBanner(1396)">수정</button></span>
+                                            <span class="button small"><a href="/img/1ed584a473b84a01bf99536df8621d86.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="box">
+                            <div class="sortable_title">
+                                <h4>상단 배너01</h4>
+                                <p>
+                                    <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="addBanner(this)">배너추가</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeBanner(this)">배너삭제</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="saveBanner(this)"> 저장</button>
+                                </p>
+                            </div>
+                            <ul class="sortable sortable_banner ui-sortable" area="T04" main="0" child="0" max="-1">
+                                <li>
+                                    <input type="checkbox" name="cbBanner" value="1404" class="cb">
+                                    <div class="mover">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner">
+                                        <img src="/img/d49498db35174cbb9655db477a65bb73.jpg" style="margin-left: -29px; margin-top: 24px;" alt="상단배너" ow="256" oh="90"></div>
+                                    <div class="caption">
+                                        <p class="ellipsis"><span class="ellipsis">상단배너</span></p>
+                                        <div>
+                                            <span class="button small"><button type="button" onclick="editBanner(1404)">수정</button></span>
+                                            <span class="button small"><a href="/img/d49498db35174cbb9655db477a65bb73.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="cbBanner" value="1405" class="cb">
+                                    <div class="mover">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner">
+                                        <img src="/img/88dadd70d97c4e2abbe0634ec0ea02c0.jpg" style="margin-left: -29px; margin-top: 24px;" alt="상단배너2" ow="256" oh="90"></div>
+                                    <div class="caption">
+                                        <p class="ellipsis"><span class="ellipsis">상단배너2</span></p>
+                                        <div>
+                                            <span class="button small"><button type="button" onclick="editBanner(1405)">수정</button></span>
+                                            <span class="button small"><a href="/img/88dadd70d97c4e2abbe0634ec0ea02c0.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- # 프로그램 : 끝 ###################################################################### -->
+
+                </form>
+
+                <form name="FrmPreview" method="post" target="_blank" action="/main_prog">
+                    <input type="hidden" name="x_preview_topper">
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/jquery-ui-1.10.3.min.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var tmpId = '';
+
+                        function cbBannerAll(obj) {
+                            $(obj).parents('div').first().next().find('input:checkbox[name="cbBanner"]').each(function() {
+                                this.checked = obj.checked;
+                            });
+                        }
+
+                        function addBanner(obj) {
+                            var $ul = $(obj).parents('div').first().next();
+                            var area = $ul.attr('area');
+                            var main = $ul.attr('main').toNumeric();
+                            var child = $ul.attr('child').toNumeric();
+                            var max = $ul.attr('max').toNumeric();
+
+                            if (max > 0 && max <= $ul.children().length) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + max + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            $.laybox({
+                                type: 'iframe',
+                                source: '../design/banner_reg_ifrm?akind=TOP&area=' + area + (main ? '&main=' + main : '') + (child ? '&child=' + child : '') + (tmpId ? '&tmpId=' + tmpId : '')
+                            });
+                        }
+
+                        function editBanner(idx) {
+                            $.laybox({
+                                type: 'iframe',
+                                source: '../design/banner_reg_ifrm?akind=TOP&idx=' + idx + (tmpId ? '&tmpId=' + tmpId : '')
+                            });
+                        }
+
+                        function removeBanner(obj) {
+                            $(obj).parents('div').first().next().find('input:checkbox[name="cbBanner"]:checked').each(function() {
+                                $(this).parent().remove();
+                            });
+                        }
+
+                        function getBannerItem(idx, area, main, child, tmp) {
+                            var $ul = $('ul[area="' + area + '"][main="' + main + '"][child="' + child + '"]');
+                            if ($ul.length) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "../design/banner_item_ajax",
+                                    data: {
+                                        idx: idx,
+                                        tmpId: tmp
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        var $input = $('input:checkbox[name="cbBanner"][value="' + idx + '"]');
+                                        var $li = ($input.length ? $input.parent() : $('<li />').appendTo($ul));
+                                        $li.empty().html(data);
+
+                                        $('.banner', $li).adjustImage({
+                                            type: 'both-min',
+                                            parent: '.banner'
+                                        });
+                                        $('.original', $li).laybox();
+
+                                        $.laybox.close();
+                                    }
+                                });
+                            }
+                        }
+
+                        function saveBanner(obj) {
+                            var $ul = $(obj).parents('div').first().next();
+                            var banner = '0';
+
+                            $ul.find('input:checkbox[name="cbBanner"]').each(function() {
+                                banner += ',' + this.value;
+                            });
+
+                            if (confirm("설정 내역으로 저장하시겠습니까?")) {
+                                var params = {
+                                    mode: 'SAVE',
+                                    akind: 'TOP',
+                                    area: $ul.attr('area'),
+                                    main: $ul.attr('main'),
+                                    child: $ul.attr('child'),
+                                    idx: banner,
+                                    tmpId: tmpId
+                                };
+
+                                $('#FrmBanner').remove();
+
+                                var $form = $('<form id="FrmBanner" />').attr({
+                                    method: 'post',
+                                    action: '../design/banner_act',
+                                    target: 'frmProc',
+                                    enctype: 'multipart/form-data'
+                                }).appendTo('body');
+
+                                $.each(params, function(key) {
+                                    $('<input type="hidden" name="' + key + '" />').val(this).appendTo($form);
+                                });
+                                $form.submit();
+                            }
+                        }
+
+                        function previewMain() {
+                            window.open('http://java.mysql.mallstore.co.kr/main/index?areaCode=T04&preview=', "", "");
+                        }
+
+                        function realSaveBanner() {
+                            if (confirm("설정 내역으로 저장하시겠습니까?")) {
+                                var params = {
+                                    mode: 'REALSAVE',
+                                    akind: 'TOP',
+                                    area: 'T04',
+                                    main: '0',
+                                    tmpId: tmpId
+                                };
+
+                                $('#FrmBanner').remove();
+
+                                var $form = $('<form id="FrmBanner" />').attr({
+                                    method: 'post',
+                                    action: '../design/banner_act',
+                                    target: 'frmProc',
+                                    enctype: 'multipart/form-data'
+                                }).appendTo('body');
+
+                                $.each(params, function(key) {
+                                    $('<input type="hidden" name="' + key + '" />').val(this).appendTo($form);
+                                });
+                                $form.submit();
+                            }
+                        }
+
+                        function cancelBanner() {
+                            var params = {
+                                mode: 'CANCEL',
+                                akind: 'TOP',
+                                area: 'T04',
+                                main: '0',
+                                tmpId: tmpId
+                            };
+
+                            $('#FrmBanner').remove();
+
+                            var $form = $('<form id="FrmBanner" />').attr({
+                                method: 'post',
+                                action: '../design/banner_act',
+                                target: 'frmProc',
+                                enctype: 'multipart/form-data'
+                            }).appendTo('body');
+
+                            $.each(params, function(key) {
+                                $('<input type="hidden" name="' + key + '" />').val(this).appendTo($form);
+                            });
+                            $form.submit();
+                        }
+
+                        $(function() {
+                            $('.sortable_banner').sortable({
+                                handle: '.mover',
+                                opacity: 0.7
+                            }).disableSelection();
+                            $('.banner', '.sortable').adjustImage({
+                                type: 'both-min',
+                                parent: '.banner'
+                            });
+                            $('.original', '.sortable').laybox();
+                        });
+                        //]]>
+                    </script>
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkEditMethod(obj) {
+                            var f = document.Frm;
+                            var method;
+
+                            if (typeof(obj) == 'undefined') {
+                                method = f.method.value;
+                            } else {
+                                method = obj.getAttribute('method');
+                                f.method.value = method;
+                            }
+
+                            if (typeof(obj) != 'undefined') {
+                                $(obj).parent().siblings().removeClass('on');
+                                $(obj).parent().addClass('on');
+                            }
+
+                            $('#tb_html').css('display', 'none');
+                            $('#tb_prog').css('display', 'none');
+                            $('#tb_' + method).css('display', 'block');
+                        }
+
+                        function saveMethod() {
+                            var f = document.Frm;
+
+                            if (confirm((f.method.value == "prog" ? "프로그램" : "HTML") + " 설정으로 저장하시겠습니까?")) {
+                                f.mode.value = "METHOD";
+                                f.action = "topper_act";
+                                f.submit();
+                            }
+                        }
+
+                        function openPreview() {
+                            var f = document.Frm;
+                            var fp = document.FrmPreview;
+
+                            if (isEmpty(f.htmlContent)) {
+                                alert("내용을 입력해 주세요.");
+                                return false;
+                            }
+
+                            fp.x_preview_topper.value = f.htmlContent.value;
+                            fp.submit();
+                        }
+
+                        function saveHtml() {
+                            var f = document.Frm;
+
+                            if (isEmpty(f.htmlContent)) {
+                                alert("내용을 입력해 주세요.");
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.mode.value = "HTML";
+                                f.action = "topper_act.do";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

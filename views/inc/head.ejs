@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>쉘위샵 관리자사이트</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <link href="/css/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/css/board.css">
+
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="header">
+            <div id="admininfo">
+                <ul>
+                    <li class="admin"><strong>관리자님</strong> 안녕하세요! <i class="xi-calendar"></i> 오늘 : 2020.01.22</li>
+                    <li class="s_menu">
+                        <a href="/" class="btn btn-sm  btn-outline-dark" target="_top" title="관리자홈"><i class="xi-home"></i></a></span>
+                        <a href="#" class="btn btn-sm  btn-outline-dark" target="_blank" title="쇼핑몰홈"><i class="xi-shop"></i></a></span>
+                        <a href="logout" class="btn btn-sm  btn-outline-dark" target="_top" title="로그아웃"><i class="xi-log-out"></i></a></span>
+                    </li>
+                </ul>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li class="logo_home"><a href="/"><i class="xi-heart"></i> SWS ADMIN</a></li>
+                    <li class="<%= path === '/setup/' ? 'active' : '' %>"><a href="/setup/">환경설정</a></li>
+                    <li class="<%= path === '/design/' ? 'active' : '' %>"><a href="/design/">디자인관리</a></li>
+                    <li class="<%= path === '/goods/' ? 'active' : '' %>"><a href="/goods/">상품관리</a></li>
+                    <li class="<%= path === '/order/' ? 'active' : '' %>"><a href="/order/">주문/매출관리</a></li>
+                    <li class="<%= path === '/management/' ? 'active'  : '' %>"><a href="/management/">운영관리</a></li>
+                    <li class="<%= path === '/member/' ? 'active'  : '' %>"><a href="/member/">회원관리</a></li>
+                    <li class="<%= path === '/statistics/' ? 'active'  : '' %>"><a href="/statistics/">통계/분석</a></li>
+                    <li class="<%= path === '/mim/' ? 'active'  : '' %>"><a href="/mim/">입점업체관리</a></li>
+                    <li class="<%= path === '/account/' ? 'active'  : '' %>"><a href="/account/">정산관리</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--header-->

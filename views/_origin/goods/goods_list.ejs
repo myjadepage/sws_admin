@@ -1,0 +1,494 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>상품목록</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>상품관리</li>
+                    <li>상품관리</li>
+                    <li class="on">상품목록</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>등록하신 상품들을 수정/관리 하실 수 있습니다.</li>
+                    <li>[상품영역]을 클릭하시면 영역별로 상품들을 보실 수 있습니다.</li>
+                    <li>서브메인 영역에 상품을 올릴시려면 상품관리에서 제일 마지막 카테고리분류(소분류)를 클릭하시면 됩니다.</li>
+                    <li>[상품진열]버튼을 클릭하시면 상품을 숨길수 있으며 [진열안함]버튼을 클릭하시면 상품을 전시하실수 있습니다.</li>
+                    <li>[상품영역]중 서브메인과 중간영역은 카테고리 지정시에만 가능합니다.</li>
+                </ul>
+
+
+                <!-- 검색 폼 : 시작 ###################################################################### -->
+                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
+                    <input type="hidden" name="saream" value="">
+                    <input type="hidden" name="sareas" value="">
+                    <input type="hidden" name="psort" value="sort_desc">
+                    <input type="hidden" name="psize" value="10">
+
+                    <div class="box">
+                        <table class="t_form">
+                            <caption>상품 검색 폼</caption>
+
+                            <tbody>
+                                <tr>
+                                    <th>상품분류</th>
+                                    <td>
+                                        <input type="hidden" name="scate" value="">
+                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
+                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select></div>
+                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select></div>
+                                        <script type="text/javascript">
+                                            //<![CDATA[
+                                            var sc = new SelectCategory();
+                                            sc.init(document.sFrm.scate);
+                                            //]]>
+                                        </script>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품영역</th>
+                                    <td style="padding:0;">
+                                        <table class="t_form" style="border:none 0">
+                                            <tbody>
+                                                <tr>
+                                                    <th>메인</th>
+                                                    <td style="border-top:0 none;">
+                                                        <ul class="arrange">
+                                                            <li class="mr10"><input type="checkbox" name="caream" value="30">md추천</li>
+                                                            <li class="mr10"><input type="checkbox" name="caream" value="32">best추천</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border:0 none;border-right:solid 1px #ddd">서브</th>
+                                                    <td style="border:0 none;">
+                                                        <ul class="arrange">
+                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMA">대분류 Best Seller</li>
+                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMB">대분류 New Item</li>
+                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMC">대분류 MD Choice</li>
+                                                            <li class="mr10"><input type="checkbox" name="careas" value="CSA">중분류 Top Best</li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>그룹별</th>
+                                    <td>
+                                        <select id="sbrand" name="sbrand" class="text_input" onchange="change();">
+                                        <option value="">브랜드</option>
+                                        <option value="8">Baby Banz</option>
+                                        <option value="9">BARREL</option>
+                                        <option value="4">FRED PERRY</option>
+                                        <option value="12">MUJI</option>
+                                        <option value="10">PLAC</option>
+                                        <option value="17">PLASTIC ISLAND</option>
+                                        <option value="7">PLATFORM</option>
+                                        <option value="1">SAINT JAMES</option>
+                                        <option value="16">UNIQLO</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품등록일</th>
+                                    <td>
+                                        <div>
+                                            <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts ', 'YYYY-MM-DD ')" style="vertical-align:middle"> ~
+                                            <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte ', 'YYYY-MM-DD ')" style="vertical-align:middle">
+                                            <span class="blue">직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.</span>
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ')">전체</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 't ')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 't ', -1)">어제</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -30)">30일간</button></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품판매자</th>
+                                    <td>
+                                        <select id="sdealer" name="sdealer" class="text_input" onchange="change();"><option value="">선택하세요</option><option value="-1">몰인몰</option><option value="8">내친구몰 [dealers]</option></select>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>재고여부</th>
+                                    <td>
+                                        <input type="radio" name="sstock" value="0" checked>전체상품
+                                        <input type="radio" name="sstock" value="1">재고 무제한
+                                        <input type="radio" name="sstock" value="2">재고있는 상품(무제한 제외)
+                                        <input type="radio" name="sstock" value="3">재고가 실제 0인 상품
+                                        <input type="radio" name="sstock" value="4">품절로 선택된 상품
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>진열여부</th>
+                                    <td>
+                                        <input type="radio" name="sdisplay" value="0" checked>전체상품
+                                        <input type="radio" name="sdisplay" value="1">진열되어 있는 상품
+                                        <input type="radio" name="sdisplay" value="2">진열 안되어있는 상품
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>상품가격</th>
+                                    <td>
+                                        <input type="text" name="ssprice" value="" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
+                                        <input type="text" name="seprice" value="" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>직접검색</th>
+                                    <td>
+                                        <select id="skey" name="skey" class="text_input">
+                                        <option value="name">상품명</option>
+                                        <option value="code">상품코드</option>
+                                    </select>
+                                        <input type="text" name="sword" value="" class="text_input">
+                                        <button class="btn btn-sm btn-secondary" type="submit">검색</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </form>
+                <!-- 검색 폼 : 끝 ###################################################################### -->
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="gno">
+                    <input type="hidden" name="cate" value="0">
+
+                    <input type="hidden" name="price">
+                    <input type="hidden" name="margin">
+                    <input type="hidden" name="originalPrice">
+                    <input type="hidden" name="marketPrice">
+                    <input type="hidden" name="quantity">
+
+                    <input type="hidden" name="params" value="scate=0^saream=^sareas=^sbrand=0^sdts=^sdte=^sdealer=0^sstock=0^sdisplay=0^ssprice=^seprice=^skey=^sword=^psort=sort_desc^psize=10^page=">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>
+                                총 <span style="color:#ff0000">62</span>개의 상품이 검색되었습니다.
+
+                            </h4>
+                            <div>
+                                <select id="psize" name="psize" onchange="changeList();"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
+                                <select id="psort" name="psort" onchange="changeList();"><option value="sort_desc" selected="">기본정렬</option><option value="name_asc">상품명순</option><option value="no_desc">신상품순</option><option value="hits_desc">인기도순</option><option value="price_desc">고가격순</option><option value="price_asc">저가격순</option></select>
+
+                            </div>
+                        </div>
+
+                        <table class="t_list">
+                            <caption>상품 리스트</caption>
+                            <colgroup>
+                                <col width="30">
+                                <col width="200">
+                                <col width="*">
+                                <col width="300">
+                                <col width="200">
+                                <col width="250">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                    <th>고유번호</th>
+                                    <th>상품명 / 카테고리 / 공급업체</th>
+                                    <th>판매가 / 시중가 / 공급가</th>
+                                    <th>조회수 / 판매수량 / 재고</th>
+                                    <th>기능</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="243"></td>
+                                    <td>
+                                        <div><strong>243</strong></div>
+                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-secondary" onclick="changeDisplay(243)">상품진열 안하기</button></div>
+                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-secondary" onclick="changeSoldOut(243)">진열로 표시</button></div>
+
+                                    </td>
+                                    <td class="vm">
+                                        <div class="gbox tl">
+                                            <img src="/img/201721660706400_1_1_1_1.jpg" class="photo">
+                                            <div><a href="http://mimd.mallstore.co.kr/goods/detail?gno=243" target="_blank"><strong>SUN_추가상품_개별_선불12000원이상 무료</strong></a></div>
+                                            <div class="category">OUTER&gt;자켓&gt;테이러드자켓<br></div>
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="priceSplit_243" value="100">
+                                        <input type="hidden" name="cmsType_243" value="CTG">
+                                        <input type="hidden" name="margin_243" value="0">
+
+                                        <div>
+                                            판매가
+                                            <input type="text" name="price_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, 'price ');" onblur="checkPriceRound(this, 243, 'price ')"> 원
+                                        </div>
+                                        <div class="mgt5">시중가
+                                            <input type="text" name="marketPrice_243" value="0" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this)"> 원
+                                        </div>
+                                        <div class="mgt5">공급가
+                                            <input type="text" name="originalPrice_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, this);" onblur="checkPriceRound(this, 243)"> 원
+                                        </div>
+                                    </td>
+                                    <td>270 회 / 0 개 / 무제한</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-dark" onclick="openGoodsHistory(243)">이력</button>
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="validSave(243)">저장</button>
+                                        <button type="button" class="btn btn-sm btn-info" onclick="copy(243)">복사</button>
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="edit(243)">수정</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="del(243)">삭제</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="paging" style="margin-top:20px">
+                        <span><a href="/goods/goods_list?page=1&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10"><strong>1</strong></a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=2&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">2</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=3&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">3</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=4&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">4</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=5&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">5</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=6&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">6</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/goods_list.asp?page=7&scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10">7</a></span>
+                    </div>
+
+                    <div class="btn_right">
+                        <button type="button" class="btn btn-danger" onclick="delList()">일괄삭제</button>
+                        <button type="button" class="btn btn-secondary" onclick="downExcel()">엑셀로받기</button>
+                    </div>
+
+                </form>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
+                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSearch(f) {
+                            for (var i = 1; i <= CATEGORY_DEPTH; i++) {
+                                f['scate_ ' + i].disabled = true;
+                            }
+
+                            var saream = ' ';
+                            $(f.caream).each(function() {
+                                if ($(this).is(':checked ')) {
+                                    saream += (saream ? ', ' : ' ') + this.value;
+                                }
+                                this.disabled = true;
+                            });
+                            f.saream.value = saream;
+
+                            var sareas = ' ';
+                            $(f.careas).each(function() {
+                                if ($(this).is(':checked ')) {
+                                    sareas += (sareas ? ', ' : ' ') + this.value;
+                                }
+                                this.disabled = true;
+                            });
+                            f.sareas.value = sareas;
+
+                            if (!isDate(f.sdts.value)) f.sdts.value = "";
+                            if (!isDate(f.sdte.value)) f.sdte.value = "";
+                        }
+                        //]]>
+                    </script>
+
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function changeList() {
+                            var f = document.Frm;
+                            var sf = document.sFrm;
+
+                            sf.psort.value = f.psort.options[f.psort.selectedIndex].value;
+                            sf.psize.value = f.psize.options[f.psize.selectedIndex].value;
+
+                            sf.target = "_self";
+                            sf.submit();
+                        }
+
+                        function edit(gno) {
+                            location.href = "goods_reg?gno=" + gno + "&params=scate=0^saream=^sareas=^sbrand=0^sdts=^sdte=^sdealer=0^sstock=0^sdisplay=0^ssprice=^seprice=^skey=^sword=^psort=sort_desc^psize=10^page=";
+                        }
+
+                        function copy(gno) {
+                            location.href = "goods_reg?mode=COPY&gno=" + gno + "&params=scate=0^saream=^sareas=^sbrand=0^sdts=^sdte=^sdealer=0^sstock=0^sdisplay=0^ssprice=^seprice=^skey=^sword=^psort=sort_desc^psize=10^page=";
+                        }
+
+                        function delList() {
+                            var f = document.Frm;
+                            var items = "";
+
+                            if (!f.cbList) return false;
+
+                            if (typeof(f.cbList.length) == "undefined") {
+                                if (f.cbList.checked) items = f.cbList.value;
+                            } else {
+                                for (var i = 0; i < f.cbList.length; i++) {
+                                    if (f.cbList[i].checked) {
+                                        items += (items ? ', ' : ' ') + f.cbList[i].value;
+                                    }
+                                }
+                            }
+
+                            if (items == "") {
+                                alert("휴지통에 버리실 항목을 선택해 주세요.");
+                                return false;
+                            }
+
+                            var msg = "선택하신 상품을 휴지통에 버리시겠습니까?\n\n" +
+                                "고객이 주문한 물류일 경우 휴지통에 버리게 되면 오류가 발생하게 됩니다.\n" +
+                                "자세하게 확인하신 후 휴지통에 버리시기 바랍니다.";
+
+                            if (confirm(msg)) {
+                                f.gno.value = items;
+                                f.action = "goods_trash.act";
+                                f.submit();
+                            }
+                        }
+
+                        function del(gno) {
+                            var f = document.Frm;
+
+                            if (confirm("선택하신 상품을 휴지통에 버리시겠습니까?")) {
+                                f.gno.value = gno;
+                                f.action = "goods_trash.act";
+                                f.submit();
+                            }
+                        }
+
+                        function changeDisplay(gno) {
+                            var f = document.Frm;
+                            f.mode.value = "CHANGEDISPLAY";
+                            f.gno.value = gno;
+                            f.action = "goods_list.act";
+                            f.submit();
+                        }
+
+                        function changeSoldOut(gno) {
+                            var f = document.Frm;
+                            f.mode.value = "CHANGESOLDOUT";
+                            f.gno.value = gno;
+                            f.action = "goods_list.act";
+                            f.submit();
+                        }
+
+                        function openGoodsHistory(gno) {
+                            $.laybox({
+                                type: 'iframe ',
+                                source: 'goods_history_list.ifrm?gno=' + gno
+                            });
+                        }
+
+                        function openDealerInfo(dealerNo) {
+                            openPopup("/mim/dealer_detail.pop?no=" + dealerNo, "DealerInfo", 800, 600, "scrollbars=yes");
+                        }
+
+                        function downExcel() {
+                            frmProc.location.replace("goods_list.excel?scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10");
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        // 가격 계산시 절사단위
+                        var priceRoundUnit = ' -1 '.toNumeric();
+
+                        function checkPriceRound(item, gno, caller) {
+                            var value = item.value.toNumeric();
+                            if (value != setRound(value, priceRoundUnit)) {
+                                item.value = formatComma(setRound(value, priceRoundUnit));
+                                calcPrice(gno, caller);
+                            }
+                        }
+
+                        // 가격입력 : 계산
+                        function calcPrice(gno, caller) {
+                            var f = document.Frm;
+
+                            if (typeof caller == "undefined") caller = ' ';
+
+                            var objPriceSplit = f['priceSplit_ ' + gno];
+                            var objCmsType = f['cmsType_ ' + gno];
+                            var objMargin = f['margin_ ' + gno];
+                            var objPrice = f['price_ ' + gno];
+                            var objOriginalPrice = f['originalPrice_ ' + gno];
+
+                            var price = objPrice.value.toNumeric();
+                            var margin = objMargin.value.toNumeric();
+                            var originalPrice = objOriginalPrice.value.toNumeric();
+
+                            if (objPriceSplit.value == '100 ') { // 공급가 기준 경우
+                                if (objCmsType.value != 'GOS ') { // 카테고리 또는 입점업체 수수료 설정
+                                    // 판매가를 입력한 경우
+                                    if (caller == 'price ') {
+                                        originalPrice = setRound(price - (price * margin / 100), priceRoundUnit);
+                                        objOriginalPrice.value = formatComma(originalPrice);
+                                    }
+                                    // 공급가를 적었다면
+                                    else if (margin == 100) {
+                                        objPrice.value = 0;
+                                        objOriginalPrice.value = 0;
+                                    } else {
+                                        price = setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
+                                        objPrice.value = formatComma(price);
+                                    }
+                                } else { // 상품별 수수료 설정
+                                    margin = (price == 0 ? 0 : 100 - (originalPrice / price * 100));
+                                    objMargin.value = setRound(margin, 2);
+                                }
+                            } else { // 수수료 기준 경우
+                                originalPrice = setRound(price * (100 - margin) / 100, priceRoundUnit);
+                                objOriginalPrice.value = formatComma(originalPrice);
+                            }
+                        }
+
+                        function validSave(gno) {
+                            var f = document.Frm;
+                            var price = f['price_ ' + gno].value;
+                            var margin = f['margin_ ' + gno].value;
+                            var originalPrice = f['originalPrice_ ' + gno].value;
+                            var marketPrice = f['marketPrice_ ' + gno].value;
+                            var quantity = (f['quantity_ ' + gno] ? f['quantity_ ' + gno].value : 0);
+
+                            if (quantity >= '1000000 '.toNumeric()) {
+                                alert("재고 수량은 1,000,000 미만으로 설정이 가능합니다.");
+                                f['quantity_ ' + gno].focus();
+                                return false;
+                            }
+
+                            if (confirm("현재의 설정으로 저장하시겠습니까?")) {
+                                f.mode.value = "LISTSAVE";
+                                f.gno.value = gno;
+                                f.price.value = price;
+                                f.margin.value = margin;
+                                f.originalPrice.value = originalPrice;
+                                f.marketPrice.value = marketPrice;
+                                f.quantity.value = quantity;
+                                f.action = "goods_list.act.asp";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>

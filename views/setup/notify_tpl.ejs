@@ -1,0 +1,97 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>공정거래위원회에서 공시한 상품별 정보제공 항목을 설정합니다.</li>
+                    <li>등록한 상품정보고시 상품군은 상품등록시 사용할 수 있습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>상품정보고시관리</h4>
+                        </div>
+
+                        <table class="t_list">
+                            <caption>상품정보고 리스트</caption>
+                            <colgroup>
+                                <col width="30">
+                                <col width="70">
+                                <col width="*">
+                                <col width="70">
+                                <col width="100">
+                                <col width="100">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="cbAll"></th>
+                                    <th>No</th>
+                                    <th>정보고시명</th>
+                                    <th>사용여부</th>
+                                    <th>등록일자</th>
+                                    <th>관리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="1"></td>
+                                    <td>1</td>
+                                    <td class="left">의류</td>
+                                    <td><input type="checkbox" name="isUse" value="1"></td>
+                                    <td>2016-06-16</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary">수정</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="3"></td>
+                                    <td>2</td>
+                                    <td class="left">의약품</td>
+                                    <td><input type="checkbox" name="isUse" value="3" checked></td>
+                                    <td>2016-08-24</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary">수정</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="cbList" value="4"></td>
+                                    <td>3</td>
+                                    <td class="left">전자제품</td>
+                                    <td><input type="checkbox" name="isUse" value="4" checked></td>
+                                    <td>2017-08-16</td>
+                                    <td><button type="button" class="btn btn-sm btn-secondary">수정</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <!-- <button type="button" class="btn btn-info">추가</button> -->
+                        <a href="/setup/notify_tpl_reg" class="btn btn-info">추가</a>
+                        <button type="button" class="btn btn-secondary">선택삭제</button>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

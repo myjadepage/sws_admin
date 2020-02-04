@@ -1,0 +1,111 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>상품보관함 통계</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>통계/분석</li>
+                    <li>상품통계</li>
+                    <li class="on">상품보관함 통계</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>상품보관함 통계입니다.</li>
+                </ul>
+
+                <form name="sFrm" method="get" action="/statistics/goods_wish">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>검색 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>검색</th>
+                                <td>
+                                    <div class="fl">
+                                        <div>
+                                            <input type="text" id="sdate" name="sdate" value="2020-01-01" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                            <input type="text" id="edate" name="edate" value="2020-01-28" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'edate', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'tm')">이번달</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't', -1)">어제</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -30)">30일간</button></span>
+                                        </div>
+                                        <div class="mgt5">
+                                            <select name="skey">
+                <option value="">++ 검색영역선택 ++</option>
+                <option value="name">상품명</option>
+                <option value="code">상품코드</option>
+            </select>&nbsp;<input type="text" name="sword" value="" class="text_input" style="width:300px">
+                                        </div>
+                                    </div>
+                                    <div class="fr"><span class="button black"><button type="submit">검색</button></span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4>2020년 01월 01일부터 2020년 01월 28일까지의 검색결과 입니다.</h4>
+                        <div><span class="button black"><a href="/statistics/goods_wish.excel?sdate=2020-01-01&edate=2020-01-28&skey=&sword=">엑셀로받기</a></span></div>
+                    </div>
+
+                </form>
+
+
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_list">
+                    <caption>상품보관함 통계 내역</caption>
+                    <colgroup>
+                        <col width="50%">
+                        <col width="20%">
+                        <col width="20%">
+                        <col width="10%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>상품명</th>
+                            <th>상품점수</th>
+                            <th>상품보관함 등록수</th>
+                            <th>등록순위</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td colspan="4" height="50">상품보관함 통계가 없습니다.</td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>합계</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript" src="/js/class.js.download"></script>
+
+
+                    </body>
+
+                    </html>

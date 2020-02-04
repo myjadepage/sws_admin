@@ -1,0 +1,984 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>부운영자관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>관리자설정</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>부운영자의 아이디를 생성하고, 각각 별도의 권한을 부여할수 있는 기능입니다.</li>
+                    <li>아이디를 클릭하시면 상세페이지를 보실 수 있으며 수정도 가능합니다.</li>
+                </ul>
+
+                <form name="Frm" method="post">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 기본정보</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>부운영자 등록 폼</caption>
+                            <colgroup>
+                                <col width="200">
+                                <col width="*">
+                                <col width="200">
+                                <col width="*">
+                            </colgroup>
+
+                            <tbody>
+                                <tr>
+                                    <th>아이디 <span class="red">*</span></th>
+                                    <td colspan="3">
+                                        <input type="text" name="idInput" value="" class="text_input" style="width:200px" maxlength="20">
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="checkOverlapId()">중복확인</button>
+                                        <span class="square_blue"><i class="xi-error"></i> 영문 또는 숫자 4~20자</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>비밀번호 <span class="red">*</span></th>
+                                    <td colspan="3">
+                                        <input type="password" name="pw" value="" class="text_input" style="width:200px" maxlength="20">
+                                        <span class="square_blue"><i class="xi-error"></i> 영문, 숫자 조합 6~20자</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>비밀번호 확인 <span class="red">*</span></th>
+                                    <td colspan="3">
+                                        <input type="password" name="rePw" value="" class="text_input" style="width:200px" maxlength="20">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이름 <span class="red">*</span></th>
+                                    <td colspan="3">
+                                        <input type="text" name="name" value="" class="text_input" style="width:200px" maxlength="50">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>이메일</th>
+                                    <td colspan="3">
+                                        <input type="text" name="emailId" value="" class="text_input" style="width:100px" maxlength="50"> @
+                                        <input type="text" name="emailDomain" value="" class="text_input" style="width:150px" maxlength="50">
+                                        <select id="emailDomains" name="emailDomains" class="text_input">                                       
+                                        <option value="direct">직접입력</option>
+                                        <option value="naver.com">naver.com</option>
+                                        <option value="gmail.com">gmail.com</option>
+                                        <option value="nate.com">nate.com</option>
+                                        <option value="yahoo.co.kr">yahoo.co.kr</option>
+                                        <option value="hanmail.net">hanmail.net</option>
+                                        <option value="daum.net">daum.net</option>
+                                        <option value="dreamwiz.com">dreamwiz.com</option>
+                                        <option value="lycos.co.kr">lycos.co.kr</option>
+                                        <option value="empal.com">empal.com</option>
+                                        <option value="korea.com">korea.com</option>
+                                        <option value="paran.com">paran.com</option>
+                                        <option value="freechal.com">freechal.com</option>
+                                        <option value="hitel.com">hitel.com</option>
+                                        <option value="hanmir.com">hanmir.com</option>
+                                        <option value="hotmail.com">hotmail.com</option>
+                                     </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호</th>
+                                    <td>
+                                        <select id="tel1" name="tel1" class="text_input">
+                                        <option value="">선택</option>
+                                        <option value="02">02</option>
+                                        <option value="031">031</option>
+                                    </select> -
+                                        <input name="tel2" type="text" class="text_input" maxlength="4" value="" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> -
+                                        <input name="tel3" type="text" class="text_input" maxlength="4" value="" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                    </td>
+                                    <th>휴대폰번호</th>
+                                    <td>
+                                        <select id="mobile1" name="mobile1" class="text_input">
+                                        <option value="">선택</option>
+                                        <option value="010">010</option>
+                                        <option value="011">011</option>
+                                        <option value="016">016</option>
+                                        <option value="017">017</option>
+                                        <option value="018">018</option>
+                                        <option value="019">019</option>
+                                        <option value="000">000</option>
+                                        <option value="123">123</option>
+                                        <option value="456">456</option>
+                                    </select> -
+                                        <input name="mobile2" type="text" class="text_input" maxlength="4" value="" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> -
+                                        <input name="mobile3" type="text" class="text_input" maxlength="4" value="" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>기타사항</th>
+                                    <td colspan="3">
+                                        <textarea name="memo" rows="5" class="text_input" style="width:98%"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 권한설정</h4>
+                        </div>
+
+                        <table class="t_form perms">
+                            <caption>권한설정 폼</caption>
+                            <tbody>
+                                <tr class="all">
+                                    <th rowspan="26">환경설정</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_A" name="cbReadAll" value="A" onclick="checkCbAll(this)"><label for="cb_read_all_A"><strong><strong>전체</strong></strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_A" name="cbWriteAll" value="A" onclick="checkCbAll(this)"><label for="cb_write_all_A"><strong><strong>전체</strong></strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-01-001">상점환경설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-01-001" id="read_A-01-001" name="READ-A-01-001" value="1" onclick="checkPermission(this)"><label for="read_A-01-001">읽기</label>
+                                        <input type="checkbox" childcode="A-01-001" id="write_A-01-001" name="WRITE-A-01-001" value="2" onclick="checkPermission(this)"><label for="write_A-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-02-001">사이트환경설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-02-001" id="read_A-02-001" name="READ-A-02-001" value="1" onclick="checkPermission(this)"><label for="read_A-02-001">읽기</label>
+                                        <input type="checkbox" childcode="A-02-001" id="write_A-02-001" name="WRITE-A-02-001" value="2" onclick="checkPermission(this)"><label for="write_A-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-03-001">판매자 승인환경설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-03-001" id="read_A-03-001" name="READ-A-03-001" value="1" onclick="checkPermission(this)"><label for="read_A-03-001">읽기</label>
+                                        <input type="checkbox" childcode="A-03-001" id="write_A-03-001" name="WRITE-A-03-001" value="2" onclick="checkPermission(this)"><label for="write_A-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-001">어휘설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-001" id="read_A-04-001" name="READ-A-04-001" value="1" onclick="checkPermission(this)"><label for="read_A-04-001">읽기</label>
+                                        <input type="checkbox" childcode="A-04-001" id="write_A-04-001" name="WRITE-A-04-001" value="2" onclick="checkPermission(this)"><label for="write_A-04-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-002">배송설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-002" id="read_A-04-002" name="READ-A-04-002" value="1" onclick="checkPermission(this)"><label for="read_A-04-002">읽기</label>
+                                        <input type="checkbox" childcode="A-04-002" id="write_A-04-002" name="WRITE-A-04-002" value="2" onclick="checkPermission(this)"><label for="write_A-04-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-003">할인액부담설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-003" id="read_A-04-003" name="READ-A-04-003" value="1" onclick="checkPermission(this)"><label for="read_A-04-003">읽기</label>
+                                        <input type="checkbox" childcode="A-04-003" id="write_A-04-003" name="WRITE-A-04-003" value="2" onclick="checkPermission(this)"><label for="write_A-04-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-004">회원등급관리</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-004" id="read_A-04-004" name="READ-A-04-004" value="1" onclick="checkPermission(this)"><label for="read_A-04-004">읽기</label>
+                                        <input type="checkbox" childcode="A-04-004" id="write_A-04-004" name="WRITE-A-04-004" value="2" onclick="checkPermission(this)"><label for="write_A-04-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-005">적립금설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-005" id="read_A-04-005" name="READ-A-04-005" value="1" onclick="checkPermission(this)"><label for="read_A-04-005">읽기</label>
+                                        <input type="checkbox" childcode="A-04-005" id="write_A-04-005" name="WRITE-A-04-005" value="2" onclick="checkPermission(this)"><label for="write_A-04-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-04-006">상품정보고시관리</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-04-006" id="read_A-04-006" name="READ-A-04-006" value="1" onclick="checkPermission(this)"><label for="read_A-04-006">읽기</label>
+                                        <input type="checkbox" childcode="A-04-006" id="write_A-04-006" name="WRITE-A-04-006" value="2" onclick="checkPermission(this)"><label for="write_A-04-006">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-05-001">부운영자관리</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-05-001" id="read_A-05-001" name="READ-A-05-001" value="1" onclick="checkPermission(this)"><label for="read_A-05-001">읽기</label>
+                                        <input type="checkbox" childcode="A-05-001" id="write_A-05-001" name="WRITE-A-05-001" value="2" onclick="checkPermission(this)"><label for="write_A-05-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-05-002">관리자접속IP설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-05-002" id="read_A-05-002" name="READ-A-05-002" value="1" onclick="checkPermission(this)"><label for="read_A-05-002">읽기</label>
+                                        <input type="checkbox" childcode="A-05-002" id="write_A-05-002" name="WRITE-A-05-002" value="2" onclick="checkPermission(this)"><label for="write_A-05-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-001">상점운영정책</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-001" id="read_A-06-001" name="READ-A-06-001" value="1" onclick="checkPermission(this)"><label for="read_A-06-001">읽기</label>
+                                        <input type="checkbox" childcode="A-06-001" id="write_A-06-001" name="WRITE-A-06-001" value="2" onclick="checkPermission(this)"><label for="write_A-06-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-011">회원 이용약관</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-011" id="read_A-06-011" name="READ-A-06-011" value="1" onclick="checkPermission(this)"><label for="read_A-06-011">읽기</label>
+                                        <input type="checkbox" childcode="A-06-011" id="write_A-06-011" name="WRITE-A-06-011" value="2" onclick="checkPermission(this)"><label for="write_A-06-011">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-012">회원 개인정보취급방침</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-012" id="read_A-06-012" name="READ-A-06-012" value="1" onclick="checkPermission(this)"><label for="read_A-06-012">읽기</label>
+                                        <input type="checkbox" childcode="A-06-012" id="write_A-06-012" name="WRITE-A-06-012" value="2" onclick="checkPermission(this)"><label for="write_A-06-012">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-013">회원 제3자정보제공동의</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-013" id="read_A-06-013" name="READ-A-06-013" value="1" onclick="checkPermission(this)"><label for="read_A-06-013">읽기</label>
+                                        <input type="checkbox" childcode="A-06-013" id="write_A-06-013" name="WRITE-A-06-013" value="2" onclick="checkPermission(this)"><label for="write_A-06-013">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-021">비회원 이용약관</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-021" id="read_A-06-021" name="READ-A-06-021" value="1" onclick="checkPermission(this)"><label for="read_A-06-021">읽기</label>
+                                        <input type="checkbox" childcode="A-06-021" id="write_A-06-021" name="WRITE-A-06-021" value="2" onclick="checkPermission(this)"><label for="write_A-06-021">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-022">비회원 개인정보취급방침</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-022" id="read_A-06-022" name="READ-A-06-022" value="1" onclick="checkPermission(this)"><label for="read_A-06-022">읽기</label>
+                                        <input type="checkbox" childcode="A-06-022" id="write_A-06-022" name="WRITE-A-06-022" value="2" onclick="checkPermission(this)"><label for="write_A-06-022">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-023">비회원 제3자정보제공동의</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-023" id="read_A-06-023" name="READ-A-06-023" value="1" onclick="checkPermission(this)"><label for="read_A-06-023">읽기</label>
+                                        <input type="checkbox" childcode="A-06-023" id="write_A-06-023" name="WRITE-A-06-023" value="2" onclick="checkPermission(this)"><label for="write_A-06-023">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-031">입점사 이용약관</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-031" id="read_A-06-031" name="READ-A-06-031" value="1" onclick="checkPermission(this)"><label for="read_A-06-031">읽기</label>
+                                        <input type="checkbox" childcode="A-06-031" id="write_A-06-031" name="WRITE-A-06-031" value="2" onclick="checkPermission(this)"><label for="write_A-06-031">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-032">입점사 개인정보취급방침</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-032" id="read_A-06-032" name="READ-A-06-032" value="1" onclick="checkPermission(this)"><label for="read_A-06-032">읽기</label>
+                                        <input type="checkbox" childcode="A-06-032" id="write_A-06-032" name="WRITE-A-06-032" value="2" onclick="checkPermission(this)"><label for="write_A-06-032">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-06-041">마케팅정보수집및이용동의</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-06-041" id="read_A-06-041" name="READ-A-06-041" value="1" onclick="checkPermission(this)"><label for="read_A-06-041">읽기</label>
+                                        <input type="checkbox" childcode="A-06-041" id="write_A-06-041" name="WRITE-A-06-041" value="2" onclick="checkPermission(this)"><label for="write_A-06-041">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-07-001">결제정보설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-07-001" id="read_A-07-001" name="READ-A-07-001" value="1" onclick="checkPermission(this)"><label for="read_A-07-001">읽기</label>
+                                        <input type="checkbox" childcode="A-07-001" id="write_A-07-001" name="WRITE-A-07-001" value="2" onclick="checkPermission(this)"><label for="write_A-07-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-07-002">온라인입금계좌</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-07-002" id="read_A-07-002" name="READ-A-07-002" value="1" onclick="checkPermission(this)"><label for="read_A-07-002">읽기</label>
+                                        <input type="checkbox" childcode="A-07-002" id="write_A-07-002" name="WRITE-A-07-002" value="2" onclick="checkPermission(this)"><label for="write_A-07-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-07-003">카카오페이 결제정보설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-07-003" id="read_A-07-003" name="READ-A-07-003" value="1" onclick="checkPermission(this)"><label for="read_A-07-003">읽기</label>
+                                        <input type="checkbox" childcode="A-07-003" id="write_A-07-003" name="WRITE-A-07-003" value="2" onclick="checkPermission(this)"><label for="write_A-07-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="A-07-004">PAYCO 결제정보설정</td>
+                                    <td class="cb" parent="A">
+                                        <input type="checkbox" childcode="A-07-004" id="read_A-07-004" name="READ-A-07-004" value="1" onclick="checkPermission(this)"><label for="read_A-07-004">읽기</label>
+                                        <input type="checkbox" childcode="A-07-004" id="write_A-07-004" name="WRITE-A-07-004" value="2" onclick="checkPermission(this)"><label for="write_A-07-004">쓰기</label>
+                                    </td>
+                                </tr>
+
+
+
+
+                                <!-- 디자인관리 -->
+                                <tr class="all">
+                                    <th rowspan="14">디자인관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_B" name="cbReadAll" value="B" onclick="checkCbAll(this)"><label for="cb_read_all_B"><strong><strong>전체</strong></strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_B" name="cbWriteAll" value="B" onclick="checkCbAll(this)"><label for="cb_write_all_B"><strong><strong>전체</strong></strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-01-001"><strong>전체</strong>디자인설정</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-01-001" id="read_B-01-001" name="READ-B-01-001" value="1" onclick="checkPermission(this)"><label for="read_B-01-001">읽기</label>
+                                        <input type="checkbox" childcode="B-01-001" id="write_B-01-001" name="WRITE-B-01-001" value="2" onclick="checkPermission(this)"><label for="write_B-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-01-002">상단부분관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-01-002" id="read_B-01-002" name="READ-B-01-002" value="1" onclick="checkPermission(this)"><label for="read_B-01-002">읽기</label>
+                                        <input type="checkbox" childcode="B-01-002" id="write_B-01-002" name="WRITE-B-01-002" value="2" onclick="checkPermission(this)"><label for="write_B-01-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-01-003">하단부분관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-01-003" id="read_B-01-003" name="READ-B-01-003" value="1" onclick="checkPermission(this)"><label for="read_B-01-003">읽기</label>
+                                        <input type="checkbox" childcode="B-01-003" id="write_B-01-003" name="WRITE-B-01-003" value="2" onclick="checkPermission(this)"><label for="write_B-01-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-02-002">메인페이지관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-02-002" id="read_B-02-002" name="READ-B-02-002" value="1" onclick="checkPermission(this)"><label for="read_B-02-002">읽기</label>
+                                        <input type="checkbox" childcode="B-02-002" id="write_B-02-002" name="WRITE-B-02-002" value="2" onclick="checkPermission(this)"><label for="write_B-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-02-003">서브좌측배너관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-02-003" id="read_B-02-003" name="READ-B-02-003" value="1" onclick="checkPermission(this)"><label for="read_B-02-003">읽기</label>
+                                        <input type="checkbox" childcode="B-02-003" id="write_B-02-003" name="WRITE-B-02-003" value="2" onclick="checkPermission(this)"><label for="write_B-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-02-004">기타배너관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-02-004" id="read_B-02-004" name="READ-B-02-004" value="1" onclick="checkPermission(this)"><label for="read_B-02-004">읽기</label>
+                                        <input type="checkbox" childcode="B-02-004" id="write_B-02-004" name="WRITE-B-02-004" value="2" onclick="checkPermission(this)"><label for="write_B-02-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-03-001">이벤트(일반)관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-03-001" id="read_B-03-001" name="READ-B-03-001" value="1" onclick="checkPermission(this)"><label for="read_B-03-001">읽기</label>
+                                        <input type="checkbox" childcode="B-03-001" id="write_B-03-001" name="WRITE-B-03-001" value="2" onclick="checkPermission(this)"><label for="write_B-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-03-002">이벤트(분류)관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-03-002" id="read_B-03-002" name="READ-B-03-002" value="1" onclick="checkPermission(this)"><label for="read_B-03-002">읽기</label>
+                                        <input type="checkbox" childcode="B-03-002" id="write_B-03-002" name="WRITE-B-03-002" value="2" onclick="checkPermission(this)"><label for="write_B-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-03-003">이벤트(쿠폰)관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-03-003" id="read_B-03-003" name="READ-B-03-003" value="1" onclick="checkPermission(this)"><label for="read_B-03-003">읽기</label>
+                                        <input type="checkbox" childcode="B-03-003" id="write_B-03-003" name="WRITE-B-03-003" value="2" onclick="checkPermission(this)"><label for="write_B-03-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-03-004">이벤트(할인)관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-03-004" id="read_B-03-004" name="READ-B-03-004" value="1" onclick="checkPermission(this)"><label for="read_B-03-004">읽기</label>
+                                        <input type="checkbox" childcode="B-03-004" id="write_B-03-004" name="WRITE-B-03-004" value="2" onclick="checkPermission(this)"><label for="write_B-03-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-03-005">이벤트등록</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-03-005" id="read_B-03-005" name="READ-B-03-005" value="1" onclick="checkPermission(this)"><label for="read_B-03-005">읽기</label>
+                                        <input type="checkbox" childcode="B-03-005" id="write_B-03-005" name="WRITE-B-03-005" value="2" onclick="checkPermission(this)"><label for="write_B-03-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-06-001">메일폼관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-06-001" id="read_B-06-001" name="READ-B-06-001" value="1" onclick="checkPermission(this)"><label for="read_B-06-001">읽기</label>
+                                        <input type="checkbox" childcode="B-06-001" id="write_B-06-001" name="WRITE-B-06-001" value="2" onclick="checkPermission(this)"><label for="write_B-06-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="B-06-002">팝업관리</td>
+                                    <td class="cb" parent="B">
+                                        <input type="checkbox" childcode="B-06-002" id="read_B-06-002" name="READ-B-06-002" value="1" onclick="checkPermission(this)"><label for="read_B-06-002">읽기</label>
+                                        <input type="checkbox" childcode="B-06-002" id="write_B-06-002" name="WRITE-B-06-002" value="2" onclick="checkPermission(this)"><label for="write_B-06-002">쓰기</label>
+                                    </td>
+                                </tr>
+
+
+                                <!-- 상품관리 -->
+                                <tr class="all">
+                                    <th rowspan="11">상품관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_C" name="cbReadAll" value="C" onclick="checkCbAll(this)"><label for="cb_read_all_C"><strong><strong>전체</strong></strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_C" name="cbWriteAll" value="C" onclick="checkCbAll(this)"><label for="cb_write_all_C"><strong><strong>전체</strong></strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-01-001">카테고리관리</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-01-001" id="read_C-01-001" name="READ-C-01-001" value="1" onclick="checkPermission(this)"><label for="read_C-01-001">읽기</label>
+                                        <input type="checkbox" childcode="C-01-001" id="write_C-01-001" name="WRITE-C-01-001" value="2" onclick="checkPermission(this)"><label for="write_C-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-001">상품등록</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-001" id="read_C-02-001" name="READ-C-02-001" value="1" onclick="checkPermission(this)"><label for="read_C-02-001">읽기</label>
+                                        <input type="checkbox" childcode="C-02-001" id="write_C-02-001" name="WRITE-C-02-001" value="2" onclick="checkPermission(this)"><label for="write_C-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-002">상품목록</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-002" id="read_C-02-002" name="READ-C-02-002" value="1" onclick="checkPermission(this)"><label for="read_C-02-002">읽기</label>
+                                        <input type="checkbox" childcode="C-02-002" id="write_C-02-002" name="WRITE-C-02-002" value="2" onclick="checkPermission(this)"><label for="write_C-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-003">상품진열설정</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-003" id="read_C-02-003" name="READ-C-02-003" value="1" onclick="checkPermission(this)"><label for="read_C-02-003">읽기</label>
+                                        <input type="checkbox" childcode="C-02-003" id="write_C-02-003" name="WRITE-C-02-003" value="2" onclick="checkPermission(this)"><label for="write_C-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-004">상품휴지통</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-004" id="read_C-02-004" name="READ-C-02-004" value="1" onclick="checkPermission(this)"><label for="read_C-02-004">읽기</label>
+                                        <input type="checkbox" childcode="C-02-004" id="write_C-02-004" name="WRITE-C-02-004" value="2" onclick="checkPermission(this)"><label for="write_C-02-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-005">브랜드관리</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-005" id="read_C-02-005" name="READ-C-02-005" value="1" onclick="checkPermission(this)"><label for="read_C-02-005">읽기</label>
+                                        <input type="checkbox" childcode="C-02-005" id="write_C-02-005" name="WRITE-C-02-005" value="2" onclick="checkPermission(this)"><label for="write_C-02-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-006">상품연동관리</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-006" id="read_C-02-006" name="READ-C-02-006" value="1" onclick="checkPermission(this)"><label for="read_C-02-006">읽기</label>
+                                        <input type="checkbox" childcode="C-02-006" id="write_C-02-006" name="WRITE-C-02-006" value="2" onclick="checkPermission(this)"><label for="write_C-02-006">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-02-007">상품아이콘</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-02-007" id="read_C-02-007" name="READ-C-02-007" value="1" onclick="checkPermission(this)"><label for="read_C-02-007">읽기</label>
+                                        <input type="checkbox" childcode="C-02-007" id="write_C-02-007" name="WRITE-C-02-007" value="2" onclick="checkPermission(this)"><label for="write_C-02-007">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-03-001">상품정보엑셀다운로드</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-03-001" id="read_C-03-001" name="READ-C-03-001" value="1" onclick="checkPermission(this)"><label for="read_C-03-001">읽기</label>
+                                        <input type="checkbox" childcode="C-03-001" id="write_C-03-001" name="WRITE-C-03-001" value="2" onclick="checkPermission(this)"><label for="write_C-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="C-03-002">상품정보엑셀업로드</td>
+                                    <td class="cb" parent="C">
+                                        <input type="checkbox" childcode="C-03-002" id="read_C-03-002" name="READ-C-03-002" value="1" onclick="checkPermission(this)"><label for="read_C-03-002">읽기</label>
+                                        <input type="checkbox" childcode="C-03-002" id="write_C-03-002" name="WRITE-C-03-002" value="2" onclick="checkPermission(this)"><label for="write_C-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="21">주문/매출관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_D" name="cbReadAll" value="D" onclick="checkCbAll(this)"><label for="cb_read_all_D"><strong><strong>전체</strong></strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_D" name="cbWriteAll" value="D" onclick="checkCbAll(this)"><label for="cb_write_all_D"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-01-001"><strong>전체</strong>주문</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-01-001" id="read_D-01-001" name="READ-D-01-001" value="1" onclick="checkPermission(this)"><label for="read_D-01-001">읽기</label>
+                                        <input type="checkbox" childcode="D-01-001" id="write_D-01-001" name="WRITE-D-01-001" value="2" onclick="checkPermission(this)"><label for="write_D-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-001">입금확인중</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-001" id="read_D-02-001" name="READ-D-02-001" value="1" onclick="checkPermission(this)"><label for="read_D-02-001">읽기</label>
+                                        <input type="checkbox" childcode="D-02-001" id="write_D-02-001" name="WRITE-D-02-001" value="2" onclick="checkPermission(this)"><label for="write_D-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-002">결제완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-002" id="read_D-02-002" name="READ-D-02-002" value="1" onclick="checkPermission(this)"><label for="read_D-02-002">읽기</label>
+                                        <input type="checkbox" childcode="D-02-002" id="write_D-02-002" name="WRITE-D-02-002" value="2" onclick="checkPermission(this)"><label for="write_D-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-003">상품준비중</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-003" id="read_D-02-003" name="READ-D-02-003" value="1" onclick="checkPermission(this)"><label for="read_D-02-003">읽기</label>
+                                        <input type="checkbox" childcode="D-02-003" id="write_D-02-003" name="WRITE-D-02-003" value="2" onclick="checkPermission(this)"><label for="write_D-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-110">결품</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-110" id="read_D-02-110" name="READ-D-02-110" value="1" onclick="checkPermission(this)"><label for="read_D-02-110">읽기</label>
+                                        <input type="checkbox" childcode="D-02-110" id="write_D-02-110" name="WRITE-D-02-110" value="2" onclick="checkPermission(this)"><label for="write_D-02-110">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-111">배송지연</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-111" id="read_D-02-111" name="READ-D-02-111" value="1" onclick="checkPermission(this)"><label for="read_D-02-111">읽기</label>
+                                        <input type="checkbox" childcode="D-02-111" id="write_D-02-111" name="WRITE-D-02-111" value="2" onclick="checkPermission(this)"><label for="write_D-02-111">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-009">발송완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-009" id="read_D-02-009" name="READ-D-02-009" value="1" onclick="checkPermission(this)"><label for="read_D-02-009">읽기</label>
+                                        <input type="checkbox" childcode="D-02-009" id="write_D-02-009" name="WRITE-D-02-009" value="2" onclick="checkPermission(this)"><label for="write_D-02-009">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-004">배송완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-004" id="read_D-02-004" name="READ-D-02-004" value="1" onclick="checkPermission(this)"><label for="read_D-02-004">읽기</label>
+                                        <input type="checkbox" childcode="D-02-004" id="write_D-02-004" name="WRITE-D-02-004" value="2" onclick="checkPermission(this)"><label for="write_D-02-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-005">구매확정</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-005" id="read_D-02-005" name="READ-D-02-005" value="1" onclick="checkPermission(this)"><label for="read_D-02-005">읽기</label>
+                                        <input type="checkbox" childcode="D-02-005" id="write_D-02-005" name="WRITE-D-02-005" value="2" onclick="checkPermission(this)"><label for="write_D-02-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-007">주문상담</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-007" id="read_D-02-007" name="READ-D-02-007" value="1" onclick="checkPermission(this)"><label for="read_D-02-007">읽기</label>
+                                        <input type="checkbox" childcode="D-02-007" id="write_D-02-007" name="WRITE-D-02-007" value="2" onclick="checkPermission(this)"><label for="write_D-02-007">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-02-008">일괄배송관리</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-02-008" id="read_D-02-008" name="READ-D-02-008" value="1" onclick="checkPermission(this)"><label for="read_D-02-008">읽기</label>
+                                        <input type="checkbox" childcode="D-02-008" id="write_D-02-008" name="WRITE-D-02-008" value="2" onclick="checkPermission(this)"><label for="write_D-02-008">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-001">주문취소신청처리중</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-001" id="read_D-03-001" name="READ-D-03-001" value="1" onclick="checkPermission(this)"><label for="read_D-03-001">읽기</label>
+                                        <input type="checkbox" childcode="D-03-001" id="write_D-03-001" name="WRITE-D-03-001" value="2" onclick="checkPermission(this)"><label for="write_D-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-002">주문취소완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-002" id="read_D-03-002" name="READ-D-03-002" value="1" onclick="checkPermission(this)"><label for="read_D-03-002">읽기</label>
+                                        <input type="checkbox" childcode="D-03-002" id="write_D-03-002" name="WRITE-D-03-002" value="2" onclick="checkPermission(this)"><label for="write_D-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-003">주문교환신청처리중</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-003" id="read_D-03-003" name="READ-D-03-003" value="1" onclick="checkPermission(this)"><label for="read_D-03-003">읽기</label>
+                                        <input type="checkbox" childcode="D-03-003" id="write_D-03-003" name="WRITE-D-03-003" value="2" onclick="checkPermission(this)"><label for="write_D-03-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-004">주문교환완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-004" id="read_D-03-004" name="READ-D-03-004" value="1" onclick="checkPermission(this)"><label for="read_D-03-004">읽기</label>
+                                        <input type="checkbox" childcode="D-03-004" id="write_D-03-004" name="WRITE-D-03-004" value="2" onclick="checkPermission(this)"><label for="write_D-03-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-005">주문반품신청처리중</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-005" id="read_D-03-005" name="READ-D-03-005" value="1" onclick="checkPermission(this)"><label for="read_D-03-005">읽기</label>
+                                        <input type="checkbox" childcode="D-03-005" id="write_D-03-005" name="WRITE-D-03-005" value="2" onclick="checkPermission(this)"><label for="write_D-03-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-006">주문반품완료</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-006" id="read_D-03-006" name="READ-D-03-006" value="1" onclick="checkPermission(this)"><label for="read_D-03-006">읽기</label>
+                                        <input type="checkbox" childcode="D-03-006" id="write_D-03-006" name="WRITE-D-03-006" value="2" onclick="checkPermission(this)"><label for="write_D-03-006">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-03-007">환불대기</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-03-007" id="read_D-03-007" name="READ-D-03-007" value="1" onclick="checkPermission(this)"><label for="read_D-03-007">읽기</label>
+                                        <input type="checkbox" childcode="D-03-007" id="write_D-03-007" name="WRITE-D-03-007" value="2" onclick="checkPermission(this)"><label for="write_D-03-007">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-04-001">세금계산서신청관리</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-04-001" id="read_D-04-001" name="READ-D-04-001" value="1" onclick="checkPermission(this)"><label for="read_D-04-001">읽기</label>
+                                        <input type="checkbox" childcode="D-04-001" id="write_D-04-001" name="WRITE-D-04-001" value="2" onclick="checkPermission(this)"><label for="write_D-04-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="D-04-002">현금영수증신청관리</td>
+                                    <td class="cb" parent="D">
+                                        <input type="checkbox" childcode="D-04-002" id="read_D-04-002" name="READ-D-04-002" value="1" onclick="checkPermission(this)"><label for="read_D-04-002">읽기</label>
+                                        <input type="checkbox" childcode="D-04-002" id="write_D-04-002" name="WRITE-D-04-002" value="2" onclick="checkPermission(this)"><label for="write_D-04-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="10">운영관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_E" name="cbReadAll" value="E" onclick="checkCbAll(this)"><label for="cb_read_all_E"><strong>전체</strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_E" name="cbWriteAll" value="E" onclick="checkCbAll(this)"><label for="cb_write_all_E"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-01-001">상품평관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-01-001" id="read_E-01-001" name="READ-E-01-001" value="1" onclick="checkPermission(this)"><label for="read_E-01-001">읽기</label>
+                                        <input type="checkbox" childcode="E-01-001" id="write_E-01-001" name="WRITE-E-01-001" value="2" onclick="checkPermission(this)"><label for="write_E-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-01-002">상품Q&amp;A관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-01-002" id="read_E-01-002" name="READ-E-01-002" value="1" onclick="checkPermission(this)"><label for="read_E-01-002">읽기</label>
+                                        <input type="checkbox" childcode="E-01-002" id="write_E-01-002" name="WRITE-E-01-002" value="2" onclick="checkPermission(this)"><label for="write_E-01-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-01-003">FAQ관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-01-003" id="read_E-01-003" name="READ-E-01-003" value="1" onclick="checkPermission(this)"><label for="read_E-01-003">읽기</label>
+                                        <input type="checkbox" childcode="E-01-003" id="write_E-01-003" name="WRITE-E-01-003" value="2" onclick="checkPermission(this)"><label for="write_E-01-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-01-004">1:1문의관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-01-004" id="read_E-01-004" name="READ-E-01-004" value="1" onclick="checkPermission(this)"><label for="read_E-01-004">읽기</label>
+                                        <input type="checkbox" childcode="E-01-004" id="write_E-01-004" name="WRITE-E-01-004" value="2" onclick="checkPermission(this)"><label for="write_E-01-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-02-001">게시판통합관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-02-001" id="read_E-02-001" name="READ-E-02-001" value="1" onclick="checkPermission(this)"><label for="read_E-02-001">읽기</label>
+                                        <input type="checkbox" childcode="E-02-001" id="write_E-02-001" name="WRITE-E-02-001" value="2" onclick="checkPermission(this)"><label for="write_E-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-02-002">쿠폰관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-02-002" id="read_E-02-002" name="READ-E-02-002" value="1" onclick="checkPermission(this)"><label for="read_E-02-002">읽기</label>
+                                        <input type="checkbox" childcode="E-02-002" id="write_E-02-002" name="WRITE-E-02-002" value="2" onclick="checkPermission(this)"><label for="write_E-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-03-002">문구관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-03-002" id="read_E-03-002" name="READ-E-03-002" value="1" onclick="checkPermission(this)"><label for="read_E-03-002">읽기</label>
+                                        <input type="checkbox" childcode="E-03-002" id="write_E-03-002" name="WRITE-E-03-002" value="2" onclick="checkPermission(this)"><label for="write_E-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-03-003">이모티콘 관리</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-03-003" id="read_E-03-003" name="READ-E-03-003" value="1" onclick="checkPermission(this)"><label for="read_E-03-003">읽기</label>
+                                        <input type="checkbox" childcode="E-03-003" id="write_E-03-003" name="WRITE-E-03-003" value="2" onclick="checkPermission(this)"><label for="write_E-03-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="E-03-004">SMS발송</td>
+                                    <td class="cb" parent="E">
+                                        <input type="checkbox" childcode="E-03-004" id="read_E-03-004" name="READ-E-03-004" value="1" onclick="checkPermission(this)"><label for="read_E-03-004">읽기</label>
+                                        <input type="checkbox" childcode="E-03-004" id="write_E-03-004" name="WRITE-E-03-004" value="2" onclick="checkPermission(this)"><label for="write_E-03-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="7">회원관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_F" name="cbReadAll" value="F" onclick="checkCbAll(this)"><label for="cb_read_all_F"><strong>전체</strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_F" name="cbWriteAll" value="F" onclick="checkCbAll(this)"><label for="cb_write_all_F"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-01-001">회원가입설정</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-01-001" id="read_F-01-001" name="READ-F-01-001" value="1" onclick="checkPermission(this)"><label for="read_F-01-001">읽기</label>
+                                        <input type="checkbox" childcode="F-01-001" id="write_F-01-001" name="WRITE-F-01-001" value="2" onclick="checkPermission(this)"><label for="write_F-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-02-001">회원목록</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-02-001" id="read_F-02-001" name="READ-F-02-001" value="1" onclick="checkPermission(this)"><label for="read_F-02-001">읽기</label>
+                                        <input type="checkbox" childcode="F-02-001" id="write_F-02-001" name="WRITE-F-02-001" value="2" onclick="checkPermission(this)"><label for="write_F-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-02-002">탈퇴회원목록</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-02-002" id="read_F-02-002" name="READ-F-02-002" value="1" onclick="checkPermission(this)"><label for="read_F-02-002">읽기</label>
+                                        <input type="checkbox" childcode="F-02-002" id="write_F-02-002" name="WRITE-F-02-002" value="2" onclick="checkPermission(this)"><label for="write_F-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-02-003">상품구매회원목록</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-02-003" id="read_F-02-003" name="READ-F-02-003" value="1" onclick="checkPermission(this)"><label for="read_F-02-003">읽기</label>
+                                        <input type="checkbox" childcode="F-02-003" id="write_F-02-003" name="WRITE-F-02-003" value="2" onclick="checkPermission(this)"><label for="write_F-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-02-004">자동탈퇴대상자목록</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-02-004" id="read_F-02-004" name="READ-F-02-004" value="1" onclick="checkPermission(this)"><label for="read_F-02-004">읽기</label>
+                                        <input type="checkbox" childcode="F-02-004" id="write_F-02-004" name="WRITE-F-02-004" value="2" onclick="checkPermission(this)"><label for="write_F-02-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="F-03-001">회원메일발송</td>
+                                    <td class="cb" parent="F">
+                                        <input type="checkbox" childcode="F-03-001" id="read_F-03-001" name="READ-F-03-001" value="1" onclick="checkPermission(this)"><label for="read_F-03-001">읽기</label>
+                                        <input type="checkbox" childcode="F-03-001" id="write_F-03-001" name="WRITE-F-03-001" value="2" onclick="checkPermission(this)"><label for="write_F-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="13">통계/분석</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_G" name="cbReadAll" value="G" onclick="checkCbAll(this)"><label for="cb_read_all_G"><strong>전체</strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_G" name="cbWriteAll" value="G" onclick="checkCbAll(this)"><label for="cb_write_all_G"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-01-001">전체 매출통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-01-001" id="read_G-01-001" name="READ-G-01-001" value="1" onclick="checkPermission(this)"><label for="read_G-01-001">읽기</label>
+                                        <input type="checkbox" childcode="G-01-001" id="write_G-01-001" name="WRITE-G-01-001" value="2" onclick="checkPermission(this)"><label for="write_G-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-01-002">상품별 매출통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-01-002" id="read_G-01-002" name="READ-G-01-002" value="1" onclick="checkPermission(this)"><label for="read_G-01-002">읽기</label>
+                                        <input type="checkbox" childcode="G-01-002" id="write_G-01-002" name="WRITE-G-01-002" value="2" onclick="checkPermission(this)"><label for="write_G-01-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-01-003">회원별 매출통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-01-003" id="read_G-01-003" name="READ-G-01-003" value="1" onclick="checkPermission(this)"><label for="read_G-01-003">읽기</label>
+                                        <input type="checkbox" childcode="G-01-003" id="write_G-01-003" name="WRITE-G-01-003" value="2" onclick="checkPermission(this)"><label for="write_G-01-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-02-001">남여비율 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-02-001" id="read_G-02-001" name="READ-G-02-001" value="1" onclick="checkPermission(this)"><label for="read_G-02-001">읽기</label>
+                                        <input type="checkbox" childcode="G-02-001" id="write_G-02-001" name="WRITE-G-02-001" value="2" onclick="checkPermission(this)"><label for="write_G-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-02-002">연령대별 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-02-002" id="read_G-02-002" name="READ-G-02-002" value="1" onclick="checkPermission(this)"><label for="read_G-02-002">읽기</label>
+                                        <input type="checkbox" childcode="G-02-002" id="write_G-02-002" name="WRITE-G-02-002" value="2" onclick="checkPermission(this)"><label for="write_G-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-02-003">거주지별 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-02-003" id="read_G-02-003" name="READ-G-02-003" value="1" onclick="checkPermission(this)"><label for="read_G-02-003">읽기</label>
+                                        <input type="checkbox" childcode="G-02-003" id="write_G-02-003" name="WRITE-G-02-003" value="2" onclick="checkPermission(this)"><label for="write_G-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-03-001">방문자 접속통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-03-001" id="read_G-03-001" name="READ-G-03-001" value="1" onclick="checkPermission(this)"><label for="read_G-03-001">읽기</label>
+                                        <input type="checkbox" childcode="G-03-001" id="write_G-03-001" name="WRITE-G-03-001" value="2" onclick="checkPermission(this)"><label for="write_G-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-03-002">접속방향 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-03-002" id="read_G-03-002" name="READ-G-03-002" value="1" onclick="checkPermission(this)"><label for="read_G-03-002">읽기</label>
+                                        <input type="checkbox" childcode="G-03-002" id="write_G-03-002" name="WRITE-G-03-002" value="2" onclick="checkPermission(this)"><label for="write_G-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-04-001">상품별 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-04-001" id="read_G-04-001" name="READ-G-04-001" value="1" onclick="checkPermission(this)"><label for="read_G-04-001">읽기</label>
+                                        <input type="checkbox" childcode="G-04-001" id="write_G-04-001" name="WRITE-G-04-001" value="2" onclick="checkPermission(this)"><label for="write_G-04-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-04-002">상품보관함 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-04-002" id="read_G-04-002" name="READ-G-04-002" value="1" onclick="checkPermission(this)"><label for="read_G-04-002">읽기</label>
+                                        <input type="checkbox" childcode="G-04-002" id="write_G-04-002" name="WRITE-G-04-002" value="2" onclick="checkPermission(this)"><label for="write_G-04-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-04-003">고객평점 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-04-003" id="read_G-04-003" name="READ-G-04-003" value="1" onclick="checkPermission(this)"><label for="read_G-04-003">읽기</label>
+                                        <input type="checkbox" childcode="G-04-003" id="write_G-04-003" name="WRITE-G-04-003" value="2" onclick="checkPermission(this)"><label for="write_G-04-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="G-05-001">적립금 사용 통계</td>
+                                    <td class="cb" parent="G">
+                                        <input type="checkbox" childcode="G-05-001" id="read_G-05-001" name="READ-G-05-001" value="1" onclick="checkPermission(this)"><label for="read_G-05-001">읽기</label>
+                                        <input type="checkbox" childcode="G-05-001" id="write_G-05-001" name="WRITE-G-05-001" value="2" onclick="checkPermission(this)"><label for="write_G-05-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="11">입점업체관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_H" name="cbReadAll" value="H" onclick="checkCbAll(this)"><label for="cb_read_all_H"><strong>전체</strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_H" name="cbWriteAll" value="H" onclick="checkCbAll(this)"><label for="cb_write_all_H"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-01-001">판매자 신청목록</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-01-001" id="read_H-01-001" name="READ-H-01-001" value="1" onclick="checkPermission(this)"><label for="read_H-01-001">읽기</label>
+                                        <input type="checkbox" childcode="H-01-001" id="write_H-01-001" name="WRITE-H-01-001" value="2" onclick="checkPermission(this)"><label for="write_H-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-01-002">판매자 목록</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-01-002" id="read_H-01-002" name="READ-H-01-002" value="1" onclick="checkPermission(this)"><label for="read_H-01-002">읽기</label>
+                                        <input type="checkbox" childcode="H-01-002" id="write_H-01-002" name="WRITE-H-01-002" value="2" onclick="checkPermission(this)"><label for="write_H-01-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-01-003">판매자 탈퇴목록</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-01-003" id="read_H-01-003" name="READ-H-01-003" value="1" onclick="checkPermission(this)"><label for="read_H-01-003">읽기</label>
+                                        <input type="checkbox" childcode="H-01-003" id="write_H-01-003" name="WRITE-H-01-003" value="2" onclick="checkPermission(this)"><label for="write_H-01-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-01-004">판매자 문의하기</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-01-004" id="read_H-01-004" name="READ-H-01-004" value="1" onclick="checkPermission(this)"><label for="read_H-01-004">읽기</label>
+                                        <input type="checkbox" childcode="H-01-004" id="write_H-01-004" name="WRITE-H-01-004" value="2" onclick="checkPermission(this)"><label for="write_H-01-004">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-01-005">판매자 공지사항</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-01-005" id="read_H-01-005" name="READ-H-01-005" value="1" onclick="checkPermission(this)"><label for="read_H-01-005">읽기</label>
+                                        <input type="checkbox" childcode="H-01-005" id="write_H-01-005" name="WRITE-H-01-005" value="2" onclick="checkPermission(this)"><label for="write_H-01-005">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-02-001">판매자 상품관리</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-02-001" id="read_H-02-001" name="READ-H-02-001" value="1" onclick="checkPermission(this)"><label for="read_H-02-001">읽기</label>
+                                        <input type="checkbox" childcode="H-02-001" id="write_H-02-001" name="WRITE-H-02-001" value="2" onclick="checkPermission(this)"><label for="write_H-02-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-02-002">상품신청/수정/삭제</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-02-002" id="read_H-02-002" name="READ-H-02-002" value="1" onclick="checkPermission(this)"><label for="read_H-02-002">읽기</label>
+                                        <input type="checkbox" childcode="H-02-002" id="write_H-02-002" name="WRITE-H-02-002" value="2" onclick="checkPermission(this)"><label for="write_H-02-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-02-003">브랜드관리</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-02-003" id="read_H-02-003" name="READ-H-02-003" value="1" onclick="checkPermission(this)"><label for="read_H-02-003">읽기</label>
+                                        <input type="checkbox" childcode="H-02-003" id="write_H-02-003" name="WRITE-H-02-003" value="2" onclick="checkPermission(this)"><label for="write_H-02-003">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-03-001">이벤트(일반)관리</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-03-001" id="read_H-03-001" name="READ-H-03-001" value="1" onclick="checkPermission(this)"><label for="read_H-03-001">읽기</label>
+                                        <input type="checkbox" childcode="H-03-001" id="write_H-03-001" name="WRITE-H-03-001" value="2" onclick="checkPermission(this)"><label for="write_H-03-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="H-03-002">이벤트(할인)관리</td>
+                                    <td class="cb" parent="H">
+                                        <input type="checkbox" childcode="H-03-002" id="read_H-03-002" name="READ-H-03-002" value="1" onclick="checkPermission(this)"><label for="read_H-03-002">읽기</label>
+                                        <input type="checkbox" childcode="H-03-002" id="write_H-03-002" name="WRITE-H-03-002" value="2" onclick="checkPermission(this)"><label for="write_H-03-002">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr class="all">
+                                    <th rowspan="3">정산관리</th>
+                                    <td></td>
+                                    <td class="cb">
+                                        <input type="checkbox" childcode="" id="cb_read_all_I" name="cbReadAll" value="I" onclick="checkCbAll(this)"><label for="cb_read_all_I"><strong>전체</strong></label>
+                                        <input type="checkbox" childcode="" id="cb_write_all_I" name="cbWriteAll" value="I" onclick="checkCbAll(this)"><label for="cb_write_all_I"><strong>전체</strong></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="I-01-001">본사정산</td>
+                                    <td class="cb" parent="I">
+                                        <input type="checkbox" childcode="I-01-001" id="read_I-01-001" name="READ-I-01-001" value="1" onclick="checkPermission(this)"><label for="read_I-01-001">읽기</label>
+                                        <input type="checkbox" childcode="I-01-001" id="write_I-01-001" name="WRITE-I-01-001" value="2" onclick="checkPermission(this)"><label for="write_I-01-001">쓰기</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><input type="hidden" name="code" value="I-01-002">판매자정산</td>
+                                    <td class="cb" parent="I">
+                                        <input type="checkbox" childcode="I-01-002" id="read_I-01-002" name="READ-I-01-002" value="1" onclick="checkPermission(this)"><label for="read_I-01-002">읽기</label>
+                                        <input type="checkbox" childcode="I-01-002" id="write_I-01-002" name="WRITE-I-01-002" value="2" onclick="checkPermission(this)"><label for="write_I-01-002">쓰기</label>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info">확인</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                        <button type="button" class="btn btn-dark"><strong>전체</strong>선택</button>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+                    </body>
+
+                    </html>

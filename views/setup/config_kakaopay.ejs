@@ -1,0 +1,169 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>결제정보관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>카카오페이 결제정보를 설정 관리합니다.</li>
+                </ul>
+
+                <form name="Frm" method="post">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 카카오페이 사용여부</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>카카오페이 사용여부</caption>
+                            <tbody>
+                                <tr>
+                                    <th>카카오페이<br>사용여부</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><input type="checkbox" name="usePayway" value="32" checked></dt>
+                                            <dd>카카오페이를 사용합니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="divKakaopayArea">
+
+                        <!-- 결제 설정 -->
+                        <div class="box">
+                            <div class="section_head">
+                                <h4><i class="xi-check-circle"></i> 결제 설정</h4>
+                            </div>
+                            <div id="pg_container">
+                                <table class="t_form">
+                                    <caption>카카오페이 결제 설정 입력폼</caption>
+                                    <tbody>
+                                        <tr>
+                                            <th>상점ID</th>
+                                            <td>
+                                                <input type="text" name="merchantId" class="text_input" style="width:200px; font-weight:bold;" maxlength="40" value="TC0ONETIME">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상점키</th>
+                                            <td>
+                                                <input type="text" name="merchantKey" class="text_input" style="width:99%" maxlength="100" value="d705c4189b4ad157040e5de1451588f6">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상점취소키</th>
+                                            <td>
+                                                <input type="text" name="merchantCancleKey" class="text_input" style="width:99%" maxlength="100" value="123456">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상점인코딩키</th>
+                                            <td>
+                                                <input type="text" name="merchantEncKey" class="text_input" style="width:99%" maxlength="100" value="223fe8166cce7c42">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>상점해쉬키</th>
+                                            <td>
+                                                <input type="text" name="merchantHashKey" class="text_input" style="width:99%" maxlength="100" value="488819e81e936e76">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>부가세 설정</th>
+                                            <td>
+                                                <span>
+                                                <input type="radio" id="allow_tax_free_F" name="isAllowTaxFreeForKakaopay" value="F"><label for="allow_tax_free_F">과세만 가능</label>
+                                                </span>
+                                                <span class="mgl20">
+                                                <input type="radio" id="allow_tax_free_T" name="isAllowTaxFreeForKakaopay" value="T" checked><label for="allow_tax_free_T">과세+면세 가능</label>
+                                                </span>
+                                                <span class="square_blue"><i class="xi-error"></i>(반드시 선택하신 PG사와 계약 후에 사용해야 합니다.)</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><input type="hidden" name="feePayway" value="32">결제 수수료</th>
+                                            <td>
+                                                <input name="payFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6"> %
+                                                <input type="hidden" name="payFeeUnit" value="200">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>일반 할부기간</th>
+                                            <td>
+                                                <div><input type="text" name="quota" value="" class="text_input" style="width:99%" maxlength="125"></div>
+                                                <div style="color:#3191b7;" class="mgt5">※ 00:일시불, 02:2개월, 03:3개월, ... , 12:12개월</div>
+                                                <div style="color:#3191b7;" class="mgt5">
+                                                    <p style="float:left;">※ 예)</p>
+                                                    <p>할부기간을 일시불만 가능하도록 적용할 경우 : 00</p>
+                                                    <p style="margin-left:36px;">할부기간을 일시불~12개월까지 적용할 경우 : 12</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>무이자 할부사용</th>
+                                            <td>
+                                                <span>
+                                                    <input type="radio" id="no_int_1" name="isNoInt" value="T"><label for="no_int_1">사용</label>
+                                                </span>
+                                                <span class="mgl20">
+                                                    <input type="radio" id="no_int_2" name="isNoInt" value="F" checked><label for="no_int_2">사용안함</label>
+                                                </span>
+                                                <span class="square_blue"><i class="xi-error"></i>무이자 할부는 반드시 PG사(카카오페이)와 계약 후에 사용해야 합니다.</span>
+
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>무이자 할부기간</th>
+                                            <td>
+                                                <div><input type="text" name="noIntQuota" value="" class="text_input" style="width:99%;background-color:#e0e0e0;" maxlength="125" disabled=""></div>
+                                                <div style="color:#3191b7;" class="mgt5">
+                                                    <div style="float:left;">※ 카드사코드 :</div>
+                                                    <div>BC-CC01, 국민-CC02, 외환-CC03, 삼성-CC04, 신한-CC06, 현대-CC07, 롯데-CC08, NH채움-CC12, 하나SK-CC16</div>
+                                                </div>
+                                                <div style="color:#3191b7;" class="mgt5">
+                                                    <div style="float:left;">※ 예)</div>
+                                                    <div>모든 카드에 대해서 3개월/6개월/9개월 무이자로 적용할 경우 : ALL-3:6:9</div>
+                                                    <div style="margin-left:36px;">국민카드 3개월/6개월/9개월 무이자로 적용할 경우 : CC02-3:6:9</div>
+                                                    <div style="margin-left:36px;">국민카드 3개월/6개월, 외환카드 2개월/3개월 무이자로 적용할 경우 : CC02-3:6,CC03-2:3</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--// 결제 설정 -->
+
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info">확인</button>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

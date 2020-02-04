@@ -1,0 +1,341 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>하단부분관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>전체디자인</li>
+                    <li>하단부분관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>하단 부분의 텍스트 및 각 링크, 배경이미지를 설정할 수 있는 곳입니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" enctype="multipart/form-data">
+                    <div id="tb_prog">
+                        <div class="box">
+                            <div class="section_head">
+                                <h4>하단 메뉴</h4>
+                            </div>
+                            <table class="t_list">
+                                <caption>하단 메뉴 리스트</caption>
+                                <colgroup>
+                                    <col width="50">
+                                    <col width="50">
+                                    <col width="150">
+                                    <col width="150">
+                                    <col width="*">
+                                    <col width="60">
+                                    <col width="130">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>정렬</th>
+                                        <th>제목</th>
+                                        <th>이미지</th>
+                                        <th>경로</th>
+                                        <th>출력</th>
+                                        <th>관리</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><img src="/img/btn_down.gif" onclick="move('UP', '9')" style="cursor:pointer"><br></td>
+                                        <td>회사소개</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/about" target="_blank">/etc/about.do</a></td>
+                                        <td><input type="checkbox" name="display" value="9" onclick="changeDisplay(this)" checked></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(9)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(9)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '1')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '1')" style="cursor:pointer"><br></td>
+                                        <td>이용안내</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/guide" target="_blank">/etc/guide.do</a></td>
+                                        <td><input type="checkbox" name="display" value="1" onclick="changeDisplay(this)"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(1)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(1)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '2')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '2')" style="cursor:pointer"><br></td>
+                                        <td>배송/결제안내</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/delivery" target="_blank">/etc/delivery.do</a></td>
+                                        <td><input type="checkbox" name="display" value="2" onclick="changeDisplay(this)"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(2)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(2)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '4')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '4')" style="cursor:pointer"><br></td>
+                                        <td>개인정보취급방침</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/privacy" target="_blank">/etc/privacy.do</a></td>
+                                        <td><input type="checkbox" name="display" value="4" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(4)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(4)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '3')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '3')" style="cursor:pointer"><br></td>
+                                        <td>이용약관</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/licensing" target="_blank">/etc/licensing.do</a></td>
+                                        <td><input type="checkbox" name="display" value="3" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(3)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(3)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '6')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '6')" style="cursor:pointer"><br></td>
+                                        <td>제휴문의</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/etc/cooperation" target="_blank">/etc/cooperation.do</a></td>
+                                        <td><input type="checkbox" name="display" value="6" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(6)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(6)">삭제</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>7</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '7')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '7')" style="cursor:pointer"><br></td>
+                                        <td>고객센터</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="/cscenter" target="_blank">/cscenter</a></td>
+                                        <td><input type="checkbox" name="display" value="7" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(7)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(7)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '5')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '5')" style="cursor:pointer"><br></td>
+                                        <td>입점신청</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="http://java.mysql.mallstore.co.kr/mim/guide.do" target="_blank">/mim/guide.do</a></td>
+                                        <td><input type="checkbox" name="display" value="5" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(5)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(5)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '8')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '8')" style="cursor:pointer"><br></td>
+                                        <td>1:1친절상담</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="http://java.mysql.mallstore.co.kr/cscenter/inquiry.do" target="_blank">/cscenter/inquiry.do</a></td>
+                                        <td><input type="checkbox" name="display" value="8" onclick="changeDisplay(this)" checked=""></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(8)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(8)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '23')" style="cursor:pointer"><br><img src="/img/btn_down.gif" onclick="move('UP', '23')" style="cursor:pointer"><br></td>
+                                        <td>입점신청</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="http://java.mysql.mallstore.co.kr/mim/guide.do" target="_blank">/mim/guide.do</a></td>
+                                        <td><input type="checkbox" name="display" value="23" onclick="changeDisplay(this)"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(23)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(23)">삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td><img src="/img/btn_up.gif" onclick="move('UP', '24')" style="cursor:pointer"><br></td>
+                                        <td>이용안내</td>
+                                        <td>
+                                            <div class="adjust_image_container">&nbsp;</div>
+                                        </td>
+                                        <td class="left"><a href="http://java.mysql.mallstore.co.kr/etc/guide.do" target="_blank">/etc/guide.do</a></td>
+                                        <td><input type="checkbox" name="display" value="24" onclick="changeDisplay(this)"></td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="reg(24)">수정</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(24)">삭제</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="btn_center">
+                            <button type="button" class="btn btn-info" onclick="reg()">추가하기</button>
+                        </div>
+
+
+                        <div class="defaultFunc mgb30 mgt40">
+                            <strong>기본제공기능 바로넣기</strong>
+                            <table class="t_s_form mgt10">
+                                <caption>기본제공기능 리스트</caption>
+                                <colgroup>
+                                    <col width="200">
+                                    <col width="*">
+                                    <col width="130">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>이용안내</th>
+                                        <td class="url"><a href="/etc/guide" target="_blank">/etc/guide.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('이용안내', '/etc/guide', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>배송/결제안내</th>
+                                        <td class="url"><a href="/etc/delivery" target="_blank">/etc/delivery.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('배송/결제안내', '/etc/delivery', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>제휴문의</th>
+                                        <td class="url"><a href="/etc/cooperation" target="_blank">/etc/cooperation.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('제휴문의', '/etc/cooperation', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>이용약관</th>
+                                        <td class="url"><a href="http://java.mysql.mallstore.co.kr/etc/licensing.do" target="_blank">/etc/licensing.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('이용약관', '/etc/licensing', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>개인정보취급방침</th>
+                                        <td class="url"><a href="/etc/privacy" target="_blank">/etc/privacy.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('개인정보취급방침', '/etc/privacy', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>고객센터</th>
+                                        <td class="url"><a href="http://java.mysql.mallstore.co.kr/cscenter" target="_blank">/cscenter</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('고객센터', '/cscenter', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>1:1친절상담</th>
+                                        <td class="url"><a href="/cscenter/inquiry" target="_blank">/cscenter/inquiry.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('1:1친절상담', '/cscenter/inquiry', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>회사소개</th>
+                                        <td class="url"><a href="/etc/about" target="_blank">/etc/about.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('회사소개', '/etc/about', '_self')">바로등록</button></td>
+                                    </tr>
+                                    <tr>
+                                        <th>입점안내 및 신청</th>
+                                        <td class="url"><a href="/mim/guide" target="_blank">/mim/guide.do</a></td>
+                                        <td><button type="button" class="btn btn-sm btn-secondary" onclick="direct('입점신청', '/mim/guide', '_self')">바로등록</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>※ 기본제공기능은
+                                <a href="/setup/config_policy" target="_blank ">[관리자-환경설정-상점운영정책]</a>에서 수정하실수 있습니다.</p>
+                        </div>
+
+
+                        <div class="box">
+                            <div class="sortable_title">
+                                <h4>하단 로고<span>(최대 1개)</span></h4>
+                                <p>
+                                    <span><input type="checkbox " name="cbListAll " onclick="cbBannerAll(this) ">전체선택</span>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="addBanner(this)">배너추가</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeBanner(this)">배너삭제</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="saveBanner(this)"> 저장</button>
+                                </p>
+                            </div>
+                            <ul class="sortable sortable_banner ui-sortable">
+                                <li>
+                                    <input type="checkbox " name="cbBanner " value="7 " class="cb ">
+                                    <div class="mover ">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner ">
+                                        <img src="/img/9f13b18b9aea46eeb1734d3068fa0394.png " style="margin-left: 28px; margin-top: 57.5px;" alt="mallstore "></div>
+                                    <div class="caption ">
+                                        <p class="ellipsis "><span class="ellipsis ">mallstore</span></p>
+                                        <div>
+                                            <span class="button small "><button type="button " onclick="editBanner(7) ">수정</button></span>
+                                            <span class="button small "><a href="/img/9f13b18b9aea46eeb1734d3068fa0394.png " class="original " laybox-width="0 " laybox-height="0 ">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="box ">
+                            <div class="sortable_title ">
+                                <h4>인증 마크</h4>
+                                <p>
+                                    <span><input type="checkbox " name="cbListAll " onclick="cbBannerAll(this) ">전체선택</span>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="addBanner(this)">배너추가</button>
+                                    <button type="button" class="btn btn-sm btn-danger" onclick="removeBanner(this)">배너삭제</button>
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="saveBanner(this)"> 저장</button>
+                                </p>
+                            </div>
+                            <ul class="sortable sortable_banner ui-sortable">
+                                <li>
+                                    <input type="checkbox " name="cbBanner " value="7 " class="cb ">
+                                    <div class="mover ">
+                                        <div><strong>MOVE</strong></div>
+                                    </div>
+                                    <div class="banner ">
+                                        <img src="/img/9f13b18b9aea46eeb1734d3068fa0394.png " style="margin-left: 28px; margin-top: 57.5px;" alt="mallstore "></div>
+                                    <div class="caption ">
+                                        <p class="ellipsis "><span class="ellipsis ">mallstore</span></p>
+                                        <div>
+                                            <span class="button small "><button type="button " onclick="editBanner(7) ">수정</button></span>
+                                            <span class="button small "><a href="/img/9f13b18b9aea46eeb1734d3068fa0394.png " class="original " laybox-width="0 " laybox-height="0 ">원본</a></span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

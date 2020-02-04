@@ -1,0 +1,224 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>관리자접속IP설정</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>관리자설정</li>
+                    <li>관리자접속IP설정</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>관리자에 접속 가능한 IP를 설정합니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/setup/access_ip_act">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>접속 IP 설정</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>접속 IP설정 폼</caption>
+                            <colgroup>
+                                <col width="130">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>접속 제한 여부</th>
+                                    <td>
+                                        <input type="radio" id="isAccessIP_F" name="isAdminAccessIp" value="F" checked=""><label for="isAccessIP_F">모든 IP 허용 </label>
+                                        <input type="radio" id="isAccessIP_T" name="isAdminAccessIp" value="T"><label for="isAccessIP_T">IP 접속 제한 (설정된 IP만 접속 가능)</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">접속 가능 IP</th>
+                                    <td>
+                                        <div style="float:left">
+                                            <select name="accessIp" size="15" multiple="" style="width:400px">
+                </select>
+                                            <div style="text-align:right;margin-top:5px">
+                                                <button type="button" class="btn btn-sm btn-danger" onclick="removeIp()">삭제</button>
+                                            </div>
+                                        </div>
+                                        <div style="float:left;width:430px;margin-left:30px">
+                                            <dl>
+                                                <dt><strong>IP 추가</strong></dt>
+                                                <dd style="margin-top:5px;overflow:hidden">
+                                                    <input type="text" name="ip1" class="text_input" style="width:35px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> .
+                                                    <input type="text" name="ip2" class="text_input" style="width:35px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> .
+                                                    <input type="text" name="ip3" class="text_input" style="width:35px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> .
+                                                    <input type="text" name="ipBandBegin" class="text_input" style="width:35px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                                    <span id="bodyBandEnd" style="display:none">~ <input type="text" name="ipBandEnd" class="text_input" style="width:35px" maxlength="3" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"></span>
+                                                    <ul class="arrange" style="float:right">
+                                                        <li><input type="checkbox" id="cd_band" name="cbBand" onclick="setBand(this)"><label for="cd_band">대역 지정 </label></li>
+                                                        <li><button type="button" class="btn btn-sm btn-dark" onclick="addIp()">추가</button></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+
+                                            <div class="mgt20">
+                                                <span class="square_blue">현재 접속 IP (210.123.124.246)</span>
+                                                <button type="button" onclick="setNowIp()">지정</button><br>
+                                            </div>
+                                            <div class="mgt10">
+                                                <span class="square_blue">IP 대역 지정은 4번째 자리에만 설정할 수 있습니다.</span><br>
+                                                <span class="square_blue">IP 대역을 입력하지 않으면 대역대(0~255)로 설정됩니다.</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">저장</button>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function setBand(obj) {
+                            var f = document.Frm;
+                            if (obj.checked) {
+                                f.ipBandEnd.disabled = false;
+                                _es('bodyBandEnd').display = "";
+                            } else {
+                                _es('bodyBandEnd').display = "none";
+                                f.ipBandEnd.disabled = true;
+                            }
+                        }
+
+                        function setNowIp() {
+                            var f = document.Frm;
+                            var arrIp = '210.123.124.246'.split('.');
+
+                            f.cbBand.checked = false;
+                            setBand(f.cbBand);
+
+                            for (var i = 1; i <= 3; i++) {
+                                f['ip' + i].value = arrIp[i - 1];
+                            }
+                            f.ipBandBegin.value = arrIp[3];
+                        }
+
+                        function addIp() {
+                            var f = document.Frm;
+                            var accessIp = '';
+
+                            for (var i = 1; i <= 3; i++) {
+                                var obj = f['ip' + i];
+                                if (isEmpty(obj)) {
+                                    alert("IP를 입력해 주세요.");
+                                    obj.focus();
+                                    return false;
+                                }
+
+                                if (obj.value.toNumeric() < 0 || obj.value.toNumeric() > 255) {
+                                    alert("IP는 0~255 사이의 숫자만 입력이 가능합니다.");
+                                    obj.value = '';
+                                    obj.focus();
+                                    return false;
+                                }
+
+                                accessIp += (accessIp ? '.' : '') + obj.value.toNumeric();
+                            }
+
+                            if (f.cbBand.checked) {
+                                if (isEmpty(f.ipBandBegin)) {
+                                    accessIp += '.' + 0;
+                                } else {
+                                    if (f.ipBandBegin.value.toNumeric() < 0 || f.ipBandBegin.value.toNumeric() > 255) {
+                                        alert("IP는 0~255 사이의 숫자만 입력이 가능합니다.");
+                                        f.ipBandBegin.value = '';
+                                        f.ipBandBegin.focus();
+                                        return false;
+                                    }
+
+                                    accessIp += '.' + f.ipBandBegin.value.toNumeric();
+                                }
+
+                                if (isEmpty(f.ipBandEnd)) {
+                                    accessIp += ' ~ ' + 255;
+                                } else {
+                                    if (f.ipBandEnd.value.toNumeric() < 0 || f.ipBandEnd.value.toNumeric() > 255) {
+                                        alert("IP는 0~255 사이의 숫자만 입력이 가능합니다.");
+                                        f.ipBandEnd.value = '';
+                                        f.ipBandEnd.focus();
+                                        return false;
+                                    }
+
+                                    accessIp += ' ~ ' + f.ipBandEnd.value.toNumeric();
+                                }
+                            } else {
+                                if (isEmpty(f.ipBandBegin)) {
+                                    alert("IP를 입력해 주세요.");
+                                    f.ipBandBegin.focus();
+                                    return false;
+                                }
+
+                                if (f.ipBandBegin.value.toNumeric() < 0 || f.ipBandBegin.value.toNumeric() > 255) {
+                                    alert("IP는 0~255 사이의 숫자만 입력이 가능합니다.");
+                                    f.ipBandBegin.value = '';
+                                    f.ipBandBegin.focus();
+                                    return false;
+                                }
+
+                                accessIp += '.' + f.ipBandBegin.value.toNumeric();
+                            }
+
+                            for (var i = 0; i < f.accessIp.length; i++) {
+                                if (f.accessIp.options[i].text == accessIp) {
+                                    alert("이미 추가된 IP(대역) 입니다.");
+                                    return false;
+                                }
+                            }
+
+                            addSelectOption(f.accessIp, accessIp, accessIp.stripspace());
+                        }
+
+                        function removeIp() {
+                            var f = document.Frm;
+
+                            for (var i = f.accessIp.length - 1; i > -1; i--) {
+                                if (f.accessIp[i].selected) {
+                                    removeSelectOption(f.accessIp, i);
+                                }
+                            }
+                        }
+
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.isAdminAccessIp) == 'T' && f.accessIp.length == 0) {
+                                alert("접속 가능 IP를 설정해 주세요.");
+                                f.accessIp.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                for (var i = 0; i < f.accessIp.length; i++) {
+                                    f.accessIp[i].selected = true;
+                                }
+
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

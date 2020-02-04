@@ -1,0 +1,99 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>이용약관</h3>
+                <ul class="navi">
+                    <li class="home"><a href="http://java.mysql.mallstore.co.kr/nmanager/main" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>약관관리</li>
+                    <li>이용약관</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>새로운 '이용약관'의 내용을 작성하신 후 [확인]버튼을 클릭해주세요.</li>
+                    <li>최초 등록인 경우, 해당 버전이 사용자 노출 버전으로 자동 등록됩니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/setup/config_terms_history_act">
+                    <input type="hidden" name="code" value="101">
+                    <input type="hidden" name="idx" value="">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>이용약관 등록</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>이용약관 입력폼</caption>
+                            <colgroup>
+                                <col width="130">
+                                <col width="*">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th>사용자 노출설정</th>
+                                    <td>
+                                        <label><input type="checkbox" name="isCurrent" value="T"> 체크 시 현재 사용자 화면에 노출됩니다.</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>내용</th>
+                                    <td style="padding:0">
+                                        <textarea name="content" style="width: 100%; height: 350px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0"
+                                            scrolling="no" style="width: 100%; height: 397px;" src="/js/SmartEditor2Skin.html"></iframe>
+                                        <script type="text/javascript">
+                                            //<![CDATA[
+                                            nhn.husky.EZCreator.createInIFrame({
+                                                elPlaceHolder: 'content'
+                                            });
+                                            //]]>
+                                        </script>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">등록</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancel()">취소</button>
+                    </div>
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
+
+                    <!-- 페이지 Script -->
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function cancel() {
+                            history.back();
+                        }
+
+                        function validSubmit() {
+                            var f = document.Frm;
+                            var idx = parseInt(f.idx.value);
+
+                            var mode = "새로운 이용약관 내용을 등록";
+                            if (idx) {
+                                mode = "기존의 이용약관 [ver ] 항목을 수정";
+                            }
+
+                            if (confirm(mode + "하시겠습니까?")) {
+                                f.target = "frmProc";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

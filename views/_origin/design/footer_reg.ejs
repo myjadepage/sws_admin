@@ -1,0 +1,126 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>하단부분관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>전체디자인</li>
+                    <li>하단부분관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>하단부분을 등록해주세요.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="mode" value="EDIT">
+                    <input type="hidden" name="idx" value="1">
+                    <input type="hidden" name="method" value="prog">
+
+                    <div class="section_head">
+                        <h4>하단 메뉴 등록</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>하단메뉴 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>제목</th>
+                                <td><input type="text" name="title" class="text_input" style="width:98%" maxlength="50" value="이용안내"></td>
+                            </tr>
+                            <tr>
+                                <th>이미지</th>
+                                <td>
+                                    <div><input type="file" name="imgFooter" onkeypress="blockKey(event)" onkeydown="blockKey(event)"></div>
+                                    <div class="mgt5"><span class="square_blue">이미지파일은 GIF, JPG, PNG로 올려주시기 바랍니다.</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>링크</th>
+                                <td>
+                                    <div><input type="text" name="linkUrl" value="/etc/guide.do" class="text_input" style="width:98%" maxlength="150"></div>
+                                    <div class="mgt5"><span class="square_blue">예) http://java.mysql.mallstore.co.kr/sample.html</span></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>타겟설정</th>
+                                <td>
+                                    <input type="radio" name="linkTarget" value="_self" checked="">현재창
+                                    <input type="radio" name="linkTarget" value="_blank">새창으로
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>출력여부</th>
+                                <td>
+                                    <input type="radio" name="isDisplay" value="T">출력
+                                    <input type="radio" name="isDisplay" value="F" checked="">숨김
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button red large"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button red large"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkFileDisabled(obj, target) {
+                            target.disabled = obj.checked;
+                        }
+
+                        function validSubmit() {
+                            var f = document.Frm;
+
+                            if (isEmpty(f.title)) {
+                                alert("제목을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            if (!isEmpty(f.imgFooter)) {
+                                if (!checkFileName(f.imgFooter)) return false;
+                                if (!checkFileExt(f.imgFooter, "jpg,gif,png", "이미지(jpg, gif, png) 파일만 선택해 주세요.")) return false;
+                            }
+
+                            if (isEmpty(f.linkUrl)) {
+                                alert("링크주소를 입력해 주세요.");
+                                f.linkUrl.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.action = "footer_act.do";
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            history.back();
+                        }
+
+                        $(function() {
+                            $('.adjust_image_container').adjustImage();
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

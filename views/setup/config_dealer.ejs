@@ -1,0 +1,299 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>판매자 승인관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>판매자 승인여부의 설정을 합니다.</li>
+                </ul>
+
+                <form name="Frm" method="post">
+                    <!--승인설정 관리-->
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 일반설정 관리</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>일반설정 관리 폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>가입관리</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="apprDealerJoinBiz_1" name="apprDealerJoinBiz" value="1" checked></span></dt>
+                                            <dd><label for="apprDealerJoinBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="apprDealerJoinBiz_0" name="apprDealerJoinBiz" value="0"></span></dt>
+                                            <dd><label for="apprDealerJoinBiz_0">미 승인 등록</label></dd>
+                                        </dl>
+                                        <hr>
+                                        <div class="mgt20">
+                                            <strong>가입시 정산주기 설정</strong>
+                                            <span>
+                                                <select id="dealerAccountCycle" name="dealerAccountCycle" class="text_input" style="width:100px">
+                                                    <option value="1" selected>일정산</option>
+                                                    <option value="7">주정산</option>
+                                                    <option value="15">15일정산</option>
+                                                    <option value="30">월정산</option>
+                                                </select>
+                                            </span>
+                                            <span class="square_blue"><i class="xi-error"></i> 판매자의 가입 승인 여부를 설정 합니다.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>이벤트관리</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="apprDealerEventRegistBiz_1" name="apprDealerEventRegistBiz" value="1" checked></span></dt>
+                                            <dd><label for="apprDealerEventRegistBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="apprDealerEventRegistBiz_0" name="apprDealerEventRegistBiz" value="0"></span></dt>
+                                            <dd><label for="apprDealerEventRegistBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 일반/할인 이벤트 등록/수정/삭제 시 승인여부를 설정합니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>브랜드관리</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="apprBrandRegistBiz_1" name="apprBrandRegistBiz" value="1" checked></span></dt>
+                                            <dd><label for="apprBrandRegistBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="apprBrandRegistBiz_0" name="apprBrandRegistBiz" value="0"></span></dt>
+                                            <dd><label for="apprBrandRegistBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 입점업체에서 등록한 브랜드의 승인여부를 설정합니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>정산 관리</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="apprDealerAccountBiz_1" name="apprDealerAccountBiz" value="1" checked></span></dt>
+                                            <dd><label for="apprDealerAccountBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="apprDealerAccountBiz_0" name="apprDealerAccountBiz" value="0"></span></dt>
+                                            <dd><label for="apprDealerAccountBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 정산 요청 가능여부를 결정합니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--승인설정 관리-->
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 상품정보설정관리</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>상품정보설정관리 폼</caption>
+
+                            <tbody>
+                                <tr>
+                                    <th>등록/수정 /삭제 설정</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="apprDealerRegistBiz_1" name="apprDealerRegistBiz" value="1" checked></span></dt>
+                                            <dd><label for="apprDealerRegistBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="apprDealerRegistBiz_0" name="apprDealerRegistBiz" value="0"></span></dt>
+                                            <dd><label for="apprDealerRegistBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 선택된 설정은 판매자 신청/목록 내 기본설정으로 노출됩니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                                <tr id="appr_item">
+                                    <th>수정 승인 항목 설정 <br> <strong class="font11 blue">(선택된 항목은 승인이 필요합니다.)</strong></th>
+                                    <td>
+                                        <table class="t_form">
+                                            <colgroup>
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="20%">
+                                                <col width="*">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <!-- 카테고리 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_6" value="32" checked>
+                                                        <label for="apprDealerRegistItem2_6">카테고리</label>
+                                                    </td>
+                                                    <!-- 상품명 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_1" value="1" checked>
+                                                        <label for="apprDealerRegistItem1_1">상품명</label>
+                                                    </td>
+                                                    <!-- 간략설명 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_2" value="2">
+                                                        <label for="apprDealerRegistItem1_2">간략설명</label>
+                                                    </td>
+                                                    <!-- 이미지 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_3" value="4">
+                                                        <label for="apprDealerRegistItem1_3">이미지</label>
+                                                    </td>
+                                                    <!-- 시중가 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_4" value="8" checked>
+                                                        <label for="apprDealerRegistItem1_4">시중가</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 판매가 -->
+                                                    <td><input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_5" value="16" checked>
+                                                        <label for="apprDealerRegistItem1_5">판매가</label>
+                                                    </td>
+                                                    <!-- 공급가 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_6" value="32">
+                                                        <label for="apprDealerRegistItem1_6">공급가</label>
+                                                    </td>
+                                                    <!-- 수수료율 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_7" value="64">
+                                                        <label for="apprDealerRegistItem1_7">수수료율</label>
+                                                    </td>
+                                                    <!-- 부가가치세 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_8" value="128">
+                                                        <label for="apprDealerRegistItem1_8">부가가치세</label>
+                                                    </td>
+                                                    <!-- 재고 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_9" value="256">
+                                                        <label for="apprDealerRegistItem1_9">재고</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 품절여부 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_7" value="64">
+                                                        <label for="apprDealerRegistItem2_7">품절여부</label>
+                                                    </td>
+                                                    <!-- 진열상태 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem1" id="apprDealerRegistItem1_10" value="512">
+                                                        <label for="apprDealerRegistItem1_10">진열상태</label>
+                                                    </td>
+                                                    <!-- 제조사 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_1" value="1">
+                                                        <label for="apprDealerRegistItem2_1">제조사</label>
+                                                    </td>
+                                                    <!-- 원산지 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_2" value="2">
+                                                        <label for="apprDealerRegistItem2_2">원산지</label>
+                                                    </td>
+                                                    <!-- 상품정보고시 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_8" value="128" checked>
+                                                        <label for="apprDealerRegistItem2_8">상품정보고시</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 상품설명(PC) -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_9" value="256">
+                                                        <label for="apprDealerRegistItem2_9">상품설명(PC)</label>
+                                                    </td>
+                                                    <!-- 상품설명(MOBILE) -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_10" value="512">
+                                                        <label for="apprDealerRegistItem2_10">상품설명(MOBILE)</label>
+                                                    </td>
+                                                    <!-- 배송비구분 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_3" value="4">
+                                                        <label for="apprDealerRegistItem2_3">배송비구분</label>
+                                                    </td>
+                                                    <!-- 배송비 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_4" value="8" checked>
+                                                        <label for="apprDealerRegistItem2_4">배송비</label>
+                                                    </td>
+                                                    <!-- 배송비무료금액 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem2" id="apprDealerRegistItem2_5" value="16" checked>
+                                                        <label for="apprDealerRegistItem2_5">배송비무료금액</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- 배송정책 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem3" id="apprDealerRegistItem3_1" value="1" checked>
+                                                        <label for="apprDealerRegistItem3_1">배송정책</label>
+                                                    </td>
+                                                    <!-- 옵션 -->
+                                                    <td>
+                                                        <input type="checkbox" name="apprDealerRegistItem3" id="apprDealerRegistItem3_2" value="2">
+                                                        <label for="apprDealerRegistItem3_2">옵션</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>상품당 수수료 설정</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="permDealerGoodsCmsBiz_1" name="permDealerGoodsCmsBiz" value="1" checked></span></dt>
+                                            <dd><label for="permDealerGoodsCmsBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="permDealerGoodsCmsBiz_0" name="permDealerGoodsCmsBiz" value="0"></span></dt>
+                                            <dd><label for="permDealerGoodsCmsBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 상품당 수수료 설정 가능여부를 결정합니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>판매자 상품진열 승인</th>
+                                    <td>
+                                        <dl class="choose">
+                                            <dt><span><input type="radio" id="permDealerGoodsDisplayBiz_1" name="permDealerGoodsDisplayBiz" value="1" checked></span></dt>
+                                            <dd><label for="permDealerGoodsDisplayBiz_1">승인 후 등록</label></dd>
+                                            <dt class="mgl20"><span><input type="radio" id="permDealerGoodsDisplayBiz_0" name="permDealerGoodsDisplayBiz" value="0"></span></dt>
+                                            <dd><label for="permDealerGoodsDisplayBiz_0">미 승인 등록</label></dd>
+                                            <dd><span class="square_blue"><i class="xi-error"></i> 상품당 수수료 설정 가능여부를 결정합니다.</span> </dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_center">
+                        <input type="submit" value="확인" class="btn btn-info">
+                        <button type="button" class="btn btn-secondary">취소</button>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

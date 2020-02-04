@@ -1,0 +1,120 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>어휘설정</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>전체운영설정</li>
+                    <li>어휘설정</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>전화번호 지역번호, 휴대폰 사업자번호 등 사이트에서 사용되는 어휘를 설정합니다.</li>
+                </ul>
+                <!-- 에디터 Script -->
+                <style type="text/css">
+                    #words {
+                        width: 320px;
+                        padding: 5px;
+                        overflow-y: hidden;
+                    }
+                </style>
+
+                <form name="Frm" method="post" action="/setup/config_vocab_act">
+                    <input type="hidden" name="mode" value="VOCAB">
+
+                    <div class="box">
+                        <div class="section_head">
+                            <h4>어휘 설정</h4>
+                        </div>
+
+                        <table class="t_form">
+                            <caption>어휘 설정 폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>어휘 분류</th>
+                                    <td>
+                                        <select id="code" name="code" class="text_input" onchange="changeVocab(this)"><option value="101" selected="">전화번호 지역번호</option><option value="102">휴대폰 인식번호</option><option value="103">이메일주소 도메인</option><option value="104">은행</option><option value="105">취소사유</option><option value="106">교환사유</option><option value="107">반품사유</option></select></td>
+                                </tr>
+                                <tr>
+                                    <th>항목 설정</th>
+                                    <td>
+                                        <div style="float:left"><textarea id="words" name="words" class="text_input" rows="2">02031</textarea></div>
+                                        <div style="float:left;padding:5px;">
+                                            <span class="square_blue">한줄에 한 항목씩 입력해 주세요.</span><br>
+                                            <span class="square_blue">한 항목당 4자의 한글, 영문, 숫자를 입력 할 수 있습니다.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button></span>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function changeVocab(item) {
+                            location.href = "config_vocab?code=" + item.options[item.selectedIndex].value;
+                        }
+
+                        function validSubmit() {
+                            var f = document.Frm;
+                            var size = '4'.toNumeric();
+
+                            if (isEmpty(f.words)) {
+                                alert("항목 설정을 입력해 주세요.");
+                                f.words.focus();
+                                return false;
+                            }
+
+                            var arrWord = f.words.value.split('\n');
+
+                            var checker = 0;
+                            for (var i = 0; i < arrWord.length; i++) {
+                                if (arrWord[i].stripspace() != "") {
+                                    if (arrWord[i].trim().length > size) {
+                                        alert("한 항목당 " + size + "자의 한글, 영문, 숫자만 입력이 가능합니다.");
+                                        f.words.focus();
+                                        return false;
+                                    }
+                                    ++checker;
+                                }
+                            }
+
+                            if (checker == 0) {
+                                alert("항목 설정을 입력해 주세요.");
+                                f.words.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.submit();
+                            }
+                        }
+
+                        addEvent(window, 'load', function() {
+                            _e('words').onkeyup = function() {
+                                this.rows = this.value.split('\n').length;
+                            }
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

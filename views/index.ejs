@@ -1,0 +1,191 @@
+<%- include('inc/head') %>
+
+    <div id="container_main">
+        <%- include('inc/sidebar') %>
+
+            <div id="contents_main">
+                <script type="text/javascript">
+                    //<![CDATA[
+                    // 주문정보 상세보기
+                    function openOrderDetail(menu, idx) {
+                        openPopup("../order/order_detail_new_pop.do?menu=" + menu + "&idx=" + idx, "OrderDetail", 1080, 800, "scrollbars=1");
+                    }
+                    //]]>
+                </script>
+
+                <h3 class="main">내상점 통계분석</h3>
+
+                <div class="analysis_area">
+                    <!-- TODAY -->
+                    <p><strong>TODAY</strong> REPORT (01월 22일 수요일)</p>
+                    <table width="100%" class="t_list mgt5">
+                        <colgroup>
+                            <col width="*">
+                            <col width="21%">
+                            <col width="14%">
+                            <col width="14%">
+                            <col width="14%">
+                            <col width="14%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>주문현황(입금미확인포함)</th>
+                                <th>실제결제건수(입금확인)</th>
+                                <th>게시판글</th>
+                                <th>주문취소건수</th>
+                                <th>미배송건수</th>
+                                <th>접속통계</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>84</td>
+                                <td>111</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- //TODAY -->
+                    <!-- YESTERDAY -->
+                    <div class="fl" style="width:49%">
+                        <p class="mgt20"><strong>YESTERDAY</strong> REPORT (01월 21일 화요일)</p>
+                        <table width="100%" class="t_list mgt5">
+                            <colgroup>
+                                <col width="50%">
+                                <col width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>주문(실제)</th>
+                                    <th>실제매출현황</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0(0)</td>
+                                    <td>0원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--// YESTERDAY -->
+                    <!-- MONTH -->
+                    <div class="fr" style="width:49%;">
+                        <p class="mgt20"><strong>MONTH</strong> REPORT (01월)</p>
+                        <table width="100%" class="t_list mgt5">
+                            <colgroup>
+                                <col width="50%">
+                                <col width="*">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>주문(실제)</th>
+                                    <th>실제매출현황</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>3(9)</td>
+                                    <td>674,000원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--// MONTH -->
+
+                    <!-- 회원 유형별 -->
+
+                    <!--// 회원 유형별 -->
+                </div>
+
+                <h3 class="main">오늘 주문한 현황</h3>
+                <table width="100%" class="t_list mgt5">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="*">
+                        <col width="10%">
+                        <col width="10%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>주문자</th>
+                            <th>주문상품내역</th>
+                            <th>주문일</th>
+                            <th>정보</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">금일 주문내역이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="main mgt20">오늘 회원가입 현황</h3>
+                <table width="100%" class="t_list mgt5">
+                    <colgroup>
+                        <col width="*">
+                        <col width="20%">
+                        <col width="*">
+                        <col width="10%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>성명</th>
+                            <th>이메일</th>
+                            <th>정보</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>test003</td>
+                            <td>박지양</td>
+                            <td><a href="#">oceana8@naver.com</a></td>
+                            <td><span class="button black small"><a href="/member/member_detail?no=148781">상세정보</a></span></td>
+                        </tr>
+                        <tr>
+                            <td>user</td>
+                            <td>박보검</td>
+                            <td>
+                                <a href="mailto:"></a>
+                            </td>
+                            <td><span class="button black small"><a href="/member/member_detail?no=148779">상세정보</a></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="main mgt20">오늘 올라온 글</h3>
+                <table width="100%" class="t_list mgt5">
+                    <colgroup>
+                        <col width="15%">
+                        <col width="*">
+                        <col width="20%">
+                        <col width="20%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>게시판</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td colspan="4">금일 작성된 게시물이 없습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <%- include('inc/footer') %>
+
+                    </body>
+
+                    </html>

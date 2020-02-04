@@ -1,0 +1,263 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>환경설정</li>
+                    <li>결제정보관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>저희 몰스토어와 제휴한 PG사와 제휴를 맺으신 후 받은 정보를 적어주시면 됩니다.</li>
+                    <li>기타 카드사(PG)는 직접 모듈을 설치하시거나 저희 고객지원팀(02-555-1344)로 연락 주시면 설치해드립니다. (유료)</li>
+                    <li>결제수단을 선택하신 후 결제 수수료를 설정해 주십시요.</li>
+                </ul>
+
+
+                <form name="Frm" method="post">
+
+                    <!-- 결제 환경 -->
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 결제 환경</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>결제 환경 입력폼</caption>
+                            <colgroup>
+                                <col width="57">
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th rowspan="2">결제 수단</th>
+                                    <th>기본</th>
+                                    <th>에스크로</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="use_payway_1" name="usePayway" value="1" checked><label for="use_payway_1">신용카드</label>
+                                        <input type="checkbox" id="use_payway_2" name="usePayway" value="2" class="mgl20" checked><label for="use_payway_2">계좌이체</label>
+                                        <input type="checkbox" id="use_payway_3" name="usePayway" value="4" class="mgl20" checked><label for="use_payway_3">가상계좌</label>
+                                    </td>
+                                    <td>
+
+                                        <input type="checkbox" id="use_escrow_payway_3" name="useEscrowPayway" value="4" checked><label for="use_escrow_payway_3">가상계좌</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>가상계좌 입금마감일</th>
+                                    <td colspan="2">
+                                        <span>
+                                            <strong>결제일</strong>로 부터 
+                                            <input name="virtualLimitDay" value="5" class="text_input" style="width:100px" maxlength="3"> 일
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>부가세 설정</th>
+                                    <td colspan="2">
+                                        <span>
+                                            <input type="radio" id="allow_tax_free_F" name="isAllowTaxFree" value="F">
+                                            <label for="allow_tax_free_F">과세만 가능</label>
+                                        </span>
+                                        <span class="mgl20">
+                                            <input type="radio" id="allow_tax_free_T" name="isAllowTaxFree" value="T" checked>
+                                            <label for="allow_tax_free_T">과세+면세 가능</label>
+                                        </span>
+                                        <span class="square_blue"><i class="xi-error"></i>(반드시 선택하신 PG사와 계약 후에 사용해야 합니다.)</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--// 결제 환경 -->
+
+                    <!-- 결제 수수료 -->
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 결제 수수료</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>결제 수수료 입력 폼</caption>
+                            <colgroup>
+                                <col width="57">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="tc">결제 수수료</th>
+                                    <th class="tc">에스크로 수수료</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th><input type="hidden" name="feePayway" value="1">신용카드</th>
+                                    <td>
+                                        <input name="payFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6">
+                                        <select id="payFeeUnit" name="payFeeUnit" class="text_input">
+                                            <option value="200" selected="">%</option>
+                                            <option value="100">원</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="escrowFeeValue" value="">
+                                        <input type="hidden" name="escrowFeeUnit" value="">
+                                        <input type="hidden" name="isSwapEscrowFee" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><input type="hidden" name="feePayway" value="2">계좌이체</th>
+                                    <td>
+                                        <input name="payFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6">
+                                        <select id="payFeeUnit" name="payFeeUnit" class="text_input">
+                                            <option value="200" selected="">%</option>
+                                            <option value="100">원</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" name="escrowFeeValue" value="">
+                                        <input type="hidden" name="escrowFeeUnit" value="">
+                                        <input type="hidden" name="isSwapEscrowFee" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><input type="hidden" name="feePayway" value="4">가상계좌</th>
+                                    <td>
+                                        <input name="payFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6">
+                                        <select id="payFeeUnit" name="payFeeUnit" class="text_input">
+                                            <option value="200" selected="">%</option>
+                                            <option value="100">원</option></select>
+                                    </td>
+                                    <td>
+                                        <input name="escrowFeeValue" value="0.0" class="text_input" style="width:100px" maxlength="6"> %
+                                        <input type="hidden" name="escrowFeeUnit" value="200">
+                                        <select id="isSwapEscrowFee" name="isSwapEscrowFee" class="text_input" style="width:200px">
+                                            <option value="F">결제 수수료에 추가</option>
+                                            <option value="T" selected>에스크로 수수료로 변경</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--// 결제 수수료 -->
+
+                    <!-- 결제 설정 -->
+                    <div class="box">
+                        <div class="section_head">
+                            <h4><i class="xi-check-circle"></i> 결제 설정</h4>
+                        </div>
+                        <table class="t_form">
+                            <caption>결제 설정 입력폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>결제대행사</th>
+                                    <td>
+                                        <div style="float:left; margin-right:10px">
+                                            <select id="currentPg" name="currentPg" class="text_input" style="width: 300px;">
+                                                <option value="INICIS" selected="">이니시스 (INICIS - INIpayTX 5.0)</option>
+                                                <option value="KCP">한국사이버결제 (KCP - Payplus AX-HUB V6)</option>
+                                                <option value="UPLUS">LG 유플러스 (LG U+ - XPay 2.5</option>
+                                            </select>
+                                        </div>
+                                        <div class="text_input_none">
+                                            <button type="button" class="btn btn-sm btn-secondary">온라인신청서</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="pg_container">
+                        <table class="t_form">
+                            <caption>이니시스 결제 설정 입력폼</caption>
+                            <tbody>
+                                <tr>
+                                    <th>상점ID</th>
+                                    <td>
+                                        <input type="text" name="merchantId" class="text_input" style="width:200px; font-weight:bold;" maxlength="40" value="INIpayTest">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>SignKey</th>
+                                    <td>
+                                        <input type="text" name="merchantKey" class="text_input" style="width:99%" maxlength="100" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>에스크로 상점ID</th>
+                                    <td>
+                                        <input type="text" name="escrowId" class="text_input" style="width:200px; font-weight:bold;" maxlength="50" value="ESMsho0000">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>일반 할부기간</th>
+                                    <td>
+                                        <div><input type="text" name="quota" value="2:3:4:5:6" class="text_input" maxlength="125"></div>
+                                        <ul style="color:#3191b7;" class="mgt5">
+                                            <li>※ 할부 허용안할 경우 - 일시불</li>
+                                            <li>※ “2:3:4”, “2:0” &gt;&gt; 개월수를 : 로 구분된 값</li>
+                                            <li>※ 일시불은 기본적을 표시, 생략시 일시불만 5만원 이상시에만 동작 </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>무이자 할부사용</th>
+                                    <td>
+                                        <div>
+                                            <input type="radio" id="no_int_1" name="isNoInt" value="T"><label for="no_int_1">사용</label>&nbsp;
+                                            <input type="radio" id="no_int_2" name="isNoInt" value="F" class="mgl20" checked><label for="no_int_2">사용안함</label>
+                                            <span class="square_blue">
+                                                <i class="xi-error"></i>무이자 할부는 반드시 PG사(이니시스)와 계약 후에 사용해야 합니다.</span>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>무이자 할부기간</th>
+                                    <td>
+                                        <div><input type="text" name="noIntQuota" value="" class="text_input" style="width:99%;background-color:#e0e0e0;" maxlength="125" disabled=""></div>
+                                        <ul style="color:#3191b7;" class="mgt5">
+                                            <li style="float:left;">※ 카드사코드 :</li>
+                                            <li>외환-01, 롯데-03, 현대-04, 국민-06, BC-11, 삼성-12, LG-13, 신한-14, NH-16, 하나-17</li>
+                                        </ul>
+                                        <ul style="color:#3191b7;" class="mgt5">
+                                            <li style="float:left;">※ 예)</li>
+                                            <li style="margin-left:36px;">“11-2:3:5:6,34-2:6”, “04-2:6” </li>
+                                            <li style="margin-left:36px;">카드사코드-할부개월:할부개월… 여러카드는 공백없이 ,로 구분</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>URL</th>
+                                    <td>
+                                        http:// <input type="text" name="pgUrl" class="text_input" style="width:300px" maxlength="100" value="www.inicis.com">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--// 결제 설정 -->
+
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info">확인</button>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

@@ -1,0 +1,141 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+            <div id="contents">
+                <h3>
+                    <%= title %>
+                </h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>상품관리</li>
+                    <li>상품정보엑셀작업</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
+                </ul>
+                <ul class="helpbox">
+                    <li>[샘플 다운로드] 버튼을 클릭해서 엑셀 업로드 입력 가이드 및 샘플양식을 다운로드 받습니다.</li>
+                    <li>엑셀파일에 정확한 데이터를 입력하지 않으면 등록이 되지 않습니다.</li>
+                    <li>등록하실 상품의 순서대로 일련번호를 1번부터 입력합니다. 일련번호를 입력하지 않은 경우에는 등록이 되지 않습니다.</li>
+                    <li>다운로드 받은 샘플 엑셀파일에 표시된 필수 데이터는 반드시 입력을 해야 하며, 필수 데이터가 아닌 경우 공백으로 두시면 됩니다. 단, 엑셀파일의 필드 열을 삭제하시면 등록이 되지 않습니다.</li>
+                    <li>카테고리명 또는 카테고리코드, 브랜드명 또는 브랜드코드는 둘 중 하나의 필드 값만 입력해도 무방하며, 카테고리명과 브랜드명의 텍스트가 사이트에 등록된 데이터와 다를 경우에는 등록 오류가 발생할 수 있습니다.</li>
+                    <li>이미지 파일은 압축파일(*.zip)로 함께 첨부 바랍니다.</li>
+                    <li>상품정보다운로드 메뉴에서 정보수정을 원하시는 상품의 데이터를 다운로드 후, 수정하여 상품정보 일괄수정을 진행하실 수 있습니다.</li>
+                </ul>
+                <style type="text/css">
+                    .t_form td .fields li {
+                        float: left;
+                        width: 20%
+                    }
+                    
+                    .t_form td .fields li.nl {
+                        width: 100%;
+                        font-size: 0;
+                        line-height: 0
+                    }
+                </style>
+
+
+                <form name="FrmReg" method="post" enctype="multipart/form-data">
+                    <div class="section_head">
+                        <h4>상품정보 일괄등록</h4>
+                        <div>
+                            <span class="button black"><button type="button">샘플 다운로드</button></span>
+                        </div>
+                    </div>
+                    <table class="t_form">
+                        <caption>출력항목 선택 폼</caption>
+
+                        <tbody>
+                            <tr>
+                                <th>엑셀파일</th>
+                                <td>
+                                    <input type="file" name="attachexcel">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>이미지파일</th>
+                                <td>
+                                    <input type="file" name="attachzip">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="button_regist" class="btn">
+                        <span class="button large black"><button type="button">업로드</button></span>
+                    </div>
+                </form>
+
+                <form name="FrmMod" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="mode" value="MOD">
+                    <div class="section_head">
+                        <h4>상품정보 일괄수정</h4>
+                    </div>
+                    <table class="t_form">
+                        <caption>출력항목 선택 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>엑셀파일</th>
+                                <td>
+                                    <input type="file" name="attachexcel">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>이미지파일</th>
+                                <td>
+                                    <input type="file" name="attachzip">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="button_modify" class="btn">
+                        <span class="button large black"><button type="button" >업로드</button></span>
+                    </div>
+                </form>
+
+                <div class="section_head">
+                    <h4>최근 업로드 실패 내역 리스트</h4>
+                    <table id="failList" class="t_form">
+                        <caption>업로드 실패 내역 리스트</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                            <col width="130">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>엑셀 라인번호</th>
+                                <th>업로드 실패 사유</th>
+                                <th>업로드 시간</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td>존재하지 않은 카테고리입니다.</td>
+                                <td>2019-09-18 17:33:28</td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <td>카테고리 1231는 존재하지 않습니다. 카테고리 확인 후 재등록 바랍니다.</td>
+                                <td>2019-09-18 17:33:28</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                <%- include('../inc/footer') %>
+
+                    </body>
+
+                    </html>

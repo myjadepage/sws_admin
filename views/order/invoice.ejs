@@ -1,0 +1,289 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>일괄배송관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>주문/매출관리</li>
+                    <li>주문관리</li>
+                    <li class="on">일괄배송관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>"배송준비" 상태인 주문건에 대한 일괄배송 관리 페이지입니다.</li>
+                </ul>
+
+
+
+                <form name="FrmL" method="post" action="/order/invoice.excel.asp">
+                    <input type="hidden" name="invoiceIdx">
+
+                    <div class="section_head">
+                        <h4>배송 대상 주문 - 총 <strong class="red">3</strong>건이 조회되었습니다.</h4>
+                    </div>
+
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_list">
+                        <caption>배송대상주문 항목</caption>
+                        <colgroup>
+                            <col width="30">
+                            <col width="60">
+                            <col width="55">
+                            <col width="95">
+                            <col width="70">
+                            <col width="70">
+                            <col width="160">
+                            <col width="*">
+                            <col width="55">
+                            <col width="94">
+                            <col width="18">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="cbListAll" onclick="checkCbListAll(this)">
+                                </th>
+                                <th>고유<br>번호</th>
+                                <th>배송<br>구분</th>
+                                <th>주문번호</th>
+                                <th>주문자</th>
+                                <th>수령인</th>
+                                <th>배송지</th>
+                                <th>상품명</th>
+                                <th>수량</th>
+                                <th>판매가</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div class="invoice_order_list">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_list">
+                            <caption>배송대상주문 내역</caption>
+                            <colgroup>
+                                <col width="30">
+                                <col width="60">
+                                <col width="55">
+                                <col width="95">
+                                <col width="70">
+                                <col width="70">
+                                <col width="160">
+                                <col width="*">
+                                <col width="55">
+                                <col width="94">
+                            </colgroup>
+                            <tbody>
+
+                                <tr class="even">
+                                    <td><input type="checkbox" name="cbList" value="403" onclick="checkLine(this)"></td>
+                                    <td>403</td>
+                                    <td>주문</td>
+                                    <td><a href="javascript:;" onclick="openDetail(251)">A1724353582837</a></td>
+                                    <td>몰스토어</td>
+                                    <td>몰스토어</td>
+                                    <td>
+                                        <div>서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층</div>
+                                        <div>[010-0000-0000]</div>
+                                    </td>
+                                    <td>
+                                        <div><a href="/goods/detail?gno=75" target="_blank">버든배낭</a></div>
+                                        <div class="font11 mgt5">색상: 블랙,브라운</div>
+                                    </td>
+                                    <td>1개</td>
+                                    <td>57,700원</td>
+                                </tr>
+
+                                <tr class="even">
+                                    <td><input type="checkbox" name="cbList" value="404" onclick="checkLine(this)"></td>
+                                    <td>404</td>
+                                    <td>주문</td>
+                                    <td><a href="javascript:;" onclick="openDetail(251)">A1724353582837</a></td>
+                                    <td>몰스토어</td>
+                                    <td>몰스토어</td>
+                                    <td>
+                                        <div>서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층</div>
+                                        <div>[010-0000-0000]</div>
+                                    </td>
+                                    <td>
+                                        <div><a href="/goods/detail?gno=77" target="_blank">나비리본 목걸이</a></div>
+                                    </td>
+                                    <td>1개</td>
+                                    <td>21,000원</td>
+                                </tr>
+
+                                <tr class="">
+                                    <td><input type="checkbox" name="cbList" value="416" onclick="checkLine(this)"></td>
+                                    <td>416</td>
+                                    <td><span class="red">교환</span></td>
+                                    <td><a href="javascript:;" onclick="openDetail(259)">A1724354773987</a></td>
+                                    <td>몰스토어</td>
+                                    <td>몰스토어</td>
+                                    <td>
+                                        <div>서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층</div>
+                                        <div>[010-0000-0000]</div>
+                                    </td>
+                                    <td>
+                                        <div><a href="/goods/detail?gno=87" target="_blank">밀라노 백</a></div>
+                                        <div class="font11 mgt5">색상: 흰색</div>
+                                    </td>
+                                    <td>1개</td>
+                                    <td>45,000원</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn_right">
+                        선택한 배송 대상 주문건을
+                        <span class="button black"><button type="button" onclick="downExcel()">엑셀로받기</button></span>
+                    </div>
+
+                </form>
+
+                <form name="FrmR" method="post" action="/order/invoice.act" enctype="multipart/form-data">
+
+                    <!-- 설명 -->
+                    <div class="mgt20"><img src="/js/icon_tip.gif" alt="TIP"></div>
+                    <div class="tip_box2">
+                        <span>배송 대상 주문건 엑셀파일을 다운로드 받아 <em class="red">"송장번호" 입력</em> 및 아래 <em class="red">"일괄배송 입력양식"에 맞추어 정리</em>하신 후, <em class="red">"CSV (쉼표로 분리) (.csv)"로 저장</em>하여 업로드하시면 됩니다.</span>
+                        <span>일괄배송 입력양식</span>
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th>고유번호</th>
+                                    <th>주문번호</th>
+                                    <th>송장번호</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>A081231234501</td>
+                                    <td>12535258125</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>A081231234502</td>
+                                    <td>12535258128</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span>일괄배송 입력양식 첫번째 라인의 <em class="red">필드명("고유번호", "주문번호", "송장번호")은 삭제하시면 안됩니다.</em></span>
+                        <span><em class="red">고유번호와 주문번호는 수정하시면 안됩니다.</em> 배송 처리에 사용되는 키값으로 수정하면 배송처리 중 오류가 발생할 수 있습니다.</span>
+                        <span><em class="red">입력 내용 중 쉼표가 있으면 안됩니다.</em> 배송 처리 중 오류가 발생할 수 있습니다.</span>
+                        <span>송장 번호를 입력하지 않은 주문건은 배송처리가 되지 않습니다.</span>
+                    </div>
+                    <!-- 설명 -->
+
+                    <div class="section_head">
+                        <h4>송장 업로드</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>엑셀 업로드 폼</caption>
+                        <colgroup>
+                            <col width="150">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>배송업체</th>
+                                <td>
+                                    <select id="delivery" name="delivery"><option value="">배송업체선택</option><option value="1">한진택배</option></select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>일괄배송 CSV 파일</th>
+                                <td>
+                                    <input type="File" name="attach" size="35" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="regist_button" class="btn">
+                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    </div>
+
+                </form>
+
+
+                <%- include('../inc/footer') %>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkCbListAll(obj) {
+                            var f = document.FrmL;
+
+                            $(f.cbList).each(function() {
+                                this.checked = obj.checked;
+                                checkLine(this);
+                            });
+                        }
+
+                        function checkLine(obj) {
+                            var $row = $(obj).parent().parent();
+                            if (obj.checked) {
+                                $row.addClass('current');
+                            } else {
+                                $row.removeClass('current');
+                            }
+                        }
+
+                        function openDetail(idx) { // 주문정보 상세보기
+                            openPopup("order_detail.pop.asp?idx=" + idx, "Detail", 820, 600, "scrollbars=1");
+                        }
+
+                        function downExcel() {
+                            var f = document.FrmL;
+                            var items = "";
+
+                            if (!f.cbList) return false;
+
+                            $('input[name="cbList"]:checked', $(f)).each(function() {
+                                items += (items ? "," : "") + this.value;
+                            });
+
+                            if (items == "") {
+                                alert("배송 대상 주문을 선택해 주세요.");
+                                return false;
+                            }
+
+                            f.invoiceIdx.value = items;
+                            f.target = "frmProc";
+                            f.submit();
+                        }
+                        //]]>
+                    </script>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function validSubmit() {
+                            var f = document.FrmR;
+
+                            if (isEmpty(f.delivery)) {
+                                alert("배송업체를 선택해 주세요.");
+                                f.delivery.focus();
+                                return false;
+                            }
+
+                            if (isEmpty(f.attach)) {
+                                alert("CSV 파일을 선택해 주세요.");
+                                f.attach.focus();
+                                return false;
+                            }
+
+                            if (!checkFileExt(f.attach, "csv", "CSV(.csv) 파일만 선택해 주세요.")) return false;
+
+                            if (confirm("송장정보 업로드를 하시겠습니까?")) {
+                                $('#regist_button').html("<div class='red'><strong>송장정보를 등록 중 입니다.<br />잠시만 기다려주세요.</strong></div>");
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

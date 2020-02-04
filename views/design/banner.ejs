@@ -1,0 +1,241 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>기타배너관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>메인페이지관리</li>
+                    <li class="on">기타배너관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>배너를 수정 및 등록 하실 수 있습니다.</li>
+                    <li>이미지 입력 후 반드시 "새로고침"을 해주세요.</li>
+                    <li>링크주소를 입력하실 때는 주소 앞에 "http://"를 꼭 붙여주세요.</li>
+                </ul>
+
+                <div class="sortable_title">
+                    <h4>기타 로고<span>(최대 1개)</span></h4>
+                    <p>
+                        <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                        <span class="button small"><button type="button" onclick="addBanner(this)">배너추가</button></span>
+                        <span class="button small"><button type="button" onclick="removeBanner(this)">배너삭제</button></span>
+                        <span class="button blue small"><button type="button" onclick="saveBanner(this)">저장</button></span>
+                    </p>
+                </div>
+                <ul class="sortable sortable_banner ui-sortable" area="E01" main="0" child="0" max="1">
+
+                    <li>
+                        <input type="checkbox" name="cbBanner" value="68" class="cb">
+                        <div class="mover">
+                            <div><strong>MOVE</strong></div>
+                        </div>
+
+                        <div class="banner">
+                            <img src="/img/logo.png" style="margin-left: -4.5px; margin-top: 54px;" alt="로고" ow="207" oh="30">
+                        </div>
+
+                        <div class="caption">
+                            <p class="ellipsis"><span class="ellipsis">로고</span></p>
+                            <div>
+                                <span class="button small"><button type="button" onclick="editBanner(68)">수정</button></span>
+                                <span class="button small"><a href="/img/logo.png" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="sortable_title">
+                    <h4>퀵바 배너</h4>
+                    <p>
+                        <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                        <span class="button small"><button type="button" onclick="addBanner(this)">배너추가</button></span>
+                        <span class="button small"><button type="button" onclick="removeBanner(this)">배너삭제</button></span>
+                        <span class="button blue small"><button type="button" onclick="saveBanner(this)">저장</button></span>
+                    </p>
+                </div>
+                <ul class="sortable sortable_banner ui-sortable" area="E02" main="0" child="0" max="-1">
+
+                    <li>
+                        <input type="checkbox" name="cbBanner" value="3" class="cb">
+                        <div class="mover">
+                            <div><strong>MOVE</strong></div>
+                        </div>
+
+                        <div class="banner">
+                            <img src="/img/banner_quick_1.gif" style="margin-left: 49px; margin-top: 19px;" alt="퀵바 배너" ow="100" oh="100">
+                        </div>
+
+                        <div class="caption">
+                            <p class="ellipsis"><span class="ellipsis">퀵바 배너</span></p>
+                            <div>
+                                <span class="button small"><button type="button" onclick="editBanner(3)">수정</button></span>
+                                <span class="button small"><a href="/img/banner_quick_1.gif" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+                <div class="sortable_title">
+                    <h4>로그인 배너<span>(최대 1개)</span></h4>
+                    <p>
+                        <span><input type="checkbox" name="cbListAll" onclick="cbBannerAll(this)">전체선택</span>
+                        <span class="button small"><button type="button" onclick="addBanner(this)">배너추가</button></span>
+                        <span class="button small"><button type="button" onclick="removeBanner(this)">배너삭제</button></span>
+                        <span class="button blue small"><button type="button" onclick="saveBanner(this)">저장</button></span>
+                    </p>
+                </div>
+                <ul class="sortable sortable_banner ui-sortable" area="E03" main="0" child="0" max="1">
+
+                    <li>
+                        <input type="checkbox" name="cbBanner" value="1" class="cb">
+                        <div class="mover">
+                            <div><strong>MOVE</strong></div>
+                        </div>
+
+                        <div class="banner">
+                            <img src="/img/login_banner_1.jpg" style="width: auto; height: 138px; margin-left: -407px; margin-top: 0px;" alt="로그인" ow="1100" oh="150">
+                        </div>
+
+                        <div class="caption">
+                            <p class="ellipsis"><span class="ellipsis">로그인</span></p>
+                            <div>
+                                <span class="button small"><button type="button" onclick="editBanner(1)">수정</button></span>
+                                <span class="button small"><a href="/img/login_banner_1.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/jquery-ui-1.10.3.min.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function cbBannerAll(obj) {
+                            $(obj).parents('div').first().next().find('input:checkbox[name="cbBanner"]').each(function() {
+                                this.checked = obj.checked;
+                            });
+                        }
+
+                        function addBanner(obj) {
+                            var $ul = $(obj).parents('div').first().next();
+                            var area = $ul.attr('area');
+                            var main = $ul.attr('main').toNumeric();
+                            var child = $ul.attr('child').toNumeric();
+                            var max = $ul.attr('max').toNumeric();
+
+                            if (max > 0 && max <= $ul.children().length) {
+                                alert("더 이상 추가할 수 없습니다.\n\n최대 " + max + "개까지 추가할 수 있습니다.");
+                                return false;
+                            }
+
+                            $.laybox({
+                                type: 'iframe',
+                                source: '../design/banner_reg.ifrm?akind=ETC&area=' + area + (main ? '&main=' + main : '') + (child ? '&child=' + child : '')
+                            });
+                        }
+
+                        function editBanner(idx) {
+                            $.laybox({
+                                type: 'iframe',
+                                source: '../design/banner_reg.ifrm?akind=ETC&idx=' + idx
+                            });
+                        }
+
+                        function removeBanner(obj) {
+                            $(obj).parents('div').first().next().find('input:checkbox[name="cbBanner"]:checked').each(function() {
+                                $(this).parent().remove();
+                            });
+                        }
+
+                        function getBannerItem(idx, area, main, child) {
+                            var $ul = $('ul[area="' + area + '"][main="' + main + '"][child="' + child + '"]');
+                            if ($ul.length) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "",
+                                    data: {
+                                        idx: idx
+                                    },
+                                    error: function(request, status, error) {
+                                        alert(request.responseText)
+                                    },
+                                    success: function(data) {
+                                        var $input = $('input:checkbox[name="cbBanner"][value="' + idx + '"]');
+                                        var $li = ($input.length ? $input.parent() : $('<li />').appendTo($ul));
+                                        $li.empty().html(data);
+
+                                        $('.banner', $li).adjustImage({
+                                            type: 'both-min',
+                                            parent: '.banner'
+                                        });
+                                        $('.original', $li).laybox();
+
+                                        $.laybox.close();
+                                    }
+                                });
+                            }
+                        }
+
+                        function saveBanner(obj) {
+                            var $ul = $(obj).parents('div').first().next();
+                            var banner = '0';
+
+                            $ul.find('input:checkbox[name="cbBanner"]').each(function() {
+                                banner += ',' + this.value;
+                            });
+
+                            if (confirm("설정 내역으로 저장하시겠습니까?")) {
+                                var params = {
+                                    mode: 'SAVE',
+                                    akind: 'ETC',
+                                    area: $ul.attr('area'),
+                                    main: $ul.attr('main'),
+                                    child: $ul.attr('child'),
+                                    idx: banner
+                                };
+
+                                $('#FrmBanner').remove();
+
+                                var $form = $('<form id="FrmBanner" />').attr({
+                                    method: 'post',
+                                    action: '../design/banner.act.asp',
+                                    target: 'frmProc',
+                                    enctype: 'multipart/form-data'
+                                }).appendTo('body');
+
+                                $.each(params, function(key) {
+                                    $('<input type="hidden" name="' + key + '" />').val(this).appendTo($form);
+                                });
+                                $form.submit();
+                            }
+                        }
+
+                        $(function() {
+                            $('.sortable_banner').sortable({
+                                handle: '.mover',
+                                opacity: 0.7
+                            }).disableSelection();
+                            $('.banner', '.sortable').adjustImage({
+                                type: 'both-min',
+                                parent: '.banner'
+                            });
+                            $('.original', '.sortable').laybox();
+                        });
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

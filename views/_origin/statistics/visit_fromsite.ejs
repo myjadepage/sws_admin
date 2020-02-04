@@ -1,0 +1,152 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+
+            <div id="contents">
+                <h3>접속 방향 통계</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>통계/분석</li>
+                    <li>접속통계</li>
+                    <li class="on">접속 방향 통계</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>접속방향 통계입니다.</li>
+                </ul>
+
+
+                <form name="sFrm" method="get" action="/statistics/visit_fromsite">
+
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                        <caption>검색 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>기간 검색</th>
+                                <td>
+                                    <div class="fl">
+                                        <div>
+                                            <input type="text" id="sdate" name="sdate" value="2020-01-01" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                            <input type="text" id="edate" name="edate" value="2020-01-28" maxlength="10" class="text_input" style="width:70px">
+                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'edate', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        </div>
+                                        <div class="mgt5">
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'tm')">이번달</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't')">오늘</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 't', -1)">어제</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -3)">3일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -7)">7일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -10)">10일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -20)">20일간</button></span>
+                                            <span class="button small"><button type="button" onclick="inperiod.input('sdate', 'edate', 'd', -30)">30일간</button></span>
+                                        </div>
+                                    </div>
+                                    <div class="fr"><span class="button black"><button type="submit">검색</button></span></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section_head">
+                        <h4><span><strong>2020년 01월 01일부터 2020년 01월 28일까지</strong></span>의 검색결과 입니다.</h4>
+                        <div><span class="button black"><a href="/statistics/visit_fromsite.excel?sdate=2020-01-01&edate=2020-01-28">엑셀로받기</a></span></div>
+                    </div>
+
+                </form>
+
+
+
+                <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_list">
+                    <caption>접속방향 통계 내역</caption>
+                    <colgroup>
+                        <col width="60">
+                        <col width="*">
+                        <col width="100">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>사이트명</th>
+                            <th>접속수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td class="left"><a href="http://www.buytheapp.co.kr/" target="_blank">www.buytheapp.co.kr</a></td>
+                            <td>28</td>
+                        </tr>
+
+                        <tr>
+                            <td>2</td>
+                            <td class="left"><a href="http://www.google.com/" target="_blank">www.google.com</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>3</td>
+                            <td class="left"><a href="http://cozics.kr/" target="_blank">cozics.kr</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>4</td>
+                            <td class="left"><a href="http://dug.best/" target="_blank">dug.best</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>5</td>
+                            <td class="left"><a href="http://mallstore.kr/" target="_blank">mallstore.kr</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>6</td>
+                            <td class="left"><a href="http://solution.cozics.kr/" target="_blank">solution.cozics.kr</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>7</td>
+                            <td class="left"><a href="http://structuralist.best/" target="_blank">structuralist.best</a></td>
+                            <td>1</td>
+                        </tr>
+
+                        <tr>
+                            <td>8</td>
+                            <td class="left"><a href="http://transnational.best/" target="_blank">transnational.best</a></td>
+                            <td>1</td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>합계</td>
+                            <td></td>
+                            <td>35</td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+
+
+
+                <%- include('../inc/footer') %>
+
+
+                    <script type="text/javascript" src="/js/class.js"></script>
+
+
+                    </body>
+
+                    </html>

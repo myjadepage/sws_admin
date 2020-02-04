@@ -1,0 +1,460 @@
+<%- include('../inc/head') %>
+
+    <div id="container">
+
+        <%- include('../inc/sidebar') %>
+
+            <div id="contents">
+                <h3>메인스타일관리</h3>
+                <ul class="navi">
+                    <li class="home"><a href="/" target="_top">홈</a></li>
+                    <li>디자인관리</li>
+                    <li>메인페이지관리</li>
+                    <li class="on">메인스타일관리</li>
+                </ul>
+                <ul class="helpbox">
+                    <li>메인페이지 스타일을 관리하실 수 있습니다.</li>
+                </ul>
+
+
+                <form name="Frm" method="post" action="/design/main_style.act" enctype="multipart/form-data">
+                    <input type="hidden" name="mode" value="EDIT">
+                    <input type="hidden" name="idx" value="21">
+
+                    <div class="section_head">
+                        <h4>메인스타일 등록하기</h4>
+                    </div>
+
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                        <caption>스타일 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>스타일명</th>
+                                <td>
+                                    <input size="40" name="title" class="text_input" value="메인이미지" maxlength="20">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>샘플이미지</th>
+                                <td>
+
+                                    <div style="margin-bottom:10px;"><img src="/img/main_visual_thum.jpg" width="340"></div>
+
+                                    <input type="file" name="attach" size="40" onkeypress="blockKey(event)" onkeydown="blockKey(event)">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>고정 상품</th>
+                                <td style="padding:0">
+                                    <div style="padding:6px 10px">
+                                        <span style="width:100px;"><input type="radio" name="goods" value="0" checked="" onclick="checkGoods()">포함 안함</span>
+                                        <span><input type="radio" name="goods" value="1" onclick="checkGoods()">포함</span>
+                                    </div>
+                                    <div id="bodyGoods" style="display:none">
+                                        <div class="mgt5" style="border-top:solid 1px #dbdbdb;padding:6px 10px">
+                                            <span>상품 갯수</span>
+                                            <span><input type="text" name="goodsSize" value="" class="text_input" style="width:45px;" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="3" disabled=""> 개</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>고정 배너</th>
+                                <td style="padding:0">
+                                    <div style="padding:6px 10px">
+                                        <span style="width:100px;"><input type="radio" name="banner" value="0" checked="" onclick="checkBanner()">포함 안함</span>
+                                        <span><input type="radio" name="banner" value="1" onclick="checkBanner()">포함</span>
+                                    </div>
+                                    <div id="bodyBanner" style="display:none">
+                                        <div class="mgt5" style="border-top:solid 1px #dbdbdb;padding:6px 10px">
+                                            <span>배너 갯수</span>
+                                            <span><input type="text" name="bannerSize" value="" class="text_input" style="width:45px;" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="3" disabled=""> 개</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>위젯</th>
+                                <td style="padding:0">
+                                    <div style="padding:6px 10px">
+                                        <span style="padding-right:15px;"><input type="radio" name="widgetType" value="0" onclick="checkWidget()">사용 안함</span>
+                                        <span style="padding-right:15px;"><input type="radio" name="widgetType" value="1" checked="" onclick="checkWidget()">슬라이드 사용</span>
+                                        <span style="padding-right:15px;"><input type="radio" name="widgetType" value="2" onclick="checkWidget()">탭 사용</span>
+                                        <span><input type="radio" name="widgetType" value="4" onclick="checkWidget()">탭 슬라이드(탭 내부 슬라이드 적용) 사용</span>
+                                    </div>
+                                    <div id="bodyWidget">
+                                        <!-- 위젯 구성 -->
+                                        <ul class="style_select">
+                                            <li class="type">위젯 구성</li>
+                                            <li class="select">
+                                                <div>
+                                                    <span>
+                            <input type="checkbox" name="widgetGoods" value="1" onclick="checkWidgetElement(this)">상품: 화면 당
+                            <input type="text" name="widgetGoodsSize" value="" class="text_input" style="width:40px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="3" disabled=""> 개
+                        </span>
+                                                    <span>
+                            <input type="checkbox" name="widgetBanner" value="1" checked="" onclick="checkWidgetElement(this)">배너: 화면 당
+                            <input type="text" name="widgetBannerSize" value="" class="text_input" style="width:40px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="3" disabled=""> 개
+                        </span>
+                                                    <span>
+                            탭
+                            <input type="text" name="widgetIndicatorSize" value="" class="text_input" style="width:40px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="3" disabled=""> 개
+                        </span>
+                                                </div>
+                                                <p class="mgt10">
+                                                    <span class="square_blue">슬라이드(탭 슬라이드) 사용 경우 화면 당 상품, 배너 갯수를 설정할 수 없습니다. (상품, 배너 추가 제한없음)</span><br>
+                                                    <span class="square_blue">탭 수량은 탭 또는 탭 슬라이드 사용 경우에만 설정이 가능합니다.</span>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <!-- //위젯 구성 -->
+                                        <!-- 위젯 효과 -->
+                                        <ul class="style_select">
+                                            <li class="type">위젯 효과</li>
+                                            <li class="select">
+                                                <div>
+                                                    <span>
+                            <input type="radio" name="widgetEffect" value="1">수평 Slide
+                        </span>
+                                                    <span>
+                            <input type="radio" name="widgetEffect" value="2">수직 Slide
+                        </span>
+                                                    <span>
+                            <input type="radio" name="widgetEffect" value="4" checked="">Fade
+                        </span>
+                                                </div>
+                                                <p class="mgt10">
+                                                    <span class="square_blue">탭 슬라이드 경우 선택하신 효과는 내부 슬라이드에만 적용됩니다. (탭 효과는 Fade로 고정)</span>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <!-- //위젯 효과 -->
+                                        <!-- 전환 효과 -->
+                                        <ul class="style_select">
+                                            <li class="type">효과 전환 속도</li>
+                                            <li class="select"><input type="text" name="widgetSpeed" value="350" class="text_input" style="width:65px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="5"> Millisecond (1000 = 1초)</li>
+                                        </ul>
+                                        <ul class="style_select">
+                                            <li class="type">전환 대기 시간</li>
+                                            <li class="select"><input type="text" name="widgetIdle" value="3000" class="text_input" style="width:65px" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)" maxlength="5"> Millisecond (1000 = 1초)</li>
+                                        </ul>
+
+                                        <ul class="style_select">
+                                            <li class="type">자동 실행</li>
+                                            <li class="select">
+                                                <div>
+                                                    <span>
+                            <input type="radio" name="widgetAutoPlay" value="1" checked="">자동 실행
+                        </span>
+                                                    <span>
+                            <input type="radio" name="widgetAutoPlay" value="0">수동 실행만 가능
+                        </span>
+                                                </div>
+                                                <p class="mgt10">
+                                                    <span class="square_blue">탭 슬라이드 경우 자동 실행 설정은 내부 슬라이드에만 적용됩니다. (탭은 수동 실행만 가능)</span>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <!-- 전환 효과 -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">CSS</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea name="css" rows="7" class="text_input" style="width:99%">#main_visual {}
+#main_visual .widget {width:1920px;height:450px;margin-left:-410px;text-align:center;position:relative;overflow:hidden;}
+#main_visual .widget-indicator {position:absolute;left:0;bottom:25px;width:100%;text-align:center;height:13px;}
+#main_visual .widget-indicator &gt; a {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;margin:0 2px;background:url({{SITE_DATA}}/button/btn_indicator.png) left top no-repeat;vertical-align:top;text-indent:-999em;}
+#main_visual .widget-indicator &gt; a.current {background-position:-20px 0;}
+#main_visual .widget-prev,
+#main_visual .widget-next {position:absolute;top:50%;margin-top:-28px}
+#main_visual .widget-prev {left:50%;margin-left:-550px;}
+#main_visual .widget-next {left:50%;margin-left:519px;}
+#main_visual .widget-panel {height:450px}</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Javascript</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea name="javascript" rows="7" class="text_input" style="width:99%"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">스타일 템플릿</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <textarea name="template" rows="20" class="text_input" style="width:99%">&lt;div id="main_visual"&gt;
+&lt;div class="widget"&gt;
+    &lt;div class="widget-panel"&gt;
+        {{@WIDGET_ITEM}}
+            {{BANNER:1}}
+        {{/WIDGET_ITEM}}
+    &lt;/div&gt;
+    &lt;div class="widget-indicator"&gt;
+        {{@WIDGET_INDICATOR}}
+        &lt;a href="#"&gt;{{WIDGET_INDICATOR_NO}}&lt;/a&gt;
+        {{/WIDGET_INDICATOR}}
+    &lt;/div&gt;
+    &lt;button type="button" class="widget-prev"&gt;&lt;img src="{{SITE_DATA}}/button/btn_mainvisual_prev.png" alt="이전 목록으로" /&gt;&lt;/button&gt;
+    &lt;button type="button" class="widget-next"&gt;&lt;img src="{{SITE_DATA}}/button/btn_mainvisual_next.png" alt="다음 목록으로" /&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;/div&gt;</textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="btn">
+                        <span class="button black large"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button black large"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+                <!-- 설명 -->
+                <div class="mgt20"><img src="/img/icon_tip.gif"></div>
+                <div class="replacement">
+                    <h2>※ 치환코드<span>(내용 중 프로그램으로 된 정보를 뿌려줄때 아래와 같이 코드를 삽입합니다.)</span></h2>
+                    <ul>
+                        <li><span>{{SITE_ID}}</span> : 사이트 아이디</li>
+                        <li><span>{{SITE_DATA}}</span> : 사이트 데이터 경로(/data/base)</li>
+
+                        <li class="m"><span>{{IMG_URL}}</span> : 이미지 URL</li>
+
+                        <li class="m"><span>{{TITLE_IMAGE:1}}</span> : 제목 이미지 [코드:순번]</li>
+
+                        <li class="m"><span>{{GOODS_IMG:1:150*150}}</span> : 상품이미지 [코드:순번:이미지크기(가로*세로) - 이미지크기 생략 가능, 개별 사이즈 적용시 입력]</li>
+                        <li><span>{{GOODS_URL:1}}</span> : 상품상세 페이지 URL [코드:순번]</li>
+                        <li><span>{{GOODS_BRAND:1}}</span> : 브랜드명 [코드:순번]</li>
+                        <li><span>{{GOODS_NAME:1}}</span> : 상품명 [코드:순번]</li>
+                        <li><span>{{GOODS_PRICE:1}}</span> : 상품가격 [코드:순번]</li>
+                        <li><span>{{GOODS_POINT:1}}</span> : 별점점수 (0~5) [코드:순번]</li>
+
+                        <li class="m"><span>{{BANNER:1:50*50}}</span> : 배너 [코드:순번:이미지크기(가로*세로) - 이미지크기 생략 가능, 개별 사이즈 적용시 입력]</li>
+
+                        <li class="m"><span>{{@WIDGET_TABSLIDE_INDICATOR}}</span> : 위젯 탭 슬라이드 지표(탭) 시작</li>
+                        <li class="child">
+                            <ul>
+                                <li><span>{{WIDGET_INDICATOR_NO}}</span> : 지표(탭) 번호 (페이지 번호)</li>
+                                <li><span>{{WIDGET_INDICATOR_TEXT}}</span> : 지표(탭) 제목</li>
+                                <li><span>{{WIDGET_INDICATOR_IMAGE}}</span> : 지표(탭) 이미지</li>
+                            </ul>
+                        </li>
+                        <li><span>{{/WIDGET_TABSLIDE_INDICATOR}}</span> : 위젯 탭 슬라이드 지표(탭) 종료</li>
+
+                        <li class="m"><span>{{@WIDGET_TABSLIDE_ITEM}}</span> : 위젯 탭 슬라이드 화면(내용) 시작</li>
+                        <li><span>{{/WIDGET_TABSLIDE_ITEM}}</span> : 위젯 탭 슬라이드 화면(내용) 종료</li>
+
+                        <li class="m"><span>{{@WIDGET_INDICATOR}}</span> : 위젯 지표(탭, 페이지) 시작</li>
+                        <li class="child">
+                            <ul>
+                                <li><span>{{WIDGET_INDICATOR_NO}}</span> : 지표(탭, 페이지) 번호 (페이지 번호)</li>
+                                <li><span>{{WIDGET_INDICATOR_TEXT}}</span> : 지표(탭, 페이지) 제목</li>
+                                <li><span>{{WIDGET_INDICATOR_IMAGE}}</span> : 지표(탭, 페이지) 이미지</li>
+                            </ul>
+                        </li>
+                        <li><span>{{/WIDGET_INDICATOR}}</span> : 위젯 지표(탭, 페이지) 종료</li>
+
+                        <li class="m"><span>{{@WIDGET_ITEM}}</span> : 위젯 화면(내용) 시작</li>
+                        <li><span>{{/WIDGET_ITEM}}</span> : 위젯 화면(내용) 종료</li>
+
+                        <li class="m"><span>{{@BOARD:1:notice:5:23}}</span> : 게시판 시작 [코드:순번:게시판ID:게시물갯수:제목길이]</li>
+                        <li class="child">
+                            <ul>
+                                <li><span>{{BOARD_URL}}</span> : 게시물 URL</li>
+                                <li><span>{{BOARD_SUBJECT}}</span> : 게시물 제목</li>
+                            </ul>
+                        </li>
+                        <li><span>{{/BOARD}}</span> : 게시판 종료</li>
+                    </ul>
+
+                    <h2>※ 위젯(탭, 슬라이드) 용 CSS class</h2>
+                    <ul>
+                        <li><span>.widget-tabslide</span> : 위젯 탭 슬라이드 외곽 class</li>
+                        <li><span>.widget-tabslide-panel</span> : 위젯 탭 슬라이드 화면(내용) 외곽 class</li>
+                        <li><span>.widget-tabslide-indicator</span> : 위젯 탭 슬라이드 지표(탭) 외곽 class</li>
+
+                        <li class="m"><span>.widget</span> : 위젯 외곽 class</li>
+                        <li><span>.widget-panel</span> : 위젯 화면(내용) 외곽 class</li>
+                        <li><span>.widget-indicator</span> : 위젯 지표(탭, 페이지) 외곽 class</li>
+                        <li><span>.widget-prev</span> : 위젯 이전 화면 버튼 class</li>
+                        <li><span>.widget-next</span> : 위젯 다음 화면 버튼 class</li>
+
+                        <li class="m"><span>.current</span> : 위젯(탭 슬라이드 포함) 선택(활성)된 지표(탭, 페이지) class</li>
+                    </ul>
+                </div>
+
+
+                <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function checkGoods() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.goods) == "1") {
+                                f.goodsSize.disabled = false;
+                                _es('bodyGoods').display = "";
+                            } else {
+                                _es('bodyGoods').display = "none";
+                                f.goodsSize.disabled = true;
+                            }
+                        }
+
+                        function checkBanner() {
+                            var f = document.Frm;
+
+                            if (getRadio(f.banner) == "1") {
+                                f.bannerSize.disabled = false;
+                                _es('bodyBanner').display = "";
+                            } else {
+                                _es('bodyBanner').display = "none";
+                                f.bannerSize.disabled = true;
+                            }
+                        }
+
+                        function checkWidget() {
+                            var f = document.Frm;
+                            var widgetType = getRadio(f.widgetType);
+
+                            f.widgetIndicatorSize.disabled = true;
+
+                            switch (widgetType) {
+                                case '1':
+                                case '2':
+                                case '4':
+                                    _es('bodyWidget').display = "";
+                                    break;
+                                default:
+                                    _es('bodyWidget').display = "none";
+                                    break;
+                            }
+
+                            if (widgetType != '1') {
+                                f.widgetIndicatorSize.disabled = false;
+                            }
+
+                            if (widgetType != '2') {
+                                if (f.widgetGoods.checked && f.widgetBanner.checked) {
+                                    f.widgetBanner.checked = false;
+                                }
+                            }
+
+                            checkWidgetElement();
+                        }
+
+                        function checkWidgetElement(obj) {
+                            var f = document.Frm;
+                            var widgetType = getRadio(f.widgetType);
+
+                            f.widgetGoodsSize.disabled = true;
+                            f.widgetBannerSize.disabled = true;
+
+                            if (typeof(obj) != 'undefined' && widgetType != '2') {
+                                switch (obj.name) {
+                                    case 'widgetGoods':
+                                        f.widgetBanner.checked = false;
+                                        break;
+                                    case 'widgetBanner':
+                                        f.widgetGoods.checked = false;
+                                        break;
+                                }
+                            }
+
+                            if (widgetType == '2') {
+                                f.widgetGoodsSize.disabled = !f.widgetGoods.checked;
+                                f.widgetBannerSize.disabled = !f.widgetBanner.checked;
+                            }
+                        }
+
+                        function validSubmit() {
+                            f = document.Frm;
+
+                            if (isEmpty(f.title)) {
+                                alert("스타일명을 입력해 주세요.");
+                                f.title.focus();
+                                return false;
+                            }
+
+                            if (!isEmpty(f.attach)) {
+                                if (!checkFileName(f.attach)) return false;
+                                if (!checkFileExt(f.attach, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                            }
+
+                            if (getRadio(f.goods) == "1" && f.goodsSize.value.toNumeric() < 1) {
+                                alert("고정 상품 갯수를 1 이상으로 입력해 주세요.");
+                                f.goodsSize.focus();
+                                return false;
+                            }
+
+                            if (getRadio(f.banner) == "1" && f.bannerSize.value.toNumeric() < 1) {
+                                alert("고정 배너 갯수를 1 이상으로 입력해 주세요.");
+                                f.bannerSize.focus();
+                                return false;
+                            }
+
+                            var widgetType = getRadio(f.widgetType);
+
+                            if (widgetType != "0") {
+                                if (!f.widgetGoods.checked && !f.widgetBanner.checked) {
+                                    alert("위젯 구성을 선택해 주세요.");
+                                    f.widgetGoods.focus();
+                                    return false;
+                                }
+
+                                if (!f.widgetGoodsSize.disabled && f.widgetGoodsSize.value.toNumeric() < 1) {
+                                    alert("위젯 상품 갯수를 1 이상으로 입력해 주세요.");
+                                    f.widgetGoodsSize.focus();
+                                    return false;
+                                }
+
+                                if (!f.widgetBannerSize.disabled && f.widgetBannerSize.value.toNumeric() < 1) {
+                                    alert("위젯 배너 갯수를 1 이상으로 입력해 주세요.");
+                                    f.widgetBannerSize.focus();
+                                    return false;
+                                }
+
+                                if (!f.widgetIndicatorSize.disabled && f.widgetIndicatorSize.value.toNumeric() < 1) {
+                                    alert("위젯 탭 갯수를 1 이상으로 입력해 주세요.");
+                                    f.widgetIndicatorSize.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (isEmpty(f.template)) {
+                                alert("스타일 템플릿을 입력해 주세요.");
+                                f.template.focus();
+                                return false;
+                            }
+
+                            if (confirm("등록하시겠습니까?")) {
+                                f.submit();
+                            }
+                        }
+
+                        function cancel() {
+                            history.back();
+                        }
+
+                        addEvent(window, 'load', function() {
+                            checkGoods();
+                            checkBanner();
+                            checkWidget();
+                        });
+                        //]]>
+                    </script>
+
+
+                    </body>
+
+                    </html>
