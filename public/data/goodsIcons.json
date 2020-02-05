@@ -1,0 +1,15 @@
+{
+    "list": [{
+        "code": "1",
+        "icon": "/img/ico_pro_sale.gif"
+    }, {
+        "code": "2",
+        "icon": "/img/ico_pro_best.gif"
+    }, {
+        "code": "3",
+        "icon": "/img/ico_pro_good.gif"
+    }, {
+        "code": "4",
+        "icon": "/img/ico_pro_free.gif"
+    }]
+}

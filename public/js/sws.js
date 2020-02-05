@@ -7,6 +7,10 @@ function cancle(e) {
         case 'reload':
             location.reload();
             break;
+        case 'close':
+            window.close();
+            break;
+
     }
 
 }

@@ -13,6 +13,12 @@ router.get('/supply', function(req, res) {
     res.send(result);
 })
 
+router.post('/goodsIcons', function(req, res) {
+    var filePath = path.join(__dirname, '../public/data/goodsIcons.json');
+    var file = fs.readFileSync(filePath, 'utf8');
+    var result = JSON.parse(file);
+    res.send(result);
+})
 
 //------------------------->제이슨 가짜정보만들기
 

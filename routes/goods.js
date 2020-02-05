@@ -26,6 +26,14 @@ router.get('/goods_reg', function(req, res, next) {
     });
 });
 
+router.get('/goods_icon_pop', function(req, res, next) {
+    res.render('goods/goods_icon_pop', {
+        path: '/goods/',
+        name: 'goods_icon_pop',
+        title: '아이콘관리'
+    });
+});
+
 
 router.get('/goods_list', function(req, res, next) {
     res.render('goods/goods_list', {

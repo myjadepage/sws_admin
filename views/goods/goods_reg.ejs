@@ -22,6 +22,8 @@
                 </ul>
 
                 <form name="Frm" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="gno" value="0">
+
                     <div class="box">
                         <table summary="상품기본정보 등록 폼 입니다." class="t_form">
                             <caption>상품기본정보 등록 폼</caption>
@@ -55,24 +57,16 @@
                                                 <input type="checkbox" id="cb_icon_1" name="icon" value="1">
                                                 <div><label for="cb_icon_1"><img id="icon_1" src="/img/ico_pro_sale.gif" ></label></div>
                                             </li>
-                                            <li><input type="checkbox" id="cb_icon_2" name="icon" value="2">
+                                            <!-- <li><input type="checkbox" id="cb_icon_2" name="icon" value="2">
                                                 <div><label for="cb_icon_2"><img id="icon_2" src="/img/ico_pro_best.gif"></label></div>
                                             </li>
+                                            <li><input type="checkbox" id="cb_icon_3" name="icon" value="3">
+                                                <div><label for="cb_icon_3"><img id="icon_3" src="/img/ico_pro_good.gif" ></label></div>
+                                            </li>
                                             <li><input type="checkbox" id="cb_icon_4" name="icon" value="4">
-                                                <div><label for="cb_icon_4"><img id="icon_4" src="/img/ico_pro_good.gif" ></label></div>
-                                            </li>
-                                            <li><input type="checkbox" id="cb_icon_8" name="icon" value="8">
-                                                <div><label for="cb_icon_8"><img id="icon_8" src="/img/ico_pro_free.gif"></label></div>
-                                            </li>
-                                            <li><input type="checkbox" id="cb_icon_16" name="icon" value="16">
-                                                <div><label for="cb_icon_16"><img id="icon_16" src="/img/freedel.gif"></label></div>
-                                            </li>
-                                            <li><input type="checkbox" id="cb_icon_32" name="icon" value="32">
-                                                <div><label for="cb_icon_32"><img id="icon_32" src="/img/icon_cybermoney.gif" ></label></div>
-                                            </li>
-                                            <li><input type="checkbox" id="cb_icon_64" name="icon" value="64">
-                                                <div><label for="cb_icon_64"><img id="icon_64" src="/img/icon_hit(0).gif" ></label></div>
-                                            </li>
+                                                <div><label for="cb_icon_4"><img id="icon_4" src="/img/ico_pro_free.gif"></label></div>
+                                            </li> -->
+
                                         </ul>
 
                                     </td>
@@ -82,7 +76,7 @@
                                 <tr>
                                     <th>큰이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgB" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <label for="imgB" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                         <input type="file" name="imgB" id="imgB" hidden>
                                         <input type="text" id="imgBurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
 
@@ -101,7 +95,7 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>중간이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgM" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <label for="imgM" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                         <input type="file" name="imgM" id="imgM" hidden>
                                         <input type="text" id="imgMurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                         <span class="light_gray">(500px * 500px)</span>
@@ -111,7 +105,7 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>작은이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgS" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                        <label for="imgS" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                         <input type="file" name="imgS" id="imgS" hidden>
                                         <input type="text" id="imgSurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                         <span class="light_gray">(250px * 250px)</span>
@@ -134,7 +128,7 @@
                                                     <td><span class="numbering">1</span>.</td>
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
-                                                        <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="imgEtc" id="imgEtc1" hidden>
                                                         <input type="text" id="imgEtcurl1" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
@@ -145,7 +139,7 @@
                                                     <td><span class="numbering">2</span>.</td>
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
-                                                        <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="imgEtc" id="imgEtc2" hidden>
                                                         <input type="text" id="imgEtcurl2" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
@@ -156,7 +150,7 @@
                                                     <td><span class="numbering">3</span>.</td>
                                                     <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                     <td>
-                                                        <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 등록</label>
+                                                        <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="imgEtc" id="imgEtc3" hidden>
                                                         <input type="text" id="imgEtcurl3" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
@@ -178,13 +172,82 @@
 
                 </form>
 
+
                 <%- include('../inc/footer') %>
                     <script>
                         // api
                         supplySelect(); // <!-- 상품공급업체 ajax select -->
+                        $('.adjust_image_container').adjustImage();
                     </script>
 
                     <script>
+                        // 상품아이콘 등록/수정 오픈
+                        function openIcon() {
+                            openPopup("/goods/goods_icon_pop", "Icon", 498, 500, "scrollbars=1");
+                        }
+                        //아이콘등록
+                        function setIcons() {
+                            $.ajax({
+                                type: "POST",
+                                dataType: "json",
+                                url: "/goodsIcons",
+                                // data: {
+                                //     gno: '0'
+                                // },
+                                error: function(request, status, error) {
+                                    alert(request.responseText)
+                                },
+                                success: function(data) {
+                                    var f = document.Frm;
+                                    var icons = new Array();
+
+                                    if (data) {
+                                        for (var i = 0; i < data.list.length; i++) {
+                                            var checked = (data.list[i].checked ? data.list[i].checked.toString().toNumeric() : -1);
+
+                                            icons[data.list[i].code.toString().toNumeric()] = {
+                                                img: data.list[i].icon.trim(),
+                                                checked: checked
+                                            };
+                                        }
+                                    }
+
+                                    $(f.icon).each(function() {
+                                        var code = this.value.toNumeric();
+
+                                        if (icons[code] && icons[code].img) {
+                                            this.disabled = false;
+                                            if (icons[code].checked > -1) {
+                                                this.checked = (icons[code].checked ? true : false);
+                                            }
+
+                                            var $parent = $('#icon_' + code).parent();
+                                            console.log($parent);
+
+                                            $parent.children().remove();
+
+                                            $('<img id="icon_' + code + '" src="' + icons[code].img + '" />')
+                                                .appendTo($parent)
+                                                .parent().parent()
+                                                .adjustImage({
+                                                    type: 'both-max'
+                                                });
+
+                                        } else {
+                                            this.disabled = true;
+                                            $('icon_' + code).attr('src', '/img/blank.gif').css({
+                                                width: 1,
+                                                height: 1
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        //]]>
+
+
+
                         //이미지 자동등록 radio button
                         function changeImgRegAuto(obj) {
                             if (obj.checked) {
@@ -285,8 +348,8 @@
                                 f.submit();
                             }
                         }
-
                         //]]>
+                        setIcons();
                     </script>
 
                     </body>
