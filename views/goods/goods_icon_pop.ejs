@@ -33,11 +33,13 @@
                 <tbody>
                     <tr>
                         <td class="adjust_image_container">
-                            <input type="hidden" name="code" value="1"><img src="/img/icon_new.gif">
+                            <input type="hidden" name="code" value="1">
+                            <!-- <img src="/img/icon_new.gif"> -->
+                            <div id="preview"></div>
                         </td>
                         <td>
                             <label for="imgIcon_1" class="btn btn-sm btn-secondary">아이콘 찾기</label>
-                            <input type="file" name="imgIcon_1" id="imgIcon_1" hidden>
+                            <input type="file" name="imgIcon_1" id="imgIcon_1" accept=".gif, .jpg" hidden>
                             <input type="text" id="imgIcon_1url" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
                         </td>
                         <td>
@@ -71,6 +73,22 @@
         };
 
         //<![CDATA[
+        // 등록 이미지 등록 미리보기
+        function readInputFile(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').html("<img src=" + e.target.result + " style='width:50px; height:18px'>");
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgIcon_1").on('change', function() {
+            readInputFile(this);
+        });
+
+
+
         function regist(code) {
             var f = document.Frm;
             var objIcon = _e('imgIcon_' + code);
@@ -122,68 +140,13 @@
 
 
     <script type="text/javascript">
-        //아이콘등록
-        function setIcons() {
-            $.ajax({
-                type: "POST",
-                dataType: "json",
-                url: "/goodsIcons",
-                data: {
-                    gno: '0'
-                },
-                error: function(request, status, error) {
-                    alert(request.responseText)
-                },
-                success: function(data) {
-                    var f = document.Frm;
-                    var icons = new Array();
-
-                    if (data) {
-                        for (var i = 0; i < data.list.length; i++) {
-                            var checked = (data.list[i].checked ? data.list[i].checked.toString().toNumeric() : -1);
-
-                            icons[data.list[i].code.toString().toNumeric()] = {
-                                img: data.list[i].icon.trim(),
-                                checked: checked
-                            };
-                        }
-                    }
-
-                    $(f.icon).each(function() {
-                        var code = this.value.toNumeric();
-
-                        if (icons[code] && icons[code].img) {
-                            this.disabled = false;
-                            if (icons[code].checked > -1) {
-                                this.checked = (icons[code].checked ? true : false);
-                            }
-
-                            var $parent = $('#icon_' + code).parent();
-                            $parent.children().remove();
-
-                            $('<img id="icon_' + code + '" src="' + icons[code].img + '" />').appendTo($parent).parent().parent().adjustImage({
-                                type: 'both-max'
-                            });
-                        } else {
-                            this.disabled = true;
-                            $('icon_' + code).attr('src', '/img/blank.gif').css({
-                                width: 1,
-                                height: 1
-                            });
-                        }
-                    });
-                }
-            });
-        }
-        //]]>
+        console.log(opener.setIcons);
         //<![CDATA[
         if (opener && opener.setIcons) {
             opener.setIcons();
         }
         //]]>
     </script>
-
-
 </body>
 
 </html>
