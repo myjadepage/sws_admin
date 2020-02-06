@@ -37,7 +37,8 @@
                                             <li class="choice"><a href="">전체 닫기</a></li>
                                         </ul>
                                     </div>
-                                    <div id="treeBox">
+
+                                    <!-- <div id="treeBox">
                                         <div id="category">
                                             <ul style="list-style: outside none; margin: 0px 0px 4px 15px; padding: 0px; background: url('/img/tree_branch.gif') repeat-y;">
                                                 <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px; background: none;">&nbsp;</a></li>
@@ -60,7 +61,7 @@
                                                 <li><img src="/img/tree_add.gif" class="node" style="vertical-align: middle;"><img src="/img/icon_cate_regist.gif" style="vertical-align: middle; cursor: pointer;"></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </th>
                             <td></td>
@@ -80,7 +81,7 @@
                                                     <tr>
                                                         <th>현재 카테고리</th>
                                                         <td class="category">
-                                                            <u id="target_category">추가</u>
+                                                            <u id="target_category"> 추가</u>
                                                         </td>
                                                     </tr>
 
@@ -99,8 +100,8 @@
                                                     <tr>
                                                         <th>숨김 여부</th>
                                                         <td>
-                                                            <span><input type="radio" name="hidden" value="0" checked="">노출</span>
-                                                            <span style="padding-left:10px"><input type="radio" name="hidden" value="1">숨김</span>
+                                                            <span><input type="radio" name="hidden" value="0" checked>노출</span>
+                                                            <span class="mgl20"><input type="radio" name="hidden" value="1">숨김</span>
                                                         </td>
                                                     </tr>
 
@@ -114,11 +115,9 @@
                                             <div class="section_head">
                                                 <h4><i class="xi-check-circle"></i> 카테고리 상단 디자인</h4>
                                             </div>
-                                            <div class="editor">
-                                                <textarea name="topDecor" style="width: 99.5%; height: 200px;" id="topDecor-placeholder"></textarea>
-                                            </div>
+                                            <div class="summernote"></div>
 
-                                            <table class="t_form">
+                                            <table class="t_form" style="margin-top: -21px;">
                                                 <tbody>
                                                     <tr>
                                                         <th>하위 적용</th>
@@ -142,20 +141,20 @@
                                                     <button type="button" class="btn btn-sm btn-secondary">저장</button>
                                                 </p>
                                             </div>
-                                            <ul class="sortable sortable_banner ui-sortable">
+                                            <ul class="sortable sortable_banner ui-sortable mgt10">
                                                 <li>
                                                     <input type="checkbox" name="cbBanner" value="2" class="cb">
                                                     <div class="mover">
                                                         <div><strong>MOVE</strong></div>
                                                     </div>
                                                     <div class="banner">
-                                                        <img src="/img/event_category_2_1_1.jpg" style="width: auto; height: 138px; margin-left: -33.9512px; margin-top: 0px;" alt="배너1" ow="790" oh="410">
+                                                        <img src="/img/event_category_2_1_1.jpg" alt="배너1">
                                                     </div>
                                                     <div class="caption">
                                                         <p class="ellipsis"><span class="ellipsis">배너1</span></p>
                                                         <div>
                                                             <span class="button small"><button type="button" >수정</button></span>
-                                                            <span class="button small"><a href="/img/event_category_2_1_1.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                                            <span class="button small"><a href="/img/event_category_2_1_1.jpg" class="original" >원본</a></span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -166,13 +165,13 @@
                                                         <div><strong>MOVE</strong></div>
                                                     </div>
                                                     <div class="banner">
-                                                        <img src="/img/event_category_2_2_1.jpg" style="width: auto; height: 138px; margin-left: -33.9512px; margin-top: 0px;" alt="배너2" ow="790" oh="410">
+                                                        <img src="/img/event_category_2_2_1.jpg" alt="배너2" ow="790" oh="410">
                                                     </div>
                                                     <div class="caption">
                                                         <p class="ellipsis"><span class="ellipsis">배너2</span></p>
                                                         <div>
                                                             <span class="button small"><button type="button" onclick="editBanner(3)">수정</button></span>
-                                                            <span class="button small"><a href="/img/event_category_2_2_1.jpg" class="original" laybox-width="0" laybox-height="0">원본</a></span>
+                                                            <span class="button small"><a href="/img/event_category_2_2_1.jpg" class="original">원본</a></span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -192,8 +191,8 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMA" value="0" checked="">출력
-                                                            <input type="radio" name="areaHiddenCMA" value="1">숨김
+                                                            <input type="radio" name="areaHiddenCMA" value="0" checked>출력
+                                                            <input type="radio" name="areaHiddenCMA" value="1" class="mgl20">숨김
                                                         </td>
                                                     </tr>
 
@@ -201,17 +200,16 @@
                                                         <th>상품관리</th>
                                                         <td>
                                                             <select id="areaGoodsCMA" name="areaGoodsCMA" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
-                            
                                         </select>
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMA', 'UP');">▲</button></span>
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMA', 'DOWN');">▼</button></span>
-                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMA');">삭제</button></span>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMA', 'UP');">▲</button>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMA', 'DOWN');">▼</button>
+                                                                    <button class="btn btn-sm btn-danger" onclick="delGoods('areaGoodsCMA');">삭제</button>
                                                                 </div>
                                                                 <div class="fr">
-                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMA');">상품선택</button></span>
+                                                                    <button class="btn btn-sm btn-secondary" onclick="openSelectGoods('areaGoodsCMA');">상품선택</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -231,7 +229,7 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMB" value="0" checked="">출력
+                                                            <input type="radio" name="areaHiddenCMB" value="0" checked>출력
                                                             <input type="radio" name="areaHiddenCMB" value="1">숨김
                                                         </td>
                                                     </tr>
@@ -245,12 +243,12 @@
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMB', 'UP');">▲</button></span>
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMB', 'DOWN');">▼</button></span>
-                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMB');">삭제</button></span>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMB', 'UP');">▲</button>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMB', 'DOWN');">▼</button>
+                                                                    <button class="btn btn-sm btn-danger" onclick="delGoods('areaGoodsCMB');">삭제</button>
                                                                 </div>
                                                                 <div class="fr">
-                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMB');">상품선택</button></span>
+                                                                    <button class="btn btn-sm btn-secondary" onclick="openSelectGoods('areaGoodsCMB');">상품선택</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -270,7 +268,7 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMC" value="0" checked="">출력
+                                                            <input type="radio" name="areaHiddenCMC" value="0" checked>출력
                                                             <input type="radio" name="areaHiddenCMC" value="1">숨김
                                                         </td>
                                                     </tr>
@@ -284,12 +282,12 @@
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMC', 'UP');">▲</button></span>
-                                                                    <span class="button small"><button type="button" onclick="moveGoods('areaGoodsCMC', 'DOWN');">▼</button></span>
-                                                                    <span class="button small"><button type="button" onclick="delGoods('areaGoodsCMC');">삭제</button></span>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMC', 'UP');">▲</button>
+                                                                    <button class="btn btn-sm btn-default" onclick="moveGoods('areaGoodsCMC', 'DOWN');">▼</button>
+                                                                    <button class="btn btn-sm btn-danger" onclick="delGoods('areaGoodsCMC');">삭제</button>
                                                                 </div>
                                                                 <div class="fr">
-                                                                    <span class="button small"><button type="button" onclick="openSelectGoods('areaGoodsCMC');">상품선택</button></span>
+                                                                    <button class="btn btn-sm btn-secondary" onclick="openSelectGoods('areaGoodsCMC');">상품선택</button>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -314,8 +312,15 @@
 
 
                 <%- include('../inc/footer') %>
-
-
+                    <script src="/js/summernote.js"></script>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('.summernote').summernote({
+                                height: 300,
+                                tabsize: 2
+                            });
+                        });
+                    </script>
 
                     </body>
 

@@ -22,11 +22,7 @@
 
 
                 <!-- 검색 폼 : 시작 ###################################################################### -->
-                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
-                    <input type="hidden" name="saream" value="">
-                    <input type="hidden" name="sareas" value="">
-                    <input type="hidden" name="psort" value="sort_desc">
-                    <input type="hidden" name="psize" value="10">
+                <form name="sFrm">
 
                     <div class="box">
                         <table class="t_form">
@@ -37,9 +33,20 @@
                                     <th>상품분류</th>
                                     <td>
                                         <input type="hidden" name="scate" value="">
-                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
-                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select></div>
-                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select></div>
+                                        <div style="float:left; margin-right:5px;">
+                                            <select class="text_input" style="width: 100px;" id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)">
+                                                <option value="">선택</option> 
+                                            </select>
+                                        </div>
+                                        <div style="float:left; margin-right:5px;">
+                                            <select class="text_input" style="width: 100px;" id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)">
+                                                <option value="">선택</option>
+                                            </select>
+                                        </div>
+                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        </div>
                                         <script type="text/javascript">
                                             //<![CDATA[
                                             var sc = new SelectCategory();
@@ -57,8 +64,8 @@
                                                     <th>메인</th>
                                                     <td style="border-top:0 none;">
                                                         <ul class="arrange">
-                                                            <li class="mr10"><input type="checkbox" name="caream" value="30">md추천</li>
-                                                            <li class="mr10"><input type="checkbox" name="caream" value="32">best추천</li>
+                                                            <li><input type="checkbox" name="caream" value="30">md추천</li>
+                                                            <li class="mgl20"><input type="checkbox" name="caream" value="32">best추천</li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -66,10 +73,10 @@
                                                     <th style="border:0 none;border-right:solid 1px #ddd">서브</th>
                                                     <td style="border:0 none;">
                                                         <ul class="arrange">
-                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMA">대분류 Best Seller</li>
-                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMB">대분류 New Item</li>
-                                                            <li class="mr10"><input type="checkbox" name="careas" value="CMC">대분류 MD Choice</li>
-                                                            <li class="mr10"><input type="checkbox" name="careas" value="CSA">중분류 Top Best</li>
+                                                            <li><input type="checkbox" name="careas" value="CMA">대분류 Best Seller</li>
+                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CMB">대분류 New Item</li>
+                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CMC">대분류 MD Choice</li>
+                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CSA">중분류 Top Best</li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -83,37 +90,22 @@
                                     <td>
                                         <select id="sbrand" name="sbrand" class="text_input" onchange="change();">
                                         <option value="">브랜드</option>
-                                        <option value="8">Baby Banz</option>
-                                        <option value="9">BARREL</option>
-                                        <option value="4">FRED PERRY</option>
-                                        <option value="12">MUJI</option>
-                                        <option value="10">PLAC</option>
-                                        <option value="17">PLASTIC ISLAND</option>
-                                        <option value="7">PLATFORM</option>
-                                        <option value="1">SAINT JAMES</option>
-                                        <option value="16">UNIQLO</option>
                                     </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>상품등록일</th>
                                     <td>
-                                        <div>
-                                            <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input">
-                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts ', 'YYYY-MM-DD ')" style="vertical-align:middle"> ~
-                                            <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input">
-                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte ', 'YYYY-MM-DD ')" style="vertical-align:middle">
-                                            <span class="blue">직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.</span>
+                                        <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                            <input id="startpicker-input" type="text" aria-label="Date">
+                                            <span class="tui-ico-date"></span>
+                                            <div id="startpicker-container" style="margin-left: -1px;"></div>
                                         </div>
-                                        <div class="mgt5">
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ')">전체</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 't ')">오늘</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 't ', -1)">어제</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -3)">3일간</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -7)">7일간</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -10)">10일간</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -20)">20일간</button></span>
-                                            <span class="button small"><button type="button" onclick="inperiod.input('sdts ', 'sdte ', 'd ', -30)">30일간</button></span>
+                                        <span>~</span>
+                                        <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                            <input id="endpicker-input" type="text" aria-label="Date">
+                                            <span class="tui-ico-date"></span>
+                                            <div id="endpicker-container" style="margin-left: -1px;"></div>
                                         </div>
                                     </td>
                                 </tr>
@@ -128,18 +120,18 @@
                                     <th>재고여부</th>
                                     <td>
                                         <input type="radio" name="sstock" value="0" checked>전체상품
-                                        <input type="radio" name="sstock" value="1">재고 무제한
-                                        <input type="radio" name="sstock" value="2">재고있는 상품(무제한 제외)
-                                        <input type="radio" name="sstock" value="3">재고가 실제 0인 상품
-                                        <input type="radio" name="sstock" value="4">품절로 선택된 상품
+                                        <input type="radio" name="sstock" value="1" class="mgl20">재고 무제한
+                                        <input type="radio" name="sstock" value="2" class="mgl20">재고있는 상품(무제한 제외)
+                                        <input type="radio" name="sstock" value="3" class="mgl20">재고가 실제 0인 상품
+                                        <input type="radio" name="sstock" value="4" class="mgl20">품절로 선택된 상품
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>진열여부</th>
                                     <td>
                                         <input type="radio" name="sdisplay" value="0" checked>전체상품
-                                        <input type="radio" name="sdisplay" value="1">진열되어 있는 상품
-                                        <input type="radio" name="sdisplay" value="2">진열 안되어있는 상품
+                                        <input type="radio" name="sdisplay" value="1" class="mgl20">진열되어 있는 상품
+                                        <input type="radio" name="sdisplay" value="2" class="mgl20">진열 안되어 있는 상품
                                     </td>
                                 </tr>
                                 <tr>
@@ -152,7 +144,7 @@
                                 <tr>
                                     <th>직접검색</th>
                                     <td>
-                                        <select id="skey" name="skey" class="text_input">
+                                        <select id="skey" name="skey" class="text_input" style="width: 150px;">
                                         <option value="name">상품명</option>
                                         <option value="code">상품코드</option>
                                     </select>
@@ -163,7 +155,6 @@
                             </tbody>
                         </table>
                     </div>
-
                 </form>
                 <!-- 검색 폼 : 끝 ###################################################################### -->
 
@@ -188,72 +179,91 @@
 
                             </h4>
                             <div>
-                                <select id="psize" name="psize" onchange="changeList();"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
-                                <select id="psort" name="psort" onchange="changeList();"><option value="sort_desc" selected="">기본정렬</option><option value="name_asc">상품명순</option><option value="no_desc">신상품순</option><option value="hits_desc">인기도순</option><option value="price_desc">고가격순</option><option value="price_asc">저가격순</option></select>
-
+                                <select id="psize" name="psize" onchange="changeList();" class="text_input">
+                                    <option value="10" selected="">10줄씩보기</option>
+                                    <option value="20">20줄씩보기</option>
+                                    <option value="30">30줄씩보기</option>
+                                    <option value="50">50줄씩보기</option>
+                                    <option value="100">100줄씩보기</option>
+                                </select>
+                                <select id="psort" name="psort" onchange="changeList();" class="text_input">
+                                    <option value="sort_desc" selected="">기본정렬</option>
+                                    <option value="name_asc">상품명순</option>
+                                    <option value="no_desc">신상품순</option>
+                                    <option value="hits_desc">인기도순</option>
+                                    <option value="price_desc">고가격순</option>
+                                    <option value="price_asc">저가격순</option>
+                                </select>
                             </div>
                         </div>
 
-                        <table class="t_list">
+                        <table class="t_list mgt10">
                             <caption>상품 리스트</caption>
                             <colgroup>
                                 <col width="30">
-                                <col width="200">
+                                <col width="100">
                                 <col width="*">
-                                <col width="300">
-                                <col width="200">
-                                <col width="250">
+                                <col width="150">
+                                <col width="150">
+                                <col width="150">
+                                <col width="100">
+                                <col width="100">
+                                <col width="100">
+                                <col width="150">
+                                <col width="160">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
                                     <th>고유번호</th>
                                     <th>상품명 / 카테고리 / 공급업체</th>
-                                    <th>판매가 / 시중가 / 공급가</th>
-                                    <th>조회수 / 판매수량 / 재고</th>
+                                    <th>판매가</th>
+                                    <th>시중가</th>
+                                    <th>공급가</th>
+                                    <th>조회수</th>
+                                    <th>판매수량</th>
+                                    <th>재고</th>
+                                    <th>진열여부</th>
                                     <th>기능</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><input type="checkbox" name="cbList" value="243"></td>
-                                    <td>
-                                        <div><strong>243</strong></div>
-                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-secondary" onclick="changeDisplay(243)">상품진열 안하기</button></div>
-                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-secondary" onclick="changeSoldOut(243)">진열로 표시</button></div>
-
-                                    </td>
+                                    <td><strong>243</strong></td>
                                     <td class="vm">
                                         <div class="gbox tl">
                                             <img src="/img/201721660706400_1_1_1_1.jpg" class="photo">
                                             <div><a href="http://mimd.mallstore.co.kr/goods/detail?gno=243" target="_blank"><strong>SUN_추가상품_개별_선불12000원이상 무료</strong></a></div>
-                                            <div class="category">OUTER&gt;자켓&gt;테이러드자켓<br></div>
+                                            <div class="category">OUTER 〉자켓테이러드자켓</div>
                                         </div>
-
                                     </td>
                                     <td>
-                                        <input type="hidden" name="priceSplit_243" value="100">
-                                        <input type="hidden" name="cmsType_243" value="CTG">
-                                        <input type="hidden" name="margin_243" value="0">
-
+                                        <input type="text" name="price_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, 'price ');" onblur="checkPriceRound(this, 243, 'price ')"> 원
+                                    </td>
+                                    <td>
+                                        <input type="text" name="marketPrice_243" value="0" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this)"> 원
+                                    </td>
+                                    <td>
+                                        <input type="text" name="originalPrice_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, this);" onblur="checkPriceRound(this, 243)"> 원
+                                    </td>
+                                    <td>270 회</td>
+                                    <td>0 개</td>
+                                    <td>무제한</td>
+                                    <td>
+                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-default" onclick="changeSoldOut(243)">상품진열 표시</button></div>
+                                        <div class="mgt5"><button type="button" class="btn btn-sm btn-default" onclick="changeDisplay(243)">상품진열 안함</button></div>
+                                    </td>
+                                    <td>
                                         <div>
-                                            판매가
-                                            <input type="text" name="price_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, 'price ');" onblur="checkPriceRound(this, 243, 'price ')"> 원
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="validSave(243)">저장</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="del(243)">삭제</button>
                                         </div>
-                                        <div class="mgt5">시중가
-                                            <input type="text" name="marketPrice_243" value="0" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this)"> 원
+                                        <div class="mgt10">
+                                            <button type="button" class="btn btn-sm btn-default" onclick="openGoodsHistory(243)">이력</button>
+                                            <button type="button" class="btn btn-sm btn-default" onclick="copy(243)">복사</button>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="edit(243)">수정</button>
                                         </div>
-                                        <div class="mgt5">공급가
-                                            <input type="text" name="originalPrice_243" value="10,000" maxlength="10" class="text_input" style="width:50%" onkeyup="toCurrency(this); calcPrice(243, this);" onblur="checkPriceRound(this, 243)"> 원
-                                        </div>
-                                    </td>
-                                    <td>270 회 / 0 개 / 무제한</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-dark" onclick="openGoodsHistory(243)">이력</button>
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="validSave(243)">저장</button>
-                                        <button type="button" class="btn btn-sm btn-info" onclick="copy(243)">복사</button>
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="edit(243)">수정</button>
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="del(243)">삭제</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -265,8 +275,8 @@
                     </div>
 
                     <div class="btn_right">
-                        <button type="button" class="btn btn-danger" onclick="delList()">일괄삭제</button>
                         <button type="button" class="btn btn-secondary" onclick="downExcel()">엑셀로받기</button>
+                        <button type="button" class="btn btn-danger" onclick="delList()">일괄삭제</button>
                     </div>
 
                 </form>
@@ -275,8 +285,27 @@
 
                 <%- include('../inc/footer') %>
 
-                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
-                    <script type="text/javascript" src="/js/class.js"></script>
+                    <script>
+                        var today = new Date();
+                        var picker = tui.DatePicker.createRangePicker({
+                            language: 'ko',
+                            startpicker: {
+                                date: today,
+                                input: '#startpicker-input',
+                                container: '#startpicker-container'
+                            },
+                            endpicker: {
+                                date: today,
+                                input: '#endpicker-input',
+                                container: '#endpicker-container'
+                            },
+                            selectableRanges: [
+                                [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+                            ]
+                        });
+                    </script>
+
+
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSearch(f) {
