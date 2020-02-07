@@ -37,6 +37,7 @@ String.prototype.toNumeric = function() {
 
 
 
+
 // 객체 ##################################################
 function _e(id) {
     return document.getElementById(id);

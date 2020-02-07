@@ -24,8 +24,7 @@
                 </ul>
 
 
-                <form name="formInputSite" id="formInputSite" enctype="multipart/form-data">
-                    <!-- <input type="hidden" name="siteEmail" value="webmaster@shallweshop.com"> -->
+                <form name="formInputSite">
 
                     <!--상단쇼핑몰타이틀-->
                     <div class="box">
@@ -39,7 +38,7 @@
                                 <tr>
                                     <th>웹브라우져 Title</th>
                                     <td>
-                                        <input name="browserTitle" value="" class="text_input" style="width: 98%;" maxlength="100">
+                                        <input type="text" name="browserTitle" class="text_input" style="width: 98%;" maxlength="100">
                                         <span class="square_blue"><i class="xi-error"></i> 웹 브라우저 상단에 노출되는 사이트 소개 문구를 등록/관리 할 수 있습니다.</span>
                                     </td>
                                 </tr>
@@ -116,7 +115,7 @@
                                 <tr>
                                     <th>카드무이자할부</th>
                                     <td>
-                                        <input name="noInterest" value="무이자 없음" class="text_input" maxlength="100">
+                                        <input type="text" name="noInterest" value="무이자 없음" class="text_input" maxlength="100">
                                         <span class="square_blue"><i class="xi-error"></i> 상품목록, 장바구니, 주문결제 페이지에 노출되는 무이자 정보를 등록/관리할 수 있습니다.</span>
                                     </td>
                                 </tr>
@@ -177,23 +176,26 @@
 
                             <tbody>
                                 <tr>
-                                    <th>리스트 이미지 사이즈</th>
+                                    <th>리스트이미지 사이즈</th>
                                     <td>
-                                        <input name="imgSWidth" class="text_input" style="width:30px;" maxlength="3" value="100"> px * <input name="imgSHeight" class="text_input" style="width:30px;" maxlength="3" value="100"> px
+                                        <input type="text" name="imgSWidth" class="text_input" style="width:100px;" maxlength="3"> px *
+                                        <input type="text" name="imgSHeight" class="text_input" style="width:100px;" maxlength="3"> px
                                         <span class="square_blue"><i class="xi-error"></i> (가로 * 세로) HOME, 각 메인 추천상품, 상품리스트의 출력되는 이미지의 사이즈를 설정합니다.</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>상세정보 이미지사이즈</th>
+                                    <th>상세이미지 사이즈</th>
                                     <td>
-                                        <input name="imgSWidth" class="text_input" style="width:30px;" maxlength="3" value="100"> px * <input name="imgSHeight" class="text_input" style="width:30px;" maxlength="3" value="100"> px
+                                        <input type="text" name="imgMWidth" class="text_input" style="width:100px;" maxlength="3"> px *
+                                        <input type="text" name="imgMHeight" class="text_input" style="width:100px;" maxlength="3"> px
                                         <span class="square_blue"><i class="xi-error"></i> (가로 * 세로) 상세정보페이지의 이미지 사이즈를 설정합니다.</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>확대보기 이미지사이즈</th>
+                                    <th>확대이미지 사이즈</th>
                                     <td>
-                                        <input name="imgSWidth" class="text_input" style="width:30px;" maxlength="3" value="100"> px * <input name="imgSHeight" class="text_input" style="width:30px;" maxlength="3" value="100"> px
+                                        <input type="text" name="imgBWidth" class="text_input" style="width:100px;" maxlength="3"> px *
+                                        <input type="text" name="imgBHeight" class="text_input" style="width:100px;" maxlength="3"> px
                                         <span class="square_blue"><i class="xi-error"></i> (가로 * 세로)상품의 확대보기(zoom)의 이미지 사이즈를 설정합니다.</span>
                                     </td>
                                 </tr>
@@ -231,28 +233,28 @@
                                 <tr>
                                     <th>배송완료 기간 설정</th>
                                     <td>
-                                        <input type="text" name="deliveryperiod" value="1" maxlength="2" class="text_input" style="width:30px;"> 일 이후 설정된 기간동안 판매자가 배송완료를 안하게 되면 자동으로 <strong>‘배송완료’</strong> 로 전환 됩니다. (
+                                        <input type="text" name="deliveryperiod" value="1" maxlength="2" class="text_input" style="width:50px;"> 일 이후 설정된 기간동안 판매자가 배송완료를 안하게 되면 자동으로 <strong>‘배송완료’</strong> 로 전환 됩니다. (
                                         <strong class="blue">0</strong> 으로 설정하면 관리자가 임의설정 불가능)
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>구매확정 기간 설정</th>
                                     <td>
-                                        <input type="text" name="decisionPeriod" value="30" maxlength="2" class="text_input" style="width:30px;"> 일 이후 설정된 기간동안 사용자가 구매확정을 안하게 되면 관리자가 <strong>구매확정을 강제</strong>로 할수 있습니다. (
+                                        <input type="text" name="decisionPeriod" value="30" maxlength="2" class="text_input" style="width:50px;"> 일 이후 설정된 기간동안 사용자가 구매확정을 안하게 되면 관리자가 <strong>구매확정을 강제</strong>로 할수 있습니다. (
                                         <strong class="blue">0</strong> 으로 설정하면 관리자가 임의설정 불가능)
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>자동탈퇴 대상자 설정</th>
                                     <td>
-                                        <input type="text" name="cfgautowithdrawtarget" value="1" maxlength="3" class="text_input" style="width:30px;"> 일 동안 사이트에 <strong>로그인하지 않은</strong> 회원을 수집합니다. (
+                                        <input type="text" name="cfgautowithdrawtarget" value="1" maxlength="3" class="text_input" style="width:50px;"> 일 동안 사이트에 <strong>로그인하지 않은</strong> 회원을 수집합니다. (
                                         <strong class="blue">0</strong> 으로 설정시 자동탈퇴대상 사용안함으로 설정)
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>자동탈퇴일 설정</th>
                                     <td>
-                                        <input type="text" name="cfgautowithdrawperiod" value="1" maxlength="3" class="text_input" style="width:30px;"> 일 이후 사이트에 <strong>로그인하지 않은</strong> 회원에 대한 회원탈퇴를 진행합니다. (
+                                        <input type="text" name="cfgautowithdrawperiod" value="1" maxlength="3" class="text_input" style="width:50px;"> 일 이후 사이트에 <strong>로그인하지 않은</strong> 회원에 대한 회원탈퇴를 진행합니다. (
                                         <strong class="blue">0</strong> 으로 설정시 자동탈퇴 처리하지 않습니다.)
                                     </td>
                                 </tr>
@@ -333,13 +335,15 @@
                         <span>외부메일서버를 사용하시면 메일관련 계정정보를 입력하셔야 합니다.</span>
                     </div>
                     <!-- 설명 -->
-
-                    <div class="btn_center">
-                        <button class="btn btn-info" id="btnInputSite">확인</button>
-                        <button class="btn btn-secondary" onclick="cancle('back');">취소</button>
-                    </div>
-
                 </form>
+
+                <div class="btn_center">
+                    <button class="btn btn-info" id="btnInputSite">확인</button>
+                    <button class="btn btn-secondary" onclick="cancle('back');">취소</button>
+                </div>
+
+
+
 
                 <%- include('../inc/footer') %>
                     <script>
@@ -355,159 +359,111 @@
                     </script>
                     <script>
                         $('#btnInputSite').on('click', function() {
-                            //<![CDATA[
-                            var f = {};
-                            f.browserTitle = $('input[name="browserTitle"]').val();
-                            f.noInterest = $('input[name="noInterest"]').val();
-                            f.isOpenHtml = $('input[name="isOpenHtml"]:checked').val();
-                            f.isCertify = $('input[name="isCertify"]:checked').val();
-                            f.certifyNiceId = $('input[name="certifyNiceId"]').val();
-                            f.certifyNicePw = $('input[name="certifyNicePw"]').val();
-                            f.certifyIpinId = $('input[name="certifyIpinId"]').val();
-                            f.certifyIpinPw = $('input[name="certifyIpinPw"]').val();
-                            f.imgSWidth = $('input[name="imgSWidth"]').val();
-                            f.imgSHeight = $('input[name="imgSHeight"]').val();
-                            f.imgMWidth = $('input[name="imgMWidth"]').val();
-                            f.imgMHeight = $('input[name="imgMHeight"]').val();
-                            f.imgBWidth = $('input[name="imgBWidth"]').val();
-                            f.imgBHeight = $('input[name="imgBHeight"]').val();
-                            f.isChoiceListCart = $('input[name="isChoiceListCart"]:checked').val();
-                            f.isDisplaySoldOut = $('input[name="isDisplaySoldOut"]:checked').val();
-                            f.deliveryperiod = $('input[name="deliveryperiod"]').val();
-                            f.decisionPeriod = $('input[name="decisionPeriod"]').val();
-                            f.cfgautowithdrawtarget = $('input[name="cfgautowithdrawtarget"]').val();
-                            f.cfgautowithdrawperiod = $('input[name="cfgautowithdrawperiod"]').val();
-                            f.isGoodsLogInfo = $('input[name="isGoodsLogInfo"]:checked').val();
-                            f.isOutsideSmtp = $('input[name="isOutsideSmtp"]:checked').val();
-                            f.siteEmail = $('input[name="siteEmail"]').val();
-                            f.smtpServer = $('input[name="smtpServer"]').val();
-                            f.smtpId = $('input[name="smtpId"]').val();
-                            f.smtpPw = $('input[name="smtpPw"]').val();
-                            f.cfgautowithdrawtarget = $('input[name="cfgautowithdrawtarget"]').val();
-                            console.log(JSON.stringify(f));
-
-
-                            if (isEmpty(f.browserTitle)) {
+                            var f = document.formInputSite;
+                            console.log(JSON.stringify($(f).serializeArray()));
+                            var msg = "등록하시겠습니까";
+                            //<![CDATA[   
+                            if (isEmpty(f.browserTitle.value)) {
                                 alert("웹브라우져 Title을 입력해 주세요.");
-                                $('input[name="browserTitle"]').focus();
+                                f.browserTitle.focus();
                                 return false;
                             }
                             if (getRadio(f.isCertify) == "T") {
-                                if (isEmpty(f.certifyNiceId)) {
+                                if (isEmpty(f.certifyNiceId.value)) {
                                     alert("NICE에서 부여받은 사이트 코드를 입력해 주세요.");
-                                    $('input[name="certifyNiceId"]').focus();
+                                    f.certifyNiceId.focus();
                                     return false;
                                 }
 
-                                if (isEmpty(f.certifyNicePw)) {
+                                if (isEmpty(f.certifyNicePw.value)) {
                                     alert("NICE에서 부여받은 사이트 비밀번호를 입력해 주세요.");
-                                    $('input[name="certifyNicePw"]').focus();
+                                    f.certifyNicePw.focus();
                                     return false;
                                 }
 
-                                if (isEmpty(f.certifyIpinId)) {
+                                if (isEmpty(f.certifyIpinId.value)) {
                                     alert("NICE에서 부여받은 아이핀 사이트 코드를 입력해 주세요.");
-                                    $('input[name="certifyIpinId"]').focus();
+                                    f.certifyIpinId.focus();
                                     return false;
                                 }
 
-                                if (isEmpty(f.certifyIpinPw)) {
+                                if (isEmpty(f.certifyIpinPw.value)) {
                                     alert("NICE에서 부여받은 아이핀 사이트 비밀번호를 입력해 주세요.");
-                                    $('input[name="certifyIpinPw"]').focus();
+                                    f.certifyIpinPw.focus();
                                     return false;
                                 }
                             }
 
                             if (f.imgSWidth.value.toNumeric() < 1) {
-                                alert("리스트 이미지 사이즈 폭을 입력해 주세요.");
-                                $('input[name="imgSWidth"]').focus();
+                                alert("리스트이미지 가로를 입력해 주세요.");
+                                f.imgSWidth.focus();
                                 return false;
                             }
-
                             if (f.imgSHeight.value.toNumeric() < 1) {
-                                alert("리스트 이미지 사이즈 높이를 입력해 주세요.");
-                                $('input[name="imgSHeight"]').focus();
+                                alert("리스트이미지 높이를 입력해 주세요.");
+                                f.imgSHeight.focus();
                                 return false;
                             }
-
                             if (f.imgMWidth.value.toNumeric() < 1) {
-                                alert("상세정보 이미지 사이즈 폭을 입력해 주세요.");
-                                $('input[name="imgMWidth"]').focus();
+                                alert("상세이미지 가로를 입력해 주세요.");
+                                f.imgMWidth.focus();
                                 return false;
                             }
-
                             if (f.imgMHeight.value.toNumeric() < 1) {
-                                alert("상세정보 이미지 사이즈 높이를 입력해 주세요.");
-                                $('input[name="imgMHeight"]').focus();
+                                alert("상세이미지 높이를 입력해 주세요.");
+                                f.imgMHeight.focus();
                                 return false;
                             }
-
                             if (f.imgBWidth.value.toNumeric() < 1) {
-                                alert("확대보기 이미지 사이즈 폭을 입력해 주세요.");
-                                $('input[name="imgBWidth"]').focus();
+                                alert("확대이미지 가로를 입력해 주세요.");
+                                f.imgBWidth.focus();
                                 return false;
                             }
-
                             if (f.imgBHeight.value.toNumeric() < 1) {
-                                alert("확대보기 이미지 사이즈 높이를 입력해 주세요.");
-                                $('input[name="imgBHeight"]').focus();
+                                alert("확대이미지 높이를 입력해 주세요.");
+                                f.imgBHeight.focus();
                                 return false;
                             }
-
                             if (getRadio(f.isOutsideSmtp) == "T") {
-                                if (isEmpty(f.siteEmail)) {
+                                if (isEmpty(f.siteEmail.value)) {
                                     alert("외부메일서버 사용시 메일계정 확인을 위해 관리자 메일주소로 테스트 메일이 발송됩니다.\n\"환경설정>상점기본정보관리>상점환경설정\"에서 먼저 관리자 메일을 입력해 주세요.");
                                     return false;
                                 }
 
-                                if (isEmpty(f.smtpServer)) {
+                                if (isEmpty(f.smtpServer.value)) {
                                     alert("메일서버주소를 입력해 주세요.");
-                                    $('input[name="smtpServer"]').focus();
+                                    f.smtpServer.focus();
                                     return false;
                                 }
 
-                                if (isEmpty(f.smtpId)) {
+                                if (isEmpty(f.smtpId.value)) {
                                     alert("아이디를 입력해 주세요.");
-                                    $('input[name="smtpId"]').focus();
+                                    f.smtpId.focus();
                                     return false;
                                 }
 
-                                if (isEmpty(f.smtpPw)) {
+                                if (isEmpty(f.smtpPw.value)) {
                                     alert("비밀번호를 입력해 주세요.");
-                                    $('input[name="smtpPw"]').focus();
+                                    f.smtpPw.focus();
                                     return false;
                                 }
                             }
-
                             if (f.cfgautowithdrawtarget.value > f.cfgautowithdrawperiod.value) {
                                 alert("자동 탈퇴 일은 자동탈퇴 대상자 선정일보다 \n빠르게 설정 할 수 없습니다.");
                                 f.cfgautowithdrawtarget.value = 0;
-                                $('input[name="cfgautowithdrawtarget"]').focus();
+                                f.cfgautowithdrawtarget.focus();
+                                return false;
+                            }
+                            if (getRadio(f.isOutsideSmtp) == "T") {
+                                msg += "\n\n외부메일서버 사용시 메일계정 확인을 위해 관리자 메일주소로\n테스트 메일이 발송될 수 있습니다.";
                                 return false;
                             }
 
-                            var msg = "등록하시겠습니까";
-                            if (getRadio(f.isOutsideSmtp) == "T") msg += "\n\n외부메일서버 사용시 메일계정 확인을 위해 관리자 메일주소로\n테스트 메일이 발송될 수 있습니다.";
-
-                            if (!confirm(msg)) {
-                                return false;
-
-                                ///<!--------
-                                // ajax호출등ㄹ고
-                                ///<!-------->
-
-
-
-                            }
                         });
+
+
                         //]]>
                     </script>
-
-
-
-
-
-
 
                     </body>
 

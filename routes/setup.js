@@ -57,6 +57,8 @@ router.get('/config_site', function(req, res, next) {
     });
 });
 
+
+
 router.get('/config_dealer', function(req, res, next) {
     res.render('setup/config_dealer', {
         path: '/setup/',
