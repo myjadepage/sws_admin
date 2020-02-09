@@ -21,46 +21,108 @@
                     <li>시중가를 적으면 세일이 적용됩니다. (필요할 경우에만 입력하세요.)</li>
                 </ul>
 
-                <form name="Frm" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="gno" value="0">
-
+                <form name="Frm">
                     <div class="box">
                         <table summary="상품기본정보 등록 폼 입니다." class="t_form">
                             <caption>상품기본정보 등록 폼</caption>
                             <colgroup>
-                                <col width="200">
+                                <col width="250">
                                 <col width="*">
-                                <col width="200">
+                                <col width="250">
                                 <col width="*">
                             </colgroup>
                             <tbody>
+                                <!-- 상품공급업체 -->
                                 <tr>
                                     <th>상품공급 업체 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <select id="goodsDealer" class="text_input" name="goodsDealer"></select>
+                                        <select id="sellerId" name="sellerId" class="text_input"></select>
+                                    </td>
+                                </tr>
+
+                                <!-- 상품분류(카테고리) -->
+                                <tr>
+                                    <th rowspan="2">분류(카테고리) <strong class="red">*</strong></th>
+                                    <td colspan="3">
+                                        <select id="categoryId1st" name="categoryId1st" class="text_input" onchange="changeCate(this)">
+                                            <option value="">선택</option>                                                                                                              
+                                        </select>
+                                        <select id="categoryId2nd" name="categoryId2nd" class="text_input" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <select id="categoryId3rd" name="categoryId3rd" class="text_input" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <select id="categoryId4th" name="categoryId4th" class="text_input" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <select id="categoryId5th" name="categoryId5th" class="text_input" onchange="changeCate(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="addCate()">추가</button>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td colspan="3" class="category">
+                                        <table id="tb_category" summary="상품 분류 목록 입니다.">
+                                            <caption>상품 분류 목록</caption>
+                                            <colgroup>
+                                                <col width="100">
+                                                <col width="*">
+                                                <col width="100">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>기본</th>
+                                                    <th>분류</th>
+                                                    <th>삭제</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="hidden" name="cate" value="1624">
+                                                        <input type="radio" name="cateDefault">
+                                                    </td>
+                                                    <td class="txt">의류11 〉상의 〉 블라우스 [50%]</td>
+                                                    <td><button type="button" class="btn btn-sm btn-danger" onclick="delCate(this)">삭제</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <dl class="explain blue">
+                                            <dt><strong>※ 다중 분류로 선택할 경우</strong></dt>
+                                            <dd>기본으로 선택된 분류가 해당 상품의 대표 분류입니다. 검색 결과에서는 기본 분류를 기준으로 출력됩니다.</dd>
+                                            <dd>각각 다른상품으로 인식되기 때문에 상품 목록에 해당 상품이 중복 노출될 수 있습니다.</dd>
+                                            <dd class="red">다중 카테고리 선택 후 수수료율을 다르게 추가 할 경우 기본 카테고리 수수료율로 설정됩니다.</dd>
+                                        </dl>
+                                    </td>
+                                </tr>
+
+
+                                <!-- 상품명 -->
+                                <tr>
                                     <th>상품명 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <input type="text" name="goodsName" class="text_input" style="width:99%" value="" maxlength="100">
+                                        <input type="text" name="name" class="text_input" style="width:99%" value="" maxlength="100">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>간략한설명</th>
                                     <td colspan="3">
-                                        <input type="text" name="summary" class="text_input" style="width:99%" value="" maxlength="100">
+                                        <input type="text" name="briefComment" class="text_input" style="width:99%" value="" maxlength="100">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>브랜드</th>
                                     <td colspan="3">
-                                        <select id="brandIdx" name="brandIdx" class="text_input"> 
+                                        <select id="brandId" name="brandId" class="text_input"> 
                                             <option value="">선택</option>                                                                           
                                         </select>
                                     </td>
                                 </tr>
 
+
+                                <!-- 상품아이콘 -->
                                 <tr>
                                     <th>상품 아이콘
                                         <button type="button" class="btn btn-sm btn-info" onclick="openIcon()">아이콘 관리</button>
@@ -68,7 +130,7 @@
                                     <td colspan="3" class="icons">
                                         <ul>
                                             <li>
-                                                <input type="checkbox" id="cb_icon_1" name="icon" value="1">
+                                                <input type="checkbox" id="cb_icon_1" name="iconURL" value="1">
                                                 <div><label for="cb_icon_1"><img id="icon_1" src="/img/ico_pro_sale.gif" ></label></div>
                                             </li>
                                             <!-- <li><input type="checkbox" id="cb_icon_2" name="icon" value="2">
@@ -80,7 +142,6 @@
                                             <li><input type="checkbox" id="cb_icon_4" name="icon" value="4">
                                                 <div><label for="cb_icon_4"><img id="icon_4" src="/img/ico_pro_free.gif"></label></div>
                                             </li> -->
-
                                         </ul>
 
                                     </td>
@@ -90,9 +151,9 @@
                                 <tr>
                                     <th>큰이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgB" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="imgB" id="imgB" class="hidden">
-                                        <input type="text" id="imgBurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <label for="bigImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                        <input type="file" name="bigImage" id="bigImage" class="hidden">
+                                        <input type="text" id="bigImageURL" class="fileuploadurl" name="bigImageURL" placeholder="선택된 파일이 없습니다" readonly>
 
                                         <span class="light_gray">(500px * 500px)</span>
                                         <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
@@ -109,9 +170,9 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>중간이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgM" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="imgM" id="imgM" class="hidden">
-                                        <input type="text" id="imgMurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <label for="midImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                        <input type="file" name="midImage" id="midImage" class="hidden">
+                                        <input type="text" id="midImageURL" class="fileuploadurl" name="midImageURL" placeholder="선택된 파일이 없습니다" readonly>
                                         <span class="light_gray">(500px * 500px)</span>
                                     </td>
                                 </tr>
@@ -119,9 +180,9 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>작은이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="imgS" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="imgS" id="imgS" class="hidden">
-                                        <input type="text" id="imgSurl" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                        <label for="smallImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                        <input type="file" name="smallImage" id="smallImage" class="hidden">
+                                        <input type="text" id="smallImageURL" class="fileuploadurl" name="smallImageURL" placeholder="선택된 파일이 없습니다" readonly>
                                         <span class="light_gray">(250px * 250px)</span>
                                     </td>
                                 </tr>
@@ -140,33 +201,42 @@
                                             <tbody>
                                                 <tr>
                                                     <td><span class="numbering">1</span>.</td>
-                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
                                                     <td>
-                                                        <label for="imgEtc1" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="imgEtc" id="imgEtc1" class="hidden">
-                                                        <input type="text" id="imgEtcurl1" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                                        <input type="file" name="optionalImage" id="optionalImage1" class="hidden">
+                                                        <input type="text" id="optionalImage1URLoptional" class="fileuploadurl" name="optionalImage1URLoptional" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
 
                                                 </tr>
 
                                                 <tr>
                                                     <td><span class="numbering">2</span>.</td>
-                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
                                                     <td>
-                                                        <label for="imgEtc2" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="imgEtc" id="imgEtc2" class="hidden">
-                                                        <input type="text" id="imgEtcurl2" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <label for="optionalImage2" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                                        <input type="file" name="optionalImage" id="optionalImage2" class="hidden">
+                                                        <input type="text" id="optionalImage2URLoptional" class="fileuploadurl" name="optionalImage2URLoptional" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
 
                                                 </tr>
 
                                                 <tr>
                                                     <td><span class="numbering">3</span>.</td>
-                                                    <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
+                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
                                                     <td>
-                                                        <label for="imgEtc3" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="imgEtc" id="imgEtc3" class="hidden">
-                                                        <input type="text" id="imgEtcurl3" class="fileuploadurl" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <label for="optionalImage3" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                                        <input type="file" name="optionalImage" id="optionalImage3" class="hidden">
+                                                        <input type="text" id="optionalImage3URLoptional" class="fileuploadurl" name="optionalImage3URLoptional" placeholder="선택된 파일이 없습니다" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="numbering">4</span>.</td>
+                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
+                                                    <td>
+                                                        <label for="optionalImage4" class="btn btn-sm btn-secondary">이미지 찾기</label>
+                                                        <input type="file" name="optionalImage" id="optionalImage4" class="hidden">
+                                                        <input type="text" id="optionalImage4URLoptional" class="fileuploadurl" name="optionalImage4URLoptional" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -175,32 +245,34 @@
                                 </tr>
                                 <!-- 상품 이미지 : 끝 -->
 
+                                <!-- 재고설정/진열설정 -->
                                 <tr>
                                     <th>재고설정</th>
                                     <td>
-
                                         <span>
-                                            <input type="radio" id="stock_limitless" name="stock" value="0" onclick="checkStock()" checked>
-                                            <label for="stock_limitless">무제한</label>
+                                            <input type="radio" id="stockTypeCode1" name="stockTypeCode" value="1" onclick="checkStock()" checked>
+                                            <label for="stockTypeCode1">무제한</label>
                                         </span>
                                         <span class="mgl20">
-                                            <input type="radio" id="stock_quantity" name="stock" value="1" onclick="checkStock()">
-                                            <label for="stock_quantity">수량</label>
+                                            <input type="radio" id="stockTypeCode2" name="stockTypeCode" value="2" onclick="checkStock()">
+                                            <label for="stockTypeCode2">수량</label>
                                         </span>
                                         <span>
-                                            <input type="text" name="quantity" value="" maxlength="7" class="text_input" style="width: 60px; "  disabled> 
+                                            <input type="text" name="quantity"  maxlength="7" class="text_input" style="width: 60px; "  disabled> 
                                         </span>
                                         <span class="mgl20">
-                                            <input type="checkbox" id="soldout" name="soldout" value="2">
+                                            <input type="checkbox" id="soldout" name="soldout">
                                             <label for="soldout" class="red">일시품절</label>
                                         </span>
                                     </td>
                                     <th>진열설정</th>
                                     <td>
-                                        <input type="radio" id="display_T" name="isDisplay" value="T" checked><label for="display_T">진열</label>&nbsp;
-                                        <input type="radio" id="display_F" name="isDisplay" value="F" class="mgl20"><label for="display_F">미진열</label>
+                                        <input type="radio" id="isDisplay_T" name="isDisplay" value="T" checked><label for="isDisplay_T">진열</label>&nbsp;
+                                        <input type="radio" id="isDisplay_F" name="isDisplay" value="F" class="mgl20"><label for="isDisplay_F">미진열</label>
                                     </td>
                                 </tr>
+
+                                <!-- 시중가격 / 부가가치세설정 -->
                                 <tr>
                                     <th>시중가격</th>
                                     <td>
@@ -208,69 +280,77 @@
                                     </td>
                                     <th>부가가치세 설정</th>
                                     <td>
-                                        <input type="radio" id="tax_free_F" name="isTaxFree" value="F" checked=""><label for="tax_free_F">과세상품</label>&nbsp;
-                                        <input type="radio" id="tax_free_T" name="isTaxFree" value="T" class="mgl20"><label for="tax_free_T">면세상품</label>
+                                        <input type="radio" id="isVat_F" name="isVat" value="F" checked><label for="isVat_F">과세상품</label>&nbsp;
+                                        <input type="radio" id="isVat_T" name="isVat" value="T" class="mgl20"><label for="isVat_T">면세상품</label>
                                     </td>
                                 </tr>
+
+                                <!-- 수수료설정 -->
                                 <tr>
                                     <th>수수료 설정 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <input type="radio" id="cms_type_ctg" name="cmsType" value="CTGMIM" checked onclick="checkCmsType()">
-                                        <label for="cms_type_ctg" class="pad_right10">기본 수수료설정 (입점업체 또는 카테고리)</label>
-                                        <input type="radio" id="cms_type_gos" name="cmsType" value="GOS" class="mgl20" onclick="checkCmsType()">
-                                        <label for="cms_type_gos">개별 수수료 설정(상품별)</label>
+                                        <input type="radio" id="feeTypeCode1" name="feeTypeCode" value="1" checked onclick="checkCmsType()">
+                                        <label for="feeTypeCode1" class="pad_right10">기본 수수료설정 (입점업체 또는 카테고리)</label>
+                                        <input type="radio" id="feeTypeCode2" name="feeTypeCode" value="2" class="mgl20" onclick="checkCmsType()">
+                                        <label for="feeTypeCode2">개별 수수료 설정(상품별)</label>
                                     </td>
                                 </tr>
+
+
+                                <!-- 가격 -->
                                 <tr>
                                     <th>가격 <strong class="red">*</strong></th>
                                     <td colspan="3" class="price">
                                         <div>
-                                            <input type="radio" id="price_split_supply" name="priceSplit" value="100" onclick="checkPriceSplit(this.value)" checked>
-                                            <label for="price_split_supply">공급가기준<span>(수수료 자동입력)</span>
+                                            <input type="radio" id="priceTypeCode1" name="priceTypeCode" value="1" onclick="checkPriceSplit(this.value)" checked>
+                                            <label for="priceTypeCode1">공급가기준<span>(수수료 자동입력)</span>
                                             </label><br>
-                                            <input type="radio" id="price_split_margin" name="priceSplit" value="200" onclick="checkPriceSplit(this.value)">
-                                            <label for="price_split_margin">수수료기준<span>(공급가 자동입력)</span>
+                                            <input type="radio" id="priceTypeCode2" name="priceTypeCode" value="2" onclick="checkPriceSplit(this.value)">
+                                            <label for="priceTypeCode2">수수료기준<span>(공급가 자동입력)</span>
                                             </label>
                                         </div>
                                         <hr/>
                                         <ul class="mgt10">
-                                            <li>판매가<br><input type="text" name="price" value="" class="text_input" style="width:130px" autocomplete="off"> 원</li>
-                                            <li>수수료율<br><input type="text" name="margin" value="" maxlength="5" class="text_input" style="width:80px; background-color:#e0e0e0;" readonly autocomplete="off"> %</li>
-                                            <li>공급가<br><input type="text" name="originalPrice" value="" class="text_input" style="width:130px; " autocomplete="off"> 원</li>
+                                            <li>판매가<br><input type="text" name="price" class="text_input" style="width:130px" autocomplete="off"> 원</li>
+                                            <li>수수료율<br><input type="text" name="feeRate" maxlength="5" class="text_input" style="width:80px; background-color:#e0e0e0;" readonly autocomplete="off"> %</li>
+                                            <li>공급가<br><input type="text" name="supplyPrice" class="text_input" style="width:130px; " autocomplete="off"> 원</li>
                                         </ul>
                                     </td>
                                 </tr>
+
+                                <!-- 적립금 -->
                                 <tr>
                                     <th>적립금</th>
                                     <td colspan="3" class="cmoney">
                                         <ul>
                                             <li>
-                                                <input type="radio" id="cmoney_policy_dealer" name="cmoneyPolicy" value="128" onclick="checkCmoneyPolicy()" disabled>
-                                                <label for="cmoney_policy_dealer">판매자 정책</label>
+                                                <input type="radio" id="pointTypeCode1" name="pointTypeCode" value="1" onclick="checkCmoneyPolicy()" disabled>
+                                                <label for="pointTypeCode1">판매자 정책</label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="cmoney_policy_default" name="cmoneyPolicy" value="256" onclick="checkCmoneyPolicy()" checked>
-                                                <label for="cmoney_policy_default">기본 정책</label>
+                                                <input type="radio" id="pointTypeCode2" name="pointTypeCode" value="2" onclick="checkCmoneyPolicy()" checked>
+                                                <label for="pointTypeCode2">기본 정책</label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="cmoney_policy_none" name="cmoneyPolicy" value="0" onclick="checkCmoneyPolicy()">
-                                                <label for="cmoney_policy_none">적립금 지급 안함</label>
+                                                <input type="radio" id="pointTypeCode3" name="pointTypeCode" value="3" onclick="checkCmoneyPolicy()">
+                                                <label for="pointTypeCode3">적립금 지급 안함</label>
                                             </li>
                                         </ul>
                                         <ul class="goods">
                                             <li>
-                                                <input type="radio" id="cmoney_policy_price" name="cmoneyPolicy" value="6" onclick="checkCmoneyPolicy()">
-                                                <label for="cmoney_policy_price">
+                                                <input type="radio" id="pointTypeCode4" name="pointTypeCode" value="4" onclick="checkCmoneyPolicy()">
+                                                <label for="pointTypeCode4">
                                                     <select id="cmoneyPolicyPrice" name="cmoneyPolicyPrice" class="text_input" style="width: 150px;"  disabled>
-                                                        <option value="2">판매가</option><option value="4">결제가</option>
+                                                        <option value="">판매가</option>
+                                                        <option value="">결제가</option>
                                                     </select> 의
-                                                    <input type="text" name="cmoneyPercent" value="" maxlength="5" class="text_input" style="width:70px" disabled> % 지급
+                                                    <input type="text" name="pointRate" maxlength="5" class="text_input" style="width:70px" disabled> % 지급
                                                 </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="cmoney_policy_amount" name="cmoneyPolicy" value="8" onclick="checkCmoneyPolicy()">
-                                                <label for="cmoney_policy_amount">구매 상품(개수) 당
-                                                    <input type="text" name="cmoneyMoney" value="" class="text_input" style="width:70px" onkeyup="toCurrency(this)"  disabled> 원 지급
+                                                <input type="radio" id="pointTypeCode5" name="pointTypeCode" value="5" onclick="checkCmoneyPolicy()">
+                                                <label for="pointTypeCode5">구매 상품(개수) 당
+                                                    <input type="text" name="point"  class="text_input" style="width:70px" onkeyup="toCurrency(this)"  disabled> 원 지급
                                                 </label>
                                             </li>
                                         </ul>
@@ -281,16 +361,20 @@
                                         </dl>
                                     </td>
                                 </tr>
+
+                                <!-- 제조사/원산지 -->
                                 <tr>
                                     <th>제조사</th>
                                     <td>
-                                        <input type="text" name="product" value="" class="text_input" style="width:97%" maxlength="50">
+                                        <input type="text" name="manufacturer" class="text_input" style="width:97%" maxlength="50">
                                     </td>
                                     <th>원산지</th>
                                     <td>
-                                        <input type="text" name="origin" value="" class="text_input" style="width:97%" maxlength="50">
+                                        <input type="text" name="origion" class="text_input" style="width:97%" maxlength="50">
                                     </td>
                                 </tr>
+
+                                <!-- 상품정보고시 -->
                                 <tr>
                                     <th colspan="4">상품정보고시 <strong class="red">*</strong></th>
                                 </tr>
@@ -351,12 +435,17 @@
                                         </table>
                                     </td>
                                 </tr>
+
+                                <!-- 상품상세설명 -->
                                 <tr>
                                     <th>상품설명 <strong class="red">*</strong></th>
                                     <td colspan="3">
                                         <div class="summernote"></div>
                                     </td>
                                 </tr>
+
+
+                                <!-- 관련상품 -->
                                 <tr>
                                     <th>관련추천상품</th>
                                     <td colspan="3">
@@ -392,44 +481,44 @@
                                     <td>
                                         <dl class="delivery_method">
                                             <dt>
-                                                <input type="radio" id="delivery_free" name="deliveryMethod" value="101" onclick="checkDeliveryMethod()">
-                                                <label for="delivery_free">기본무료배송</label>
+                                                <input type="radio" id="deliveryPriceTypeCode1" name="deliveryPriceTypeCode" value="1" onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode1">기본무료배송</label>
                                             </dt>
                                             <dd>해당상품이 포함되었을 경우 무료배송합니다.</dd>
 
                                             <dt>
-                                                <input type="radio" id="delivery_free02" name="deliveryMethod" value="102" onclick="checkDeliveryMethod()">
-                                                <label for="delivery_free02">상품별 무료배송</label>
+                                                <input type="radio" id="deliveryPriceTypeCode2" name="deliveryPriceTypeCode" value="2" onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode2">상품별 무료배송</label>
                                             </dt>
                                             <dd>해당상품을 무료배송합니다.</dd>
 
 
 
                                             <dt>
-                                                <input type="radio" id="delivery_collect" name="deliveryMethod" value="103" onclick="checkDeliveryMethod()">
-                                                <label for="delivery_collect">착불</label>
+                                                <input type="radio" id="deliveryPriceTypeCode3" name="deliveryPriceTypeCode" value="3" onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode3">착불</label>
                                             </dt>
                                             <dd>
-                                                <input type="text" name="deliveryFeeCollect" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
-                                                <input type="text" name="deliveryLimitCollect" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
+                                                <input type="text" name="debitAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
+                                                <input type="text" name="debitfreeMinAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
                                             </dd>
 
 
 
                                             <dt>
-                                                <input type="radio" id="delivery_prepay" name="deliveryMethod" value="102" onclick="checkDeliveryMethod()">
+                                                <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode" value="4" onclick="checkDeliveryMethod()">
                                                 <label for="delivery_prepay">선불</label>
                                             </dt>
                                             <dd>
-                                                <input type="text" name="deliveryFeePrepay" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
-                                                <input type="text" name="deliveryLimitPrepay" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
+                                                <input type="text" name="prepaymentAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
+                                                <input type="text" name="prepayfreeMinAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
                                             </dd>
 
 
 
                                             <dt>
-                                                <input type="radio" id="delivery_default" name="deliveryMethod" value="990" checked="" onclick="checkDeliveryMethod()">
-                                                <label for="delivery_default">기본정책</label>
+                                                <input type="radio" id="deliveryPriceTypeCode5" name="deliveryPriceTypeCode" value="5" checked onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode5">기본정책</label>
                                             </dt>
                                             <dd>쇼핑몰의 기본정책을 따릅니다.</dd>
 
@@ -447,27 +536,22 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <div class="summernote"></div>
+                                        <div class="summernote" name="deliveryCommentHTMLoptional"></div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- 상품 옵션 -->
                     </div>
 
 
+                    <!-- 상품 옵션 -->
                     <div class="box">
                         <div class="section_head">
                             <h4><i class="xi-check-circle"></i> 상품 옵션</h4>
                         </div>
 
-
                         <table summary="상품 옵션 등록 폼 입니다." class="t_form">
                             <caption>상품 옵션 등록 폼</caption>
-                            <colgroup>
-                                <col width="130">
-                                <col width="*">
-                            </colgroup>
                             <tbody>
                                 <tr>
                                     <th>옵션구분</th>
@@ -695,223 +779,7 @@
                                                             disabled></td>
                                                     <td class="price roof"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
                                                 </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="2" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_1" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 1);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="3" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_2" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 2);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="4" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_3" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 3);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="5" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_4" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 4);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="6" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_5" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 5);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="7" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_6" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 6);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="8" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_7" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 7);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="9" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_8" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 8);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-                                                <tr>
-                                                    <th><input type="hidden" name="optItemNo1" value="10" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td><input type="text" name="optQuantity_0_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_1_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_2_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_3_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_4_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_5_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_6_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_7_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_8_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td><input type="text" name="optQuantity_9_9" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 9);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
-                                                </tr>
-
+                                              
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -954,24 +822,21 @@
                     </div>
 
 
+                    <!-- 추가 구성 -->
                     <div class="box">
-                        <!-- 추가 구성 -->
                         <div class="section_head">
                             <h4>추가 구성</h4>
                         </div>
 
                         <table width="100%" summary="추가 구성 등록 폼 입니다." class="t_form">
                             <caption>추가 구성 등록 폼</caption>
-                            <colgroup>
-                                <col width="130">
-                                <col width="*">
-                            </colgroup>
+
                             <tbody>
                                 <tr>
                                     <th>추가구성</th>
                                     <td class="addition_usable">
                                         <ul>
-                                            <li><input type="radio" id="use_addition_0" name="useAddition" value="0" onclick="checkUseAddition()" checked=""><label for="use_addition_0">미사용</label></li>
+                                            <li><input type="radio" id="use_addition_0" name="useAddition" value="0" onclick="checkUseAddition()" checked><label for="use_addition_0">미사용</label></li>
                                             <li><input type="radio" id="use_addition_1" name="useAddition" value="1" onclick="checkUseAddition()"><label for="use_addition_1">사용</label></li>
                                         </ul>
                                     </td>
@@ -1013,74 +878,12 @@
                             });
                         });
                     </script>
-                    <script>
-                        // api
-                        supplySelect(); // <!-- 상품공급업체 ajax select -->
-                    </script>
 
                     <script>
                         // 상품아이콘 등록/수정 오픈
                         function openIcon() {
                             openPopup("/goods/goods_icon_pop", "Icon", 498, 500, "scrollbars=1");
                         }
-                        //아이콘등록
-                        function setIcons() {
-                            $.ajax({
-                                type: "POST",
-                                dataType: "json",
-                                url: "/goodsIcons",
-                                // data: {
-                                //     gno: '0'
-                                // },
-                                error: function(request, status, error) {
-                                    alert(request.responseText)
-                                },
-                                success: function(data) {
-                                    var f = document.Frm;
-                                    var icons = new Array();
-
-                                    if (data) {
-                                        for (var i = 0; i < data.list.length; i++) {
-                                            var checked = (data.list[i].checked ? data.list[i].checked.toString().toNumeric() : -1);
-
-                                            icons[data.list[i].code.toString().toNumeric()] = {
-                                                img: data.list[i].icon.trim(),
-                                                checked: checked
-                                            };
-                                        }
-                                    }
-
-                                    $(f.icon).each(function() {
-                                        var code = this.value.toNumeric();
-
-                                        if (icons[code] && icons[code].img) {
-                                            this.disabled = false;
-                                            if (icons[code].checked > -1) {
-                                                this.checked = (icons[code].checked ? true : false);
-                                            }
-
-                                            var $parent = $('#icon_' + code).parent();
-                                            console.log($parent); //"<label><img id="icon_1" src="/img/ico_pro_sale.gif"></label>"
-
-                                            $parent.children().remove();
-
-                                            $('<img id="icon_' + code + '" src="' + icons[code].img + '" />')
-
-
-                                        } else {
-                                            this.disabled = true;
-                                            $('icon_' + code).attr('src', '/img/blank.gif').css({
-                                                width: 1,
-                                                height: 1
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                        //]]>
-
-
 
                         //이미지 자동등록 radio button
                         function changeImgRegAuto(obj) {
@@ -1091,100 +894,132 @@
                             }
                         }
 
-                        // 이미지파일 등록시 파일이름 보이기                  
-                        document.getElementById("imgB").onchange = function() {
-                            document.getElementById("imgBurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        // 이미지파일 등록시 파일이름 보이기                            
+
+                        document.getElementById("bigImage").onchange = function() {
+                            document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        document.getElementById("imgM").onchange = function() {
-                            document.getElementById("imgMurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        document.getElementById("midImage").onchange = function() {
+                            document.getElementById("midImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        document.getElementById("imgS").onchange = function() {
-                            document.getElementById("imgSurl").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        document.getElementById("smallImage").onchange = function() {
+                            document.getElementById("smallImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        document.getElementById("imgEtc1").onchange = function() {
-                            document.getElementById("imgEtcurl1").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        document.getElementById("optionalImage1").onchange = function() {
+                            document.getElementById("optionalImage1URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        document.getElementById("imgEtc2").onchange = function() {
-                            document.getElementById("imgEtcurl2").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        document.getElementById("optionalImage2").onchange = function() {
+                            document.getElementById("optionalImage2URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        document.getElementById("imgEtc3").onchange = function() {
-                            document.getElementById("imgEtcurl3").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        document.getElementById("optionalImage3").onchange = function() {
+                            document.getElementById("optionalImage3URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
                         };
-                        // document.getElementById("attach").onchange = function() {
-                        //     document.getElementById("attachurl").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        // };
+                        document.getElementById("optionalImage4").onchange = function() {
+                            document.getElementById("optionalImage4URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
+                        };
                     </script>
 
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSubmit() {
                             var f = document.Frm;
-                            console.log(f.goodsDealer.value);
 
-                            if (isEmpty(f.goodsDealer.value)) {
+                            if (isEmpty(f.sellerId.value)) {
                                 alert("상품공급업체를 선택해 주세요.");
-                                f.goodsDealer.focus();
+                                f.sellerId.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.goodsName.value)) {
+                            if (isEmpty(f.name.value)) {
                                 alert("상품명을 입력해 주세요.");
-                                f.goodsName.focus();
+                                f.name.focus();
                                 return false;
                             }
 
                             // 이미지 관련 : 시작
                             if (!f.isImgAuto.checked) {
-                                if (isEmpty(f.imgS.value)) {
-                                    alert("이미지를 선택해 주세요.");
-                                    f.imgS.focus();
+                                if (isEmpty(f.bigImage.value)) {
+                                    alert("큰이미지를 선택해 주세요.");
+                                    f.bigImage.focus();
                                     return false;
                                 }
-                                if (isEmpty(f.imgM.value)) {
-                                    alert("이미지를 선택해 주세요.");
-                                    f.imgM.focus();
+                                if (isEmpty(f.midImage.value)) {
+                                    alert("중간이미지를 선택해 주세요.");
+                                    f.midImage.focus();
                                     return false;
+                                } else {
+                                    if (!checkFileExt(f.midImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+                                        f.midImage.focus();
+                                        return false;
+                                    }
                                 }
-                                if (!isEmpty(f.imgS.value)) {
-                                    if (!checkFileExt(f.imgS, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
-                                }
-                                if (!isEmpty(f.imgM.value)) {
-                                    if (!checkFileExt(f.imgM, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
-                                }
-                            } else if (isEmpty(f.imgB.value)) {
-                                alert("이미지를 선택해 주세요.");
-                                f.imgB.focus();
-                                return false;
-                            }
-
-                            if (!isEmpty(f.imgB.value)) {
-                                if (!checkFileExt(f.imgB, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
-                            }
-
-                            if (typeof(f.imgEtc.length) == "undefined") {
-                                if (!isEmpty(f.imgEtc.value)) {
-                                    if (!checkFileExt(f.imgEtc, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
-                                }
-                            } else {
-                                for (var i = 0; i < f.imgEtc.length; i++) {
-                                    if (!isEmpty(f.imgEtc[i].value)) {
-                                        if (!checkFileExt(f.imgEtc[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) return false;
+                                if (isEmpty(f.smallImage.value)) {
+                                    alert("작은이미지를 선택해 주세요.");
+                                    f.smallImage.focus();
+                                    return false;
+                                } else {
+                                    if (!checkFileExt(f.smallImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요. ")) {
+                                        f.smallImage.focus();
+                                        return false;
                                     }
                                 }
                             }
-                            // 이미지 관련 : 끝      
+                            if (isEmpty(f.bigImage.value)) {
+                                alert("큰 이미지를 선택해 주세요.");
+                                f.bigImage.focus();
+                                return false;
+                            } else {
+                                if (!checkFileExt(f.bigImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+                                    f.bigImage.focus();
+                                    return false;
+                                }
+                            }
+
+                            if (typeof(f.optionalImage.length) == "undefined") {
+                                if (!isEmpty(f.optionalImage.value)) {
+                                    if (!checkFileExt(f.optionalImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+
+
+                                        return false;
+                                    }
+                                }
+                            } else {
+                                for (var i = 0; i < f.optionalImage.length; i++) {
+                                    if (!isEmpty(f.optionalImage[i].value)) {
+                                        if (!checkFileExt(f.optionalImage[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }
+                            // 이미지 관련 : 끝     
+
+
+
+
 
                             if (confirm("등록하시겠습니까?")) {
-                                for (var i = 0; i < f.linkedRelate.length; i++) {
-                                    f.linkedRelate[i].selected = true;
-                                }
-                                f.target = "frmProc";
-                                f.submit();
+                                // 관련추첨상품 있는지 확인
+                                // for (var i = 0; i < f.linkedRelate.length; i++) {
+                                //     f.linkedRelate[i].selected = true;
+                                // } 
+                                console.log($(f).serializeObject());
+
+                                // addProduct();
+
+                                // f.target = "frmProc";
+                                // f.submit();
                             }
                         }
                         //]]>
-                        setIcons();
                     </script>
+                    <script>
+                        // api                        
+                        supplySelect(); // <!-- 상품공급업체-->
+                        setIcons(); //아이콘등록
+                    </script>
+
 
                     </body>
 

@@ -35,16 +35,86 @@ function supplySelect() {
         url: '/supply', //json 불러오기 router이용해서 불러옴
         dataType: 'json',
         success: function(data) {
-            $('select[name="goodsDealer"]').empty();
-            $('select[name="goodsDealer"]').append('<option  value="" selected="true">상품공급업체 선택</option>');
-            $('select[name="goodsDealer"]').prop('selectedIndex', 0);
+            $('select[name="sellerId"]').empty();
+            $('select[name="sellerId"]').append('<option  value="" selected="true">상품공급업체 선택</option>');
+            $('select[name="sellerId"]').prop('selectedIndex', 0);
             $.each(data, function(key, entry) {
-                $('select[name="goodsDealer"]').append($('<option></option>').attr('value', key).text(entry.name));
+                $('select[name="sellerId"]').append($('<option></option>').attr('value', key).text(entry.name));
             })
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log('Error: ' + textStatus + ' - ' + errorThrown);
             alert("상품공급업체 불러 올 수 없습니다.");
         }
+    });
+}
+
+//아이콘등록하기
+function setIcons() {
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/goodsIcons",
+
+        error: function(request, status, error) {
+            alert(request.responseText)
+        },
+        success: function(data) {
+            var f = document.Frm;
+            var icons = new Array();
+
+            if (data) {
+                for (var i = 0; i < data.list.length; i++) {
+                    var checked = (data.list[i].checked ? data.list[i].checked.toString().toNumeric() : -1);
+                    icons[data.list[i].code.toString().toNumeric()] = {
+                        img: data.list[i].icon.trim(),
+                        checked: checked
+                    };
+                }
+            }
+
+            $(f.iconURL).each(function() {
+                var code = this.value.toNumeric();
+
+                if (icons[code] && icons[code].img) {
+                    this.disabled = false;
+                    if (icons[code].checked > -1) {
+                        this.checked = (icons[code].checked ? true : false);
+                    }
+
+                    var $parent = $('#icon_' + code).parent();
+                    console.log($parent); //"<label><img id="icon_1" src="/img/ico_pro_sale.gif"></label>"
+
+                    $parent.children().remove();
+
+                    $('<img id="icon_' + code + '" src="' + icons[code].img + '" />')
+
+
+                } else {
+                    this.disabled = true;
+                    $('icon_' + code).attr('src', '/img/blank.gif').css({
+                        width: 1,
+                        height: 1
+                    });
+                }
+            });
+        }
+    });
+}
+
+
+function addProduct() {
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "https://api.shallwe.link/v1/products/",
+        data: {
+
+        },
+        error: function(request, status, error) {
+            alert(request.responseText)
+        },
+        success: function(data) {}
+
     });
 }

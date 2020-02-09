@@ -60,7 +60,6 @@
                                                             <u id="target_category"> 추가</u>
                                                         </td>
                                                     </tr>
-
                                                     <tr>
                                                         <th>카테고리명</th>
                                                         <td>
@@ -276,60 +275,83 @@
                 <%- include('../inc/footer') %>
                     <script src="/js/bootstrap-treeview.js"></script>
                     <script type="text/javascript">
-                        $(function() {
-                            var json = '[' +
-                                '{' +
-                                '"text": "Parent 1",' +
-                                '"nodes": [' +
-                                '{' +
-                                '"text": "Child 1",' +
-                                '"nodes": [' +
-                                '{' +
-                                '"text": "Grandchild 1"' +
-                                '},' +
-                                '{' +
-                                '"text": "Grandchild 2"' +
-                                '}' +
-                                ']' +
-                                '},' +
-                                '{' +
-                                '"text": "Child 2"' +
-                                '}' +
-                                ']' +
-                                '},' +
-                                '{' +
-                                '"text": "Parent 2"' +
-                                '},' +
-                                '{' +
-                                '"text": "Parent 3"' +
-                                '},' +
-                                '{' +
-                                '"text": "Parent 4"' +
-                                '},' +
-                                '{' +
-                                '"text": "Parent 5"' +
-                                '}' +
-                                ']';
-
-                            var $tree = $('#tree').treeview({
-                                data: json
+                        var json = [{
+                            "text": "뷰티",
+                            "nodes": [{
+                                "text": "화장품/향수",
+                                "nodes": [{
+                                    "text": "스킨케어",
+                                    "nodes": [{
+                                        "text": "스킨/로션",
+                                        "nodes": [{
+                                            "text": "스킨/토너",
+                                            "text": "로션/에멀전",
+                                            "text": "미스트",
+                                            "text": "스킨케어세트"
+                                        }]
+                                    }, {
+                                        "text": "에센스/앰플",
+                                        "nodes": [{
+                                            "text": "에센스",
+                                            "text": "앰플",
+                                            "text": "세럼",
+                                            "text": "페이스 오일"
+                                        }]
+                                    }, {
+                                        "text": "크림",
+                                        "nodes": [{
+                                            "text": "수분크림",
+                                            "text": "안티에이징크림",
+                                            "text": "화이트닝크림",
+                                            "text": "아이크림",
+                                            "text": "나이트크림",
+                                        }]
+                                    }]
+                                }, {
+                                    "text": "썬케어/메이크업",
+                                    "nodes": [{
+                                        "text": "베이크메이크업",
+                                        "nodes": [{
+                                            "text": "파운데이션",
+                                            "text": "BB/CC크림",
+                                            "text": "메이크업베이스",
+                                            "text": "컨실러",
+                                            "text": "프라이머"
+                                        }]
+                                    }, {
+                                        "text": "에어쿠션/팩트",
+                                        "nodes": [{
+                                            "text": "에어쿠션",
+                                            "text": "루스/팩트파우더"
+                                        }]
+                                    }, {
+                                        "text": "아이메이크업",
+                                        "nodes": [{
+                                            "text": "아이라이너",
+                                            "text": "마스카라",
+                                            "text": "아이새도우",
+                                            "text": "아이브로우",
+                                            "text": "아이메이크업세트",
+                                        }]
+                                    }]
+                                }, ]
+                            }]
+                        }]
+                        var $tree = $('#tree').treeview({
+                            data: json
+                        });
+                        // Expand/collapse all
+                        $('#btn-expand-all').on('click', function(e) {
+                            var levels = $('#select-expand-all-levels').val();
+                            $tree.treeview('expandAll', {
+                                levels: levels,
+                                silent: $('#chk-expand-silent').is(':checked')
                             });
-
-                            // Expand/collapse all
-                            $('#btn-expand-all').on('click', function(e) {
-                                var levels = $('#select-expand-all-levels').val();
-                                $tree.treeview('expandAll', {
-                                    levels: levels,
-                                    silent: $('#chk-expand-silent').is(':checked')
-                                });
+                        });
+                        $('#btn-collapse-all').on('click', function(e) {
+                            $tree.treeview('collapseAll', {
+                                silent: $('#chk-expand-silent').is(':checked')
                             });
-
-                            $('#btn-collapse-all').on('click', function(e) {
-                                $tree.treeview('collapseAll', {
-                                    silent: $('#chk-expand-silent').is(':checked')
-                                });
-                            });
-
                         });
                     </script>
 
