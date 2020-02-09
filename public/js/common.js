@@ -1424,3 +1424,10 @@ if (!Object.keys) Object.keys = function(o) {
         if (Object.prototype.hasOwnProperty.call(o, p)) k.push(p);
     return k;
 }
+
+
+
+/**
+ * serializeObject 
+ * 
+ */

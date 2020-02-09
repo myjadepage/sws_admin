@@ -33,35 +33,11 @@
                                 <div class="border">
                                     <div class="menu">
                                         <ul>
-                                            <li><a href="" class="total">전체 펼쳐보기</a></li>
-                                            <li class="choice"><a href="">전체 닫기</a></li>
+                                            <li><button type="button" class="btn btn-sm btn-success" id="btn-expand-all">전체</button></li>
+                                            <li><button type="button" class="btn btn-sm btn-danger" id="btn-collapse-all">닫기</button></li>
                                         </ul>
                                     </div>
-
-                                    <!-- <div id="treeBox">
-                                        <div id="category">
-                                            <ul style="list-style: outside none; margin: 0px 0px 4px 15px; padding: 0px; background: url('/img/tree_branch.gif') repeat-y;">
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px; background: none;">&nbsp;</a></li>
-                                                <li no="2" code="_2_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_2" href="javascript:;">OUTER</a><img id="hidden_2" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="14" code="_14_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_14" href="javascript:;">TOP</a><img id="hidden_14" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="15" code="_15_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_15" href="javascript:;">BOTTOM</a><img id="hidden_15" src="/img/icon_cate_show.gif" class="hidden"
-                                                        style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="7" code="_7_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_7" href="javascript:;">DRESS</a><img id="hidden_7" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="12" code="_12_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_12" href="javascript:;">ACC</a><img id="hidden_12" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="304" code="_304_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_304" href="javascript:;">SHOES</a><img id="hidden_304" src="/img/icon_cate_show.gif" class="hidden"
-                                                        style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li no="314" code="_314_" depth="1" child="1" style="white-space: nowrap; margin: 0px; padding: 0px;"><img src="/img/tree_node.gif" class="node" style="cursor: pointer; vertical-align: middle;"><a id="cate_314" href="javascript:;">BAG</a><img id="hidden_314" src="/img/icon_cate_show.gif" class="hidden" style="vertical-align: middle; margin-left: 3px; cursor: pointer;"></li>
-                                                <li class="stair" style="line-height: 1px; font-size: 1px; margin-top: 0px;"><a style="display: block; margin-left: 15px; line-height: 1px; font-size: 1px; height: 4px;">&nbsp;</a></li>
-                                                <li><img src="/img/tree_add.gif" class="node" style="vertical-align: middle;"><img src="/img/icon_cate_regist.gif" style="vertical-align: middle; cursor: pointer;"></li>
-                                            </ul>
-                                        </div>
-                                    </div> -->
+                                    <div id="tree"></div>
                                 </div>
                             </th>
                             <td></td>
@@ -141,41 +117,33 @@
                                                     <button type="button" class="btn btn-sm btn-secondary">저장</button>
                                                 </p>
                                             </div>
-                                            <ul class="sortable sortable_banner ui-sortable mgt10">
+                                            <ul class="sortable sortable_banner ui-sortable mgt10" id="bannerList">
                                                 <li>
-                                                    <input type="checkbox" name="cbBanner" value="2" class="cb">
-                                                    <div class="mover">
-                                                        <div><strong>MOVE</strong></div>
-                                                    </div>
+                                                    <input type="checkbox" name="cbBanner" class="cb">
+
                                                     <div class="banner">
                                                         <img src="/img/event_category_2_1_1.jpg" alt="배너1">
                                                     </div>
                                                     <div class="caption">
-                                                        <p class="ellipsis"><span class="ellipsis">배너1</span></p>
-                                                        <div>
-                                                            <span class="button small"><button type="button" >수정</button></span>
-                                                            <span class="button small"><a href="/img/event_category_2_1_1.jpg" class="original" >원본</a></span>
-                                                        </div>
+                                                        <span class="ellipsis">배너1</span>
+                                                        <hr/>
+                                                        <button class="btn btn-sm btn-secondary" type="button">수정</button>
+                                                        <a href="/img/event_category_2_1_1.jpg" class="btn btn-sm btn-default">원본</a></span>
                                                     </div>
                                                 </li>
 
                                                 <li>
-                                                    <input type="checkbox" name="cbBanner" value="3" class="cb">
-                                                    <div class="mover">
-                                                        <div><strong>MOVE</strong></div>
-                                                    </div>
+                                                    <input type="checkbox" name="cbBanner" class="cb">
                                                     <div class="banner">
                                                         <img src="/img/event_category_2_2_1.jpg" alt="배너2" ow="790" oh="410">
                                                     </div>
                                                     <div class="caption">
-                                                        <p class="ellipsis"><span class="ellipsis">배너2</span></p>
-                                                        <div>
-                                                            <span class="button small"><button type="button" onclick="editBanner(3)">수정</button></span>
-                                                            <span class="button small"><a href="/img/event_category_2_2_1.jpg" class="original">원본</a></span>
-                                                        </div>
+                                                        <span class="ellipsis">배너2</span>
+                                                        <hr/>
+                                                        <button class="btn btn-sm btn-secondary" type="button">수정</button>
+                                                        <a href="/img/event_category_2_2_1.jpg" class="btn btn-sm btn-default">원본</a></span>
                                                     </div>
                                                 </li>
-
                                             </ul>
 
                                         </div>
@@ -191,16 +159,15 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMA" value="0" checked>출력
-                                                            <input type="radio" name="areaHiddenCMA" value="1" class="mgl20">숨김
+                                                            <label><input type="radio" name="areaHiddenCMA" value="0" checked> 출력</label>
+                                                            <label><input type="radio" name="areaHiddenCMA" value="1" class="mgl20"> 숨김</label>
                                                         </td>
                                                     </tr>
 
                                                     <tr>
                                                         <th>상품관리</th>
                                                         <td>
-                                                            <select id="areaGoodsCMA" name="areaGoodsCMA" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
-                                        </select>
+                                                            <select id="areaGoodsCMA" name="areaGoodsCMA" class="text_input" size="5" multiple max="0" style="width:100%" ondblclick="openGoods(this)"></select>
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
@@ -229,17 +196,15 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMB" value="0" checked>출력
-                                                            <input type="radio" name="areaHiddenCMB" value="1">숨김
+                                                            <label><input type="radio" name="areaHiddenCMB" value="0" checked> 출력</label>
+                                                            <label><input type="radio" name="areaHiddenCMB" value="1" class="mgl20"> 숨김</label>
                                                         </td>
                                                     </tr>
 
                                                     <tr>
                                                         <th>상품관리</th>
                                                         <td>
-                                                            <select id="areaGoodsCMB" name="areaGoodsCMB" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
-                            
-                                        </select>
+                                                            <select id="areaGoodsCMB" name="areaGoodsCMB" class="text_input" size="5" multiple max="0" style="width:100%" ondblclick="openGoods(this)"></select>
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
@@ -268,17 +233,15 @@
                                                     <tr>
                                                         <th>출력여부</th>
                                                         <td>
-                                                            <input type="radio" name="areaHiddenCMC" value="0" checked>출력
-                                                            <input type="radio" name="areaHiddenCMC" value="1">숨김
+                                                            <label><input type="radio" name="areaHiddenCMC" value="0" checked> 출력</label>
+                                                            <label><input type="radio" name="areaHiddenCMC" value="1" class="mgl20"> 숨김</label>
                                                         </td>
                                                     </tr>
 
                                                     <tr>
                                                         <th>상품관리</th>
                                                         <td>
-                                                            <select id="areaGoodsCMC" name="areaGoodsCMC" size="5" style="width:100%" multiple="" max="0" ondblclick="openGoods(this)">
-                            
-                                        </select>
+                                                            <select id="areaGoodsCMC" name="areaGoodsCMC" class="text_input" size="5" multiple max="0" style="width:100%" ondblclick="openGoods(this)"></select>
 
                                                             <div class="over_h mgt5">
                                                                 <div class="fl">
@@ -310,15 +273,82 @@
                     </tbody>
                 </table>
 
-
                 <%- include('../inc/footer') %>
+                    <script src="/js/bootstrap-treeview.js"></script>
+                    <script type="text/javascript">
+                        $(function() {
+                            var json = '[' +
+                                '{' +
+                                '"text": "Parent 1",' +
+                                '"nodes": [' +
+                                '{' +
+                                '"text": "Child 1",' +
+                                '"nodes": [' +
+                                '{' +
+                                '"text": "Grandchild 1"' +
+                                '},' +
+                                '{' +
+                                '"text": "Grandchild 2"' +
+                                '}' +
+                                ']' +
+                                '},' +
+                                '{' +
+                                '"text": "Child 2"' +
+                                '}' +
+                                ']' +
+                                '},' +
+                                '{' +
+                                '"text": "Parent 2"' +
+                                '},' +
+                                '{' +
+                                '"text": "Parent 3"' +
+                                '},' +
+                                '{' +
+                                '"text": "Parent 4"' +
+                                '},' +
+                                '{' +
+                                '"text": "Parent 5"' +
+                                '}' +
+                                ']';
+
+                            var $tree = $('#tree').treeview({
+                                data: json
+                            });
+
+                            // Expand/collapse all
+                            $('#btn-expand-all').on('click', function(e) {
+                                var levels = $('#select-expand-all-levels').val();
+                                $tree.treeview('expandAll', {
+                                    levels: levels,
+                                    silent: $('#chk-expand-silent').is(':checked')
+                                });
+                            });
+
+                            $('#btn-collapse-all').on('click', function(e) {
+                                $tree.treeview('collapseAll', {
+                                    silent: $('#chk-expand-silent').is(':checked')
+                                });
+                            });
+
+                        });
+                    </script>
+
                     <script src="/js/summernote.js"></script>
                     <script type="text/javascript">
                         $(document).ready(function() {
                             $('.summernote').summernote({
                                 height: 300,
-                                tabsize: 2
+                                tabsize: 2,
+                                disableDragAndDrop: true
                             });
+                        });
+                    </script>
+
+                    <script src="/js/Sortable.min.js"></script>
+                    <script>
+                        Sortable.create(bannerList, {
+                            animation: 150,
+                            fallbackTolerance: 21
                         });
                     </script>
 

@@ -1272,7 +1272,7 @@
     .sortable li {
         float: left;
         position: relative;
-        margin: 0 20px 10px 0
+        margin: 0 15px 10px 0
     }
     .sortable li .cb {
         position: absolute;
@@ -1329,23 +1329,27 @@
         min-height: 180px
     }
     .sortable_banner li {
-        width: 200px
+        padding: 15px 5px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 0.2rem;
     }
     .sortable_banner li .banner {
         width: 198px;
         height: 138px;
-        background-color: #fff;
-        border: 1px solid #ccc;
         overflow: hidden
     }
     .sortable_banner li .swf {
-        height: 118px;
+        /* height: 118px; */
         margin-top: 20px
     }
     .sortable_banner li .caption {
         overflow: hidden;
-        height: 18px;
-        margin-top: 5px
+        /* height: 18px; */
+        margin-top: 15px
+    }
+    .sortable_banner li .caption .btn {
+        width: 48%;
     }
     .sortable_banner li .caption p {
         width: 63%;
@@ -1466,12 +1470,12 @@
         vertical-align: top
     }
     #frameBox .border {
-        border: 1px solid #D6D6D6
+        /* border: 1px solid #D6D6D6 */
     }
     #frameBox .border .menu {
         height: 40px;
         line-height: 40px;
-        border-bottom: 1px solid #D6D6D6;
+        /* border-bottom: 1px solid #D6D6D6; */
         overflow: hidden
     }
     #frameBox .border .menu:after {
@@ -1488,7 +1492,8 @@
         margin: 5px
     }
     #frameBox .border .menu ul li {
-        float: left
+        float: left;
+        padding-left: 5px;
     }
     #frameBox .border .menu ul li a {
         font-size: 11px
