@@ -382,7 +382,7 @@
                                             <button class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">추가</button>
                                             <button class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">삭제</button>
                                         </div>
-                                        <table width="100%" summary="상품정보고시 표 제목 입니다.">
+                                        <table summary="상품정보고시 표 제목 입니다.">
                                             <caption>상품정보고시 표 제목</caption>
                                             <colgroup>
                                                 <col width="30">
@@ -399,7 +399,7 @@
                                                 </tr>
                                             </thead>
                                         </table>
-                                        <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다." noblank="1">
+                                        <table id="tb_notify" summary="상품정보고시 목록 입니다.">
                                             <caption>상품정보고시 목록</caption>
                                             <colgroup>
                                                 <col width="30">
@@ -411,8 +411,12 @@
                                                 <tr>
                                                     <td><span class="numbering">1</span></td>
                                                     <td><input type="checkbox" name="cbNotify"></td>
-                                                    <td><input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100"></td>
-                                                    <td class="last"><textarea name="notifyData" rows="2" class="text_input"></textarea></td>
+                                                    <td>
+                                                        <input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100">
+                                                    </td>
+                                                    <td class="last">
+                                                        <textarea name="notifyData" rows="2" class="text_input"></textarea>
+                                                    </td>
                                                 </tr>
 
                                             </tbody>

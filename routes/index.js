@@ -20,6 +20,26 @@ router.post('/goodsIcons', function(req, res) {
     res.send(result);
 })
 
+router.get('/brands', function(req, res, next) {
+    res.json({
+        "jsonData": {
+            "brands": [{
+                    "brandSysId": 1,
+                    "brandCode": "B000001",
+                    "name": "A브랜드",
+                    "sellerSysId": 2
+                },
+                {
+                    "brandSysId": 2,
+                    "brandCode": "B000002",
+                    "name": "B브랜드",
+                    "sellerSysId": 3
+                }
+            ]
+        }
+    });
+})
+
 //------------------------->제이슨 가짜정보만들기
 
 /* GET home page. */

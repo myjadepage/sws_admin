@@ -107,7 +107,7 @@ function addProduct() {
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: "https://api.shallwe.link/v1/products/",
+        // url: "https://api.shallwe.link/v1/products/",
         data: {
 
         },
@@ -117,4 +117,33 @@ function addProduct() {
         success: function(data) {}
 
     });
+}
+
+function getBrand() {
+    $.ajax({
+            method: "get",
+            // url: "https://api.shallwe.link/v1/brands/",
+            url: "/brands/",
+            contentType: "json"
+        })
+        .done(function(data) {
+            console.log(data.jsonData.brands[0].brandSysId);
+            $select = $('select[name="brandSysId"]');
+            $select.empty();
+            $select.append('<option  value="" selected="true">브랜드 선택</option>');
+            $select.prop('selectedIndex', 0);
+            $.each(data.jsonData.brands, function(key, entry) {
+                $select.append($('<option></option>')
+                    .attr('value', entry.brandSysId)
+                    .attr('data-sellerSysId', entry.sellerSysId)
+                    .text(entry.name));
+            })
+        })
+        .fail(function(request, status, error) {
+            msg = request.status + "<br>" + request.responseText + "<br>" + error;
+            console.log(msg);
+            alert("브랜드를 불러올 수 없습니다.");
+        })
+
+
 }

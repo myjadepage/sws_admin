@@ -312,6 +312,13 @@
         text-overflow: ellipsis;
         white-space: nowrap
     }
+    .ir_pm {
+        overflow: hidden;
+        display: block;
+        font-size: 0;
+        line-height: 0;
+        text-indent: -9999px;
+    }
     /* table-fixed */
     
     .table_fixed {
@@ -2814,7 +2821,7 @@
     }
     .t_form td .option_explain li {
         float: none;
-        font-size: 11px;
+        font-size: 12px;
         margin: 0 0 3px;
         background: url(../img/icon_squar_gray2px.gif) 4px 5px no-repeat;
         padding-left: 10px
@@ -2826,7 +2833,7 @@
     .t_form td .option_exam {
         overflow: hidden;
         color: #3191b7;
-        font-size: 11px
+        font-size: 12px
     }
     .t_form td .option_exam dt, .t_form td .option_exam dd {
         float: left
@@ -2845,6 +2852,7 @@
         padding-left: 0
     }
     .t_form td .option_gnenral {
+        width: 100%;
         border-left: 1px solid #ddd;
         border-top: 1px solid #ddd;
         table-layout: fixed

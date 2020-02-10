@@ -32,31 +32,24 @@
                                 <col width="*">
                             </colgroup>
                             <tbody>
-                                <!-- 상품공급업체 -->
-                                <tr>
-                                    <th>상품공급 업체 <strong class="red">*</strong></th>
-                                    <td colspan="3">
-                                        <select id="sellerId" name="sellerId" class="text_input"></select>
-                                    </td>
-                                </tr>
 
                                 <!-- 상품분류(카테고리) -->
                                 <tr>
-                                    <th rowspan="2">분류(카테고리) <strong class="red">*</strong></th>
+                                    <th rowspan="2">상품분류(카테고리) <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <select id="categoryId1st" name="categoryId1st" class="text_input" onchange="changeCate(this)">
+                                        <select id="categoryId1st" name="categoryId1st" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">선택</option>                                                                                                              
                                         </select>
-                                        <select id="categoryId2nd" name="categoryId2nd" class="text_input" onchange="changeCate(this)">
+                                        <select id="categoryId2nd" name="categoryId2nd" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">선택</option>
                                         </select>
-                                        <select id="categoryId3rd" name="categoryId3rd" class="text_input" onchange="changeCate(this)">
+                                        <select id="categoryId3rd" name="categoryId3rd" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">선택</option>
                                         </select>
-                                        <select id="categoryId4th" name="categoryId4th" class="text_input" onchange="changeCate(this)">
+                                        <select id="categoryId4th" name="categoryId4th" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">선택</option>
                                         </select>
-                                        <select id="categoryId5th" name="categoryId5th" class="text_input" onchange="changeCate(this)">
+                                        <select id="categoryId5th" name="categoryId5th" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">선택</option>
                                         </select>
                                         <button type="button" class="btn btn-sm btn-secondary" onclick="addCate()">추가</button>
@@ -78,16 +71,15 @@
                                                     <th>삭제</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <!-- <tbody>
                                                 <tr>
                                                     <td>
-                                                        <input type="hidden" name="cate" value="1624">
                                                         <input type="radio" name="cateDefault">
                                                     </td>
                                                     <td class="txt">의류11 〉상의 〉 블라우스 [50%]</td>
                                                     <td><button type="button" class="btn btn-sm btn-danger" onclick="delCate(this)">삭제</button></td>
                                                 </tr>
-                                            </tbody>
+                                            </tbody> -->
                                         </table>
                                         <dl class="explain blue">
                                             <dt><strong>※ 다중 분류로 선택할 경우</strong></dt>
@@ -107,7 +99,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>간략한설명</th>
+                                    <th>간략한 설명</th>
                                     <td colspan="3">
                                         <input type="text" name="briefComment" class="text_input" style="width:99%" value="" maxlength="100">
                                     </td>
@@ -115,9 +107,7 @@
                                 <tr>
                                     <th>브랜드</th>
                                     <td colspan="3">
-                                        <select id="brandId" name="brandId" class="text_input"> 
-                                            <option value="">선택</option>                                                                           
-                                        </select>
+                                        <select id="brandSysId" name="brandSysId" class="text_input"></select>
                                     </td>
                                 </tr>
 
@@ -156,8 +146,9 @@
                                         <input type="text" id="bigImageURL" class="fileuploadurl" name="bigImageURL" placeholder="선택된 파일이 없습니다" readonly>
 
                                         <span class="light_gray">(500px * 500px)</span>
-                                        <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
-                                        <label for="img_auto">자동등록</label>
+                                        <label for="img_auto">
+                                            <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
+                                        자동등록</label>
 
                                         <dl class="explain blue mgt5">
                                             <dt><strong>※ 자동등록이란?</strong></dt>
@@ -190,6 +181,10 @@
                                 <tr>
                                     <th>다른이미지</th>
                                     <td colspan="3" class="img_etc">
+                                        <div class="tr mgt5">
+                                            <button type="button" class="btn btn-sm btn-secondary">이미지 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger">이미지 삭제</button>
+                                        </div>
                                         <table id="tb_img_etc" width="100%" summary="다른 이미지 목록입니다." max="10" noblank="1">
                                             <caption>다른 이미지 목록</caption>
                                             <colgroup>
@@ -201,42 +196,29 @@
                                             <tbody>
                                                 <tr>
                                                     <td><span class="numbering">1</span>.</td>
-                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
+                                                    <td><input type="checkbox" name="isUsedOptionalImage1"></td>
                                                     <td>
                                                         <label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage" id="optionalImage1" class="hidden">
-                                                        <input type="text" id="optionalImage1URLoptional" class="fileuploadurl" name="optionalImage1URLoptional" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="file" name="optionalImage1" id="optionalImage1" class="hidden">
+                                                        <input type="text" class="fileuploadurl" id="optionalImage1URL" name="optionalImage1URL" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
-
                                                 </tr>
-
                                                 <tr>
                                                     <td><span class="numbering">2</span>.</td>
-                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
+                                                    <td><input type="checkbox" name="isUsedOptionalImage2"></td>
                                                     <td>
                                                         <label for="optionalImage2" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage" id="optionalImage2" class="hidden">
-                                                        <input type="text" id="optionalImage2URLoptional" class="fileuploadurl" name="optionalImage2URLoptional" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="file" name="optionalImage2" id="optionalImage2" class="hidden">
+                                                        <input type="text" class="fileuploadurl" id="optionalImage2URL" name="optionalImage2URL" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
-
                                                 </tr>
-
                                                 <tr>
                                                     <td><span class="numbering">3</span>.</td>
-                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
+                                                    <td><input type="checkbox" name="isUsedOptionalImage3"></td>
                                                     <td>
                                                         <label for="optionalImage3" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage" id="optionalImage3" class="hidden">
-                                                        <input type="text" id="optionalImage3URLoptional" class="fileuploadurl" name="optionalImage3URLoptional" placeholder="선택된 파일이 없습니다" readonly>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span class="numbering">4</span>.</td>
-                                                    <td><input type="checkbox" name="cb_optionalImage"></td>
-                                                    <td>
-                                                        <label for="optionalImage4" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage" id="optionalImage4" class="hidden">
-                                                        <input type="text" id="optionalImage4URLoptional" class="fileuploadurl" name="optionalImage4URLoptional" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="file" name="optionalImage3" id="optionalImage3" class="hidden">
+                                                        <input type="text" class="fileuploadurl" id="optionalImage3URL" name="optionalImage3URL" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -249,20 +231,25 @@
                                 <tr>
                                     <th>재고설정</th>
                                     <td>
+                                        <!-- 무제한 -->
                                         <span>
                                             <input type="radio" id="stockTypeCode1" name="stockTypeCode" value="1" onclick="checkStock()" checked>
                                             <label for="stockTypeCode1">무제한</label>
                                         </span>
+
+                                        <!-- 수량설정 -->
                                         <span class="mgl20">
                                             <input type="radio" id="stockTypeCode2" name="stockTypeCode" value="2" onclick="checkStock()">
                                             <label for="stockTypeCode2">수량</label>
                                         </span>
                                         <span>
-                                            <input type="text" name="quantity"  maxlength="7" class="text_input" style="width: 60px; "  disabled> 
+                                            <input type="text" name="stockQty"  maxlength="7" class="text_input" style="width: 60px; "  disabled> 
                                         </span>
+
+                                        <!-- 품절여부 -->
                                         <span class="mgl20">
-                                            <input type="checkbox" id="soldout" name="soldout">
-                                            <label for="soldout" class="red">일시품절</label>
+                                            <input type="checkbox" id="isSoldout" name="isSoldout">
+                                            <label for="isSoldout" class="red">일시품절</label>
                                         </span>
                                     </td>
                                     <th>진열설정</th>
@@ -276,12 +263,12 @@
                                 <tr>
                                     <th>시중가격</th>
                                     <td>
-                                        <input type="text" name="marketPrice" value="" class="text_input"></input> 원
+                                        <input type="text" name="marketPrice" class="text_input" /> 원
                                     </td>
                                     <th>부가가치세 설정</th>
                                     <td>
-                                        <input type="radio" id="isVat_F" name="isVat" value="F" checked><label for="isVat_F">과세상품</label>&nbsp;
-                                        <input type="radio" id="isVat_T" name="isVat" value="T" class="mgl20"><label for="isVat_T">면세상품</label>
+                                        <input type="radio" id="isVat_T" name="isVat" value="T" checked><label for="isVat_T">과세상품</label>
+                                        <input type="radio" id="isVat_F" name="isVat" value="F" class="mgl20"><label for="isVat_F">면세상품</label>
                                     </td>
                                 </tr>
 
@@ -289,8 +276,10 @@
                                 <tr>
                                     <th>수수료 설정 <strong class="red">*</strong></th>
                                     <td colspan="3">
+
                                         <input type="radio" id="feeTypeCode1" name="feeTypeCode" value="1" checked onclick="checkCmsType()">
                                         <label for="feeTypeCode1" class="pad_right10">기본 수수료설정 (입점업체 또는 카테고리)</label>
+
                                         <input type="radio" id="feeTypeCode2" name="feeTypeCode" value="2" class="mgl20" onclick="checkCmsType()">
                                         <label for="feeTypeCode2">개별 수수료 설정(상품별)</label>
                                     </td>
@@ -324,32 +313,32 @@
                                     <td colspan="3" class="cmoney">
                                         <ul>
                                             <li>
-                                                <input type="radio" id="pointTypeCode1" name="pointTypeCode" value="1" onclick="checkCmoneyPolicy()" disabled>
-                                                <label for="pointTypeCode1">판매자 정책</label>
+                                                <input type="radio" id="pointTypeCode3" name="pointTypeCode" value="3" onclick="checkCmoneyPolicy()" disabled>
+                                                <label for="pointTypeCode3">판매자 정책</label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="pointTypeCode2" name="pointTypeCode" value="2" onclick="checkCmoneyPolicy()" checked>
                                                 <label for="pointTypeCode2">기본 정책</label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="pointTypeCode3" name="pointTypeCode" value="3" onclick="checkCmoneyPolicy()">
-                                                <label for="pointTypeCode3">적립금 지급 안함</label>
+                                                <input type="radio" id="pointTypeCode1" name="pointTypeCode" value="1" onclick="checkCmoneyPolicy()">
+                                                <label for="pointTypeCode1">적립금 지급 안함</label>
                                             </li>
                                         </ul>
                                         <ul class="goods">
                                             <li>
                                                 <input type="radio" id="pointTypeCode4" name="pointTypeCode" value="4" onclick="checkCmoneyPolicy()">
                                                 <label for="pointTypeCode4">
-                                                    <select id="cmoneyPolicyPrice" name="cmoneyPolicyPrice" class="text_input" style="width: 150px;"  disabled>
-                                                        <option value="">판매가</option>
-                                                        <option value="">결제가</option>
+                                                    <select name="pointTypeCode" class="text_input" style="width: 150px;"  disabled>
+                                                        <option value="4">판매가</option>
+                                                        <option value="5">결제가</option>
                                                     </select> 의
                                                     <input type="text" name="pointRate" maxlength="5" class="text_input" style="width:70px" disabled> % 지급
                                                 </label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="pointTypeCode5" name="pointTypeCode" value="5" onclick="checkCmoneyPolicy()">
-                                                <label for="pointTypeCode5">구매 상품(개수) 당
+                                                <input type="radio" id="pointTypeCode6" name="pointTypeCode" value="6" onclick="checkCmoneyPolicy()">
+                                                <label for="pointTypeCode6">구매 상품(개수) 당
                                                     <input type="text" name="point"  class="text_input" style="width:70px" onkeyup="toCurrency(this)"  disabled> 원 지급
                                                 </label>
                                             </li>
@@ -381,7 +370,7 @@
                                 <tr>
                                     <td colspan="4">
                                         <dl class="explain fl">
-                                            <dt><a href="http://www.ftc.go.kr/policy/legi/legiView.jsp?lgslt_noti_no=112" target="blank"><strong class="red">※ 공정거래 위원회에서 공고한 전자상거래법 상품정보제공 고시에 관한 내용을 필독해 주세요!</strong></a></dt>
+                                            <dt><a href="http://www.ftc.go.kr/www/FtcRelLawUList.do?key=290&law_div_cd=07" target="blank"><strong class="red">※ 공정거래 위원회에서 공고한 전자상거래법 상품정보제공 고시에 관한 내용을 필독해 주세요!</strong></a></dt>
                                             <dd>전자상거래법에 의거하여 판매상품의 필수(상세)정보 등록이 필요합니다.</dd>
                                             <dd>등록된 정보는 쇼핑몰 상품상세페이지에 상품기본정보 아래에 표형태로 출력되어 보여집니다.</dd>
                                         </dl>
@@ -390,20 +379,24 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="notify">
-                                        <select id="notify" name="notify" class="text_input" onchange="getNotify(this)">
-                                            <option value="">등록할 상품의 상품군을 선택하세요</option>          
+                                        <select id="notify" name="productNotice" class="text_input" onchange="getNotify(this)">
+                                            <option value="">등록할 상품의 상품군을 선택하세요</option> 
+                                            <option value="2">의류</option>
+                                            <option value="3">전자제품</option>
+                                            <option value="5">테스트</option>         
                                         </select>
 
                                         <div class="fr">
                                             <button class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">상품 추가</button>
                                             <button class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">상품 삭제</button>
                                         </div>
-                                        <table width="100%" summary="상품정보고시 표 제목 입니다.">
-                                            <caption>상품정보고시 표 제목</caption>
+
+                                        <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다.">
+                                            <caption>상품정보고시 목록</caption>
                                             <colgroup>
-                                                <col width="30">
-                                                <col width="30">
-                                                <col width="200">
+                                                <col width="20">
+                                                <col width="20">
+                                                <col width="100">
                                                 <col width="*">
                                             </colgroup>
                                             <thead>
@@ -414,23 +407,17 @@
                                                     <th class="last">내용</th>
                                                 </tr>
                                             </thead>
-                                        </table>
-                                        <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다." noblank="1">
-                                            <caption>상품정보고시 목록</caption>
-                                            <colgroup>
-                                                <col width="30">
-                                                <col width="30">
-                                                <col width="200">
-                                                <col width="*">
-                                            </colgroup>
                                             <tbody>
                                                 <tr>
                                                     <td><span class="numbering">1</span></td>
                                                     <td><input type="checkbox" name="cbNotify"></td>
-                                                    <td><input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100"></td>
-                                                    <td class="last"><textarea name="notifyData" rows="2" class="text_input"></textarea></td>
+                                                    <td>
+                                                        <input type="text" name="item" class="text_input" style="width: 90%;" maxlength="100">
+                                                    </td>
+                                                    <td class="last">
+                                                        <textarea name="content" rows="2" class="text_input"></textarea>
+                                                    </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                     </td>
@@ -444,25 +431,6 @@
                                     </td>
                                 </tr>
 
-
-                                <!-- 관련상품 -->
-                                <tr>
-                                    <th>관련추천상품</th>
-                                    <td colspan="3">
-                                        <select id="linkedRelate" name="linkedRelate" max="40" multiple="" size="7" style="width:100%"></select>
-
-                                        <ul class="mgt5">
-                                            <li class="fl">
-                                                <button class="btn btn-sm btn-primary" onclick="moveGoods('linkedRelate', 'UP')">▲</button>
-                                                <button class="btn btn-sm btn-primary" onclick="moveGoods('linkedRelate', 'DOWN')">▼</button>
-                                            </li>
-                                            <li class="fr">
-                                                <button class="btn bnt-sm btn-secondary" onclick="addGoods('linkedRelate');">상품 추가</button></span>
-                                                <button class="btn bnt-sm btn-danger" onclick="delGoods('linkedRelate');">상품 삭제</button></span>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -482,20 +450,13 @@
                                         <dl class="delivery_method">
                                             <dt>
                                                 <input type="radio" id="deliveryPriceTypeCode1" name="deliveryPriceTypeCode" value="1" onclick="checkDeliveryMethod()">
-                                                <label for="deliveryPriceTypeCode1">기본무료배송</label>
-                                            </dt>
-                                            <dd>해당상품이 포함되었을 경우 무료배송합니다.</dd>
-
-                                            <dt>
-                                                <input type="radio" id="deliveryPriceTypeCode2" name="deliveryPriceTypeCode" value="2" onclick="checkDeliveryMethod()">
-                                                <label for="deliveryPriceTypeCode2">상품별 무료배송</label>
+                                                <label for="deliveryPriceTypeCode1">무료배송</label>
                                             </dt>
                                             <dd>해당상품을 무료배송합니다.</dd>
 
 
-
                                             <dt>
-                                                <input type="radio" id="deliveryPriceTypeCode3" name="deliveryPriceTypeCode" value="3" onclick="checkDeliveryMethod()">
+                                                <input type="radio" id="deliveryPriceTypeCode3" name="deliveryPriceTypeCode" value="2" onclick="checkDeliveryMethod()">
                                                 <label for="deliveryPriceTypeCode3">착불</label>
                                             </dt>
                                             <dd>
@@ -506,8 +467,8 @@
 
 
                                             <dt>
-                                                <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode" value="4" onclick="checkDeliveryMethod()">
-                                                <label for="delivery_prepay">선불</label>
+                                                <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode"  value="3"  onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode4">선불</label>
                                             </dt>
                                             <dd>
                                                 <input type="text" name="prepaymentAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
@@ -515,9 +476,14 @@
                                             </dd>
 
 
+                                            <dt>
+                                                <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode"  value="4" onclick="checkDeliveryMethod()">
+                                                <label for="deliveryPriceTypeCode4">판매자정책</label>
+                                            </dt>
+                                            <dd>판매자의 기본정책을 따릅니다.</dd>
 
                                             <dt>
-                                                <input type="radio" id="deliveryPriceTypeCode5" name="deliveryPriceTypeCode" value="5" checked onclick="checkDeliveryMethod()">
+                                                <input type="radio" id="deliveryPriceTypeCode5" name="deliveryPriceTypeCode"  value="5" checked onclick="checkDeliveryMethod()">
                                                 <label for="deliveryPriceTypeCode5">기본정책</label>
                                             </dt>
                                             <dd>쇼핑몰의 기본정책을 따릅니다.</dd>
@@ -536,7 +502,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <div class="summernote" name="deliveryCommentHTMLoptional"></div>
+                                        <div class="summernote" name="deliveryCommentHTML"></div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -547,7 +513,7 @@
                     <!-- 상품 옵션 -->
                     <div class="box">
                         <div class="section_head">
-                            <h4><i class="xi-check-circle"></i> 상품 옵션</h4>
+                            <h4><i class="xi-check-circle"></i> 상품옵션</h4>
                         </div>
 
                         <table summary="상품 옵션 등록 폼 입니다." class="t_form">
@@ -566,14 +532,6 @@
                                                 <label for="option_kind_1">일반옵션</label>
                                             </li>
                                             <li>
-                                                <input type="radio" id="option_kind_2" name="optionKind" value="201" onclick="checkOptionKind()">
-                                                <label for="option_kind_2">재고(단일)옵션</label>
-                                            </li>
-                                            <li>
-                                                <input type="radio" id="option_kind_3" name="optionKind" value="202" onclick="checkOptionKind()">
-                                                <label for="option_kind_3">재고(조합)옵션</label>
-                                            </li>
-                                            <li>
                                                 <input type="radio" id="option_kind_4" name="optionKind" value="300" onclick="checkOptionKind()">
                                                 <label for="option_kind_4">서술형옵션</label>
                                             </li>
@@ -590,206 +548,51 @@
                                         <ul class="option_explain">
                                             <li>재고를 설정할 수 없는 입력방식입니다. (옵션가격 설정가능)</li>
                                             <li>각 옵션항목은 " <strong>;</strong> "로 구분하여 입력하고, 옵션가격이 있는 경우 각 옵션항목내에서 " <strong>^</strong> "로 구분하여 입력합니다.<br>(옵션가격이 없는 경우 제외 가능)</li>
-                                            <li><strong class="red">옵션가격은 반드시 ","(콤마) 없이 숫자로만 입력해야 합니다.</span></li>
-                                            <li>품절된 옵션항목은 각 옵션항목의 마지막에 구분자를 삽입하고 <strong class="red">"품절"</span> 을 입력해 주세요. 예)옵션^0^품절</li>
-                                            <li>옵션항목은 최대 <strong class="red">2,000자</span> 까지 입력할 수 있습니다.</li>
+                                            <li><strong class="red">옵션가격은 반드시 ","(콤마) 없이 숫자로만 입력해야 합니다.</strong></li>
+                                            <li>품절된 옵션항목은 각 옵션항목의 마지막에 구분자를 삽입하고 <strong class="red">"품절"</strong> 을 입력해 주세요. 예)옵션^0^품절</li>
+                                            <li>옵션항목은 최대 <strong class="red">2,000자</strong> 까지 입력할 수 있습니다.</li>
                                         </ul>
 
                                         <dl class="option_exam mgt10">
                                             <dt><strong>입력 예)</strong></dt>
-                                                <dd>
-                                                    1. 기본입력: 선택안함;옵션 A^1000;옵션 B^-1000^품절;옵션 C^2000<br> 2. 품절입력: 옵션 A^품절;옵션 B^1500^품절;옵션 C^1000<br> 3. 추가구성: 선택안함;A상품^10000;B상품^11000<br>
-                                                </dd>
-                                                </dl>
+                                            <dd>
+                                                1. 기본입력: 선택안함;옵션 A^1000;옵션 B^-1000^품절;옵션 C^2000<br> 2. 품절입력: 옵션 A^품절;옵션 B^1500^품절;옵션 C^1000<br> 3. 추가구성: 선택안함;A상품^10000;B상품^11000<br>
+                                            </dd>
+                                        </dl>
 
-                                                <div class="tr mgb5">
-                                                    <span class="button small"><button type="button" onclick="addRowOpt('100');" disabled>옵션 추가</button></span>
-                                                    <span class="button small"><button type="button" onclick="delRowOpt('100');" disabled>옵션 삭제</button></span>
-                                                </div>
-                                                <table id="tb_option_100" width="100%" summary="상품 일반옵션 폼 테이블 입니다." class="option_gnenral">
-                                                    <caption>상품 일반옵션 폼 테이블</caption>
-                                                    <colgroup>
-                                                        <col width="30">
-                                                        <col width="150">
-                                                        <col width="*">
-                                                        <col width="40">
-                                                    </colgroup>
-                                                    <thead>
-                                                        <tr>
-                                                            <th><input type="checkbox" name="cbOptAll100" onclick="checkCbAll(this.form.cbOpt100, this.checked)" disabled></th>
-                                                            <th>옵션명</th>
-                                                            <th colspan="2">옵션항목</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                        <tr>
-                                                            <td><input type="hidden" name="optNo100" disabled><input type="checkbox" name="cbOpt100" disabled></td>
-                                                            <td><input type="text" name="optName100" class="text_input" maxlength="50" disabled></td>
-                                                            <td class="txt"><textarea rows="3" name="optItem100" class="text_input" disabled></textarea></td>
-                                                            <td class="size"><span>0</span><br>자</td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </table>
-                                    </td>
-                                </tr>
-
-                                <!-- # 재고(단일)옵션 ###################################################################### -->
-                                <tr class="option_201" style="display:none">
-                                    <td colspan="2">
-                                        <ul class="option_explain">
-                                            <li>단일 옵션 항목별 재고 및 가격을 설정할 수 있는 입력방식입니다.</li>
-                                            <li>하나의 행에 하나의 옵션항목 및 재고수량을 입력해 주세요. (각 옵션항목별 <strong class="red">"품절"</span> 설정 가능)</li>
-                                        </ul>
-
-                                        <input type="hidden" name="optNo201" value="0" disabled>
-
-                                        <div class="over_h mgt5">
-                                            <dl class="option_solo_name">
-                                                <dt>옵션명</dt>
-                                                <dd>
-                                                    <input type="text" name="optName201" value="" class="text_input" maxlength="100" disabled>
-                                                </dd>
-                                            </dl>
-                                            <table id="tb_option_201" summary="상품 재고(단일)옵션 폼 테이블 입니다." max="999" class="option_solo">
-                                                <caption>상품 재고(단일)옵션 폼 테이블</caption>
-                                                <colgroup>
-                                                    <col width="*">
-                                                    <col width="15%">
-                                                    <col width="15%">
-                                                    <col width="15%">
-                                                    <col width="54">
-                                                </colgroup>
-                                                <thead>
-                                                    <tr>
-                                                        <th>옵션항목</th>
-                                                        <th>옵션가격</th>
-                                                        <th>재고수량</th>
-                                                        <th>품절여부</th>
-                                                        <th class="btns"><button type="button" onclick="addRowOpt('201');" disabled><img src="/img/btn_plus.gif" alt="옵션항목 추가"></button></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" name="optItem201" class="text_input" maxlength="100" disabled>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="optPrice201" class="text_input" onkeyup="toCurrency(this)" disabled>
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" name="optQuantity201" maxlength="7" class="text_input" onkeyup="onlyInt(this);calcTotalQuantity();" disabled>
-                                                        </td>
-                                                        <td>
-                                                            <input type="hidden" name="optSoldout201" disabled><input type="checkbox" name="cbOptSoldout" onclick="checkOptionSoldout(this)" disabled>
-                                                        </td>
-                                                        <td class="btns">
-                                                            <button type="button" onclick="delRowOpt('201', this);" disabled><img src="/img/btn_minus.gif" alt="옵션항목 삭제"></button>
-                                                            <button type="button" onclick="addRowOpt('201', this);" disabled><img src="/img/btn_plus.gif" alt="옵션항목 추가"></button>
-                                                        </td>
-                                                    </tr>
-
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td>합계</td>
-                                                        <td></td>
-                                                        <td><input type="text" name="optTotalQuantity201" class="text_input" value="" readonly="readOnly" disabled></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
+                                        <div class="tr mgb5">
+                                            <button type="button" class="btn btn-sm btn-default" onclick="addRowOpt('100');" disabled>옵션 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="delRowOpt('100');" disabled>옵션 삭제</button>
                                         </div>
-                                    </td>
-                                </tr>
-
-                                <!-- # 재고(조합)옵션 ###################################################################### -->
-                                <tr class="option_202" style="display:none">
-                                    <td colspan="2">
-                                        <ul class="option_explain">
-                                            <li>조합 옵션의 재고와 가격을 설정할 수 있는 입력방식입니다. 옵션종류는 2개로 제한되며 최대 10개까지 입력이 가능합니다.</li>
-                                            <li>옵션1과 옵션2가 교차하는 박스에 수량을 넣어주세요.</li>
-                                            <li>옵션별 가격은 옵션1의 항목에만 설정이 가능합니다.</li>
-                                        </ul>
-
-                                        <input type="hidden" name="optNo1" value="0" disabled>
-                                        <input type="hidden" name="optNo2" value="0" disabled>
-
-                                        <table width="100%" summary="상품 재고(조합)옵션 폼 테이블 입니다." class="option_grid">
-                                            <caption>상품 재고(조합)옵션 폼 테이블</caption>
+                                        <table id="tb_option_100" summary="상품 일반옵션 폼 테이블 입니다." class="option_gnenral">
+                                            <caption>상품 일반옵션 폼 테이블</caption>
                                             <colgroup>
-                                                <col width="110">
+                                                <col width="20">
+                                                <col width="50">
                                                 <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="*">
-                                                <col width="80">
+                                                <col width="10">
                                             </colgroup>
                                             <thead>
                                                 <tr>
-                                                    <th rowspan="2" class="first">옵션1<br><input type="text" name="optName1" maxlength="50" value="" disabled></th>
-                                                    <th colspan="10">옵션2 <input type="text" name="optName2" maxlength="50" value="" disabled></th>
-                                                    <th rowspan="2">옵션가격</th>
-                                                </tr>
-                                                <tr>
-                                                    <td><input type="hidden" name="optItemNo2" value="11" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="12" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="13" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="14" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="15" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="16" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="17" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="18" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td><input type="hidden" name="optItemNo2" value="19" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-                                                    <td class="last"><input type="hidden" name="optItemNo2" value="20" disabled><input type="text" name="optItem2" maxlength="100" value="" disabled></td>
-
+                                                    <th>
+                                                        <input type="checkbox" name="cbOptAll100" onclick="checkCbAll(this.form.cbOpt100, this.checked)" disabled>
+                                                    </th>
+                                                    <th>옵션명</th>
+                                                    <th colspan="2">옵션항목</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <th class="roof"><input type="hidden" name="optItemNo1" value="1" disabled><input type="text" name="optItem1" maxlength="100" value="" disabled></th>
-                                                    <td class="roof"><input type="text" name="optQuantity_0_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 0, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_1_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 1, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_2_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 2, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_3_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 3, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_4_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 4, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_5_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 5, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_6_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 6, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_7_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 7, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_8_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 8, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="roof"><input type="text" name="optQuantity_9_0" value="" maxlength="4" onfocus="this.select()" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this); checkOptionItem(this, 9, 0);" onblur="calcTotalQuantity()"
-                                                            disabled></td>
-                                                    <td class="price roof"><input type="text" name="optPrice" value="" onfocus="this.select()" onkeyup="toCurrency(this)" disabled></td>
+                                                    <td><input type="hidden" name="optNo100" disabled><input type="checkbox" name="cbOpt100" disabled></td>
+                                                    <td>
+                                                        <input type="text" name="optName100" class="text_input" style="width: 90%;" maxlength="50" disabled>
+                                                    </td>
+                                                    <td class="txt">
+                                                        <textarea rows="3" name="optItem100" class="text_input" disabled></textarea>
+                                                    </td>
+                                                    <td class="size"><span>0</span>자</td>
                                                 </tr>
-                                              
                                             </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th></th>
-                                                    <th colspan="10">
-                                                        <div>전체 재고 수량 <input type="text" name="optTotalQuantity202" value="" readonly="" disabled></div>
-                                                    </th>
-                                                    <th class="last"></th>
-                                                </tr>
-                                            </tfoot>
                                         </table>
                                     </td>
                                 </tr>
@@ -801,19 +604,15 @@
                                         <ul class="option_explain">
                                             <li>일반옵션, 재고옵션을 사용하시기 어려운 경우, 서술형 옵션을 선택하시면 아래 입력한 내용이 구매자에게 안내되고,<br>상품구매옵션을 서술형으로 입력할 수 있습니다.</li>
                                         </ul>
-
                                         <dl class="option_exam mgt10">
                                             <dt><strong>입력 예)</strong></dt>
-                                                <dd>
-                                                    넥타이타입은 A~J, 셔츠타입은 A~J, 사이즈는 95,100,105입니다. 원하는 색상 및 사이즈를 적어주세요.
-                                                </dd>
-                                                </dl>
-
-                                                <input type="hidden" name="optNo300" value="0" disabled>
-
-                                                <div class="option_text">
-                                                    <textarea name="optName300" rows="3" class="text_input" onkeyup="checkTextLen(this, 250)" disabled></textarea>
-                                                </div>
+                                            <dd>
+                                                넥타이타입은 A~J, 셔츠타입은 A~J, 사이즈는 95,100,105입니다. 원하는 색상 및 사이즈를 적어주세요.
+                                            </dd>
+                                        </dl>
+                                        <div class="option_text">
+                                            <textarea name="optName300" rows="3" class="text_input" onkeyup="checkTextLen(this, 250)" disabled></textarea>
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -825,12 +624,10 @@
                     <!-- 추가 구성 -->
                     <div class="box">
                         <div class="section_head">
-                            <h4>추가 구성</h4>
+                            <h4><i class="xi-check-circle"></i> 추가구성</h4>
                         </div>
-
-                        <table width="100%" summary="추가 구성 등록 폼 입니다." class="t_form">
-                            <caption>추가 구성 등록 폼</caption>
-
+                        <table summary="추가 구성 등록 폼 입니다." class="t_form">
+                            <caption>추가구성 등록 폼</caption>
                             <tbody>
                                 <tr>
                                     <th>추가구성</th>
@@ -847,179 +644,25 @@
                                             <li class="fl"><button type="button" class="btn btn-sm btn-secondary" onclick="cbAdtAll()">전체선택</button>
                                             </li>
                                             <li class="fr">
-                                                <button type="button" class="btn btn-sm btn-secondary" onclick="addAddition()">추가구성 추가</button>
-                                                <button type="button" class="btn btn-sm btn-secondary" onclick="delAddition()">추가구성 삭제</button>
+                                                <button type="button" class="btn btn-sm btn-default" onclick="addAddition()">추가구성 추가</button>
+                                                <button type="button" class="btn btn-sm btn-danger" onclick="delAddition()">추가구성 삭제</button>
                                             </li>
                                         </ul>
-
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
                     </div>
-
 
                     <div class="btn_center">
                         <button type="button" class="btn btn-secondary" onclick="validSubmit()">확인</button>
                         <button type="button" class="btn btn-danger" onclick="cancle('reload')">취소</button>
                     </div>
-
                 </form>
 
 
                 <%- include('../inc/footer') %>
-                    <script src="/js/summernote.js"></script>
-                    <script type="text/javascript">
-                        $(document).ready(function() {
-                            $('.summernote').summernote({
-                                height: 300,
-                                tabsize: 2
-                            });
-                        });
-                    </script>
-
-                    <script>
-                        // 상품아이콘 등록/수정 오픈
-                        function openIcon() {
-                            openPopup("/goods/goods_icon_pop", "Icon", 498, 500, "scrollbars=1");
-                        }
-
-                        //이미지 자동등록 radio button
-                        function changeImgRegAuto(obj) {
-                            if (obj.checked) {
-                                $('.imgManuals').hide();
-                            } else {
-                                $('.imgManuals').show();
-                            }
-                        }
-
-                        // 이미지파일 등록시 파일이름 보이기                            
-
-                        document.getElementById("bigImage").onchange = function() {
-                            document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("midImage").onchange = function() {
-                            document.getElementById("midImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("smallImage").onchange = function() {
-                            document.getElementById("smallImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("optionalImage1").onchange = function() {
-                            document.getElementById("optionalImage1URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("optionalImage2").onchange = function() {
-                            document.getElementById("optionalImage2URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("optionalImage3").onchange = function() {
-                            document.getElementById("optionalImage3URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                        document.getElementById("optionalImage4").onchange = function() {
-                            document.getElementById("optionalImage4URLoptional").value = this.value.replace(/C:\\fakepath\\/i, '');
-                        };
-                    </script>
-
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        function validSubmit() {
-                            var f = document.Frm;
-
-                            if (isEmpty(f.sellerId.value)) {
-                                alert("상품공급업체를 선택해 주세요.");
-                                f.sellerId.focus();
-                                return false;
-                            }
-
-                            if (isEmpty(f.name.value)) {
-                                alert("상품명을 입력해 주세요.");
-                                f.name.focus();
-                                return false;
-                            }
-
-                            // 이미지 관련 : 시작
-                            if (!f.isImgAuto.checked) {
-                                if (isEmpty(f.bigImage.value)) {
-                                    alert("큰이미지를 선택해 주세요.");
-                                    f.bigImage.focus();
-                                    return false;
-                                }
-                                if (isEmpty(f.midImage.value)) {
-                                    alert("중간이미지를 선택해 주세요.");
-                                    f.midImage.focus();
-                                    return false;
-                                } else {
-                                    if (!checkFileExt(f.midImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-                                        f.midImage.focus();
-                                        return false;
-                                    }
-                                }
-                                if (isEmpty(f.smallImage.value)) {
-                                    alert("작은이미지를 선택해 주세요.");
-                                    f.smallImage.focus();
-                                    return false;
-                                } else {
-                                    if (!checkFileExt(f.smallImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요. ")) {
-                                        f.smallImage.focus();
-                                        return false;
-                                    }
-                                }
-                            }
-                            if (isEmpty(f.bigImage.value)) {
-                                alert("큰 이미지를 선택해 주세요.");
-                                f.bigImage.focus();
-                                return false;
-                            } else {
-                                if (!checkFileExt(f.bigImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-                                    f.bigImage.focus();
-                                    return false;
-                                }
-                            }
-
-                            if (typeof(f.optionalImage.length) == "undefined") {
-                                if (!isEmpty(f.optionalImage.value)) {
-                                    if (!checkFileExt(f.optionalImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-
-
-                                        return false;
-                                    }
-                                }
-                            } else {
-                                for (var i = 0; i < f.optionalImage.length; i++) {
-                                    if (!isEmpty(f.optionalImage[i].value)) {
-                                        if (!checkFileExt(f.optionalImage[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-
-                                            return false;
-                                        }
-                                    }
-                                }
-                            }
-                            // 이미지 관련 : 끝     
-
-
-
-
-
-                            if (confirm("등록하시겠습니까?")) {
-                                // 관련추첨상품 있는지 확인
-                                // for (var i = 0; i < f.linkedRelate.length; i++) {
-                                //     f.linkedRelate[i].selected = true;
-                                // } 
-                                console.log($(f).serializeObject());
-
-                                // addProduct();
-
-                                // f.target = "frmProc";
-                                // f.submit();
-                            }
-                        }
-                        //]]>
-                    </script>
-                    <script>
-                        // api                        
-                        supplySelect(); // <!-- 상품공급업체-->
-                        setIcons(); //아이콘등록
-                    </script>
-
+                    <script src="/js/goods/goods_reg.js"></script>
 
                     </body>
 
