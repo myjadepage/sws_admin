@@ -158,7 +158,6 @@ function getCategory() {
             }
         })
         .done(function(data) {
-            console.log(data.jsonData.categories[0]);
             // $select = $('select[name="category1"]');
             $select = $('select[name="cate_1"]');
             $select.empty();
