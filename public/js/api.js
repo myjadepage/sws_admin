@@ -148,7 +148,7 @@ function getBrand() {
 
 function getCategory() {
     var categoryLevel = 1;
-    var parentSysId = null;
+    var parentSysId = 0;
     $.ajax({
             method: "get",
             url: `/categories/:${categoryLevel}`,
@@ -167,7 +167,8 @@ function getCategory() {
             $.each(data.jsonData.categories, function(key, entry) {
                 var feeRate = entry.feeRate * 100;
                 $select.append($('<option></option>')
-                    .attr('value', entry.parentSysId)
+                    .attr('value', entry.categorySysId)
+                    .attr('data-parentSysId', entry.parentSysId)
                     .text(entry.name + ' [ ' + feeRate + ' % ]'));
             })
         })

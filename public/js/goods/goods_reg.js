@@ -149,8 +149,9 @@
  function changeCate(obj) {
      var f = document.Frm;
      var depth = (obj ? obj.getAttribute('data-depth').toString().toNumeric() : 0);
-     var parentSysId = (obj ? obj.getAttribute('value') : null);
-     console.log("parentSysId", parentSysId);
+     var parentSysId = (obj ? obj.getAttribute('data-parentSysId').toString().toNumeric() : 0);
+
+     console.log("parentSysId", parentSysId)
      console.log("depth", depth);
 
      if (cateDepth > depth) {
@@ -170,7 +171,6 @@
                  console.log(data);
                  var depth = data.categoryLevel;
                  var categories = data.jsonData.categories;
-                 console.log("2.성공시 depth", depth);
 
                  for (var i = depth; i <= cateDepth; i++) {
                      sws.common.removeSelectOptionAll(f['cate_' + i]);
@@ -178,22 +178,18 @@
                  }
 
                  $objSelect = $("select[name='cate_" + depth + "']");
-                 console.log("objSelect", $objSelect);
+                 $objSelect.empty();
 
                  if (categories) {
-                     console.log("3.배열사이즈", data.jsonData.categories.length);
+                     $objSelect.append('<option  value="" selected="true">' + depth + '차카테고리 선택</option>');
+                     $objSelect.prop('selectedIndex', 0);
                      for (var i = 0; i < categories.length; i++) {
-
-                         var objOption = document.createElement("option");
-                         with(objOption) {
-                                 text = categories[i].name + " [" + categories[i].feeRate + "%]";
-                                 value = categories[i].categorySysId;
-                                 setAttribute('name', categories[i].name);
-                                 setAttribute('data-feeRate', categories[i].feeRate);
-                                 setAttribute('data-parentSysId', categories[i].parentSysId);
-                                 console.log("objOption", objOption);
-                             }
-                             //  objSelect.options.add(objOption);
+                         $objSelect.append('<option></option>')
+                             .attr('value', categories[i].categorySysId)
+                             .text(categories[i].name + " [" + categories[i].feeRate + "%]")
+                             .attr('data-feeRate', categories[i].feeRate)
+                             .attr('data-parentSysId', categories[i].parentSysId);
+                         //  objSelect.options.add(objOption);
                      }
                  }
              })
