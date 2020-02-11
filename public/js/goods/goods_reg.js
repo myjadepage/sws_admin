@@ -140,51 +140,64 @@
 
  //  <!------------------------- 2.상품분류 -->
  //<![CDATA[ 카테고리 설정
- var cateDepth = '3'.toNumeric();
- var cateDepthGoods = '2'.toNumeric();
+ //  맨처음 부모1차카테고리만 나오게
+ getCategory();
+
+ var cateDepth = '5'.toNumeric();
+ var cateDepthGoods = '4'.toNumeric();
 
  function changeCate(obj) {
      var f = document.Frm;
-     var depth = (obj ? obj.getAttribute('depth').toString().toNumeric() : 0);
-     var parent = (obj ? obj.value : 0);
+     var depth = (obj ? obj.getAttribute('data-depth').toString().toNumeric() : 0);
+     var parentSysId = (obj ? obj.getAttribute('value') : null);
+     console.log("parentSysId", parentSysId);
+     console.log("depth", depth);
 
      if (cateDepth > depth) {
          $.ajax({
-             type: "GET",
-             dataType: "json",
-             url: "",
-             data: {
-                 parent: parent,
-                 depth: depth
-             },
-             error: function(request, status, error) {
-                 alert(request.responseText)
-             },
-             success: function(data) {
-                 var depth = data.depth.toString().toNumeric();
+                 type: "GET",
+                 dataType: "json",
+                 url: `/categories/:${depth}`,
+                 data: {
+                     parentSysId: parentSysId
+                 }
+             })
+             .fail(function(request, status, error) {
+                 console.log(request);
+                 alert("ㅋㅏ테고리를 불러오지 못했습니다.")
+             })
+             .done(function(data) {
+                 console.log(data);
+                 var depth = data.categoryLevel;
+                 var categories = data.jsonData.categories;
+                 console.log("2.성공시 depth", depth);
 
-                 for (i = depth; i <= cateDepth; i++) {
-                     removeSelectOptionAll(f['cate_' + i]);
-                     addSelectOption(f['cate_' + i], '선택', '');
+                 for (var i = depth; i <= cateDepth; i++) {
+                     sws.common.removeSelectOptionAll(f['cate_' + i]);
+                     sws.common.addSelectOption(f['cate_' + i], '선택', '');
                  }
 
-                 var objSelect = f["cate_" + depth];
+                 $objSelect = $("select[name='cate_" + depth + "']");
+                 console.log("objSelect", $objSelect);
 
-                 if (data.list) {
-                     for (var i = 0; i < data.list.length; i++) {
+                 if (categories) {
+                     console.log("3.배열사이즈", data.jsonData.categories.length);
+                     for (var i = 0; i < categories.length; i++) {
+
                          var objOption = document.createElement("option");
                          with(objOption) {
-                             text = data.list[i].name + " [" + data.list[i].cms + "%]";
-                             value = data.list[i].cate;
-                             setAttribute('name', data.list[i].name);
-                             setAttribute('cms', data.list[i].cms);
-                             setAttribute('child', data.list[i].child);
-                         }
-                         objSelect.options.add(objOption);
+                                 text = categories[i].name + " [" + categories[i].feeRate + "%]";
+                                 value = categories[i].categorySysId;
+                                 setAttribute('name', categories[i].name);
+                                 setAttribute('data-feeRate', categories[i].feeRate);
+                                 setAttribute('data-parentSysId', categories[i].parentSysId);
+                                 console.log("objOption", objOption);
+                             }
+                             //  objSelect.options.add(objOption);
                      }
                  }
-             }
-         });
+             })
+
      }
  }
 
@@ -196,7 +209,7 @@
 
      for (var i = 1; i <= cateDepth; i++) {
          var objOption = f['cate_' + i].options[f['cate_' + i].selectedIndex];
-         if (!isEmpty(objOption)) {
+         if (!sws.common.isEmpty(objOption)) {
              cate = objOption.value.toNumeric();
              cms = objOption.getAttribute('cms').toString().toNumeric();
              child = objOption.getAttribute('child').toString().toNumeric();
@@ -281,7 +294,7 @@
  function cateDefaultCms(obj) {
      var f = document.Frm;
 
-     if (getRadio(f.cmsType) != 'GOS' && f.dealerCmsType.value != 'MIM') {
+     if (sws.common.getRadio(f.cmsType) != 'GOS' && f.dealerCmsType.value != 'MIM') {
          var cateCms = $(obj).prev().attr('cms');
          f.margin.value = cateCms;
          calcPrice();
@@ -358,9 +371,9 @@
  // 재고설정 확인
  function checkStock() {
      var f = document.Frm;
-     var optionKind = getRadio(f.optionKind);
+     var optionKind = sws.common.getRadio(f.optionKind);
 
-     if (getRadio(f.stockTypeCode) == '1') {
+     if (sws.common.getRadio(f.stockTypeCode) == '1') {
          f.stockQty.readOnly = false;
          f.stockQty.disabled = true;
          f.stockQty.style.backgroundColor = "#e0e0e0";
@@ -397,7 +410,7 @@
  // 수수료 설정 확인
  function checkCmsType() {
      var f = document.Frm;
-     if (getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료로 설정한 경우
+     if (sws.common.getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료로 설정한 경우
          checkPriceSplit('100');
 
          if (f.dealerCmsType.value == 'CTG') { // 입점업체 수수료 설정 : 카테고리 경우
@@ -429,10 +442,10 @@
          f.margin.style.backgroundColor = "#e0e0e0";
          f.originalPrice.readOnly = false;
          f.margin.readOnly = true;
-         setRadio(f.priceSplit, '100');
+         sws.common.setRadio(f.priceSplit, '100');
      } else { // 수수료 기준
-         if (getRadio(f.cmsType) != 'GOS') {
-             setRadio(f.priceSplit, '100');
+         if (sws.common.getRadio(f.cmsType) != 'GOS') {
+             sws.common.setRadio(f.priceSplit, '100');
              alert("수수료 설정이 상품별 수수료 설정일 경우에만 선택이 가능합니다.");
              return false;
          }
@@ -460,11 +473,11 @@
          f.margin.value = margin;
      }
 
-     if (getRadio(f.priceSplit) == '100') { // 공급가 기준 경우
-         if (getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료 설정
+     if (sws.common.getRadio(f.priceSplit) == '100') { // 공급가 기준 경우
+         if (sws.common.getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료 설정
              // 판매가 입력 경우
              if (caller.name == 'price') {
-                 originalPrice = setRound(price - (price * margin / 100), priceRoundUnit);
+                 originalPrice = sws.common.setRound(price - (price * margin / 100), priceRoundUnit);
                  f.originalPrice.value = formatComma(originalPrice);
              }
              // 공급가 입력 경우
@@ -472,15 +485,15 @@
                  f.price.value = 0;
                  f.originalPrice.value = 0;
              } else {
-                 price = setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
+                 price = sws.common.setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
                  f.price.value = formatComma(price);
              }
          } else { // 상품별 수수료 설정
              margin = (price == 0 ? 0 : 100 - (originalPrice / price * 100));
-             f.margin.value = setRound(margin, 2);
+             f.margin.value = sws.common.setRound(margin, 2);
          }
      } else { // 수수료 기준 경우
-         originalPrice = setRound(price * (100 - margin) / 100, priceRoundUnit);
+         originalPrice = sws.common.setRound(price * (100 - margin) / 100, priceRoundUnit);
          f.originalPrice.value = formatComma(originalPrice);
      }
  }
@@ -492,7 +505,7 @@
      if (typeof(f.cate) == 'undefined') return false;
 
      var value = obj.value.toNumeric();
-     if (value != setRound(value, priceRoundUnit)) {
+     if (value != sws.common.setRound(value, priceRoundUnit)) {
          obj.value = formatComma(setRound(value, priceRoundUnit));
          calcPrice(obj);
      }
@@ -509,23 +522,23 @@
 
      if (f.dealerNo.value.toNumeric() > 0) {
          if ($(f.cmoneyPolicy).is(':radio')) {
-             setRadioDisabled(f.cmoneyPolicy, '128', false);
+             sws.common.setRadioDisabled(f.cmoneyPolicy, '128', false);
          }
 
-         setRadioDisabled(f.deliveryMethod, '920', false);
+         sws.common.setRadioDisabled(f.deliveryMethod, '920', false);
      } else {
          if ($(f.cmoneyPolicy).is(':radio')) {
-             setRadioDisabled(f.cmoneyPolicy, '128', true);
+             sws.common.setRadioDisabled(f.cmoneyPolicy, '128', true);
 
-             if (getRadio(f.cmoneyPolicy) == '128') {
-                 setRadio(f.cmoneyPolicy, '256');
+             if (sws.common.getRadio(f.cmoneyPolicy) == '128') {
+                 sws.common.setRadio(f.cmoneyPolicy, '256');
              }
          }
 
-         setRadioDisabled(f.deliveryMethod, '920', true);
+         sws.common.setRadioDisabled(f.deliveryMethod, '920', true);
 
-         if (getRadio(f.deliveryMethod) == '920') {
-             setRadio(f.deliveryMethod, '990');
+         if (sws.common.getRadio(f.deliveryMethod) == '920') {
+             sws.common.setRadio(f.deliveryMethod, '990');
          }
      }
  }
@@ -538,7 +551,7 @@
      if ($('input[name="cmoneyPolicy"]').length > 0) {
          $('input[name="cmoneyPolicy"]').first().parent().parent().find('input:text, select').prop('disabled', true);
 
-         switch (getRadio(f.cmoneyPolicy)) {
+         switch (sws.common.getRadio(f.cmoneyPolicy)) {
              case '6':
                  f.cmoneyPolicyPrice.disabled = false;
                  f.cmoneyPercent.disabled = false;
@@ -579,7 +592,7 @@
      f.deliveryLimitPrepay.disabled = true;
      f.deliveryLimitPrepay.style.backgroundColor = "#e0e0e0";
 
-     switch (getRadio(f.deliveryMethod)) {
+     switch (sws.common.getRadio(f.deliveryMethod)) {
          case "103":
              f.deliveryFeeCollect.disabled = false;
              f.deliveryFeeCollect.style.backgroundColor = "";
@@ -604,7 +617,7 @@
      var kind = $('input[name="optionKind"]:checked', f).val();
 
      $('input[name="optionKind"]', f).each(function() {
-         if (!isEmpty(this)) {
+         if (!sws.common.isEmpty(this)) {
              var $container = $('.option_' + this.value);
              if (this.value == kind) $container.show().find(':input').prop('disabled', false);
              else $container.hide().find(':input').prop('disabled', true);
@@ -614,8 +627,8 @@
      switch (kind) {
          case '201':
          case '202':
-             setRadio(f.stock, '1');
-             setRadioDisabled(f.stock, '0', true);
+             sws.common.setRadio(f.stock, '1');
+             sws.common.setRadioDisabled(f.stock, '0', true);
              break;
          default:
              setRadioDisabled(f.stock, '0', false);
@@ -741,7 +754,7 @@
      var kind = $('input[name="optionKind"]:checked', f).val();
 
      $('input[name="optionKind"]', f).each(function() {
-         if (!isEmpty(this)) {
+         if (!sws.common.isEmpty(this)) {
              var $container = $('.option_' + this.value);
              if (this.value == kind) $container.show().find(':input').prop('disabled', false);
              else $container.hide().find(':input').prop('disabled', true);
@@ -751,11 +764,11 @@
      switch (kind) {
          case '201':
          case '202':
-             setRadio(f.stock, '1');
-             setRadioDisabled(f.stock, '0', true);
+             sws.common.setRadio(f.stock, '1');
+             sws.common.setRadioDisabled(f.stock, '0', true);
              break;
          default:
-             setRadioDisabled(f.stock, '0', false);
+             sws.common.setRadioDisabled(f.stock, '0', false);
              break;
      }
 
@@ -767,7 +780,7 @@
 
      if (event.keyCode == 9) return;
 
-     if (isEmpty(f.optItem1[row])) {
+     if (sws.common.isEmpty(f.optItem1[row])) {
          alert("먼저 옵션항목을 입력해 주세요.");
          obj.value = "";
          f.optItem1[row].focus();
@@ -775,7 +788,7 @@
      }
 
      if (col > 0) {
-         if (isEmpty(f.optItem2[col])) {
+         if (sws.common.isEmpty(f.optItem2[col])) {
              alert("먼저 옵션항목을 입력해 주세요.");
              obj.value = "";
              f.optItem2[col].focus();
@@ -793,12 +806,12 @@
  function calcTotalQuantity() {
      var f = document.Frm;
      var totalQuantity = 0;
-     var kind = getRadio(f.optionKind);
+     var kind = sws.common.getRadio(f.optionKind);
 
      switch (kind) {
          case '201':
              $('input[name="optQuantity201"]').each(function() {
-                 totalQuantity += (isEmpty(this) ? 0 : this.value.toNumeric());
+                 totalQuantity += (sws.common.isEmpty(this) ? 0 : this.value.toNumeric());
              });
              break;
          case '202':
@@ -819,20 +832,20 @@
 
      var optionDelimiter = 'ː';
 
-     switch (getRadio(f.optionKind)) {
+     switch (sws.common.getRadio(f.optionKind)) {
          case '100':
              var invalid = false;
              $('textarea[name="optItem100"]', f).each(function() {
                  var objOptName = $(this).parent().prev().children('input')[0];
 
-                 if (isEmpty(objOptName)) {
+                 if (sws.common.isEmpty(objOptName)) {
                      alert("옵션명을 입력해 주세요.");
                      objOptName.focus();
                      invalid = true;
                      return false;
                  }
 
-                 if (isEmpty(this)) {
+                 if (sws.common.isEmpty(this)) {
                      alert("옵션항목을 입력해 주세요.");
                      this.focus();
                      invalid = true;
@@ -896,7 +909,7 @@
          case '201':
              var objOptName = f['optName201'];
 
-             if (isEmpty(objOptName)) {
+             if (sws.common.isEmpty(objOptName)) {
                  alert("옵션명을 입력해 주세요.");
                  objOptName.focus();
                  return false;
@@ -904,7 +917,7 @@
 
              var invalid = false;
              $('input[name="optItem201"]', f).each(function() {
-                 if (isEmpty(this)) {
+                 if (sws.common.isEmpty(this)) {
                      alert("옵션항목을 입력해 주세요.");
                      this.focus();
                      invalid = true;
@@ -917,7 +930,7 @@
              var arrOptItem = new Array(f.optItem1, f.optItem2);
              var arrMaxExistItem = new Array(-1, -1);
 
-             if (isEmpty(arrOptItem[0][0])) {
+             if (sws.common.isEmpty(arrOptItem[0][0])) {
                  alert("옵션항목을 입력해 주세요.");
                  arrOptItem[0][0].focus();
                  return false;
@@ -925,7 +938,7 @@
 
              for (var i = 0; i < 2; i++) {
                  for (var s = 9; s >= 0; s--) {
-                     if (!isEmpty(arrOptItem[i][s])) {
+                     if (!sws.common.isEmpty(arrOptItem[i][s])) {
                          arrMaxExistItem[i] = s;
                          break;
                      }
@@ -934,7 +947,7 @@
 
              for (var i = 0; i < 2; i++) {
                  for (var s = 0; s <= arrMaxExistItem[i]; s++) {
-                     if (isEmpty(arrOptItem[i][s])) {
+                     if (sws.common.isEmpty(arrOptItem[i][s])) {
                          alert("옵션항목을 입력해 주세요.");
                          arrOptItem[i][s].focus();
                          return false;
@@ -951,7 +964,7 @@
          case '300':
              var objOptName = f['optName300'];
 
-             if (isEmpty(objOptName)) {
+             if (sws.common.isEmpty(objOptName)) {
                  alert("옵션내용을 입력해 주세요.");
                  objOptName.focus();
                  return false;
@@ -993,7 +1006,7 @@
  //<![CDATA[ 추가구성
  function checkUseAddition() {
      var f = document.Frm;
-     if (getRadio(f.useAddition).toNumeric() > 0) {
+     if (sws.common.getRadio(f.useAddition).toNumeric() > 0) {
          $('.addition_usable div').show();
          $('.addition_container').show();
      } else {
@@ -1024,13 +1037,13 @@
      var f = document.Frm;
      var invalid = false;
 
-     if (getRadio(f.useAddition).toNumeric() > 0) {
+     if (sws.common.getRadio(f.useAddition).toNumeric() > 0) {
          $('input[name="adtNo"]').each(function() {
              var $addition = $(this).closest('.addition');
              var $adtName = $('input[name="adtName"]', $addition);
              var adtNo = this.value;
 
-             if (isEmpty($adtName[0])) {
+             if (sws.common.isEmpty($adtName[0])) {
                  alert("추가구성 이름을 입력해 주세요.");
                  $adtName.focus();
                  invalid = true;
@@ -1042,7 +1055,7 @@
                      $adtItem = $('input[name="adtItem' + adtNo + '"]', $tr),
                      $adtPrice = $('input[name="adtPrice' + adtNo + '"]', $tr);
 
-                 if (isEmpty($adtItem[0])) {
+                 if (sws.common.isEmpty($adtItem[0])) {
                      alert("추가구성 항목을 입력해 주세요.");
                      $adtItem.focus();
                      invalid = true;
@@ -1212,24 +1225,24 @@
  //<![CDATA[
  function validSubmit() {
      var f = document.Frm;
-     if (typeof(f.cate) == 'undefined') {
+     if (typeof(f.categoryId1st) == 'undefined') {
          alert("카테고리를 선택해 주세요.");
-         f.cate_1.focus();
+         f.categoryId1st.focus();
          return false;
      }
-     if (isEmpty(f.name.value)) {
+     if (sws.common.isEmpty(f.name.value)) {
          alert("상품명을 입력해 주세요.");
          f.name.focus();
          return false;
      }
      // 이미지 관련 : 시작
      if (!f.isImgAuto.checked) {
-         if (isEmpty(f.bigImage.value)) {
+         if (sws.common.isEmpty(f.bigImage.value)) {
              alert("큰이미지를 선택해 주세요.");
              f.bigImage.focus();
              return false;
          }
-         if (isEmpty(f.midImage.value)) {
+         if (sws.common.isEmpty(f.midImage.value)) {
              alert("중간이미지를 선택해 주세요.");
              f.midImage.focus();
              return false;
@@ -1239,7 +1252,7 @@
                  return false;
              }
          }
-         if (isEmpty(f.smallImage.value)) {
+         if (sws.common.isEmpty(f.smallImage.value)) {
              alert("작은이미지를 선택해 주세요.");
              f.smallImage.focus();
              return false;
@@ -1250,7 +1263,7 @@
              }
          }
      }
-     if (isEmpty(f.bigImage.value)) {
+     if (sws.common.isEmpty(f.bigImage.value)) {
          alert("큰 이미지를 선택해 주세요.");
          f.bigImage.focus();
          return false;
@@ -1261,7 +1274,7 @@
          }
      }
      if (typeof(f.optionalImage.length) == "undefined") {
-         if (!isEmpty(f.optionalImage.value)) {
+         if (!sws.common.isEmpty(f.optionalImage.value)) {
              if (!checkFileExt(f.optionalImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
 
 
@@ -1270,7 +1283,7 @@
          }
      } else {
          for (var i = 0; i < f.optionalImage.length; i++) {
-             if (!isEmpty(f.optionalImage[i].value)) {
+             if (!sws.common.isEmpty(f.optionalImage[i].value)) {
                  if (!checkFileExt(f.optionalImage[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
 
                      return false;
@@ -1284,7 +1297,7 @@
          return false;
      }
 
-     if (isEmpty(f.price)) {
+     if (sws.common.isEmpty(f.price)) {
          alert("판매가격을 입력해 주세요.");
          f.price.focus();
          return false;
@@ -1296,7 +1309,7 @@
          return false;
      }
 
-     if (isEmpty(f.supplyPrice)) {
+     if (sws.common.isEmpty(f.supplyPrice)) {
          alert("공급가격을 입력해 주세요.");
          f.supplyPrice.focus();
          return false;
@@ -1317,7 +1330,7 @@
                      return false;
                  }
 
-                 if (!isEmpty(f.pointRate) && !checkRound(f.pointRate.value, 2)) {
+                 if (!sws.common.isEmpty(f.pointRate) && !checkRound(f.pointRate.value, 2)) {
                      alert("소수점 2자리수 이상은 불가능합니다.");
                      f.pointRate.focus();
                      return false;
@@ -1335,10 +1348,10 @@
      var checker = 0;
      if (f.cbNotify) {
          if (typeof(f.cbNotify.length) == 'undefined') {
-             if (!isEmpty(f.notifyName) && !isEmpty(f.notifyData)) ++checker;
+             if (!sws.common.isEmpty(f.notifyName) && !sws.common.isEmpty(f.notifyData)) ++checker;
          } else {
              for (var i = 0; i < f.cbNotify.length; i++) {
-                 if (!isEmpty(f.notifyName[i]) && !isEmpty(f.notifyData[i])) ++checker;
+                 if (!sws.common.isEmpty(f.notifyName[i]) && !sws.common.isEmpty(f.notifyData[i])) ++checker;
              }
          }
      }
@@ -1347,21 +1360,21 @@
          return false;
      }
 
-     if (isEmpty(f.detailDescription)) {
+     if (sws.common.isEmpty(f.detailDescription)) {
          alert("상품의 상세정보를 입력해 주세요.");
          return false;
      }
 
      switch (getRadio(f.deliveryPriceTypeCode)) {
          case '2':
-             if (isEmpty(f.debitAmount)) {
+             if (sws.common.isEmpty(f.debitAmount)) {
                  alert("착불금액을 입력해 주세요.");
                  f.debitAmount.focus();
                  return false;
              }
              break;
          case '3':
-             if (isEmpty(f.prepaymentAmount)) {
+             if (sws.common.isEmpty(f.prepaymentAmount)) {
                  alert("선불금액을 적어주세요");
                  f.prepaymentAmount.focus();
                  return false;

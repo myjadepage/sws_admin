@@ -39,6 +39,36 @@ router.get('/brands', function(req, res, next) {
         }
     });
 })
+router.get('/categories/:categoryLevel', function(req, res, next) {
+    var categoryLevel = req.params.categoryLevel;
+    var parentSysId = req.params.parentSysId;
+    res.json({
+        "categoryLevel": categoryLevel,
+        "jsonData": {
+            "categories": [{
+                    "categorySysId": 1,
+                    "categoryCode": "CG00000001",
+                    "name": "OUTER",
+                    "feeRate": 0.2,
+                    "isHide": false,
+                    "topDesignHTML": "",
+                    "isApplyChildCategory": false,
+                    "parentSysId": parentSysId
+                },
+                {
+                    "categorySysId": 2,
+                    "categoryCode": "CG00000003",
+                    "name": "TOP",
+                    "feeRate": 0.3,
+                    "isHide": false,
+                    "topDesignHTML": "",
+                    "isApplyChildCategory": false,
+                    "parentSysId": parentSysId
+                }
+            ]
+        }
+    });
+})
 
 //------------------------->제이슨 가짜정보만들기
 

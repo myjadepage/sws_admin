@@ -144,6 +144,36 @@ function getBrand() {
             console.log(msg);
             alert("브랜드를 불러올 수 없습니다.");
         })
+}
 
-
+function getCategory() {
+    var categoryLevel = 1;
+    var parentSysId = null;
+    $.ajax({
+            method: "get",
+            url: `/categories/:${categoryLevel}`,
+            contentType: "json",
+            data: {
+                parentSysId: parentSysId
+            }
+        })
+        .done(function(data) {
+            console.log(data.jsonData.categories[0]);
+            // $select = $('select[name="category1"]');
+            $select = $('select[name="cate_1"]');
+            $select.empty();
+            $select.append('<option  value="" selected="true">1차카테고리 선택</option>');
+            $select.prop('selectedIndex', 0);
+            $.each(data.jsonData.categories, function(key, entry) {
+                var feeRate = entry.feeRate * 100;
+                $select.append($('<option></option>')
+                    .attr('value', entry.parentSysId)
+                    .text(entry.name + ' [ ' + feeRate + ' % ]'));
+            })
+        })
+        .fail(function(request, status, error) {
+            msg = request.status + "<br>" + request.responseText + "<br>" + error;
+            console.log(msg);
+            alert("카테고리를 불러올 수 없습니다.");
+        })
 }
