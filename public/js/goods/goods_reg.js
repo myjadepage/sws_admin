@@ -22,7 +22,9 @@
      html: '<input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" />'
  };
  cellHtmls['tb_img_etc'][2] = {
-     html: '<input type="file" name="imgEtc"  onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" />'
+     html: '<label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>' +
+         '<input type="file" name="imgEtc"  onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" class="hidden" />' +
+         '<input type="text" class="fileuploadurl" id="optionalImage1Url" name="optionalImage1Url" placeholder="선택된 파일이 없습니다" readonly>'
  };
  cellHtmls['tb_img_etc'][3] = {
      html: ''
@@ -141,61 +143,64 @@
  //  <!------------------------- 2.상품분류 -->
  //<![CDATA[ 카테고리 설정
  //  맨처음 부모1차카테고리만 나오게
- getCategory();
 
- var cateDepth = '5'.toNumeric();
- var cateDepthGoods = '4'.toNumeric();
+ $(function() {
+     var categoryLevel = 1;
 
- function changeCate(obj) {
-     var f = document.Frm;
-     var depth = (obj ? obj.getAttribute('data-depth').toString().toNumeric() : 0);
-     var parentSysId = (obj ? obj.getAttribute('data-parentSysId').toString().toNumeric() : 0);
-
-     console.log("parentSysId", parentSysId)
-     console.log("depth", depth);
-
-     if (cateDepth > depth) {
-         $.ajax({
-                 type: "GET",
-                 dataType: "json",
-                 url: `/categories/:${depth}`,
-                 data: {
-                     parentSysId: parentSysId
-                 }
-             })
-             .fail(function(request, status, error) {
-                 console.log(request);
-                 alert("ㅋㅏ테고리를 불러오지 못했습니다.")
-             })
-             .done(function(data) {
-                 console.log(data);
-                 var depth = data.categoryLevel;
-                 var categories = data.jsonData.categories;
-
-                 for (var i = depth; i <= cateDepth; i++) {
-                     sws.common.removeSelectOptionAll(f['cate_' + i]);
-                     sws.common.addSelectOption(f['cate_' + i], '선택', '');
-                 }
-
-                 $objSelect = $("select[name='cate_" + depth + "']");
-                 $objSelect.empty();
-
-                 if (categories) {
-                     $objSelect.append('<option  value="" selected="true">' + depth + '차카테고리 선택</option>');
-                     $objSelect.prop('selectedIndex', 0);
-                     for (var i = 0; i < categories.length; i++) {
-                         $objSelect.append('<option></option>')
-                             .attr('value', categories[i].categorySysId)
-                             .text(categories[i].name + " [" + categories[i].feeRate + "%]")
-                             .attr('data-feeRate', categories[i].feeRate)
-                             .attr('data-parentSysId', categories[i].parentSysId);
-                         //  objSelect.options.add(objOption);
-                     }
-                 }
+     $.ajax({
+             url: `http://192.168.1.40:3000/api/v1/categories/${categoryLevel}`,
+             dataType: 'json',
+         })
+         .done(function(data) {
+             $select = $('select[name="cate_1"]');
+             $select.empty();
+             $select.append('<option  value="" selected="true">1차카테고리 선택</option>');
+             $select.prop('selectedIndex', 0);
+             console.log('data', data);
+             $.each(data.jsonData.categories, function(key, entry) {
+                 $select.append($('<option></option>')
+                     .attr('value', entry.categorySysId)
+                     .attr('data-parentSysId', entry.parentSysId)
+                     .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
              })
 
-     }
- }
+
+             $('select[name="cate_1"]').on('change', function() {
+                 var categoryLevel = 2;
+                 $.ajax({
+                         url: `http://192.168.1.40:3000/api/v1/categories/${categoryLevel}`,
+                         dataType: 'json'
+                     })
+                     .done(function(data) {
+                         console.log(data);
+                         $select = $('select[name="cate_2"]');
+                         $select.empty();
+                         $select.append('<option  value="" selected="true">2차카테고리 선택</option>');
+                         $select.prop('selectedIndex', 0);
+                         $.each(data.jsonData.categories, function(key, entry) {
+                             $select.append($('<option></option>')
+                                 .attr('value', entry.categorySysId)
+                                 .attr('data-parentSysId', entry.parentSysId)
+                                 .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
+                         })
+                     })
+                     .fail(function(request, status, error) {
+                         msg = request.status + "<br>" + request.responseText + "<br>" + error;
+                         console.log(msg);
+                         alert("카테고리를 불러올 수 없습니다.");
+                     })
+             })
+
+         })
+         .fail(function(request, status, error) {
+             msg = request.status + "<br>" + request.responseText + "<br>" + error;
+             console.log(msg);
+             alert("카테고리를 불러올 수 없습니다.");
+         })
+ });
+
+
+
 
  // 카테고리 처리
  function addCate() {
@@ -343,6 +348,26 @@
  // 이미지파일 등록시 파일이름 보이기  
  document.getElementById("bigImage").onchange = function() {
      document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
+
+     const data = new FormData($('#bigImage').val());
+     $.ajax({
+             url: "/file",
+             type: "post",
+             enctype: 'multipart/form-data',
+             processData: false,
+             contentType: false,
+             cache: false,
+             data: data
+         })
+         .done(function(data) {
+             console.log(date);
+         })
+         .fail(function(request, status, error) {
+             msg = request.status + "<br>" + request.responseText + "<br>" + error;
+             console.log(msg);
+             alert("이미지 저장 실패");
+         })
+
  };
  document.getElementById("midImage").onchange = function() {
      document.getElementById("midImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
@@ -359,6 +384,9 @@
  document.getElementById("optionalImage3").onchange = function() {
      document.getElementById("optionalImage3URL").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
+
+
+
 
 
 
@@ -562,6 +590,8 @@
 
  //  <!------------------------- 13.원산지 -->
  //  <!------------------------- 14.상품정보고시 -->
+
+ getProductNotices();
 
 
 

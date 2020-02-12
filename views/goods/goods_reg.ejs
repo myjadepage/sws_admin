@@ -56,19 +56,19 @@
                                         <select name="category5" data-depth="5" class="text_input" style="width: 230px;" onchange="changeCate(this)">
                                             <option value="">5차카테고리 선택</option>
                                         </select> -->
-                                        <select id="cate_1" name="cate_1" data-depth="1" class="text_input" style="width: 230px;" onchange="changeCate(this)">
+                                        <select id="cate_1" name="cate_1" class="text_input" style="width: 230px;">
                                             <option value="">선택</option>                                                                                  
                                         </select>
-                                        <select id="cate_2" name="cate_2" data-depth="2" class="text_input" style="width: 230px;" onchange="changeCate(this)">
+                                        <select id="cate_2" name="cate_2" class="text_input" style="width: 230px;">
                                             <option value="">선택</option>                                                                         
                                         </select>
-                                        <select id="cate_3" name="cate_3" data-depth="3" class="text_input" style="width: 230px;" onchange="changeCate(this)">
+                                        <select id="cate_3" name="cate_3" class="text_input" style="width: 230px;">
                                             <option value="">선택</option>
                                         </select>
-                                        <select id="cate_4" name="cate_4" data-depth="4" class="text_input" style="width: 230px;" onchange="changeCate(this)">
+                                        <select id="cate_4" name="cate_4" class="text_input" style="width: 230px;">
                                             <option value="">선택</option>
                                         </select>
-                                        <select id="cate_5" name="cate_5" data-depth="5" class="text_input" style="width: 230px;" onchange="changeCate(this)">
+                                        <select id="cate_5" name="cate_5" class="text_input" style="width: 230px;">
                                             <option value="">선택</option>
                                         </select>
                                         <button type="button" class="btn btn-sm btn-secondary" onclick="addCate()">추가</button>
@@ -201,8 +201,8 @@
                                     <th>다른이미지</th>
                                     <td colspan="3" class="img_etc">
                                         <div class="tr mgt5">
-                                            <button type="button" class="btn btn-sm btn-secondary">이미지 추가</button>
-                                            <button type="button" class="btn btn-sm btn-danger">이미지 삭제</button>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="addRow('tb_img_etc')">이미지 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="delRowList('tb_img_etc')">이미지 삭제</button>
                                         </div>
                                         <table id="tb_img_etc" width="100%" summary="다른 이미지 목록입니다." max="10" noblank="1">
                                             <caption>다른 이미지 목록</caption>
@@ -219,7 +219,7 @@
                                                     <td>
                                                         <label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="optionalImage1" id="optionalImage1" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage1URL" name="optionalImage1URL" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="text" class="fileuploadurl" id="optionalImage1Url" name="optionalImage1Url" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -228,7 +228,7 @@
                                                     <td>
                                                         <label for="optionalImage2" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="optionalImage2" id="optionalImage2" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage2URL" name="optionalImage2URL" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="text" class="fileuploadurl" id="optionalImage2Url" name="optionalImage2Url" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -237,7 +237,7 @@
                                                     <td>
                                                         <label for="optionalImage3" class="btn btn-sm btn-secondary">이미지 찾기</label>
                                                         <input type="file" name="optionalImage3" id="optionalImage3" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage3URL" name="optionalImage3URL" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="text" class="fileuploadurl" id="optionalImage3Url" name="optionalImage3Url" placeholder="선택된 파일이 없습니다" readonly>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -398,11 +398,8 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="notify">
-                                        <select id="notify" name="productNotice" class="text_input" onchange="getNotify(this)">
-                                            <option value="">등록할 상품의 상품군을 선택하세요</option> 
-                                            <option value="2">의류</option>
-                                            <option value="3">전자제품</option>
-                                            <option value="5">테스트</option>         
+                                        <select id="notify" name="productNotice" class="text_input">
+                                            <option value="">등록할 상품의 상품군을 선택하세요</option>                                            
                                         </select>
 
                                         <div class="fr">
@@ -449,7 +446,6 @@
                                         <div class="summernote"></div>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>

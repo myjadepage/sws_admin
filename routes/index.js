@@ -2,7 +2,7 @@ var path = require('path');
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-
+var multer = require('multer');
 
 //제이슨 가짜정보만들기
 //상품공급업체
@@ -13,62 +13,62 @@ router.get('/supply', function(req, res) {
     res.send(result);
 })
 
-router.post('/goodsIcons', function(req, res) {
-    var filePath = path.join(__dirname, '../public/data/goodsIcons.json');
+router.post('/upload', function(req, res) {
+    var filePath = path.join(__dirname, '/upload');
     var file = fs.readFileSync(filePath, 'utf8');
     var result = JSON.parse(file);
     res.send(result);
 })
 
-router.get('/brands', function(req, res, next) {
-    res.json({
-        "jsonData": {
-            "brands": [{
-                    "brandSysId": 1,
-                    "brandCode": "B000001",
-                    "name": "A브랜드",
-                    "sellerSysId": 2
-                },
-                {
-                    "brandSysId": 2,
-                    "brandCode": "B000002",
-                    "name": "B브랜드",
-                    "sellerSysId": 3
-                }
-            ]
+
+
+router.post('/file', function(req, res) {
+    var upload = multer({ storage: storage }).single('bigImage');
+    upload(req, res, function(err) {
+        if (err) {
+            return res.end("Error uploading file.");
         }
+        res.end("File is uploaded");
     });
 })
-router.get('/categories/:categoryLevel', function(req, res, next) {
-    var categoryLevel = req.params.categoryLevel;
-    var parentSysId = req.params.parentSysId;
-    res.json({
-        "categoryLevel": categoryLevel,
-        "jsonData": {
-            "categories": [{
-                    "categorySysId": 1,
-                    "categoryCode": "CG00000001",
-                    "name": "OUTER",
-                    "feeRate": 0.2,
-                    "isHide": false,
-                    "topDesignHTML": "",
-                    "isApplyChildCategory": false,
-                    "parentSysId": parentSysId
-                },
-                {
-                    "categorySysId": 2,
-                    "categoryCode": "CG00000003",
-                    "name": "TOP",
-                    "feeRate": 0.3,
-                    "isHide": false,
-                    "topDesignHTML": "",
-                    "isApplyChildCategory": false,
-                    "parentSysId": parentSysId
-                }
-            ]
-        }
-    });
-})
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        fs.mkdir('./uploads', function(err) {
+            if (err) {
+                console.log(err.stack)
+            } else {
+                callback(null, './uploads');
+            }
+        })
+    },
+    filename: function(req, file, cb) {
+        callback(null, file.fieldname + '-' + Date.now());
+    }
+});
+
+// var upload = function(req, res) {
+//     var deferred = Q.defer();
+//     var storage = multer.diskStorage({
+
+//         destination: function(req, file, cb) {
+//             cb(null, imagePath);
+//         },
+
+//         filename: function(req, file, cb) {
+//             file.uploadedFile = {
+//                 name: req.params.filename,
+//                 ext: file.mimetype.split('/')[1]
+//             };
+//             cb(null, file.uploadedFile.name + '.' + file.upload.ext);
+//         }
+//     });
+//     var upload = multer({ storage: storage }).single('file');
+//     upload(req, res, function(err) {
+//         if (err) deferred.reject();
+//         else deferred.resolve(req.file.uploadedFile);
+//     });
+//     return deferred.promise;
+// }
 
 //------------------------->제이슨 가짜정보만들기
 
