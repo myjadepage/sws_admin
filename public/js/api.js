@@ -127,7 +127,7 @@ function getBrand() {
             dataType: 'json'
         })
         .done(function(data) {
-            console.log("brands", data.jsonData.brands[0].brandSysId);
+            console.log("brands", data.jsonData);
             $select = $('select[name="brandSysId"]');
             $select.empty();
             $select.append('<option  value="" selected="true">브랜드 선택</option>');
@@ -146,36 +146,218 @@ function getBrand() {
         })
 }
 
-function getCategory() {
-    var categoryLevel = 1;
-    var parentSysId = 0;
+
+var category = {}
+category.getCate1 = function() {
     $.ajax({
-            method: "get",
-            url: `http://192.168.1.40:3000/api/v1/categories/:${categoryLevel}`,
-            contentType: "json",
-            data: {
-                parentSysId: parentSysId
-            }
+            url: "http://192.168.1.40:3000/api/v1/categories/1",
+            dataType: 'json',
         })
         .done(function(data) {
-            // $select = $('select[name="category1"]');
-            $select = $('select[name="cate_1"]');
+            $select = $('select[name="category1"]');
             $select.empty();
             $select.append('<option  value="" selected="true">1차카테고리 선택</option>');
             $select.prop('selectedIndex', 0);
             $.each(data.jsonData.categories, function(key, entry) {
-                var feeRate = entry.feeRate * 100;
                 $select.append($('<option></option>')
                     .attr('value', entry.categorySysId)
                     .attr('data-parentSysId', entry.parentSysId)
-                    .text(entry.name + ' [ ' + feeRate + ' % ]'));
+                    .attr('data-categoryLevel', entry.categoryLevel)
+                    .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
             })
+            category.getCate2();
         })
         .fail(function(request, status, error) {
             msg = request.status + "<br>" + request.responseText + "<br>" + error;
             console.log(msg);
             alert("카테고리를 불러올 수 없습니다.");
         })
+}
+
+category.getCate2 = function() {
+    $('select[name="category1"]').on('change', function() {
+        if ($('select[name="category1"] option:selected').attr('value') != "") {
+            var parentSysId = $('select[name="category1"] option:selected').attr('data-parentSysId');
+            var categoryLevel = $('select[name="category1"] option:selected').attr('data-categoryLevel');
+            var categorySysId = $('select[name="category1"] option:selected').val();
+
+            var url;
+            if (parentSysId == 0) {
+                url = "http://192.168.1.40:3000/api/v1/categories/2";
+            } else {
+                url = `http://192.168.1.40:3000/api/v1/categories/2/nodes/${categorySysId}`
+            }
+            console.log("2url", url);
+            $.ajax({
+                    url: url,
+                    dataType: 'json'
+                })
+                .done(function(data) {
+                    console.log(data);
+                    $select = $('select[name="category2"]');
+                    $select.empty();
+                    $select.append('<option  value="" selected="true">2차카테고리 선택</option>');
+                    $select.prop('selectedIndex', 0);
+                    $.each(data.jsonData.categories, function(key, entry) {
+                        $select.append($('<option></option>')
+                            .attr('value', entry.categorySysId)
+                            .attr('data-parentSysId', entry.parentSysId)
+                            .attr('data-categoryLevel', entry.categoryLevel)
+                            .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
+                    })
+                    category.getCate3();
+                })
+                .fail(function(request, status, error) {
+                    msg = request.status + "<br>" + request.responseText + "<br>" + error;
+                    console.log(msg);
+                    alert("카테고리를 불러올 수 없습니다.");
+                })
+        } else {
+            $('select[name="category2"],select[name="category3"],select[name="category4"],select[name="category5"]').empty();
+            $('select[name="category2"]').append('<option  value="" selected="true">2차카테고리 선택</option>');
+            $('select[name="category3"]').append('<option  value="" selected="true">3차카테고리 선택</option>');
+            $('select[name="category4"]').append('<option  value="" selected="true">4차카테고리 선택</option>');
+            $('select[name="category5"]').append('<option  value="" selected="true">5차카테고리 선택</option>');
+        }
+    })
+}
+
+category.getCate3 = function() {
+    $('select[name="category2"]').on('change', function() {
+        if ($('select[name="category2"] option:selected').attr('value') != "") {
+            var parentSysId = $('select[name="category2"] option:selected').attr('data-parentSysId');
+            // var categoryLevel = $('select[name="category2"] option:selected').attr('data-categoryLevel');
+            var categorySysId = $('select[name="category2"] option:selected').val();
+
+
+
+            var url;
+            if (parentSysId == 0) {
+                url = "http://192.168.1.40:3000/api/v1/categories/3";
+            } else {
+                url = `http://192.168.1.40:3000/api/v1/categories/3/nodes/${categorySysId}`
+            }
+            $.ajax({
+                    url: url,
+                    dataType: 'json'
+                })
+                .done(function(data) {
+                    console.log(data);
+                    $select = $('select[name="category3"]');
+                    $select.empty();
+                    $select.append('<option  value="" selected="true">3차카테고리 선택</option>');
+                    $select.prop('selectedIndex', 0);
+                    $.each(data.jsonData.categories, function(key, entry) {
+                        $select.append($('<option></option>')
+                            .attr('value', entry.categorySysId)
+                            .attr('data-parentSysId', entry.parentSysId)
+                            .attr('data-categoryLevel', entry.categoryLevel)
+                            .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
+                    })
+                    category.getCate4();
+                })
+                .fail(function(request, status, error) {
+                    msg = request.status + "<br>" + request.responseText + "<br>" + error;
+                    console.log(msg);
+                    alert("카테고리를 불러올 수 없습니다.");
+                })
+        } else {
+            $('select[name="category3"],select[name="category4"],select[name="category5"]').empty();
+            $('select[name="category3"]').append('<option  value="" selected="true">3차카테고리 선택</option>');
+            $('select[name="category4"]').append('<option  value="" selected="true">4차카테고리 선택</option>');
+            $('select[name="category5"]').append('<option  value="" selected="true">5차카테고리 선택</option>');
+        }
+    })
+}
+
+category.getCate4 = function() {
+    $('select[name="category3"]').on('change', function() {
+        if ($('select[name="category3"] option:selected').attr('value') != "") {
+            var parentSysId = $('select[name="category3"] option:selected').attr('data-parentSysId');
+            // var categoryLevel = $('select[name="category3"] option:selected').attr('data-categoryLevel');
+            var categorySysId = $('select[name="category3"] option:selected').val();
+
+
+            var url;
+            if (parentSysId == 0) {
+                url = "http://192.168.1.40:3000/api/v1/categories/4";
+            } else {
+                url = `http://192.168.1.40:3000/api/v1/categories/4/nodes/${categorySysId}`
+            }
+            $.ajax({
+                    url: url,
+                    dataType: 'json'
+                })
+                .done(function(data) {
+                    console.log(data);
+                    $select = $('select[name="category4"]');
+                    $select.empty();
+                    $select.append('<option  value="" selected="true">4차카테고리 선택</option>');
+                    $select.prop('selectedIndex', 0);
+                    $.each(data.jsonData.categories, function(key, entry) {
+                        $select.append($('<option></option>')
+                            .attr('value', entry.categorySysId)
+                            .attr('data-parentSysId', entry.parentSysId)
+                            .attr('data-categoryLevel', entry.categoryLevel)
+                            .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
+                    })
+                    category.getCate5();
+                })
+                .fail(function(request, status, error) {
+                    msg = request.status + "<br>" + request.responseText + "<br>" + error;
+                    console.log(msg);
+                    alert("카테고리를 불러올 수 없습니다.");
+                })
+        } else {
+            $('select[name="category4"],select[name="category5"]').empty();
+            $('select[name="category4"]').append('<option  value="" selected="true">4차카테고리 선택</option>');
+            $('select[name="category5"]').append('<option  value="" selected="true">5차카테고리 선택</option>');
+        }
+    })
+}
+
+category.getCate5 = function() {
+    $('select[name="category4"]').on('change', function() {
+        if ($('select[name="category4"] option:selected').attr('value') != "") {
+            var parentSysId = $('select[name="category4"] option:selected').attr('data-parentSysId');
+            // var categoryLevel = $('select[name="category4"] option:selected').attr('data-categoryLevel');
+            var categorySysId = $('select[name="category4"] option:selected').val();
+
+
+            var url;
+            if (parentSysId == 0) {
+                url = "http://192.168.1.40:3000/api/v1/categories/5";
+            } else {
+                url = `http://192.168.1.40:3000/api/v1/categories/5/nodes/${categorySysId}`
+            }
+            $.ajax({
+                    url: url,
+                    dataType: 'json'
+                })
+                .done(function(data) {
+                    console.log(data);
+                    $select = $('select[name="category5"]');
+                    $select.empty();
+                    $select.append('<option  value="" selected="true">5차카테고리 선택</option>');
+                    $select.prop('selectedIndex', 0);
+                    $.each(data.jsonData.categories, function(key, entry) {
+                        $select.append($('<option></option>')
+                            .attr('value', entry.categorySysId)
+                            .attr('data-parentSysId', entry.parentSysId)
+                            .attr('data-categoryLevel', entry.categoryLevel)
+                            .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
+                    })
+                })
+                .fail(function(request, status, error) {
+                    msg = request.status + "<br>" + request.responseText + "<br>" + error;
+                    console.log(msg);
+                    alert("카테고리를 불러올 수 없습니다.");
+                })
+        } else {
+            $('select[name="category5"]').empty();
+            $('select[name="category5"]').append('<option  value="" selected="true">5차카테고리 선택</option>');
+        }
+    })
 }
 
 

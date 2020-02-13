@@ -1,16 +1,17 @@
  //<![CDATA[ 테이블 Row 추가/삭제
  var cellHtmls = new Array();
+
  // 카테고리 테이블 추가
  cellHtmls['tb_category'] = new Array();
  cellHtmls['tb_category'][0] = {
-     html: '<input type="hidden" name="cate" value="#CODE#" cms="#CMS#" /><input type="radio" name="cateDefault" value="#CODE#" onClick="cateDefaultCms(this)" />'
+     html: '<input type="hidden" name="cate" /><input type="radio" name="cateDefault" onClick="cateDefaultCms(this)" />'
  };
  cellHtmls['tb_category'][1] = {
      html: '#CATEGORY#',
      css: 'txt'
  };
  cellHtmls['tb_category'][2] = {
-     html: '<span class="button black small"><button type="button" onClick="delCate(this)">삭제</button></span>'
+     html: '<button type="button" class="btn btn-sm btn-danger" onClick="delCate(this)">삭제</button>'
  };
 
  // 이미지추가
@@ -142,98 +143,35 @@
 
  //  <!------------------------- 2.상품분류 -->
  //<![CDATA[ 카테고리 설정
- //  맨처음 부모1차카테고리만 나오게
-
- $(function() {
-     var categoryLevel = 1;
-
-     $.ajax({
-             url: `http://192.168.1.40:3000/api/v1/categories/${categoryLevel}`,
-             dataType: 'json',
-         })
-         .done(function(data) {
-             $select = $('select[name="cate_1"]');
-             $select.empty();
-             $select.append('<option  value="" selected="true">1차카테고리 선택</option>');
-             $select.prop('selectedIndex', 0);
-             console.log('data', data);
-             $.each(data.jsonData.categories, function(key, entry) {
-                 $select.append($('<option></option>')
-                     .attr('value', entry.categorySysId)
-                     .attr('data-parentSysId', entry.parentSysId)
-                     .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
-             })
-
-
-             $('select[name="cate_1"]').on('change', function() {
-                 var categoryLevel = 2;
-                 $.ajax({
-                         url: `http://192.168.1.40:3000/api/v1/categories/${categoryLevel}`,
-                         dataType: 'json'
-                     })
-                     .done(function(data) {
-                         console.log(data);
-                         $select = $('select[name="cate_2"]');
-                         $select.empty();
-                         $select.append('<option  value="" selected="true">2차카테고리 선택</option>');
-                         $select.prop('selectedIndex', 0);
-                         $.each(data.jsonData.categories, function(key, entry) {
-                             $select.append($('<option></option>')
-                                 .attr('value', entry.categorySysId)
-                                 .attr('data-parentSysId', entry.parentSysId)
-                                 .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
-                         })
-                     })
-                     .fail(function(request, status, error) {
-                         msg = request.status + "<br>" + request.responseText + "<br>" + error;
-                         console.log(msg);
-                         alert("카테고리를 불러올 수 없습니다.");
-                     })
-             })
-
-         })
-         .fail(function(request, status, error) {
-             msg = request.status + "<br>" + request.responseText + "<br>" + error;
-             console.log(msg);
-             alert("카테고리를 불러올 수 없습니다.");
-         })
- });
-
-
-
+ category.getCate1();
 
  // 카테고리 처리
  function addCate() {
      var f = document.Frm;
-     var cate = cms = child = depth = 0;
+     var categorySysId = parentSysId = categoryLevel = 0;
      var category = '';
 
-     for (var i = 1; i <= cateDepth; i++) {
-         var objOption = f['cate_' + i].options[f['cate_' + i].selectedIndex];
+     for (var i = 1; i <= 5; i++) {
+         var objOption = f['category' + i].options[f['category' + i].selectedIndex];
          if (!sws.common.isEmpty(objOption)) {
-             cate = objOption.value.toNumeric();
-             cms = objOption.getAttribute('cms').toString().toNumeric();
-             child = objOption.getAttribute('child').toString().toNumeric();
-
-             category += (category ? '>' : '') + objOption.getAttribute('name');
+             categorySysId = objOption.value.toNumeric();
+             parentSysId = objOption.getAttribute('data-parentSysId').toString().toNumeric();
+             categoryLevel = objOption.getAttribute('data-categoryLevel').toString().toNumeric();
+             category += (category ? ' > ' : '') + objOption.text;
              depth = i;
          }
      }
-     category += " [" + cms + "%]";
 
      if (cate == 0) {
          alert("카테고리를 선택해 주세요.");
-         f.cate_1.focus();
+         f.category.focus();
          return false;
      }
-     if (cateDepthGoods > depth) {
+     if (categoryLevel > 5) {
          alert("카테고리를 " + cateDepthGoods + "단계 이상 선택해 주세요.");
          return false;
      }
-     if (child > 0) {
-         alert("하위 카테고리가 존재하지 않는 카테고리만 선택할 수 있습니다.");
-         return false;
-     }
+
      if (f.cate) {
          if (typeof(f.cate.length) == 'undefined') {
              if (f.cate.value == cate.toString()) {
@@ -250,27 +188,12 @@
          }
      }
 
-     if (f.dealerCmsType.value == 'CTG') { // 입점업체 수수료 설정 : 카테고리 경우
-         if (typeof(f.cate) == 'undefined') { // 등록한 카테고리가 없는 경우
-             f.margin.value = cms;
-         } else if (getRadio(f.cmsType) != 'GOS' && f.margin.value.toNumeric() != cms) {
-             alert("수수료율이 서로 다른 다중 카테고리를 선택하셨습니다.\n기본카테고리 수수료율로 설정합니다.");
-             if (checkCmsType() == false) {
-                 return;
-             }
-         }
-     } else { // 입점업체 수수료 설정 : 입점업체 경우
-         f.margin.value = f.dealerCmsRate.value.toNumeric();
-     }
-
      if (addRow('tb_category', {
-             '#CODE#': cate,
-             '#CATEGORY#': category,
-             '#CMS#': cms
+             '#CODE#': categorySysId,
+             '#CATEGORY#': category
          })) {
          setCateDefault();
      }
-     calcPrice();
  }
 
  function delCate(obj) {
@@ -284,38 +207,12 @@
      if (f.cateDefault) {
          if (typeof(f.cateDefault.length) == 'undefined') {
              f.cateDefault.checked = true;
-             cateDefaultCms(f.cateDefault);
          } else if (getRadio(f.cateDefault) == '') {
              f.cateDefault[0].checked = true;
-             cateDefaultCms(f.cateDefault[0]);
          }
      }
  }
 
- function cateDefaultCms(obj) {
-     var f = document.Frm;
-
-     if (sws.common.getRadio(f.cmsType) != 'GOS' && f.dealerCmsType.value != 'MIM') {
-         var cateCms = $(obj).prev().attr('cms');
-         f.margin.value = cateCms;
-         calcPrice();
-     }
- }
-
- function checkDifferCateCms() {
-     var f = document.Frm;
-     var previous = -1;
-     var result = false;
-
-     if (f.cate && typeof(f.cate.length) != 'undefined') {
-         for (var i = 0; i < f.cate.length; i++) {
-             var cms = f.cate[i].getAttribute('cms').toString().toNumeric();
-             if (previous > 0 && previous != cms) result = true;
-             previous = cms;
-         }
-     }
-     return result;
- }
  //]]>
 
 
@@ -345,11 +242,14 @@
      }
  }
 
- // 이미지파일 등록시 파일이름 보이기  
- document.getElementById("bigImage").onchange = function() {
-     document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
 
-     const data = new FormData($('#bigImage').val());
+ //큰이미지 등록
+ $('#bigImage').on('change', function() {
+     var fileInput = document.getElementById("bigImage");
+     var file = fileInput.files[0];
+     const data = new FormData();
+     data.append('file', file);
+     console.log("이미지", file)
      $.ajax({
              url: "/file",
              type: "post",
@@ -360,14 +260,42 @@
              data: data
          })
          .done(function(data) {
-             console.log(date);
+             console.log("성공", data);
          })
          .fail(function(request, status, error) {
              msg = request.status + "<br>" + request.responseText + "<br>" + error;
              console.log(msg);
              alert("이미지 저장 실패");
          })
-
+ });
+ //다른이미지 등록
+ $('#optionalImage1').on('change', function() {
+     var fileInput = document.getElementById("optionalImage1");
+     var file = fileInput.files[0];
+     const data = new FormData();
+     data.append('file', file);
+     console.log("이미지", file)
+     $.ajax({
+             url: "/file",
+             type: "post",
+             enctype: 'multipart/form-data',
+             processData: false,
+             contentType: false,
+             cache: false,
+             data: data
+         })
+         .done(function(data) {
+             console.log("성공", data);
+         })
+         .fail(function(request, status, error) {
+             msg = request.status + "<br>" + request.responseText + "<br>" + error;
+             console.log(msg);
+             alert("이미지 저장 실패");
+         })
+ });
+ // 이미지파일 등록시 파일이름 보이기 
+ document.getElementById("bigImage").onchange = function() {
+     document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
  document.getElementById("midImage").onchange = function() {
      document.getElementById("midImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
@@ -376,13 +304,13 @@
      document.getElementById("smallImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
  document.getElementById("optionalImage1").onchange = function() {
-     document.getElementById("optionalImage1URL").value = this.value.replace(/C:\\fakepath\\/i, '');
+     document.getElementById("optionalImage1Url").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
  document.getElementById("optionalImage2").onchange = function() {
-     document.getElementById("optionalImage2URL").value = this.value.replace(/C:\\fakepath\\/i, '');
+     document.getElementById("optionalImage2Url").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
  document.getElementById("optionalImage3").onchange = function() {
-     document.getElementById("optionalImage3URL").value = this.value.replace(/C:\\fakepath\\/i, '');
+     document.getElementById("optionalImage3Url").value = this.value.replace(/C:\\fakepath\\/i, '');
  };
 
 

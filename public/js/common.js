@@ -1,8 +1,4 @@
 var sws = {};
-$(() => {
-    sws.common.ready();
-});
-
 sws.common = {
     regex: {
         // 영어 숫자만
@@ -843,13 +839,6 @@ sws.common = {
             }
         }
     },
-
-
-
-
-    ready() {
-        $('button').prop('type', 'button');
-    },
     onClickLogo() {
         location.href = '/';
     },
@@ -903,147 +892,13 @@ sws.common = {
             lang,
             placeholder,
             toolbar,
-            callbacks: {
-                onImageUpload(files) {
-                    imagePassCallback = imagePassCallback || $.proxy((e, resp) => {
-                        const $img = $('<img>');
-                        $img.attr('src', resp.imageUrl || resp.url);
-                        $summernote.summernote('insertNode', $img[0]);
-                    });
-                    sws.common.changeImageFileCheck(files, getMallNoFunction(), null, imageFileSize, imagePassCallback, imageFailCallback);
-                }
-            },
-            beforeSend() {
-                showProgressbar();
-            },
-            complete() {
-                if (!noHideDimmed) {
-                    hideProgressbar();
-                }
-            }
+            callbacks: {}
         });
-    },
-
-    emptyFileName($fileWrap) {
-        if ($fileWrap && $fileWrap.length > 0) {
-            $fileWrap.find('.file_name').val('');
-        }
-    },
-
-    changeImageFileCheck(e, mallNo, $imageArea, limitSize = 1024, passCallback, failCallback, limit = 0, limitAlert, noPreview) {
-        const _this = this;
-        try {
-            const fileList = e.target ? e.target.files : e;
-            const files = [];
-            let length = 0;
-            const overSizeImages = [];
-
-            $.each(fileList, (i, v) => {
-                if (!v.name.toLowerCase().match(/\.(jpg|jpeg|png|gif|bmp)$/)) {
-                    throw { msg: '이미지파일(Jpg,jpge,gif,png,bmp)만 등록해주세요.' };
-                }
-
-                if (limit != 0 && length >= limit) {
-                    limitAlert = limitAlert || `최대 ${limit}개까지 등록가능합니다.`;
-                    alert(limitAlert);
-
-                    if ($imageArea && $imageArea.length > 0) {
-                        sws.common.emptyFileName($imageArea.find('.file_wrap'));
-                    }
-                    return false;
-                }
-
-                if (v.size / 1024 > sws.parseInt(limitSize)) {
-                    overSizeImages.push(v.name);
-                } else {
-                    length++;
-                    files.push(v);
-                }
-            });
-
-            if (overSizeImages.length > 0) {
-                if ($imageArea && $imageArea.length > 0) {
-                    sws.common.emptyFileName($imageArea.find('.file_wrap'));
-                }
-                const limitSizeText = sws.parseInt(limitSize / 1024) > 0 ? `${sws.parseInt(limitSize / 1024)}MB` : `${limitSize}KB`;
-                throw { msg: `등록 실패 하였습니다.\n최대 ${limitSizeText}까지 등록가능합니다.` };
-            }
-
-            if (length > 0) {
-                files.sort((a, b) => a.name > b.name);
-                if (files.length > 1) {
-                    sws.common.uploadFiles(files, e, mallNo, $imageArea, limitSize, passCallback, failCallback, noPreview);
-                } else {
-                    sws.common.uploadFile(files[0], e, mallNo, $imageArea, limitSize, passCallback, failCallback, noPreview);
-                }
-            }
-
-            if ($imageArea) {
-                $imageArea.find('input[type=file]').val('');
-            }
-
-            return files;
-        } catch (err) {
-            if (err.msg) {
-                alert(err.msg);
-                console.log(err.msg);
-            } else {
-                alert('이미지 등록 중 오류가 발생했습니다.');
-                console.log(err);
-            }
-
-            if ($imageArea && $imageArea.length > 0) {
-                $imageArea.find('input[type=file]').val('');
-            }
-
-            if ($imageArea) {
-                _this.emptyPreviewImage($imageArea);
-            }
-            if (failCallback) {
-                failCallback(e);
-            }
-        }
     }
+
 }
 
 
-showProgressbar = function() {
-    return new Promise((resolve, reject) => {
-        $dimmed = $('.dimmed_area');
-        $floatingBar = $('#floatingBarsG');
-
-        if ($dimmed.length > 0) {
-            $dimmed.show();
-        } else {
-            const html = `<div class="dimmed_area">
-                        <div id="floatingBarsG">
-                            <div class="blockG" id="rotateG_01"></div>
-                            <div class="blockG" id="rotateG_02"></div>
-                            <div class="blockG" id="rotateG_03"></div>
-                            <div class="blockG" id="rotateG_04"></div>
-                            <div class="blockG" id="rotateG_05"></div>
-                            <div class="blockG" id="rotateG_06"></div>
-                            <div class="blockG" id="rotateG_07"></div>
-                            <div class="blockG" id="rotateG_08"></div>
-                        </div>
-                    </div>`;
-            $('body').append(html);
-            $('.dimmed_area').show();
-        }
-        setTimeout(() => {
-            resolve(true);
-        }, 300);
-    });
-};
-
-hideProgressbar = function() {
-    $dimmed = $('.dimmed_area');
-    $floatingBar = $('#floatingBarsG');
-    if ($dimmed.length > 1) {
-        $dimmed[0].remove();
-    }
-    $dimmed.hide();
-};
 
 sws.popup = function(sURL, sWindowName, w, h, sScroll) {
     const x = (screen.width - w) / 2;

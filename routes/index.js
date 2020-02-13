@@ -23,7 +23,7 @@ router.post('/upload', function(req, res) {
 
 
 router.post('/file', function(req, res) {
-    var upload = multer({ storage: storage }).single('bigImage');
+    var upload = multer({ storage: storage }).single('file');
     upload(req, res, function(err) {
         if (err) {
             return res.end("Error uploading file.");
