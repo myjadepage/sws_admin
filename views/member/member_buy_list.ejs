@@ -19,9 +19,9 @@
                 </ul>
 
 
-                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
+                <form name="sFrm">
 
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>회원 검색 폼</caption>
                         <colgroup>
                             <col width="130">
@@ -123,12 +123,12 @@
 
                 </form>
 
-                <form name="Frm" method="post">
+                <form name="Frm">
                     <input type="hidden" name="mode">
                     <input type="hidden" name="no">
                     <input type="hidden" name="params" value="sregdts=^sregdte=^sbuydts=^sbuydte=^slevel=0^sgender=^ssleep=0^sbuyprice=^ebuyprice=^scmoney=^ecmoney=^skey=^sword=^psort=regdt^psize=10^page=">
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list">
+                    <table class="t_list">
                         <caption>상품구매 회원목록</caption>
                         <colgroup>
                             <col width="30">
@@ -165,11 +165,7 @@
                             <tr>
                                 <td><input type="checkbox" name="cbList" value="2"></td>
                                 <td>일반</td>
-                                <td>
-
-                                    <a href="javascript:;" ezi="2" onclick="ezpop.member.open(event)">mallstore</a>
-
-                                </td>
+                                <td><a href="javascript:;" ezi="2" onclick="ezpop.member.open(event)">mallstore</a></td>
                                 <td>코알라회원</td>
                                 <td>몰스토어</td>
                                 <td>-</td>
@@ -193,7 +189,7 @@
                     <div class="section_head">
                         <h4>일괄 수정</h4>
                     </div>
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>일괄 수정 폼</caption>
                         <colgroup>
                             <col width="130">

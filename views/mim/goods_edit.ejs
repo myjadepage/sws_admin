@@ -17,9 +17,7 @@
                     <li><span class="red">*</span>로 설정된 부분은 필수 입력하셔야 합니다.</li>
                 </ul>
 
-
-
-                <form name="Frm" method="post" action="/mim/goods_edit.act" enctype="multipart/form-data">
+                <form name="Frm">
                     <input type="hidden" name="menu" value="list">
                     <input type="hidden" name="mode" value="">
                     <input type="hidden" name="gno" value="234">
@@ -41,13 +39,11 @@
                             <col width="*">
                         </colgroup>
                         <tbody>
-
                             <tr>
                                 <th>상품공급업체 <span class="red">*</span></th>
                                 <td colspan="3">
                                     <select name="goodsDealer" onchange="changeDealer(this)"><option value="0" cmstype="CTG" cmsrate="0">몰인몰</option><option value="8" cmstype="MIM" cmsrate="10" selected="">내친구몰 (dealers) [10%]</option></select>
                                     <span class="blue">[이 상품은 상품별 수수료로 설정되어 있습니다.]</span>
-
                                 </td>
                             </tr>
 
@@ -230,21 +226,18 @@
                                             <col width="*">
                                         </colgroup>
                                         <tbody>
-
                                             <tr>
                                                 <td><span class="numbering">1</span>.</td>
                                                 <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                 <td><input type="file" name="imgEtc" onkeypress="blockKey(event)" onkeydown="blockKey(event)"></td>
                                                 <td></td>
                                             </tr>
-
                                             <tr>
                                                 <td><span class="numbering">2</span>.</td>
                                                 <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
                                                 <td><input type="file" name="imgEtc" onkeypress="blockKey(event)" onkeydown="blockKey(event)"></td>
                                                 <td></td>
                                             </tr>
-
                                             <tr>
                                                 <td><span class="numbering">3</span>.</td>
                                                 <td><input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" value=""></td>
@@ -1027,145 +1020,56 @@
 
 
 
+
+                    <div class="section_head">
+                        <h4>추가 구성</h4>
+                    </div>
+
+                    <table width="100%" summary="추가 구성 등록 폼 입니다." class="t_form">
+                        <caption>추가 구성 등록 폼</caption>
+                        <colgroup>
+                            <col width="130">
+                            <col width="*">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <th>추가구성</th>
+                                <td class="addition_usable">
+                                    <ul>
+                                        <li><input type="radio" id="use_addition_0" name="useAddition" value="0" onclick="checkUseAddition()" checked=""><label for="use_addition_0">미사용</label></li>
+                                        <li><input type="radio" id="use_addition_1" name="useAddition" value="1" onclick="checkUseAddition()"><label for="use_addition_1">사용</label></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr class="addition_container" style="display:none">
+                                <td colspan="2">
+                                    <ul class="over_h" style="margin-bottom:8px">
+                                        <li class="fl"><span class="button small"><button type="button" onclick="cbAdtAll()">전체선택</button></span></li>
+                                        <li class="fr">
+                                            <span class="button small"><button type="button" onclick="addAddition()">추가구성 추가</button></span>
+                                            <span class="button small"><button type="button" onclick="delAddition()">추가구성 삭제</button></span>
+                                        </li>
+                                    </ul>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="btn">
+                        <span class="button blue large"><button type="button" onclick="validSubmit()">확인</button></span>
+                        <span class="button blue large"><button type="button" onclick="cancel()">취소</button></span>
+                    </div>
+
+                </form>
+
+                <%- include('../inc/footer') %>
+
+
+                    <!-- 에디터 Script -->
+                    <script type="text/javascript" src="/js/HuskyEZCreator.js"></script>
                     <!-- 추가 구성 -->
-
-                    <style type="text/css">
-                        .t_form td.addition_usable ul {
-                            float: left
-                        }
-                        
-                        .t_form td.addition_usable li {
-                            float: left;
-                            margin-right: 20px
-                        }
-                        
-                        .t_form tr.addition_container td {
-                            padding-bottom: 0
-                        }
-                        
-                        .t_form tr.addition_container td .addition {
-                            margin-bottom: 8px;
-                            overflow: hidden
-                        }
-                        
-                        .t_form td .addition_title {
-                            float: left;
-                            width: 20%;
-                            border-top: 1px solid #ddd
-                        }
-                        
-                        .t_form td .addition_title dt,
-                        .t_form td .addition_title dd {
-                            padding: 5px;
-                            text-align: center;
-                            line-height: 19px;
-                            border-bottom: 1px solid #ddd;
-                            border-left: 1px solid #ddd
-                        }
-                        
-                        .t_form td .addition_title dt {
-                            background-color: #f5f5f5
-                        }
-                        
-                        .t_form td .addition_title dd input.text_input {
-                            width: 80%;
-                            margin: 0
-                        }
-                        
-                        .t_form td .addition_list {
-                            float: right;
-                            width: 80%;
-                            border-bottom: 1px solid #ddd;
-                            border-right: 1px solid #ddd;
-                            table-layout: fixed
-                        }
-                        
-                        .t_form td .addition_list th {
-                            padding: 5px;
-                            text-align: center;
-                            line-height: 19px;
-                            border-top: 1px solid #ddd;
-                            border-left: 1px solid #ddd;
-                            border-bottom: 0;
-                            border-right: 0
-                        }
-                        
-                        .t_form td .addition_list td {
-                            padding: 5px;
-                            text-align: center;
-                            border-top: 1px solid #ddd;
-                            border-left: 1px solid #ddd;
-                            border-bottom: 0;
-                            border-right: 0
-                        }
-                        
-                        .t_form td .addition_list td input.text_input {
-                            width: 90%;
-                            margin: 0
-                        }
-                        
-                        .t_form td .addition_list td input.limitless {
-                            color: #777;
-                            font-size: 11px;
-                            background-color: #e0e0e0
-                        }
-                        
-                        .t_form td .addition_list .btns {
-                            text-align: right;
-                            padding-right: 10px
-                        }
-                        
-                        .t_form td .addition_list button {
-                            vertical-align: middle
-                        }
-                        
-                        .t_form td .addition_list .st-head-table,
-                        .t_form td .addition_list .st-body-table {
-                            width: 100%;
-                            table-layout: fixed
-                        }
-                        
-                        .t_form td .addition_list .st-head {
-                            background-color: #f5f5f5;
-                            border-left: 0
-                        }
-                        
-                        .t_form td .addition_list .st-head-table th {
-                            border-top: 0
-                        }
-                        
-                        .t_form td .addition_list .st-body {
-                            border-top: 0;
-                            border-left: 0
-                        }
-                        
-                        .t_form td .addition_list .st-body-scroll {
-                            border-left: 1px solid #ddd
-                        }
-                        
-                        .t_form td .addition_list .st-body-table {
-                            border-bottom: 1px solid #ddd
-                        }
-                        
-                        .t_form td .addition_list .st-body-table td:first-child {
-                            border-left: 0
-                        }
-                        
-                        .t_form td .additions_opener {
-                            float: right;
-                            width: 80%;
-                            background-color: #f0f0f0;
-                            text-align: center;
-                            font-size: 10px;
-                            line-height: 10px;
-                            border-left: 1px solid #ddd;
-                            border-bottom: 1px solid #ddd;
-                            border-right: 1px solid #ddd
-                        }
-                    </style>
-
-                    <script type="text/javascript" src="/img/jquery-ui-1.10.3.min.js.download"></script>
-                    <script type="text/javascript" src="/img/jquery.scrolltable.js.download"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         var maxStRowAdt = 5;
@@ -1418,54 +1322,6 @@
                         //]]>
                     </script>
 
-                    <div class="section_head">
-                        <h4>추가 구성</h4>
-                    </div>
-
-                    <table width="100%" summary="추가 구성 등록 폼 입니다." class="t_form">
-                        <caption>추가 구성 등록 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <th>추가구성</th>
-                                <td class="addition_usable">
-                                    <ul>
-                                        <li><input type="radio" id="use_addition_0" name="useAddition" value="0" onclick="checkUseAddition()" checked=""><label for="use_addition_0">미사용</label></li>
-                                        <li><input type="radio" id="use_addition_1" name="useAddition" value="1" onclick="checkUseAddition()"><label for="use_addition_1">사용</label></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr class="addition_container" style="display:none">
-                                <td colspan="2">
-                                    <ul class="over_h" style="margin-bottom:8px">
-                                        <li class="fl"><span class="button small"><button type="button" onclick="cbAdtAll()">전체선택</button></span></li>
-                                        <li class="fr">
-                                            <span class="button small"><button type="button" onclick="addAddition()">추가구성 추가</button></span>
-                                            <span class="button small"><button type="button" onclick="delAddition()">추가구성 삭제</button></span>
-                                        </li>
-                                    </ul>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                    <div class="btn">
-                        <span class="button blue large"><button type="button" onclick="validSubmit()">확인</button></span>
-                        <span class="button blue large"><button type="button" onclick="cancel()">취소</button></span>
-                    </div>
-
-                </form>
-
-                <%- include('../inc/footer') %>
-
-
-                    <!-- 에디터 Script -->
-                    <script type="text/javascript" src="/img/HuskyEZCreator.js.download"></script>
 
                     <script type="text/javascript">
                         //<![CDATA[

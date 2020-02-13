@@ -22,13 +22,13 @@
                 </form>
 
                 <!-- 검색 폼 : 시작 ###################################################################### -->
-                <form name="sFrm" method="get" onsubmit="return validSearch(this)">
+                <form name="sFrm">
                     <input type="hidden" name="menu" value="">
                     <input type="hidden" name="sstep" value="">
                     <input type="hidden" name="psort" value="orddt">
                     <input type="hidden" name="psize" value="10">
 
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>주문 검색</caption>
                         <colgroup>
                             <col width="130">
@@ -73,9 +73,9 @@
                                 <td>
                                     <div>
                                         <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
                                         <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
                                     </div>
                                     <div class="mgt5">
                                         <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
 
-                    <table cellpadding="0" cellspacing="0" border="0" width="100%" class="t_list">
+                    <table class="t_list">
                         <caption>주문 리스트</caption>
                         <colgroup>
                             <col width="30">
@@ -235,7 +235,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -269,7 +269,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/43.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/43.jpg" class="photo" onerror="this.src='/images/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=234&cate=24" target="_blank">[NCGN] Sports Goggle</a></div>
                                                         <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
@@ -381,7 +381,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -415,7 +415,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/57.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/57.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=197&cate=24" target="_blank">[NCGN] FLAT TRACK GREASER TEE</a></div>
                                                         <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
@@ -527,7 +527,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -561,7 +561,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/56.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/56.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=196&cate=24" target="_blank">[NCGN] FEDERAL TRUCKS BLACKLABEL TEE</a></div>
                                                         <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
@@ -686,7 +686,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -720,7 +720,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/201324740693527.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/201324740693527.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=121&cate=78" target="_blank">그레이블루 와인</a></div>
                                                     </div>
@@ -776,7 +776,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/201721660706400.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/201721660706400.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=239&cate=327" target="_blank">SUN_추가상품_개별_선불12000원이상 무료</a></div>
                                                     </div>
@@ -887,7 +887,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -921,7 +921,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/56.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/56.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=196&cate=24" target="_blank">[NCGN] FEDERAL TRUCKS BLACKLABEL TEE</a></div>
                                                         <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
@@ -1033,7 +1033,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -1067,7 +1067,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/201324739120470.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/201324739120470.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=90&cate=6" target="_blank">배색 트렌치 코트</a></div>
                                                     </div>
@@ -1178,7 +1178,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -1212,7 +1212,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="./몰인몰 관리자사이트_files/43.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/43.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="http://mimd.mallstore.co.kr/goods/detail.asp?gno=234&cate=24" target="_blank">[NCGN] Sports Goggle</a></div>
                                                         <div class="mgt3"><span style="color:gray; margin-right:3px;">판매자:</span><a href="javascript:;" onclick="loginDealer(8)"><strong class="orange">dealers(내친구몰)</strong></a></div>
@@ -1325,7 +1325,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -1359,7 +1359,7 @@
 
                                             <tr>
                                                 <td class="goods">
-                                                    <img src="/img/201324740888174.jpg" class="photo" onerror="this.src='/images/blank.gif'">
+                                                    <img src="/img/201324740888174.jpg" class="photo" onerror="this.src='/img/blank.gif'">
                                                     <div class="info">
                                                         <div><a href="/goods/detail.asp?gno=125&cate=4" target="_blank">핀탁 레이스 블라우스</a></div>
                                                     </div>
@@ -1479,7 +1479,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">
@@ -1647,7 +1647,7 @@
                             <tr>
                                 <td colspan="9" style="padding:0">
 
-                                    <table cellspacing="0" cellpadding="0" width="100%" border="0" class="t_order_pro">
+                                    <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
                                             <col width="6%">

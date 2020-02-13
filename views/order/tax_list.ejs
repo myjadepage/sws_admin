@@ -7,7 +7,7 @@
             <div id="contents">
                 <h3>세금계산서신청관리</h3>
                 <ul class="navi">
-                    <li class="home"><a href="/main" target="_top">홈</a></li>
+                    <li class="home"><a href="/" target="_top">홈</a></li>
                     <li>주문/매출관리</li>
                     <li>거래증빙서류관리</li>
                     <li class="on">세금계산서신청관리</li>
@@ -17,9 +17,9 @@
                 </ul>
 
 
-                <form name="sFrm" method="get">
+                <form name="sFrm">
 
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>세금계산서 검색</caption>
                         <colgroup>
                             <col width="130">
@@ -38,9 +38,9 @@
                                 <td>
                                     <div>
                                         <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
+                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
                                         <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="./몰인몰 관리자사이트_files/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
                                     </div>
                                     <div class="mgt5">
                                         <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
@@ -72,11 +72,11 @@
                     <h4>총 <span><strong>2</strong></span>건이 조회 되었습니다.</h4>
                 </div>
 
-                <form name="Frm" method="post">
+                <form name="Frm">
                     <input type="hidden" name="idx">
                     <input type="hidden" name="params" value="sissue=&sdts=&sdte=&skey=&sword=&page=">
 
-                    <table cellspacing="0" cellpadding="0" border="0" width="100%" class="t_list">
+                    <table class="t_list">
                         <caption>세금계산서 신청 내역</caption>
                         <colgroup>
                             <col width="25">

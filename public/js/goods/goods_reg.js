@@ -167,10 +167,6 @@
          f.category.focus();
          return false;
      }
-     if (categoryLevel > 5) {
-         alert("카테고리를 " + cateDepthGoods + "단계 이상 선택해 주세요.");
-         return false;
-     }
 
      if (f.cate) {
          if (typeof(f.cate.length) == 'undefined') {

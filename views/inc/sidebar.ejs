@@ -86,35 +86,35 @@
                         <dl>
                             <dt>전체디자인설정</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/site"><i class="xi-minus-min"></i>전체디자인설정</a>
-                                <a href="/design/topper"><i class="xi-minus-min"></i>상단부분관리</a>
-                                <a href="/design/footer"><i class="xi-minus-min"></i>하단부분관리</a>
+                                <a href="/design/site" class="<%= name === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>전체디자인설정</a>
+                                <a href="/design/topper" class="<%= name === 'topper' ? 'active' : '' %>"><i class="xi-minus-min"></i>상단부분관리</a>
+                                <a href="/design/footer" class="<%= name === 'footer' ? 'active' : '' %>"><i class="xi-minus-min"></i>하단부분관리</a>
 
                             </dd><dt>메인페이지관리</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/main_style"><i class="xi-minus-min"></i>메인스타일관리</a>
-                                <a href="/design/main"><i class="xi-minus-min"></i>메인페이지관리</a>
-                                <a href="/design/banner?akind=etc"><i class="xi-minus-min"></i>기타배너관리</a>
+                                <a href="/design/main_style" class="<%= main_style === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>메인스타일관리</a>
+                                <a href="/design/main" class="<%= main_style === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>메인페이지관리</a>
+                                <a href="/design/banner?akind=etc" class="<%= main_style === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>기타배너관리</a>
                             </dd>
                             <dt>이벤트관리</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/event_list?method=100"><i class="xi-minus-min"></i>이벤트(일반)관리</a>
-                                <a href="/design/event_list?method=200"><i class="xi-minus-min"></i>이벤트(분류)관리</a>
-                                <a href="/design/event_list?method=300"><i class="xi-minus-min"></i>이벤트(쿠폰)관리</a>
-                                <a href="/design/event_list?method=400"><i class="xi-minus-min"></i>이벤트(할인)관리</a>
-                                <a href="/design/event_reg"><i class="xi-minus-min"></i>이벤트등록</a>
+                                <a href="/design/event_list?method=100" class="<%= event_list === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>이벤트(일반)관리</a>
+                                <a href="/design/event_list?method=200" class="<%= event_list === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>이벤트(분류)관리</a>
+                                <a href="/design/event_list?method=300" class="<%= event_list === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>이벤트(쿠폰)관리</a>
+                                <a href="/design/event_list?method=400" class="<%= event_list === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>이벤트(할인)관리</a>
+                                <a href="/design/event_reg" class="<%= event_reg === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>이벤트등록</a>
                             </dd>
                             <dt>좌측메뉴</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/leftmenu"><i class="xi-minus-min"></i>좌측메뉴관리</a>
+                                <a href="/design/leftmenu" class="<%= leftmenu === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>좌측메뉴관리</a>
                             </dd>
                             <dt>페이지생성기</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/pagemaker"><i class="xi-minus-min"></i>페이지생성기 관리</a>
+                                <a href="/design/pagemaker" class="<%= pagemaker === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>페이지생성기 관리</a>
                             </dd><dt>기타</dt>
                             <dd class="side_small_menu">
-                                <a href="/design/mail_form"><i class="xi-minus-min"></i>메일폼관리</a>
-                                <a href="/design/popup"><i class="xi-minus-min"></i>팝업관리</a>
+                                <a href="/design/mail_form" class="<%= mail_form === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>메일폼관리</a>
+                                <a href="/design/popup" class="<%= popup === 'site' ? 'active' : '' %>"><i class="xi-minus-min"></i>팝업관리</a>
                             </dd>
                         </dl>
                     </div>
@@ -157,19 +157,32 @@
                                         <dl>
                                             <dt>전체주문</dt>
                                             <dd>
-                                                - <a href="/order/order_list">전체주문</a><br>
+                                                <a href="/order/order_list" class="<%= name === 'excel_regist' ? 'active' : '' %>">전체주문</a>
                                             </dd>
                                             <dt>주문관리</dt>
                                             <dd>
-                                                - <a href="/order/order_list?menu=new">입금확인중</a><br> - <a href="/order/order_list?menu=confirm">결제완료</a><br> - <a href="/order/order_list?menu=ready">상품준비중</a><br> - <a href="/order/order_list?menu=delivery">발송완료</a><br>                                                - <a href="/order/order_list?menu=cancel">주문취소</a><br> - <a href="/order/order_list?menu=account">구매확정</a><br> - <a href="/order/consult_list">주문상담</a><br> - <a href="/order/invoice">일괄배송관리</a><br>
+                                                <a href="/order/order_list?menu=new" class="<%= name === 'order_list' ? 'active' : '' %>">입금확인중</a>
+                                                <a href="/order/order_list?menu=confirm" class="<%= name === 'order_list' ? 'active' : '' %>">결제완료</a>
+                                                <a href="/order/order_list?menu=ready" class="<%= name === 'order_list' ? 'active' : '' %>">상품준비중</a>
+                                                <a href="/order/order_list?menu=delivery" class="<%= name === 'order_list' ? 'active' : '' %>">발송완료</a>
+                                                <a href="/order/order_list?menu=cancel" class="<%= name === 'order_list' ? 'active' : '' %>">주문취소</a>
+                                                <a href="/order/order_list?menu=account" class="<%= name === 'order_list' ? 'active' : '' %>">구매확정</a>
+                                                <a href="/order/consult_list" class="<%= name === 'consult_list' ? 'active' : '' %>">주문상담</a>
+                                                <a href="/order/invoice" class="<%= name === 'invoice' ? 'active' : '' %>">일괄배송관리</a>
                                             </dd>
                                             <dt>취소/교환/반품신청관리</dt>
                                             <dd>
-                                                - <a href="/order/order_list?menu=cancel_new">주문취소신청(입금전)</a><br> - <a href="/order/order_list?menu=cancel_confirm">주문취소신청(입금확인)</a><br> - <a href="/order/order_list?menu=change">주문교환신청</a><br> - <a href="/order/order_list?menu=change_finish">주문교환완료</a><br>                                                - <a href="order/order_list?menu=return">주문반품신청</a><br> - <a href="order/order_list?menu=return_finish">주문반품완료</a><br>
+                                                <a href="/order/order_list?menu=cancel_new" class="<%= name === 'excel_regist' ? 'active' : '' %>">주문취소신청(입금전)</a>
+                                                <a href="/order/order_list?menu=cancel_confirm">주문취소신청(입금확인)</a>
+                                                <a href="/order/order_list?menu=change">주문교환신청</a>
+                                                <a href="/order/order_list?menu=change_finish">주문교환완료</a>
+                                                <a href="order/order_list?menu=return">주문반품신청</a>
+                                                <a href="order/order_list?menu=return_finish">주문반품완료</a>
                                             </dd>
                                             <dt>거래증빙서류관리</dt>
                                             <dd>
-                                                - <a href="/order/tax_list">세금계산서신청관리</a><br> - <a href="/order/cashreceipt_list">현금영수증신청관리</a><br>
+                                                <a href="/order/tax_list" class="<%= name === 'tax_list' ? 'active' : '' %>">세금계산서신청관리</a>
+                                                <a href="/order/cashreceipt_list" class="<%= name === 'cashreceipt_list' ? 'active' : '' %>">현금영수증신청관리</a>
                                             </dd>
                                         </dl>
                                     </div>
@@ -182,20 +195,28 @@
                                                 <dl>
                                                     <dt>고객운영관리</dt>
                                                     <dd>
-                                                        - <a href="/management/review_list">상품평관리</a><br> - <a href="/management/qna_list">상품Q&amp;A관리</a><br> - <a href="/management/faq_list">FAQ관리</a><br> - <a href="/management/inquiry_list">1:1문의관리</a><br>
+                                                        <a href="/management/review_list" class="<%= name === 'review_list' ? 'active' : '' %>">상품평관리</a>
+                                                        <a href="/management/qna_list" class="<%= name === 'qna_list' ? 'active' : '' %>">상품Q&A관리</a>
+                                                        <a href="/management/faq_list" class="<%= name === 'faq_list' ? 'active' : '' %>">FAQ관리</a>
+                                                        <a href="/management/inquiry_list" class="<%= name === 'inquiry_list' ? 'active' : '' %>">1:1문의관리</a>
                                                     </dd>
                                                     <dt>게시판관리</dt>
                                                     <dd>
-                                                        - <a href="/management/board_manage">게시판통합관리</a><br>
+                                                        <a href="/management/board_manage" class="<%= name === 'board_manage' ? 'active' : '' %>">게시판통합관리</a>
                                                     </dd>
                                                     <dt>쿠폰관리</dt>
                                                     <dd>
-                                                        - <a href="/management/coupon_list?kind=100">상품쿠폰관리</a><br>
+                                                        <a href="/management/coupon_list" class="<%= name === 'coupon_list' ? 'active' : '' %>">상품쿠폰관리</a>
                                                     </dd>
                                                     <dt>SMS관리</dt>
                                                     <dd>
-                                                        - <a href="/sms/config">환경설정</a><br> - <a href="/sms/ment_manage">문구관리</a><br> - <a href="/sms/emoticon_manage">이모티콘 관리</a><br> - <a href="/sms/send_msg">SMS발송</a><br> - <a href="/sms/msbridge?mode=sendlist"
-                                                            target="_blank">발송내역</a><br> - <a href="/sms/msbridge?mode=reservelist" target="_blank">예약발송내역</a><br> - <a href="/sms/msbridge?mode=charge" target="_blank">SMS충전하기</a><br>
+                                                        <a href="/sms/config" class="<%= name === 'config' ? 'active' : '' %>">환경설정</a>
+                                                        <a href="/sms/ment_manage" class="<%= name === 'ment_manage' ? 'active' : '' %>">문구관리</a>
+                                                        <a href="/sms/emoticon_manage" class="<%= name === 'emoticon_manage' ? 'active' : '' %>">이모티콘 관리</a>
+                                                        <a href="/sms/send_msg" class="<%= name === 'send_msg' ? 'active' : '' %>">SMS발송</a>
+                                                        <a href="/sms/msbridge?mode=sendlist" target="_blank" class="<%= name === 'msbridge' ? 'active' : '' %>">발송내역</a>
+                                                        <a href="/sms/msbridge?mode=reservelist" target="_blank" class="<%= name === 'msbridge' ? 'active' : '' %>">예약발송내역</a>
+                                                        <a href="/sms/msbridge?mode=charge" target="_blank" class="<%= name === 'msbridge' ? 'active' : '' %>">SMS충전하기</a>
                                                     </dd>
                                                 </dl>
                                             </div>
@@ -209,15 +230,17 @@
                                                         <dl>
                                                             <dt>회원관련설정</dt>
                                                             <dd>
-                                                                - <a href="member/config_member">회원가입설정</a><br>
+                                                                <a href="member/config_member" class="<%= name === 'config_member' ? 'active' : '' %>">회원가입설정</a>
                                                             </dd>
                                                             <dt>회원관리</dt>
                                                             <dd>
-                                                                - <a href="/member/member_list">회원목록</a><br> - <a href="/member/member_delete">탈퇴회원목록</a><br> - <a href="/member/member_buy_list">상품구매회원목록</a><br>
+                                                                <a href="/member/member_list" class="<%= name === 'member_list' ? 'active' : '' %>">회원목록</a>
+                                                                <a href="/member/member_delete" class="<%= name === 'member_delete' ? 'active' : '' %>">탈퇴회원목록</a>
+                                                                <a href="/member/member_buy_list" class="<%= name === 'member_buy_list' ? 'active' : '' %>">상품구매회원목록</a>
                                                             </dd>
                                                             <dt>메일발송관리</dt>
                                                             <dd>
-                                                                - <a href="/member/member_mailing">회원메일발송</a><br>
+                                                                <a href="/member/member_mailing" class="<%= name === 'member_mailing' ? 'active' : '' %>">회원메일발송</a>
                                                             </dd>
                                                         </dl>
                                                     </div>
@@ -231,23 +254,30 @@
                                                                 <dl>
                                                                     <dt>매출관리</dt>
                                                                     <dd>
-                                                                        - <a href="/statistics/sale_total">전체 매출통계</a><br> - <a href="/statistics/sale_goods">상품별 매출통계</a><br> - <a href="/statistics/sale_member">회원별 매출통계</a><br>
+                                                                        <a href="/statistics/sale_total" class="<%= name === 'sale_total' ? 'active' : '' %>">전체 매출통계</a>
+                                                                        <a href="/statistics/sale_goods" class="<%= name === 'sale_goods' ? 'active' : '' %>">상품별 매출통계</a>
+                                                                        <a href="/statistics/sale_member" class="<%= name === 'sale_member' ? 'active' : '' %>">회원별 매출통계</a>
                                                                     </dd>
                                                                     <dt>회원통계</dt>
                                                                     <dd>
-                                                                        - <a href="/statistics/member_gender">남여비율 통계</a><br> - <a href="/statistics/member_age">연령대별 통계</a><br> - <a href="/statistics/member_area">거주지별 통계</a><br>
+                                                                        <a href="/statistics/member_gender" class="<%= name === 'member_gender' ? 'active' : '' %>">남여비율 통계</a>
+                                                                        <a href="/statistics/member_age" class="<%= name === 'member_age' ? 'active' : '' %>">연령대별 통계</a>
+                                                                        <a href="/statistics/member_area" class="<%= name === 'member_area' ? 'active' : '' %>">거주지별 통계</a>
                                                                     </dd>
                                                                     <dt>접속통계</dt>
                                                                     <dd>
-                                                                        - <a href="/statistics/visit_count">방문자 접속통계</a><br> - <a href="/statistics/visit_fromsite">접속방향 통계</a><br>
+                                                                        <a href="/statistics/visit_count" class="<%= name === 'visit_count' ? 'active' : '' %>">방문자 접속통계</a>
+                                                                        <a href="/statistics/visit_fromsite" class="<%= name === 'visit_fromsite' ? 'active' : '' %>">접속방향 통계</a>
                                                                     </dd>
                                                                     <dt>상품통계</dt>
                                                                     <dd>
-                                                                        - <a href="/statistics/goods_total">상품별 통계</a><br> - <a href="/statistics/goods_wish">상품보관함 통계</a><br> - <a href="/statistics/goods_marks">고객평점 통계</a><br>
+                                                                        <a href="/statistics/goods_total" class="<%= name === 'goods_total' ? 'active' : '' %>">상품별 통계</a>
+                                                                        <a href="/statistics/goods_wish" class="<%= name === 'goods_wish' ? 'active' : '' %>">상품보관함 통계</a>
+                                                                        <a href="/statistics/goods_marks" class="<%= name === 'goods_marks' ? 'active' : '' %>">고객평점 통계</a>
                                                                     </dd>
                                                                     <dt>마케팅통계</dt>
                                                                     <dd>
-                                                                        - <a href="/statistics/marketing_useCmoney">적립금 사용 통계</a><br>
+                                                                        <a href="/statistics/marketing_useCmoney" class="<%= name === 'marketing_useCmoney' ? 'active' : '' %>">적립금 사용 통계</a>
                                                                     </dd>
                                                                 </dl>
                                                             </div>
@@ -261,15 +291,21 @@
                                                                         <dl>
                                                                             <dt>판매자관리</dt>
                                                                             <dd>
-                                                                                - <a href="/mim/dealer_regist_list">판매자 신청목록</a><br> - <a href="/mim/dealer_list">판매자 목록</a><br> - <a href="/mim/dealer_secession_list">판매자 탈퇴목록</a><br> - <a href="/mim/dealer_qna_list">판매자 문의하기</a><br>                                                                                - <a href="/board/list?board=mim_notice">판매자 공지사항</a><br>
+                                                                                <a href="/mim/dealer_regist_list" class="<%= name === 'dealer_regist_list' ? 'active' : '' %>">판매자 신청목록</a>
+                                                                                <a href="/mim/dealer_list" class="<%= name === 'dealer_list' ? 'active' : '' %>">판매자 목록</a>
+                                                                                <a href="/mim/dealer_secession_list" class="<%= name === 'dealer_secession_list' ? 'active' : '' %>">판매자 탈퇴목록</a>
+                                                                                <a href="/mim/dealer_qna_list" class="<%= name === 'dealer_qna_list' ? 'active' : '' %>">판매자 문의하기</a> - <a href="/board/list?board=mim_notice">판매자 공지사항</a><br>
                                                                             </dd>
                                                                             <dt>판매자상품관리</dt>
                                                                             <dd>
-                                                                                - <a href="/mim/goods_list">판매자 상품관리</a><br> - <a href="/mim/goods_list?menu=reg">상품신청/수정/삭제</a><br> - <a href="/mim/brand_list">브랜드관리</a><br>
+                                                                                <a href="/mim/goods_list" class="<%= name === 'goods_list' ? 'active' : '' %>">판매자 상품관리</a>
+                                                                                <a href="/mim/goods_list?menu=reg" class="<%= name === 'goods_list' ? 'active' : '' %>">상품신청/수정/삭제</a>
+                                                                                <a href="/mim/brand_list" class="<%= name === 'brand_list' ? 'active' : '' %>">브랜드관리</a>
                                                                             </dd>
                                                                             <dt>판매자이벤트관리</dt>
                                                                             <dd>
-                                                                                - <a href="/mim/event_list?method=100">이벤트(일반)관리</a><br> - <a href="/mim/event_list?method=400">이벤트(할인)관리</a><br>
+                                                                                <a href="/mim/event_list?method=100" class="<%= name === 'event_list' ? 'active' : '' %>">이벤트(일반)관리</a>
+                                                                                <a href="/mim/event_list?method=400" class="<%= name === 'event_list' ? 'active' : '' %>">이벤트(할인)관리</a>
                                                                             </dd>
                                                                         </dl>
                                                                     </div>
@@ -283,7 +319,8 @@
                                                                                 <dl>
                                                                                     <dt>결제/정산내역</dt>
                                                                                     <dd>
-                                                                                        - <a href="/account/account">본사정산</a><br> - <a href="/account/dealer_account">판매자정산</a><br>
+                                                                                        - <a href="/account/account" class="<%= name === 'account' ? 'active' : '' %>">본사정산</a>
+                                                                                        <a href="/account/dealer_account" class="<%= name === 'dealer_account' ? 'active' : '' %>">판매자정산</a>
                                                                                     </dd>
                                                                                 </dl>
                                                                             </div>

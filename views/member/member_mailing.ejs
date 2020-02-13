@@ -19,9 +19,9 @@
                 </ul>
 
 
-                <form name="Frm" method="post" action="/member/member_mailing.act">
+                <form name="Frm">
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>메일 보내기 폼</caption>
                         <colgroup>
                             <col width="130">
@@ -53,21 +53,15 @@
                         </tbody>
                     </table>
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <tbody>
                             <tr>
-                                <td style="padding:0px;"><textarea name="content" style="width: 100%; height: 350px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0" scrolling="no"
+                                <td style="padding:0px;">
+                                    <textarea name="content" style="width: 100%; height: 350px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0" scrolling="no"
                                         style="width: 100%; height: 397px;" src="/js/SmartEditor2Skin.html"></iframe></td>
                             </tr>
                         </tbody>
                     </table>
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        nhn.husky.EZCreator.createInIFrame({
-                            elPlaceHolder: 'content'
-                        });
-                        //]]>
-                    </script>
 
                     <div class="btn">
                         <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
@@ -79,7 +73,7 @@
 
 
                     <!-- 에디터 Script -->
-                    <script type="text/javascript" src="/js/HuskyEZCreator.js.download"></script>
+
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSubmit() {

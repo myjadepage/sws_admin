@@ -18,7 +18,7 @@
 
 
 
-                <form name="Frm" method="get" action="/management/qna_list">
+                <form name="Frm">
                     <input type="hidden" name="mode">
                     <input type="hidden" name="idx">
                     <input type="hidden" name="aidx">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
 
-                    <table border="0" cellspacing="0" cellpadding="0" width="100%" class="t_list">
+                    <table class="t_list">
                         <caption>등록된 Q&amp;A 리스트</caption>
                         <colgroup>
                             <col width="50">
@@ -94,7 +94,6 @@
 
 
                 <%- include('../inc/footer') %>
-                    <script type="text/javascript" src="/js/ezpop.js.download"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         ezpop.member.bind('detail', '회원정보', function(uno) {

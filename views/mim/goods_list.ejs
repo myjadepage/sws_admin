@@ -17,12 +17,12 @@
                 </ul>
 
 
-                <form name="sFrm" method="get" action="/mim/goods_list">
+                <form name="sFrm">
                     <input type="hidden" name="menu" value="list">
                     <input type="hidden" name="psort" value="no_desc">
                     <input type="hidden" name="psize" value="20">
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>검색 폼</caption>
                         <colgroup>
                             <col width="130">
@@ -41,10 +41,10 @@
                                 </td>
                                 <th>정렬</th>
                                 <td>
-                                    <a href="/mim/goods_list?menu=list"><strong class="red">전체</strong></a> &nbsp;
-                                    <a href="/mim/goods_list?menu=reg">등록신청</a> &nbsp;
-                                    <a href="/mim/goods_list?menu=edit">수정신청</a> &nbsp;
-                                    <a href="/mim/goods_list?menu=del">삭제신청</a>
+                                    <a href="/mim/goods_list?menu=list"><strong class="red">전체 </strong></a>
+                                    <a href="/mim/goods_list?menu=reg">등록신청 </a>
+                                    <a href="/mim/goods_list?menu=edit">수정신청 </a>
+                                    <a href="/mim/goods_list?menu=del">삭제신청 </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -52,7 +52,7 @@
 
                 </form>
 
-                <form name="Frm" method="post">
+                <form name="Frm">
                     <input type="hidden" name="menu" value="list">
                     <input type="hidden" name="gno">
                     <input type="hidden" name="params" value="menu=list^skey=^sword=^psort=no_desc^psize=20^page=">
@@ -60,12 +60,18 @@
                     <div class="section_head">
                         <h4>전체상품목록 - 총 27개의 상품이 검색되었습니다.</h4>
                         <div>
-                            <select id="psize" name="psize" onchange="changeList();"><option value="10">10줄씩보기</option><option value="20" selected="">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
+                            <select id="psize" name="psize" onchange="changeList();">
+                                <option value="10">10줄씩보기</option>
+                                <option value="20" selected="">20줄씩보기</option>
+                                <option value="30">30줄씩보기</option>
+                                <option value="50">50줄씩보기</option>
+                                <option value="100">100줄씩보기</option>
+                            </select>
 
                         </div>
                     </div>
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list">
+                    <table class="t_list">
                         <caption>판매자 상품 목록</caption>
                         <colgroup>
                             <col width="60">

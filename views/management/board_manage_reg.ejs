@@ -19,7 +19,7 @@
                     <li>관리자 로그인을 하시면 모든 게시물의 비밀번호가 자동으로 보여집니다. 불필요한 게시물은 바로바로 삭제하세요~ ^^</li>
                 </ul>
 
-                <form name="Frm" method="post">
+                <form name="Frm">
                     <input type="hidden" name="mode" value="REG">
                     <input type="hidden" name="idx" value="0">
                     <input type="hidden" name="boardId" value="">
@@ -30,7 +30,7 @@
                         <h4>게시판 등록</h4>
                     </div>
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>게시판 등록,수정 폼</caption>
                         <colgroup>
                             <col width="130">
@@ -206,7 +206,7 @@
                             <tr>
                                 <th>권한설정</th>
                                 <td colspan="3" style="border:0;padding:0">
-                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-top:none;" class="t_list">
+                                    <table style="border-top:none;" class="t_list">
                                         <colgroup>
                                             <col width="*">
                                             <col width="*">
@@ -261,7 +261,7 @@
                         <h4>게시판 디자인</h4>
                     </div>
 
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list" style="border:solid 1px #ddd;">
+                    <table class="t_list" style="border:solid 1px #ddd;">
                         <thead>
                             <tr>
                                 <th>상단 디자인</th>
@@ -286,13 +286,6 @@
                                 <td style="padding:0">
                                     <div><textarea name="bottomDecor" style="width: 100%; height: 150px; display: none;" id="bottomDecor-placeholder"></textarea><iframe id="__se2_frame_bottomDecor-placeholder" name="__se2_frame_bottomDecor-placeholder" frameborder="0"
                                             scrolling="no" style="width: 100%; height: 252px;" src="/js/SmartEditor2Skin(1).html"></iframe></div>
-                                    <script type="text/javascript">
-                                        //<![CDATA[
-                                        nhn.husky.EZCreator.createInIFrame({
-                                            elPlaceHolder: 'bottomDecor'
-                                        });
-                                        //]]>
-                                    </script>
                                 </td>
                             </tr>
                         </tbody>
@@ -309,8 +302,6 @@
 
                 <%- include('../inc/footer') %>
 
-                    <!-- 에디터 Script -->
-                    <script type="text/javascript" src="/js/HuskyEZCreator.js.download"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         function checkOverlapId() {
