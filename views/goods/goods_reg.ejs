@@ -132,10 +132,7 @@
                                 <tr>
                                     <th>큰이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="bigImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="bigImage" id="bigImage" class="hidden">
-                                        <input type="text" id="bigImageURL" class="fileuploadurl" name="bigImageURL" placeholder="선택된 파일이 없습니다" readonly>
-
+                                        <input type="file" name="bigImage" id="bigImage">
                                         <span class="light_gray">(500px * 500px)</span>
                                         <label for="img_auto">
                                             <input type="checkbox" id="img_auto" name="isImgAuto" value="T" onclick="changeImgRegAuto(this)" checked>
@@ -152,9 +149,7 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>중간이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="midImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="midImage" id="midImage" class="hidden">
-                                        <input type="text" id="midImageURL" class="fileuploadurl" name="midImageURL" placeholder="선택된 파일이 없습니다" readonly>
+                                        <input type="file" name="midImage" id="midImage">
                                         <span class="light_gray">(500px * 500px)</span>
                                     </td>
                                 </tr>
@@ -162,9 +157,7 @@
                                 <tr class="imgManuals" style="display:none">
                                     <th>작은이미지 <strong class="red">*</strong></th>
                                     <td colspan="3">
-                                        <label for="smallImage" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                        <input type="file" name="smallImage" id="smallImage" class="hidden">
-                                        <input type="text" id="smallImageURL" class="fileuploadurl" name="smallImageURL" placeholder="선택된 파일이 없습니다" readonly>
+                                        <input type="file" name="smallImage" id="smallImage">
                                         <span class="light_gray">(250px * 250px)</span>
                                     </td>
                                 </tr>
@@ -187,30 +180,27 @@
                                             <tbody>
                                                 <tr>
                                                     <td><span class="numbering">1</span>.</td>
-                                                    <td><input type="checkbox" name="isUsedOptionalImage1"></td>
                                                     <td>
-                                                        <label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage1" id="optionalImage1" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage1Url" name="optionalImage1Url" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="checkbox" name="cbImgEtc">
+                                                        <input type="hidden" name="imgIdx" value="">
                                                     </td>
+                                                    <td><input type="file" name="imgEtc"></td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="numbering">2</span>.</td>
-                                                    <td><input type="checkbox" name="isUsedOptionalImage2"></td>
                                                     <td>
-                                                        <label for="optionalImage2" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage2" id="optionalImage2" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage2Url" name="optionalImage2Url" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="checkbox" name="cbImgEtc">
+                                                        <input type="hidden" name="imgIdx" value="">
                                                     </td>
+                                                    <td><input type="file" name="imgEtc"></td>
                                                 </tr>
                                                 <tr>
                                                     <td><span class="numbering">3</span>.</td>
-                                                    <td><input type="checkbox" name="isUsedOptionalImage3"></td>
                                                     <td>
-                                                        <label for="optionalImage3" class="btn btn-sm btn-secondary">이미지 찾기</label>
-                                                        <input type="file" name="optionalImage3" id="optionalImage3" class="hidden">
-                                                        <input type="text" class="fileuploadurl" id="optionalImage3Url" name="optionalImage3Url" placeholder="선택된 파일이 없습니다" readonly>
+                                                        <input type="checkbox" name="cbImgEtc">
+                                                        <input type="hidden" name="imgIdx" value="">
                                                     </td>
+                                                    <td><input type="file" name="imgEtc"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -267,11 +257,10 @@
                                 <tr>
                                     <th>수수료 설정 <strong class="red">*</strong></th>
                                     <td colspan="3">
-
-                                        <input type="radio" id="feeTypeCode1" name="feeTypeCode" value="1" checked onclick="checkCmsType()">
+                                        <input type="radio" id="feeTypeCode1" name="feeTypeCode" value="1" onclick="checkFeeType()">
                                         <label for="feeTypeCode1" class="pad_right10">기본 수수료설정 (입점업체 또는 카테고리)</label>
 
-                                        <input type="radio" id="feeTypeCode2" name="feeTypeCode" value="2" class="mgl20" onclick="checkCmsType()">
+                                        <input type="radio" id="feeTypeCode2" name="feeTypeCode" value="2" class="mgl20" onclick="checkFeeType()">
                                         <label for="feeTypeCode2">개별 수수료 설정(상품별)</label>
                                     </td>
                                 </tr>
@@ -318,19 +307,19 @@
                                         </ul>
                                         <ul class="goods">
                                             <li>
-                                                <input type="radio" id="pointTypeCode4" name="pointTypeCode" value="4" onclick="checkCmoneyPolicy()">
+                                                <input type="radio" id="pointTypeCode4" name="pointTypeCode" onclick="checkCmoneyPolicy()">
                                                 <label for="pointTypeCode4">
-                                                    <select name="pointTypeCode" class="text_input" style="width: 150px;"  disabled>
+                                                    <select name="pointTypeCodeSelect" class="text_input" style="width: 150px;">
                                                         <option value="4">판매가</option>
                                                         <option value="5">결제가</option>
                                                     </select> 의
-                                                    <input type="text" name="pointRate" maxlength="5" class="text_input" style="width:70px" disabled> % 지급
+                                                    <input type="text" name="pointRate" maxlength="5" class="text_input" style="width:70px"> % 지급
                                                 </label>
                                             </li>
                                             <li>
                                                 <input type="radio" id="pointTypeCode6" name="pointTypeCode" value="6" onclick="checkCmoneyPolicy()">
                                                 <label for="pointTypeCode6">구매 상품(개수) 당
-                                                    <input type="text" name="point"  class="text_input" style="width:70px" onkeyup="toCurrency(this)"  disabled> 원 지급
+                                                    <input type="text" name="point"  class="text_input" style="width:70px" onkeyup="sws.common.toCurrency(this)" > 원 지급
                                                 </label>
                                             </li>
                                         </ul>
@@ -370,13 +359,15 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="notify">
-                                        <select id="notify" name="productNotice" class="text_input">
+                                        <select name="productNotice" class="text_input">
                                             <option value="">등록할 상품의 상품군을 선택하세요</option>                                            
                                         </select>
 
                                         <div class="fr">
-                                            <button class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">상품 추가</button>
-                                            <button class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">상품 삭제</button>
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">상품 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">상품 삭제</button>
+                                            <!-- <button type="button" class="btn btn-sm btn-secondary" id="addProduct">상품 추가</button>
+                                            <button type="button" class="btn btn-sm btn-danger" id="delProduct">상품 삭제</button> -->
                                         </div>
 
                                         <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다.">
@@ -403,7 +394,7 @@
                                                         <input type="text" name="item" class="text_input" style="width: 90%;" maxlength="100">
                                                     </td>
                                                     <td class="last">
-                                                        <textarea name="content" rows="2" class="text_input"></textarea>
+                                                        <textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)"></textarea></textarea>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -411,7 +402,7 @@
                                     </td>
                                 </tr>
 
-                                <!-- 상품상세설명 -->
+                                <!-- 상품상세명 -->
                                 <tr>
                                     <th>상품설명 <strong class="red">*</strong></th>
                                     <td colspan="3">
@@ -441,7 +432,6 @@
                                             </dt>
                                             <dd>해당상품을 무료배송합니다.</dd>
 
-
                                             <dt>
                                                 <input type="radio" id="deliveryPriceTypeCode3" name="deliveryPriceTypeCode" value="2" onclick="checkDeliveryMethod()">
                                                 <label for="deliveryPriceTypeCode3">착불</label>
@@ -450,9 +440,6 @@
                                                 <input type="text" name="debitAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
                                                 <input type="text" name="debitfreeMinAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
                                             </dd>
-
-
-
                                             <dt>
                                                 <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode"  value="3"  onclick="checkDeliveryMethod()">
                                                 <label for="deliveryPriceTypeCode4">선불</label>
@@ -461,8 +448,6 @@
                                                 <input type="text" name="prepaymentAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 (무료배송 :
                                                 <input type="text" name="prepayfreeMinAmountoptional" class="text_input" style="width: 70px; background-color: rgb(224, 224, 224);" maxlength="10" value="" onkeyup="toCurrency(this)" disabled> 원 이상 주문시 무료)
                                             </dd>
-
-
                                             <dt>
                                                 <input type="radio" id="deliveryPriceTypeCode4" name="deliveryPriceTypeCode"  value="4" onclick="checkDeliveryMethod()">
                                                 <label for="deliveryPriceTypeCode4">판매자정책</label>
@@ -474,8 +459,6 @@
                                                 <label for="deliveryPriceTypeCode5">기본정책</label>
                                             </dt>
                                             <dd>쇼핑몰의 기본정책을 따릅니다.</dd>
-
-
                                         </dl>
 
                                         <dl class="explain blue mgt5">
@@ -502,7 +485,6 @@
                         <div class="section_head">
                             <h4><i class="xi-check-circle"></i> 상품옵션</h4>
                         </div>
-
                         <table summary="상품 옵션 등록 폼 입니다." class="t_form">
                             <caption>상품 옵션 등록 폼</caption>
                             <tbody>
@@ -650,6 +632,14 @@
 
                 <%- include('../inc/footer') %>
                     <script src="/js/goods/goods_reg.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $('.summernote').summernote({
+                                height: 300,
+                                tabsize: 2
+                            });
+                        });
+                    </script>
 
                     </body>
 

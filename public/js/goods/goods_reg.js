@@ -4,7 +4,7 @@
  // 카테고리 테이블 추가
  cellHtmls['tb_category'] = new Array();
  cellHtmls['tb_category'][0] = {
-     html: '<input type="hidden" name="cate" /><input type="radio" name="cateDefault" onClick="cateDefaultCms(this)" />'
+     html: '<input type="hidden" name="cate" value="#CODE#" /><input type="radio" name="cateDefault" onClick="cateDefaultCms(this)" />'
  };
  cellHtmls['tb_category'][1] = {
      html: '#CATEGORY#',
@@ -23,9 +23,7 @@
      html: '<input type="checkbox" name="cbImgEtc"><input type="hidden" name="imgIdx" />'
  };
  cellHtmls['tb_img_etc'][2] = {
-     html: '<label for="optionalImage1" class="btn btn-sm btn-secondary">이미지 찾기</label>' +
-         '<input type="file" name="imgEtc"  onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" class="hidden" />' +
-         '<input type="text" class="fileuploadurl" id="optionalImage1Url" name="optionalImage1Url" placeholder="선택된 파일이 없습니다" readonly>'
+     html: '<input type="file" name="imgEtc"  onKeyPress="blockKey(event)" onKeyDown="blockKey(event)" />'
  };
  cellHtmls['tb_img_etc'][3] = {
      html: ''
@@ -40,16 +38,16 @@
      html: '<input type="checkbox" name="cbNotify" />'
  };
  cellHtmls['tb_notify'][2] = {
-     html: '<input type="text" name="notifyName" class="text_input" style="width:170px" maxlength="100" />'
+     html: '<input type="text" name="item" class="text_input" style="width:90%;" maxlength="100" />'
  };
  cellHtmls['tb_notify'][3] = {
-     html: '<textarea name="notifyData" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)"></textarea>',
+     html: '<textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)"></textarea>',
      css: 'last'
  };
 
  function addRow(tbId, replacements, htmlKey) {
      var $table = $('#' + tbId);
-
+     console.log("$table", $table);
      var headSize = ($table.attr('head') ? $table.attr('head').toString().toNumeric() : 0);
      var maxSize = ($table.attr('max') ? $table.attr('max').toString().toNumeric() : 0);
      var rowSize = $('tr', $table).length;
@@ -64,13 +62,11 @@
      var $tr = $('<tr />');
      for (i = 0; i < htmls.length; i++) {
          var html = htmls[i].html;
-
          if (replacements) {
              for (var key in replacements) {
                  html = html.replaceAll(key, replacements[key]);
              }
          }
-
          $('<td' + (htmls[i].css ? ' class="' + htmls[i].css + '"' : '') + ' />').html(html).appendTo($tr);
      }
      $table.append($tr);
@@ -92,7 +88,6 @@
 
      $(obj).parents('tr').first().remove();
      numbering(tbId);
-
      if (noBlank && ($('tr', $table).length - headSize) < 1) addRow(tbId);
      return true;
  }
@@ -112,7 +107,6 @@
 
      var headSize = ($table.attr('head') ? $table.attr('head').toString().toNumeric() : 0);
      var noBlank = ($table.attr('noBlank') ? $table.attr('noBlank').toString().toNumeric() : 0);
-
      var checker = 0;
      $cb.each(function() {
          if (this.checked) ++checker;
@@ -126,7 +120,6 @@
              $(this).parents('tr').first().remove();
          }
      });
-
      numbering(tbId);
      if (noBlank && ($('tr', $table).length - headSize) < 1) addRow(tbId);
      return true;
@@ -148,23 +141,29 @@
  // 카테고리 처리
  function addCate() {
      var f = document.Frm;
-     var categorySysId = parentSysId = categoryLevel = 0;
+     var cate = categorySysId = parentSysId = categoryLevel = 0;
      var category = '';
 
      for (var i = 1; i <= 5; i++) {
          var objOption = f['category' + i].options[f['category' + i].selectedIndex];
-         if (!sws.common.isEmpty(objOption)) {
-             categorySysId = objOption.value.toNumeric();
-             parentSysId = objOption.getAttribute('data-parentSysId').toString().toNumeric();
-             categoryLevel = objOption.getAttribute('data-categoryLevel').toString().toNumeric();
-             category += (category ? ' > ' : '') + objOption.text;
-             depth = i;
-         }
-     }
+         console.log("i", i);
+         console.log("objOption", objOption);
+         console.log("parentSysId", parentSysId);
 
-     if (cate == 0) {
+         cate = objOption.value.toNumeric();
+         categorySysId = objOption.value.toNumeric();
+         parentSysId = objOption.getAttribute('data-parentSysId');
+         categoryLevel = objOption.getAttribute('data-categoryLevel');
+         category += (category ? ' > ' : '') + objOption.text;
+     }
+     if (f.cate == 0) {
          alert("카테고리를 선택해 주세요.");
          f.category.focus();
+         return false;
+     }
+     if (4 > parentSysId) {
+         console.log("진입");
+         alert("나머지 카테고리를 선택해 주세요.");
          return false;
      }
 
@@ -220,7 +219,7 @@
 
 
  //  <!------------------------- 4.상품아이콘 -->
- setIcons(); //아이콘등록api
+ setIcons();
 
  // 상품아이콘 등록/수정 오픈
  function openIcon() {
@@ -265,53 +264,6 @@
          })
  });
  //다른이미지 등록
- $('#optionalImage1').on('change', function() {
-     var fileInput = document.getElementById("optionalImage1");
-     var file = fileInput.files[0];
-     const data = new FormData();
-     data.append('file', file);
-     console.log("이미지", file)
-     $.ajax({
-             url: "/file",
-             type: "post",
-             enctype: 'multipart/form-data',
-             processData: false,
-             contentType: false,
-             cache: false,
-             data: data
-         })
-         .done(function(data) {
-             console.log("성공", data);
-         })
-         .fail(function(request, status, error) {
-             msg = request.status + "<br>" + request.responseText + "<br>" + error;
-             console.log(msg);
-             alert("이미지 저장 실패");
-         })
- });
- // 이미지파일 등록시 파일이름 보이기 
- document.getElementById("bigImage").onchange = function() {
-     document.getElementById("bigImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
- document.getElementById("midImage").onchange = function() {
-     document.getElementById("midImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
- document.getElementById("smallImage").onchange = function() {
-     document.getElementById("smallImageURL").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
- document.getElementById("optionalImage1").onchange = function() {
-     document.getElementById("optionalImage1Url").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
- document.getElementById("optionalImage2").onchange = function() {
-     document.getElementById("optionalImage2Url").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
- document.getElementById("optionalImage3").onchange = function() {
-     document.getElementById("optionalImage3Url").value = this.value.replace(/C:\\fakepath\\/i, '');
- };
-
-
-
-
 
 
  //  <!------------------------- 6.재고설정 -->
@@ -351,32 +303,24 @@
  // 가격 계산시 절사단위
  var priceRoundUnit = '-1'.toNumeric();
 
-
- //  <!------------------------- 9.부가가치세설정 -->
  //  <!------------------------- 10.수수료설정 -->
 
  // 수수료 설정 확인
- function checkCmsType() {
+ function checkFeeType() {
      var f = document.Frm;
-     if (sws.common.getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료로 설정한 경우
-         checkPriceSplit('100');
+     if (sws.common.getRadio(f.feeTypeCode) != "2") { // 카테고리 또는 입점업체 수수료로 설정한 경우
+         checkPriceSplit("1");
 
-         if (f.dealerCmsType.value == 'CTG') { // 입점업체 수수료 설정 : 카테고리 경우
-             if (typeof(f.cate) == 'undefined') {
-                 f.margin.value = 0;
-             } else if (typeof(f.cate.length) == 'undefined') {
-                 f.margin.value = f.cate.getAttribute('cms');
-             } else {
-                 f.margin.value = f.cate[0].getAttribute('cms');
-             }
-         } else { // 입점업체 수수료 설정 : 입점업체 경우
-             f.margin.value = f.dealerCmsRate.value.toNumeric();
+         if (typeof(f.cate) == 'undefined') {
+             f.feeRate.value = 0;
+         } else if (typeof(f.cate.length) == 'undefined') {
+             f.feeRate.value = f.cate.getAttribute('data-feeRate');
+         } else {
+             f.feeRate.value = f.cate[0].getAttribute('data-feeRate');
          }
-
          calcPrice();
      }
  }
-
 
 
  //  <!------------------------- 11.가격 -->
@@ -385,23 +329,25 @@
  function checkPriceSplit(code) {
      var f = document.Frm;
 
-     if (code == '100') { // 공급가 기준
-         f.originalPrice.style.backgroundColor = '';
-         f.margin.style.backgroundColor = "#e0e0e0";
-         f.originalPrice.readOnly = false;
-         f.margin.readOnly = true;
-         sws.common.setRadio(f.priceSplit, '100');
+     console.log("code", code);
+
+     if (code == "1") { // 공급가 기준
+         f.supplyPrice.style.backgroundColor = '';
+         f.feeRate.style.backgroundColor = "#e0e0e0";
+         f.supplyPrice.readOnly = false;
+         f.feeRate.readOnly = true;
+         sws.common.setRadio(f.priceTypeCode, "1");
      } else { // 수수료 기준
-         if (sws.common.getRadio(f.cmsType) != 'GOS') {
-             sws.common.setRadio(f.priceSplit, '100');
+         if (sws.common.getRadio(f.feeTypeCode) != "2") {
+             sws.common.setRadio(f.priceTypeCode, "1");
              alert("수수료 설정이 상품별 수수료 설정일 경우에만 선택이 가능합니다.");
              return false;
          }
 
-         f.originalPrice.style.backgroundColor = "#e0e0e0";
-         f.margin.style.backgroundColor = '';
-         f.originalPrice.readOnly = true;
-         f.margin.readOnly = false;
+         f.supplyPrice.style.backgroundColor = "#e0e0e0";
+         f.feeRate.style.backgroundColor = '';
+         f.supplyPrice.readOnly = true;
+         f.feeRate.readOnly = false;
      }
  }
 
@@ -412,44 +358,43 @@
      if (typeof(caller) == 'undefined') caller = f.price;
 
      var price = f.price.value.toNumeric();
-     var margin = f.margin.value.toNumeric();
-     var originalPrice = f.originalPrice.value.toNumeric();
+     var feeRate = f.feeRate.value.toNumeric();
+     var supplyPrice = f.supplyPrice.value.toNumeric();
 
-     if (margin > 100) {
+     if (feeRate > 100) {
          alert("수수료는 100% 이하로 설정하셔야 됩니다.");
-         margin = 100;
-         f.margin.value = margin;
+         feeRate = 100;
+         f.feeRate.value = feeRate;
      }
 
-     if (sws.common.getRadio(f.priceSplit) == '100') { // 공급가 기준 경우
-         if (sws.common.getRadio(f.cmsType) != 'GOS') { // 카테고리 또는 입점업체 수수료 설정
+     if (sws.common.getRadio(f.priceTypeCode) == '1') { // 공급가 기준 경우
+         if (sws.common.getRadio(f.feeTypeCode) != 1) { // 카테고리 또는 입점업체 수수료 설정
              // 판매가 입력 경우
              if (caller.name == 'price') {
-                 originalPrice = sws.common.setRound(price - (price * margin / 100), priceRoundUnit);
-                 f.originalPrice.value = formatComma(originalPrice);
+                 supplyPrice = sws.common.setRound(price - (price * feeRate / 100), priceRoundUnit);
+                 f.supplyPrice.value = formatComma(supplyPrice);
              }
              // 공급가 입력 경우
-             else if (margin == 100) {
+             else if (feeRate == 100) {
                  f.price.value = 0;
-                 f.originalPrice.value = 0;
+                 f.supplyPrice.value = 0;
              } else {
-                 price = sws.common.setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
+                 price = sws.common.setRound(supplyPrice / (100 - feeRate) * 100, priceRoundUnit);
                  f.price.value = formatComma(price);
              }
          } else { // 상품별 수수료 설정
-             margin = (price == 0 ? 0 : 100 - (originalPrice / price * 100));
-             f.margin.value = sws.common.setRound(margin, 2);
+             feeRate = (price == 0 ? 0 : 100 - (supplyPrice / price * 100));
+             f.feeRate.value = sws.common.setRound(feeRate, 2);
          }
      } else { // 수수료 기준 경우
-         originalPrice = sws.common.setRound(price * (100 - margin) / 100, priceRoundUnit);
-         f.originalPrice.value = formatComma(originalPrice);
+         supplyPrice = sws.common.setRound(price * (100 - feeRate) / 100, priceRoundUnit);
+         f.supplyPrice.value = formatComma(supplyPrice);
      }
  }
 
  // 절사단위 확인
  function checkPriceRound(obj) {
      var f = document.Frm;
-
      if (typeof(f.cate) == 'undefined') return false;
 
      var value = obj.value.toNumeric();
@@ -514,46 +459,45 @@
 
  //  <!------------------------- 13.원산지 -->
  //  <!------------------------- 14.상품정보고시 -->
-
  getProductNotices();
+ //  $('#addProduct').on('click', function() {
+ //      $('#tb_notify tbody').append(
+ //          '<tr><td><span class="numbering"></span></td>' +
+ //          '<td><input type="checkbox" name="cbNotify "></td>' +
+ //          '<td><input type="text" name="item" class="text_input" style="width:90%;" maxlength="100"></td>' +
+ //          '<td class="last"><textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)"></textarea></td></tr>'
+ //      )
+ //  })
 
 
 
- //  <!-- 15.상품설명 editor -->
-
- $(document).ready(function() {
-     $('.summernote').summernote({
-         height: 300,
-         tabsize: 2
-     });
- });
 
  //  <!-------------------------- 16.배송비 -->
 
  // 배송료설정 확인
  function checkDeliveryMethod() {
      var f = document.Frm;
-     f.deliveryFeeCollect.disabled = true;
-     f.deliveryFeeCollect.style.backgroundColor = "#e0e0e0";
-     f.deliveryLimitCollect.disabled = true;
-     f.deliveryLimitCollect.style.backgroundColor = "#e0e0e0";
-     f.deliveryFeePrepay.disabled = true;
-     f.deliveryFeePrepay.style.backgroundColor = "#e0e0e0";
-     f.deliveryLimitPrepay.disabled = true;
-     f.deliveryLimitPrepay.style.backgroundColor = "#e0e0e0";
+     f.debitAmountoptional.disabled = true;
+     f.debitAmountoptional.style.backgroundColor = "#e0e0e0";
+     f.debitfreeMinAmountoptional.disabled = true;
+     f.debitfreeMinAmountoptional.style.backgroundColor = "#e0e0e0";
+     f.prepaymentAmountoptional.disabled = true;
+     f.prepaymentAmountoptional.style.backgroundColor = "#e0e0e0";
+     f.prepayfreeMinAmountoptional.disabled = true;
+     f.prepayfreeMinAmountoptional.style.backgroundColor = "#e0e0e0";
 
-     switch (sws.common.getRadio(f.deliveryMethod)) {
-         case "103":
-             f.deliveryFeeCollect.disabled = false;
-             f.deliveryFeeCollect.style.backgroundColor = "";
-             f.deliveryLimitCollect.disabled = false;
-             f.deliveryLimitCollect.style.backgroundColor = "";
+     switch (sws.common.getRadio(f.deliveryPriceTypeCode)) {
+         case "3":
+             f.prepaymentAmountoptional.disabled = false;
+             f.prepaymentAmountoptional.style.backgroundColor = "";
+             f.prepayfreeMinAmountoptional.disabled = false;
+             f.prepayfreeMinAmountoptional.style.backgroundColor = "";
              break;
-         case "102":
-             f.deliveryFeePrepay.disabled = false;
-             f.deliveryFeePrepay.style.backgroundColor = "";
-             f.deliveryLimitPrepay.disabled = false;
-             f.deliveryLimitPrepay.style.backgroundColor = "";
+         case "2":
+             f.debitAmountoptional.disabled = false;
+             f.debitAmountoptional.style.backgroundColor = "";
+             f.debitfreeMinAmountoptional.disabled = false;
+             f.debitfreeMinAmountoptional.style.backgroundColor = "";
              break;
      }
  }
@@ -601,14 +545,14 @@
      html: '<input type="hidden" name="optNo#OPTION_KIND#" /><input type="checkbox" name="cbOpt#OPTION_KIND#" />'
  };
  cellHtmlOpts['100'][1] = {
-     html: '<input type="text" name="optName#OPTION_KIND#" class="text_input" maxlength="50" />'
+     html: '<input type="text" name="optName#OPTION_KIND#" class="text_input" style="width: 90%;" maxlength="50" />'
  };
  cellHtmlOpts['100'][2] = {
      html: '<textarea rows="3" name="optItem#OPTION_KIND#" class="text_input"></textarea>',
      css: 'txt'
  };
  cellHtmlOpts['100'][3] = {
-     html: '<span>0</span><br />자',
+     html: '<span>0</span>자',
      css: 'size'
  };
 
@@ -779,7 +723,6 @@
 
  function validOption() {
      var f = document.Frm;
-
      var optionDelimiter = 'ː';
 
      switch (sws.common.getRadio(f.optionKind)) {
@@ -1012,13 +955,11 @@
                      return false;
                  }
              });
-
              if (invalid) {
                  return false;
              }
          });
      }
-
      return (invalid ? false : true);
  }
 
@@ -1175,9 +1116,9 @@
  //<![CDATA[
  function validSubmit() {
      var f = document.Frm;
-     if (typeof(f.categoryId1st) == 'undefined') {
+     if (typeof(f.category1) == 'undefined') {
          alert("카테고리를 선택해 주세요.");
-         f.categoryId1st.focus();
+         f.category1.focus();
          return false;
      }
      if (sws.common.isEmpty(f.name.value)) {
@@ -1197,7 +1138,7 @@
              f.midImage.focus();
              return false;
          } else {
-             if (!checkFileExt(f.midImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+             if (!sws.common.checkFileExt(f.midImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
                  f.midImage.focus();
                  return false;
              }
@@ -1207,7 +1148,7 @@
              f.smallImage.focus();
              return false;
          } else {
-             if (!checkFileExt(f.smallImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요. ")) {
+             if (!sws.common.checkFileExt(f.smallImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요. ")) {
                  f.smallImage.focus();
                  return false;
              }
@@ -1218,24 +1159,21 @@
          f.bigImage.focus();
          return false;
      } else {
-         if (!checkFileExt(f.bigImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
+         if (!sws.common.checkFileExt(f.bigImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
              f.bigImage.focus();
              return false;
          }
      }
-     if (typeof(f.optionalImage.length) == "undefined") {
-         if (!sws.common.isEmpty(f.optionalImage.value)) {
-             if (!checkFileExt(f.optionalImage, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-
-
+     if (f.cbImgEtc.length == "undefined") {
+         if (!sws.common.isEmpty(f.cbImgEtc.value)) {
+             if (!sws.common.checkFileExt(f.cbImgEtc, "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
                  return false;
              }
          }
      } else {
-         for (var i = 0; i < f.optionalImage.length; i++) {
-             if (!sws.common.isEmpty(f.optionalImage[i].value)) {
-                 if (!checkFileExt(f.optionalImage[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
-
+         for (var i = 0; i < f.cbImgEtc.length; i++) {
+             if (!sws.common.isEmpty(f.cbImgEtc[i].value)) {
+                 if (!sws.common.checkFileExt(f.cbImgEtc[i], "jpg,gif", "이미지(jpg, gif) 파일만 선택해 주세요.")) {
                      return false;
                  }
              }
@@ -1265,22 +1203,22 @@
          return false;
      }
      if ($('input[name="pointTypeCode"]').length > 0) {
-         switch (getRadio(f.pointTypeCode)) {
+         switch (sws.common.getRadio(f.pointTypeCode)) {
              case '5':
                  if (f.pointRate.value.toNumeric() <= 0) {
                      alert("적립률을 입력해 주세요.");
-                     f.cmoneyPercent.focus();
+                     f.pointRate.focus();
                      return false;
                  }
 
                  if (f.pointRate.value.toNumeric() > 100) {
                      alert("100% 이하로 입력해 주세요.");
-                     f.cmoneyPercent.value = "100";
-                     f.cmoneyPercent.focus();
+                     f.pointRate.value = "100";
+                     f.pointRate.focus();
                      return false;
                  }
 
-                 if (!sws.common.isEmpty(f.pointRate) && !checkRound(f.pointRate.value, 2)) {
+                 if (!sws.common.isEmpty(f.pointRate) && !sws.common.checkRound(f.pointRate.value, 2)) {
                      alert("소수점 2자리수 이상은 불가능합니다.");
                      f.pointRate.focus();
                      return false;
@@ -1298,35 +1236,35 @@
      var checker = 0;
      if (f.cbNotify) {
          if (typeof(f.cbNotify.length) == 'undefined') {
-             if (!sws.common.isEmpty(f.notifyName) && !sws.common.isEmpty(f.notifyData)) ++checker;
+             if (!sws.common.isEmpty(f.item) && !sws.common.isEmpty(f.content)) ++checker;
          } else {
              for (var i = 0; i < f.cbNotify.length; i++) {
-                 if (!sws.common.isEmpty(f.notifyName[i]) && !sws.common.isEmpty(f.notifyData[i])) ++checker;
+                 if (!sws.common.isEmpty(f.item[i]) && !sws.common.isEmpty(f.content[i])) ++checker;
              }
          }
      }
      if (checker == 0) {
          alert("상품정보고시를 입력해 주세요.");
-         return false;
+         //  return false;
      }
 
      if (sws.common.isEmpty(f.detailDescription)) {
          alert("상품의 상세정보를 입력해 주세요.");
-         return false;
+         //  return false;
      }
 
-     switch (getRadio(f.deliveryPriceTypeCode)) {
+     switch (sws.common.getRadio(f.deliveryPriceTypeCode)) {
          case '2':
-             if (sws.common.isEmpty(f.debitAmount)) {
+             if (sws.common.isEmpty(f.debitAmountoptional)) {
                  alert("착불금액을 입력해 주세요.");
-                 f.debitAmount.focus();
+                 f.debitAmountoptional.focus();
                  return false;
              }
              break;
          case '3':
-             if (sws.common.isEmpty(f.prepaymentAmount)) {
+             if (sws.common.isEmpty(f.prepaymentAmountoptional)) {
                  alert("선불금액을 적어주세요");
-                 f.prepaymentAmount.focus();
+                 f.prepaymentAmountoptional.focus();
                  return false;
              }
              break;

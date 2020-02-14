@@ -4,35 +4,6 @@ var router = express.Router();
 var fs = require('fs');
 var multer = require('multer');
 
-fs.readdir('uploads', function(error) {
-    if (error) {
-        console.error('uploads 폴더가 없어 폴더를 생성합니다.');
-        fs.mkdirSync('uploads');
-    }
-});
-var upload = multer({
-    storage: multer.diskStorage({
-        destination(req, file, cb) {
-            cb(null, 'uploads/');
-
-        },
-        filename(req, file, cb) {
-            var ext = path.extname(file.originalname);
-            cb(null, path.basename(file.originalname, ext) + new Date().valueOf() + ext);
-        }
-    }),
-    limits: { fileSize: 5 * 1024 * 1024 },
-});
-router.post('/upload', upload.single('img'), function(req, res) {
-    console.log(req.file);
-    res.json({ url: `/upload/${req.file.filename}` });
-});
-
-
-
-
-
-
 router.get('/', function(req, res, next) {
     res.render('setup/index', {
         path: '/setup/',

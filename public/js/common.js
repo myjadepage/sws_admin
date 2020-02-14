@@ -493,7 +493,7 @@ sws.common = {
         var result = false;
 
         if (obj.value.stripspace() != '') {
-            var ext = getFileExt(obj.value).toLowerCase();
+            var ext = sws.common.getFileExt(obj.value).toLowerCase();
 
             for (var i = 0; i < arrExt.length; i++) {
                 if (arrExt[i].trim() == ext) result = true;
@@ -589,7 +589,7 @@ sws.common = {
     setRoundZero(num, p) {
         // 강제 소수점 이하 0채우기 ##################################################
         // num: 대상 숫자, p: 출력을 원하는 소수점자리수
-        var nums = stripComma(num.toString()).split('.');
+        var nums = sws.common.stripComma(num.toString()).split('.');
 
         if (nums.length <= 1) {
             num = nums[0] + '.';
@@ -610,11 +610,9 @@ sws.common = {
     removePreZero(num) {
         // 숫자 문자열에서 '0' 시작문자 제거 #####
         if (num == '0') return num;
-
         for (var i = 0; i < num.length; i++) {
             if (num.substr(i, 1) != '0') break;
         }
-
         return num.substr(i, num.length - i);
     },
     onlyInt(obj) {
@@ -622,14 +620,14 @@ sws.common = {
         if (obj.disabled) return false;
 
         var num = obj.value.stripspace();
-        if (num == '') return false;
+        if (num == "") return false;
 
         if (!/^-?[\d]+$/.test(num)) {
-            num = stripCharFromNum(num, 0);
+            num = sws.common.stripCharFromNum(num, 0);
             obj.blur();
             obj.focus();
         }
-        num = stripCharFromNum(num, 0);
+        num = sws.common.stripCharFromNum(num, 0);
 
         obj.value = num;
     },
@@ -642,11 +640,11 @@ sws.common = {
         if (num == '') return false;
 
         if (!/^-?[\d\.]+$/.test(num)) {
-            num = stripCharFromNum(num, 1);
+            num = sws.common.stripCharFromNum(num, 1);
             obj.blur();
             obj.focus();
         }
-        var nums = stripCharFromNum(num, 1).split('.');
+        var nums = sws.common.stripCharFromNum(num, 1).split('.');
 
         obj.value = (nums.length > 1 ? nums[0] + '.' + (p ? nums[1].substr(0, p) : nums[1]) : nums[0]);
     },
@@ -657,13 +655,13 @@ sws.common = {
         var num = obj.value.stripspace();
         if (num == '') return false;
 
-        if (!/^-?[\d]+$/.test(stripComma(num))) {
-            num = stripCharFromNum(num, 0);
+        if (!/^-?[\d]+$/.test(sws.common.stripComma(num))) {
+            num = sws.common.stripCharFromNum(num, 0);
             obj.blur();
             obj.focus();
         }
 
-        obj.value = formatComma(removePreZero(stripCharFromNum(stripComma(num), 0)));
+        obj.value = sws.common.formatComma(sws.common.removePreZero(sws.common.stripCharFromNum(sws.common.stripComma(num), 0)));
     },
     toCurrencyAndSign(obj) {
         if (obj.disabled) return false;
@@ -671,8 +669,8 @@ sws.common = {
         var num = obj.value.stripspace();
         if (num == '') return false;
 
-        if (!/^(-|\+)?[\d]+$/.test(stripComma(num))) {
-            num = stripCharFromNumAndSign(num, 0);
+        if (!/^(-|\+)?[\d]+$/.test(sws.common.stripComma(num))) {
+            num = sws.common.stripCharFromNumAndSign(num, 0);
             obj.blur();
             obj.focus();
         }
@@ -685,9 +683,9 @@ sws.common = {
         }
 
         if (plusSign == "+") {
-            obj.value = plusSign + formatComma(removePreZero(stripCharFromNum(stripComma(num.slice(1)), 0)));
+            obj.value = plusSign + formatComma(removePreZero(sws.common.stripCharFromNum(sws.common.stripComma(num.slice(1)), 0)));
         } else {
-            obj.value = formatComma(removePreZero(stripCharFromNum(stripComma(num), 0)));
+            obj.value = formatComma(removePreZero(sws.common.stripCharFromNum(sws.common.stripComma(num), 0)));
         }
         //obj.value = num;
 
@@ -706,7 +704,6 @@ sws.common = {
         }
     },
     fn_betweenDate(startDate, endDate, interval) {
-
         var result = -999;
 
         if (!isDate(startDate) || !isDate(endDate)) {
@@ -737,7 +734,6 @@ sws.common = {
             default:
                 result = -999;
         }
-
         return result;
     },
     leadingZeros(n, digits) {

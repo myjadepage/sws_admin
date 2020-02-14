@@ -163,6 +163,7 @@ category.getCate1 = function() {
                     .attr('value', entry.categorySysId)
                     .attr('data-parentSysId', entry.parentSysId)
                     .attr('data-categoryLevel', entry.categoryLevel)
+                    .attr('data-feeRate', entry.feeRate)
                     .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
             })
             category.getCate2();
@@ -203,6 +204,7 @@ category.getCate2 = function() {
                             .attr('value', entry.categorySysId)
                             .attr('data-parentSysId', entry.parentSysId)
                             .attr('data-categoryLevel', entry.categoryLevel)
+                            .attr('data-feeRate', entry.feeRate)
                             .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
                     })
                     category.getCate3();
@@ -252,6 +254,7 @@ category.getCate3 = function() {
                             .attr('value', entry.categorySysId)
                             .attr('data-parentSysId', entry.parentSysId)
                             .attr('data-categoryLevel', entry.categoryLevel)
+                            .attr('data-feeRate', entry.feeRate)
                             .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
                     })
                     category.getCate4();
@@ -299,6 +302,7 @@ category.getCate4 = function() {
                             .attr('value', entry.categorySysId)
                             .attr('data-parentSysId', entry.parentSysId)
                             .attr('data-categoryLevel', entry.categoryLevel)
+                            .attr('data-feeRate', entry.feeRate)
                             .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
                     })
                     category.getCate5();
@@ -345,6 +349,7 @@ category.getCate5 = function() {
                             .attr('value', entry.categorySysId)
                             .attr('data-parentSysId', entry.parentSysId)
                             .attr('data-categoryLevel', entry.categoryLevel)
+                            .attr('data-feeRate', entry.feeRate)
                             .text(entry.name + ' [ ' + entry.feeRate * 100 + ' % ]'));
                     })
                 })
@@ -363,54 +368,51 @@ category.getCate5 = function() {
 
 function getProductNotices() {
     $.ajax({
-            method: "get",
             url: "http://192.168.1.40:3000/api/v1/preferences/productNotices",
             contentType: "json"
         })
         .done(function(data) {
-            $select = $('select[name="productNotice"]');
-            $select.empty();
-            $select.append('<option  value="" selected="true">등록할 상품의 상품군을 선택하세요</option>');
-            $select.prop('selectedIndex', 0);
+            $('select[name="productNotice"]').empty();
+            $('select[name="productNotice"]').append('<option  value="" selected="true">등록할 상품의 상품군을 선택하세요</option>');
+            $('select[name="productNotice"]').prop('selectedIndex', 0);
             $.each(data.jsonData.productNotices, function(key, entry) {
-                $select.append($('<option></option>')
+                $('select[name="productNotice"]').append($('<option></option>')
                     .attr('value', entry.prdtNoticeBaseSysId)
                     .text(entry.groupName));
             })
-
-            $select.on('change', function() {
-                var prdtNoticeBaseSysId = $(this).val();
-                console.log("prdtNoticeBaseSysId", prdtNoticeBaseSysId);
-                $.ajax({
-                        method: "get",
-                        url: `http://192.168.1.40:3000/api/v1/preferences/productNoticeDetails/${prdtNoticeBaseSysId}`,
-                        dataType: "json"
-                    })
-                    .done(function(data) {
-                        console.log("상품정보고시", data.jsonData.productDetailNotices);
-                        var cellHtmls = "";
-                        $('#tb_notify tbody tr').remove();
-                        $.each(data.jsonData.productDetailNotices, function(key, entry) {
-                            cellHtmls += `<tr><td><span class="numbering">${entry.prdtNoticeDetailSysId}</span></td>`;
-                            cellHtmls += '<td><input type="checkbox" name="cbNotify "></td>';
-                            cellHtmls += `<td><input type="text" name="item" class="text_input" value="${entry.item}" style="width: 90 %;" maxlength="100"></td>`;
-                            cellHtmls += `<td class="last"><textarea name="content" rows="2" class="text_input">${entry.content}</textarea></td></tr>`;
-                        });
-                        $('#tb_notify tbody').append(cellHtmls);
-
-                    })
-                    .fail(function(request, status, error) {
-                        msg = request.status + "<br>" + request.responseText + "<br>" + error;
-                        console.log(msg);
-                        alert("카테고리를 불러올 수 없습니다.");
-                    })
-            })
-
         })
         .fail(function(request, status, error) {
             msg = request.status + "<br>" + request.responseText + "<br>" + error;
             console.log(msg);
             alert("카테고리를 불러올 수 없습니다.");
         })
-
 }
+
+$('select[name="productNotice"]').on('change', function() {
+    var prdtNoticeBaseSysId = $(this).val();
+    console.log("prdtNoticeBaseSysId", prdtNoticeBaseSysId);
+    $.ajax({
+            url: `http://192.168.1.40:3000/api/v1/preferences/productNoticeDetails/${prdtNoticeBaseSysId}`,
+            dataType: "json"
+        })
+        .done(function(data) {
+            $('#tb_notify tbody tr').remove();
+
+            var $table = $('#tb_notify');
+            var htmls = cellHtmls['tb_notify'];
+            var $tr = $('<tr />');
+
+            $.each(data.jsonData.productDetailNotices, function(key, entry) {
+                cellHtmls += `<tr><td><span class="numbering">${key + 1}</span></td>`;
+                cellHtmls += '<td><input type="checkbox" name="cbNotify "></td>';
+                cellHtmls += `<td><input type="text" name="item" class="text_input" value="${entry.item}" data-prdtNoticeDetailSysId="${entry.prdtNoticeDetailSysId}" style="width:90%;" maxlength="100"></td>`;
+                cellHtmls += `<td class="last"><textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)">${entry.content}</textarea></td></tr>`;
+            });
+            $('#tb_notify tbody').append(cellHtmls);
+        })
+        .fail(function(request, status, error) {
+            msg = request.status + "<br>" + request.responseText + "<br>" + error;
+            console.log(msg);
+            alert("카테고리를 불러올 수 없습니다.");
+        })
+})

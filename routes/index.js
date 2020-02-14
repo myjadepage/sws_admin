@@ -22,29 +22,29 @@ router.post('/upload', function(req, res) {
 
 
 
-router.post('/file', function(req, res) {
-    var upload = multer({ storage: storage }).single('file');
-    upload(req, res, function(err) {
-        if (err) {
-            return res.end("Error uploading file.");
-        }
-        res.end("File is uploaded");
-    });
-})
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        fs.mkdir('./uploads', function(err) {
-            if (err) {
-                console.log(err.stack)
-            } else {
-                callback(null, './uploads');
-            }
-        })
-    },
-    filename: function(req, file, cb) {
-        callback(null, file.fieldname + '-' + Date.now());
-    }
-});
+// router.post('/file', function(req, res) {
+//     var upload = multer({ storage: storage }).single('file');
+//     upload(req, res, function(err) {
+//         if (err) {
+//             return res.end("Error uploading file.");
+//         }
+//         res.end("File is uploaded");
+//     });
+// })
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         fs.mkdir('./uploads', function(err) {
+//             if (err) {
+//                 console.log(err.stack)
+//             } else {
+//                 callback(null, './uploads');
+//             }
+//         })
+//     },
+//     filename: function(req, file, cb) {
+//         callback(null, file.fieldname + '-' + Date.now());
+//     }
+// });
 
 // var upload = function(req, res) {
 //     var deferred = Q.defer();
