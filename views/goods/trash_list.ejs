@@ -20,81 +20,80 @@
 
                 <!-- 검색 폼 : 시작 ###################################################################### -->
                 <form name="sFrm">
-                    <input type="hidden" name="srecom" value="">
-
-                    <input type="hidden" name="psize" value="10">
-
                     <table class="t_form">
                         <caption>상품 검색 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
+
                         <tbody>
                             <tr>
                                 <th>상품분류</th>
                                 <td>
-                                    <input type="hidden" name="scate" value="">
-                                    <div style="float:left; margin-right:5px;"><select id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
-                                    <div style="float:left; margin-right:5px;"><select id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select></div>
-                                    <div style="float:left; margin-right:5px;"><select id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select></div>
-                                    <script type="text/javascript">
-                                        //<![CDATA[
-                                        var sc = new SelectCategory();
-                                        sc.init(document.sFrm.scate);
-                                        //]]>
-                                    </script>
+                                    <div class="fl mgl5">
+                                        <select id="scate_1" name="scate_1" class="text_input" style="width:150px" onchange="sc.get(this)">
+                                        <option value="">선택</option>
+                                    </select>
+                                    </div>
+                                    <div class="fl mgl5">
+                                        <select id="scate_2" name="scate_2" class="text_input" style="width:150px" onchange="sc.get(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                    </div>
+                                    <div class="fl mgl5">
+                                        <select id="scate_3" name="scate_3" class="text_input" style="width:150px" onchange="sc.get(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                    </div>
+
                                 </td>
                             </tr>
                             <tr>
                                 <th>브랜드</th>
                                 <td>
-                                    <select id="sbrand" name="sbrand" onchange="change();"><option value="">선택하세요</option><option value="1">SAINT JAMES</option><option value="4">FRED PERRY</option><option value="7">PLATFORM</option><option value="8">Baby Banz</option><option value="9">BARREL</option><option value="10">PLAC</option><option value="12">MUJI</option><option value="16">UNIQLO</option><option value="17">PLASTIC ISLAND</option><option value="19">나이키</option></select>
-
+                                    <select id="sbrand" name="sbrand" class="text_input" onchange="change();">
+                                        <option value="">선택하세요</option>
+                                       </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th>상품삭제일</th>
                                 <td>
-                                    <div>
-                                        <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px;">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                        <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px;">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
                                     </div>
-                                    <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't')">오늘</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't', -1)">어제</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -3)">3일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -7)">7일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -10)">10일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -20)">20일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -30)">30일간</button></span>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>상품입점업체</th>
                                 <td>
-                                    <select id="sdealer" name="sdealer" onchange="change();"><option value="">선택하세요</option><option value="-1">몰인몰</option><option value="8">내친구몰 [dealers]</option></select>
-
+                                    <select id="sdealer" name="sdealer" class="text_input" onchange="change();">
+                                        <option value="">선택하세요</option>                                      
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th>상품가격</th>
                                 <td>
-                                    <input type="text" name="ssprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
-                                    <input type="text" name="seprice" value="" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
+                                    <input type="text" name="ssprice" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
+                                    <input type="text" name="seprice" class="text_input" style="width:100px" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
                                 </td>
                             </tr>
                             <tr>
                                 <th>직접검색</th>
                                 <td>
-                                    <select id="skey" name="skey"><option value="name">상품명</option><option value="code">상품코드</option></select>
+                                    <select id="skey" name="skey" class="text_input">
+                                        <option value="name">상품명</option>
+                                        <option value="code">상품코드</option>
+                                    </select>
 
                                     <input type="text" name="sword" value="" class="text_input" style="width:300px">
-                                    <span class="button small black"><button type="button" onclick="change()">검색</button></span>
+                                    <button type="button" class="btn btn-sm btn-default" onclick="change()">검색</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -105,16 +104,16 @@
 
 
                 <form name="Frm" method="post">
-                    <input type="hidden" name="gno">
-                    <input type="hidden" name="params" value="scate=0^sbrand=0^sdts=^sdte=^sdealer=0^ssprice=^seprice=^skey=^sword=^psize=10^page=">
-
-                    <input type="hidden" name="isCheckCbListAll" value="F">
-
                     <div class="section_head">
-                        <h4>상품 휴지통<span style="padding-left:10px">총 <strong>95</strong>개의 상품이 휴지통에 존재합니다.</span></h4>
-                        <div>
-                            <select id="psize" name="psize" onchange="changeList();"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
-
+                        <h4><i class="xi-check-circle"></i> 상품 휴지통<span style="padding-left:10px">총 <strong>95</strong>개의 상품이 휴지통에 존재합니다.</span></h4>
+                        <div class="mgb5">
+                            <select id="psize" name="psize" class="text_input" onchange="changeList();">
+                                <option value="10" selected="">10줄씩보기</option>
+                                <option value="20">20줄씩보기</option>
+                                <option value="30">30줄씩보기</option>
+                                <option value="50">50줄씩보기</option>
+                                <option value="100">100줄씩보기</option>
+                            </select>
                         </div>
                     </div>
 
@@ -123,13 +122,13 @@
                         <caption>상품 휴지통 리스트</caption>
                         <colgroup>
                             <col width="70">
+                            <col width="150">
                             <col width="100">
-                            <col width="60">
                             <col width="*">
-                            <col width="50">
-                            <col width="250">
-                            <col width="50">
-                            <col width="50">
+                            <col width="100">
+                            <col width="300">
+                            <col width="150">
+                            <col width="100">
                         </colgroup>
                         <thead>
                             <tr>
@@ -144,7 +143,7 @@
                         </thead>
                         <tbody>
 
-                            <tr onmouseover="this.style.backgroundColor='#F8F8F8'" onmouseout="this.style.backgroundColor='#FFFFFF'" style="background-color: rgb(255, 255, 255);">
+                            <t>
                                 <td>181</td>
                                 <td>dealers<br>(내친구몰)</td>
                                 <td><img src="/img/62.jpg" width="50" height="50"></td>
@@ -158,37 +157,64 @@
                                 </td>
                                 <td>17</td>
                                 <td class="left">
-                                    <div style="font-size:11px;"><a href="/goods/list?scate=24">OUTER&gt;가디건&gt;라운드가디건</a></div>
-                                    <div style="font-size:11px;"><a href="/goods/list?scate=6">OUTER&gt;코트&gt;트렌치코트</a></div>
+                                    <div><a href="/goods/list?scate=24">OUTER > 가디건   >  라운드가디건</a></div>
+                                    <div><a href="/goods/list?scate=6">OUTER > 코트  > 트렌치코트</a></div>
                                 </td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="openGoodsHistory('181')">이력</button></span></div>
-                                    <div class="mgt3"><span class="button small black"><button type="button" onclick="del('181')">삭제</button></span></div>
-                                    <div class="mgt3"><span class="button small green"><button type="button" onclick="restore('181')">복원</button></span></div>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-default" onclick="openGoodsHistory('181')">이력</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="del('181')">삭제</button>
+                                    </div>
+                                    <div class="mgt3"><button type="button" class="btn btn-sm btn-info" style="width:95px" onclick="restore('181')">복원</button>
+                                    </div>
                                 </td>
                                 <td><input type="checkbox" name="cbList" value="181"></td>
-                            </tr>
+                                </tr>
 
                         </tbody>
                     </table>
 
                     <div class="paging" style="margin-top:20px">
-                        <span><a href="/goods/trash_list?page=1'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10"><strong>1</strong></a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=2'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">2</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=3'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">3</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=4'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">4</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=5'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">5</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=6'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">6</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=7'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">7</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=8'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">8</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=9'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">9</a><a href="http://mimd.mallstore.co.kr/nmanager/goods/trash_list.asp?page=10'scate=0'sbrand=0'sdts='sdte='sdealer=0'ssprice='seprice='skey='sword='psize=10">10</a></span>
+                        <span><a href=""><strong>1</strong></a></span>
                     </div>
 
                     <div class="btn_right">
-                        <span class="button large black"><button type="button" onclick="checkCbListAll()">전체선택</button></span>
-                        <span class="button large black"><button type="button" onclick="delList()">일괄삭제</button></span>
-                        <span class="button large black"><button type="button" onclick="downExcel()">엑셀로받기</button></span>
+                        <button type="button" class="btn btn-default" onclick="checkCbListAll()">전체선택</button>
+                        <button type="button" class="btn btn-danger" onclick="delList()">일괄삭제</button>
+                        <button type="button" class="btn btn-default" onclick="downExcel()">엑셀로받기</button>
                     </div>
 
                 </form>
 
                 <%- include('../inc/footer') %>
 
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var sc = new SelectCategory();
+                        sc.init(document.sFrm.scate);
+                        //]]>
+                    </script>
 
-                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
-                    <script type="text/javascript" src="/js/class.js"></script>
+                    <!-- 달력관련 -->
+                    <script>
+                        var today = new Date();
+                        var picker = tui.DatePicker.createRangePicker({
+                            language: 'ko',
+                            startpicker: {
+                                date: today,
+                                input: '#startpicker-input',
+                                container: '#startpicker-container'
+                            },
+                            endpicker: {
+                                date: today,
+                                input: '#endpicker-input',
+                                container: '#endpicker-container'
+                            },
+                            selectableRanges: [
+                                [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+                            ]
+                        });
+                    </script>
 
                     <script type="text/javascript">
                         //<![CDATA[

@@ -5,35 +5,24 @@
         <%- include('../inc/sidebar') %>
 
             <div id="contents">
-                <h3>상품연동관리</h3>
+                <h3>
+                    <%= title %>
+                </h3>
                 <ul class="navi">
                     <li class="home"><a href="/" target="_top">홈</a></li>
                     <li>상품관리</li>
                     <li>상품관리</li>
-                    <li class="on">상품연동관리</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
                 </ul>
                 <ul class="helpbox">
                     <li>네이버 지식쇼핑/다음 쇼핑하우의 상품연동을 관리합니다.</li>
                 </ul>
 
-                <style type="text/css">
-                    .loading_update {
-                        width: 350px;
-                        height: 120px;
-                        text-align: center;
-                        background-color: #fff;
-                        border: 1px solid #ccc
-                    }
-                    
-                    .loading_update p {
-                        margin: 30px 0 15px
-                    }
-                </style>
-
-
                 <table class="t_list">
                     <colgroup>
-                        <col width="150">
+                        <col width="300">
                         <col width="*">
                         <col width="150">
                     </colgroup>
@@ -50,19 +39,18 @@
                         <tr>
                             <td nowrap=""><strong>네이버 지식쇼핑</strong><br>(수동 업데이트)</td>
                             <td class="left">
-
                                 <div>
                                     <strong class="blue">[전체상품]</strong>
                                     <span>http://mimd.mallstore.co.kr/data/base/ep/naver/all.txt</span>
                                     <span class="button small"><a href="http://mimd.mallstore.co.kr/data/base/ep/naver/all.txt" target="_blank" exist="1">미리보기</a></span>
-                                    <span class="button small green"><button type="button" onclick="updateEp('naver', 'all')">업데이트</button></span>
+                                    <button type="button" class="btn btn-sm btn-info" onclick="updateEp('naver', 'all')">업데이트</button>
                                 </div>
                                 <div class="orange font11">최근 업데이트 일시 : 2017-01-09 16:20:22</div>
                                 <div class="mgt10">
                                     <strong class="blue">[요약상품]</strong>
                                     <span>http://mimd.mallstore.co.kr/data/base/ep/naver/brief.txt</span>
                                     <span class="button small"><a href="http://mimd.mallstore.co.kr/data/base/ep/naver/brief.txt" target="_blank" exist="1" preview="preview">미리보기</a></span>
-                                    <span class="button small green"><button type="button" onclick="updateEp('naver', 'brief')">업데이트</button></span>
+                                    <button type="button" class="btn btn-sm btn-info" onclick="updateEp('naver', 'brief')">업데이트</button>
                                 </div>
                                 <div class="orange font11">최근 업데이트 일시 : 2013-08-13 14:05:56</div>
                                 <div class="mgt10 font11">
@@ -70,28 +58,28 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="button small"><a href="https://adcenter.shopping.naver.com/member/login/form.nhn" target="naver_new">관리</a></span>
+                                <a href="https://adcenter.shopping.naver.com/member/login/form.nhn" class="btn btn-default" target="naver_new">관리</a>
                             </td>
                         </tr>
                         <!-- 네이버지식쇼핑 -->
 
                         <!-- 다음 쇼핑하우 -->
                         <tr>
-                            <td nowrap=""><strong>다음 쇼핑하우</strong></td>
-                            <td class="left">
+                            <td style="border-bottom: 0;"><strong>다음 쇼핑하우</strong></td>
+                            <td class="left" style="border-bottom: 0;">
                                 <div>
                                     <strong class="blue">[전체상품]</strong>
                                     <span>http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=all</span>
-                                    <span class="button small"><a href="http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=all&method=preview" target="_blank">미리보기</a></span>
+                                    <a href="http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=all&method=preview" class="btn btn-sm btn-info" target="_blank">미리보기</a></span>
                                 </div>
                                 <div class="mgt5">
                                     <strong class="blue">[요약상품]</strong>
                                     <span>http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=brief</span>
-                                    <span class="button small"><a href="http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=brief&method=preview" target="_blank">미리보기</a></span>
+                                    <a href="http://mimd.mallstore.co.kr/exts/ep/daum.asp?kind=brief&method=preview" class="btn btn-sm btn-info" target="_blank">미리보기</a></span>
                                 </div>
                             </td>
-                            <td>
-                                <span class="button small"><a href="http://commerceone.biz.daum.net/main.daum" target="daum_new">관리</a></span>
+                            <td style="border-bottom: 0;">
+                                <a href="http://commerceone.biz.daum.net/main.daum" class="btn btn-default" target="daum_new">관리</a>
                             </td>
                         </tr>
                         <!-- 다음 쇼핑하우 -->

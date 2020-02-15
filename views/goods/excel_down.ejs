@@ -5,65 +5,67 @@
         <%- include('../inc/sidebar') %>
 
             <div id="contents">
-                <h3>상품정보다운로드</h3>
+                <h3>
+                    <%= title %>
+                </h3>
                 <ul class="navi">
                     <li class="home"><a href="/" target="_top">홈</a></li>
                     <li>상품관리</li>
                     <li>상품정보엑셀작업</li>
-                    <li class="on">상품정보다운로드</li>
+                    <li class="on">
+                        <%= title %>
+                    </li>
                 </ul>
                 <ul class="helpbox">
                     <li>업로드 하신 상품 DB를 다운 받으실 수 있습니다.</li>
                     <li>다운받기를 원하시는 출력항목을 선택하시여 [다운받기]버튼을 클릭해 주세요.</li>
                 </ul>
 
-                <style type="text/css">
-
-                </style>
-
-
-                <form name="Frm" method="post" target="frmProc" action="/goods/excel_down.excel">
-                    <input type="hidden" name="field">
-                    <input type="hidden" name="isCheckCbListAll" value="F">
-
+                <form name="Frm">
                     <div class="section_head">
-                        <h4>출력항목설정</h4>
+                        <h4><i class="xi-check-circle"></i> 출력항목설정</h4>
                     </div>
 
-                    <table width="100%" class="t_form">
+                    <table class="t_form">
                         <caption>출력항목 선택 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
+
                         <tbody>
                             <tr>
                                 <th>상품분류</th>
                                 <td>
-                                    <input type="hidden" name="scate" value="">
-                                    <div style="float:left; margin-right:5px;"><select id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)"><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
-                                    <div style="float:left; margin-right:5px;"><select id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)"><option value="">선택</option></select></div>
-                                    <div style="float:left; margin-right:5px;"><select id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)"><option value="">선택</option></select></div>
-                                    <script type="text/javascript">
-                                        //<![CDATA[
-                                        var sc = new SelectCategory();
-                                        sc.init(document.Frm.scate);
-                                        //]]>
-                                    </script>
+                                    <div class="fl mar5">
+                                        <select id="scate_1" name="scate_1" class="text_input" style="width: 150px;" onchange="sc.get(this)">
+                                            <option value="">선택</option>                                          
+                                        </select>
+                                    </div>
+                                    <div class="fl mar5">
+                                        <select id="scate_2" name="scate_2" class="text_input" style="width: 150px;" onchange="sc.get(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                    </div>
+                                    <div class="fl mar5">
+                                        <select id="scate_3" name="scate_3" class="text_input" style="width: 150px;" onchange="sc.get(this)">
+                                            <option value="">선택</option>
+                                        </select>
+                                    </div>
+
                                 </td>
                             </tr>
                             <tr>
                                 <th>제외필터</th>
                                 <td>
-                                    <input type="checkbox" id="filter_no_display" name="filterNoDisplay" value="1"><label for="filter_no_display">미진열 상품 제외</label>
-                                    <input type="checkbox" id="filter_soldout" name="filterSoldOut" value="1"><label for="filter_soldout">품절 상품 제외</label>
+                                    <label for="filter_no_display mgr5"><input type="checkbox" id="filter_no_display" name="filterNoDisplay">미진열 상품 제외</label>
+                                    <label for="filter_soldout"><input type="checkbox" id="filter_soldout" name="filterSoldOut">품절 상품 제외</label>
                                 </td>
                             </tr>
                             <tr>
                                 <th>출력항목</th>
                                 <td>
                                     <ul class="fields">
-                                        <li><input type="checkbox" id="field_1" name="cbList" value="gno"><label for="field_1" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">고유번호</label></li>
+                                        <li>
+                                            <input type="checkbox" id="field_1" name="cbList" value="gno">
+                                            <label for="field_1" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">고유번호</label>
+                                        </li>
                                         <li><input type="checkbox" id="field_2" name="cbList" value="dealer"><label for="field_2" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">판매자</label></li>
                                         <li><input type="checkbox" id="field_3" name="cbList" value="gcode"><label for="field_3" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">상품코드</label></li>
                                         <li><input type="checkbox" id="field_4" name="cbList" value="category"><label for="field_4" onmouseover="mouseOver(this)" onmouseout="mouseOut(this)">카테고리</label></li>
@@ -98,9 +100,9 @@
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="checkCbListAll()">전체선택</button></span>
-                        <span class="button large black"><button type="button" onclick="validSubmit()">다운로드</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="checkCbListAll()">전체선택</button>
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">다운로드</button>
                     </div>
 
                 </form>
@@ -108,7 +110,12 @@
 
                 <%- include('../inc/footer') %>
 
-                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var sc = new SelectCategory();
+                        sc.init(document.Frm.scate);
+                        //]]>
+                    </script>
                     <script type="text/javascript">
                         //<![CDATA[
                         function mouseOver(item) {

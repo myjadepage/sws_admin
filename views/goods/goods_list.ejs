@@ -23,7 +23,6 @@
 
                 <!-- 검색 폼 : 시작 ###################################################################### -->
                 <form name="sFrm">
-
                     <div class="box">
                         <table class="t_form">
                             <caption>상품 검색 폼</caption>
@@ -32,27 +31,22 @@
                                 <tr>
                                     <th>상품분류</th>
                                     <td>
-                                        <input type="hidden" name="scate" value="">
-                                        <div style="float:left; margin-right:5px;">
-                                            <select class="text_input" style="width: 100px;" id="scate_1" name="scate_1" head="선택" depth="1" onchange="sc.get(this)">
+                                        <div class="fl mgr5">
+                                            <select class="text_input" style="width: 100px;" id="scate_1" name="scate_1" onchange="sc.get(this)">
                                                 <option value="">선택</option> 
                                             </select>
                                         </div>
-                                        <div style="float:left; margin-right:5px;">
-                                            <select class="text_input" style="width: 100px;" id="scate_2" name="scate_2" head="선택" depth="2" onchange="sc.get(this)">
+                                        <div class="fl mgr5">
+                                            <select class="text_input" style="width: 100px;" id="scate_2" name="scate_2" onchange="sc.get(this)">
                                                 <option value="">선택</option>
                                             </select>
                                         </div>
-                                        <div style="float:left; margin-right:5px;"><select class="text_input" style="width: 100px;" id="scate_3" name="scate_3" head="선택" depth="3" onchange="sc.get(this)">
+                                        <div class="fl mgr5">
+                                            <select class="text_input" style="width: 100px;" id="scate_3" name="scate_3" onchange="sc.get(this)">
                                             <option value="">선택</option>
                                         </select>
                                         </div>
-                                        <script type="text/javascript">
-                                            //<![CDATA[
-                                            var sc = new SelectCategory();
-                                            sc.init(document.sFrm.scate);
-                                            //]]>
-                                        </script>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -62,21 +56,21 @@
                                             <tbody>
                                                 <tr>
                                                     <th>메인</th>
-                                                    <td style="border-top:0 none;">
+                                                    <td style="border-top:0;">
                                                         <ul class="arrange">
-                                                            <li><input type="checkbox" name="caream" value="30">md추천</li>
-                                                            <li class="mgl20"><input type="checkbox" name="caream" value="32">best추천</li>
+                                                            <li><label><input type="checkbox" name="caream" > md추천</label></li>
+                                                            <li class="mgl20"><label><input type="checkbox" name="caream" > best추천</label></li>
                                                         </ul>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="border:0 none;border-right:solid 1px #ddd">서브</th>
-                                                    <td style="border:0 none;">
+                                                    <th style="border:0;border-right:solid 1px #ddd">서브</th>
+                                                    <td style="border:0 ;">
                                                         <ul class="arrange">
-                                                            <li><input type="checkbox" name="careas" value="CMA">대분류 Best Seller</li>
-                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CMB">대분류 New Item</li>
-                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CMC">대분류 MD Choice</li>
-                                                            <li class="mgl20"><input type="checkbox" name="careas" value="CSA">중분류 Top Best</li>
+                                                            <li><label><input type="checkbox" name="careas" > 대분류 Best Seller</label></li>
+                                                            <li class="mgl20"><label><input type="checkbox" name="careas" > 대분류 New Item</label></li>
+                                                            <li class="mgl20"><label><input type="checkbox" name="careas" > 대분류 MD Choice</label></li>
+                                                            <li class="mgl20"><label><input type="checkbox" name="careas" > 중분류 Top Best</label></li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -112,33 +106,34 @@
                                 <tr>
                                     <th>상품판매자</th>
                                     <td>
-                                        <select id="sdealer" name="sdealer" class="text_input" onchange="change();"><option value="">선택하세요</option><option value="-1">몰인몰</option><option value="8">내친구몰 [dealers]</option></select>
-
+                                        <select id="sdealer" name="sdealer" class="text_input" onchange="change();">
+                                            <option value="">선택하세요</option>                                                                                   
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>재고여부</th>
                                     <td>
-                                        <input type="radio" name="sstock" value="0" checked>전체상품
-                                        <input type="radio" name="sstock" value="1" class="mgl20">재고 무제한
-                                        <input type="radio" name="sstock" value="2" class="mgl20">재고있는 상품(무제한 제외)
-                                        <input type="radio" name="sstock" value="3" class="mgl20">재고가 실제 0인 상품
-                                        <input type="radio" name="sstock" value="4" class="mgl20">품절로 선택된 상품
+                                        <label><input type="radio" name="sstock" checked> 전체상품</label>
+                                        <label><input type="radio" name="sstock" class="mgl20"> 재고 무제한</label>
+                                        <label><input type="radio" name="sstock" class="mgl20"> 재고있는 상품(무제한 제외)</label>
+                                        <label><input type="radio" name="sstock" class="mgl20"> 재고가 실제 0인 상품</label>
+                                        <label><input type="radio" name="sstock" class="mgl20"> 품절로 선택된 상품</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>진열여부</th>
                                     <td>
-                                        <input type="radio" name="sdisplay" value="0" checked>전체상품
-                                        <input type="radio" name="sdisplay" value="1" class="mgl20">진열되어 있는 상품
-                                        <input type="radio" name="sdisplay" value="2" class="mgl20">진열 안되어 있는 상품
+                                        <label><input type="radio" name="sdisplay" checked>전체상품</label>
+                                        <label><input type="radio" name="sdisplay" class="mgl20">진열되어 있는 상품</label>
+                                        <label><input type="radio" name="sdisplay" class="mgl20">진열 안되어 있는 상품</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>상품가격</th>
                                     <td>
-                                        <input type="text" name="ssprice" value="" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
-                                        <input type="text" name="seprice" value="" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
+                                        <input type="text" name="ssprice" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원 ~
+                                        <input type="text" name="seprice" class="text_input" onkeyup="toCurrency(this)" onblur="toCurrency(this)"> 원
                                     </td>
                                 </tr>
                                 <tr>
@@ -148,7 +143,7 @@
                                         <option value="name">상품명</option>
                                         <option value="code">상품코드</option>
                                     </select>
-                                        <input type="text" name="sword" value="" class="text_input">
+                                        <input type="text" name="sword" class="text_input">
                                         <button class="btn btn-sm btn-secondary" type="submit">검색</button>
                                     </td>
                                 </tr>
@@ -159,25 +154,10 @@
                 <!-- 검색 폼 : 끝 ###################################################################### -->
 
 
-                <form name="Frm" method="post">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="gno">
-                    <input type="hidden" name="cate" value="0">
-
-                    <input type="hidden" name="price">
-                    <input type="hidden" name="margin">
-                    <input type="hidden" name="originalPrice">
-                    <input type="hidden" name="marketPrice">
-                    <input type="hidden" name="quantity">
-
-                    <input type="hidden" name="params" value="scate=0^saream=^sareas=^sbrand=0^sdts=^sdte=^sdealer=0^sstock=0^sdisplay=0^ssprice=^seprice=^skey=^sword=^psort=sort_desc^psize=10^page=">
-
+                <form name="Frm">
                     <div class="box">
                         <div class="section_head">
-                            <h4>
-                                총 <span style="color:#ff0000">62</span>개의 상품이 검색되었습니다.
-
-                            </h4>
+                            <h4><i class="xi-check-circle"></i> 총 <strong class="red">62</strong>개의 상품이 검색되었습니다.</h4>
                             <div>
                                 <select id="psize" name="psize" onchange="changeList();" class="text_input">
                                     <option value="10" selected="">10줄씩보기</option>
@@ -214,7 +194,7 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" name="cbListAll" onclick="checkCbAll(this.form.cbList, this.checked)"></th>
+                                    <th><input type="checkbox" name="cbListAll" onclick="sws.common.checkCbAll(this.form.cbList, this.checked)"></th>
                                     <th>고유번호</th>
                                     <th>상품명 / 카테고리 / 공급업체</th>
                                     <th>판매가</th>
@@ -278,13 +258,18 @@
                         <button type="button" class="btn btn-secondary" onclick="downExcel()">엑셀로받기</button>
                         <button type="button" class="btn btn-danger" onclick="delList()">일괄삭제</button>
                     </div>
-
                 </form>
 
 
-
                 <%- include('../inc/footer') %>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var sc = new SelectCategory();
+                        sc.init(document.sFrm.scate);
+                        //]]>
+                    </script>
 
+                    <!-- 달력관련 -->
                     <script>
                         var today = new Date();
                         var picker = tui.DatePicker.createRangePicker({
@@ -304,7 +289,6 @@
                             ]
                         });
                     </script>
-
 
                     <script type="text/javascript">
                         //<![CDATA[
@@ -418,10 +402,7 @@
                         }
 
                         function openGoodsHistory(gno) {
-                            $.laybox({
-                                type: 'iframe ',
-                                source: 'goods_history_list.ifrm?gno=' + gno
-                            });
+                            location.href = "goods_history_list_popup/:gno"
                         }
 
                         function openDealerInfo(dealerNo) {
@@ -429,7 +410,7 @@
                         }
 
                         function downExcel() {
-                            frmProc.location.replace("goods_list.excel?scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10");
+                            location.replace("goods_list.excel?scate=0&saream=&sareas=&sbrand=0&sdts=&sdte=&sdealer=0&sstock=0&sdisplay=0&ssprice=&seprice=&skey=&sword=&psort=sort_desc&psize=10");
                         }
                         //]]>
                     </script>
@@ -467,7 +448,7 @@
                                 if (objCmsType.value != 'GOS ') { // 카테고리 또는 입점업체 수수료 설정
                                     // 판매가를 입력한 경우
                                     if (caller == 'price ') {
-                                        originalPrice = setRound(price - (price * margin / 100), priceRoundUnit);
+                                        originalPrice = sws.common.setRound(price - (price * margin / 100), priceRoundUnit);
                                         objOriginalPrice.value = formatComma(originalPrice);
                                     }
                                     // 공급가를 적었다면
@@ -475,15 +456,15 @@
                                         objPrice.value = 0;
                                         objOriginalPrice.value = 0;
                                     } else {
-                                        price = setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
+                                        price = sws.common.setRound(originalPrice / (100 - margin) * 100, priceRoundUnit);
                                         objPrice.value = formatComma(price);
                                     }
                                 } else { // 상품별 수수료 설정
                                     margin = (price == 0 ? 0 : 100 - (originalPrice / price * 100));
-                                    objMargin.value = setRound(margin, 2);
+                                    objMargin.value = sws.common.setRound(margin, 2);
                                 }
                             } else { // 수수료 기준 경우
-                                originalPrice = setRound(price * (100 - margin) / 100, priceRoundUnit);
+                                originalPrice = sws.common.setRound(price * (100 - margin) / 100, priceRoundUnit);
                                 objOriginalPrice.value = formatComma(originalPrice);
                             }
                         }
@@ -516,8 +497,6 @@
                         }
                         //]]>
                     </script>
-
-
                     </body>
 
                     </html>

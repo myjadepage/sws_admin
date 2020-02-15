@@ -19,31 +19,31 @@
 
 
                 <form name="sFrm">
-
                     <!-- 검색 폼 : 시작 ###################################################################### -->
                     <div class="box">
-                        <table width="100%" class="t_form">
-                            <colgroup>
-                                <col width="130">
-                                <col width="*">
-                            </colgroup>
+                        <table class="t_form">
                             <caption>검색 폼</caption>
                             <tbody>
                                 <tr>
                                     <th>상품분류</th>
                                     <td>
-                                        <input type="hidden" name="cate" value="">
-                                        <select id="cate_1" name="cate_1" size="4" head=":: 1차 분류 ::" depth="1" onchange="sc.get(this)"><option value="">:: 1차 분류 ::</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select>
-                                        <select id="cate_2" name="cate_2" size="4" head=":: 2차 분류 ::" depth="2" onchange="sc.get(this)"><option value="">:: 2차 분류 ::</option></select>
-                                        <select id="cate_3" name="cate_3" size="4" head=":: 3차 분류 ::" depth="3" onchange="sc.get(this)"><option value="">:: 3차 분류 ::</option></select>
-
+                                        <select id="cate_1" name="cate_1" size="4" style="height: auto;" onchange="sc.get(this)">
+                                            <option value="">:: 1차 분류 ::</option>
+                                            <option value="2">OUTER</option>  
+                                        </select>
+                                        <select id="cate_2" name="cate_2" size="4" style="height: auto;" onchange="sc.get(this)">
+                                            <option value="">:: 2차 분류 ::</option>
+                                        </select>
+                                        <select id="cate_3" name="cate_3" size="4" style="height: auto;" onchange="sc.get(this)">
+                                            <option value="">:: 3차 분류 ::</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>제외필터</th>
                                     <td>
-                                        <input type="checkbox" id="filter_no_display" name="filterNoDisplay" value="1"><label for="filter_no_display">미진열 상품 제외</label>
-                                        <input type="checkbox" id="filter_soldout" name="filterSoldOut" value="1"><label for="filter_soldout">품절 상품 제외</label>
+                                        <label for="filter_no_display"><input type="checkbox" id="filter_no_display" name="filterNoDisplay"> 미진열 상품 제외</label>
+                                        <label for="filter_soldout" class="mgl20"><input type="checkbox" id="filter_soldout" name="filterSoldOut"> 품절 상품 제외</label>
                                     </td>
                                 </tr>
                             </tbody>
@@ -61,14 +61,12 @@
 
 
                 <form name="Frm">
-                    <input type="hidden" name="params" value="cate=0^filterNoDisplay=0^filterSoldOut=0">
-
                     <div class="sortable_wrap">
-                        <div class="none"><strong>상단의 상품분류를 선택해 주세요.</strong></div>
+                        <h3 class="ir_pm"><strong>상단의 상품분류를 선택해 주세요.</strong></h3>
                         <div class="sortable_wrap">
 
                             <div class="sortable_list">
-                                <table width="100%" class="t_list mgb5">
+                                <table class="t_list mgb5">
                                     <colgroup>
                                         <col width="51">
                                         <col width="30">
@@ -89,7 +87,7 @@
                                     </thead>
                                 </table>
 
-                                <ul id="sortable_container" class="ui-sortable">
+                                <ul id="sortable_container">
                                     <li>
                                         <table>
                                             <colgroup>
@@ -103,7 +101,10 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="no">1</td>
-                                                    <th><input type="checkbox" name="cbList" value="243" onclick="checkCb(this)"><input type="hidden" name="gno" value="243"></th>
+                                                    <th>
+                                                        <input type="checkbox" name="cbList" class="mgl5" value="243" onclick="checkCb(this)">
+                                                        <input type="hidden" name="gno" value="243">
+                                                    </th>
                                                     <td class="font11">G0000000243</td>
                                                     <td class="title">
                                                         <img src="http://mimd.mallstore.co.kr/data/base/goods/small/201721660706400_1_1_1_1.jpg" width="40" height="40">
@@ -116,26 +117,25 @@
                                         </table>
                                     </li>
                                 </ul>
-                                <input type="hidden" name="sorts" value="243,242,241,240,239,234,231,229,222,221,220,218,217,216,213,202,201,200,199,198,197,196,194,193,192,185,184,183,145,143,137,126,125,90,76,74">
                             </div>
 
-                            <div class="sortable_control" style="margin-left: 10px; top: 0px; visibility: visible;">
+                            <div class="sortable_control" style="margin-left: 10px; visibility: visible;">
                                 <div class="control_box">
                                     <ul>
                                         <li class="mover">
-                                            <div><strong>상품 일괄 이동</strong></div>
-                                            선택 상품을<br>
+                                            <h5><i class="xi-arrows"></i></strong><strong>상품 일괄 이동</strong></h5>
+                                            선택 상품<br>
                                             <input type="text" name="batchNo" style="width:30px" class="text_input" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> 번
-                                            <select name="batchDirection">
+                                            <select name="batchDirection" class="text_input">
                                                 <option value="-1">위</option>
                                                 <option value="1">아래</option>
-                                            </select> 로
-                                            <div class="mgt5"><span class="button"><button type="button" onclick="moveRow()">이동</button></span></div>
+                                            </select>
+                                            <div class="mgt5"><button type="button" class="btn btn-sm btn-default" onclick="moveRow()">이동</button></div>
                                         </li>
                                     </ul>
                                     <ul>
-                                        <li><span class="button black"><button type="button" onclick="validSubmit()">저장</button></span></li>
-                                        <li><span class="button black"><button type="button" onclick="cancel()">취소</button></span></li>
+                                        <li><button type="button" class="btn btn-sm btn-info" onclick="validSubmit()">저장</button></li>
+                                        <li><button type="button" class="btn btn-sm btn-default" onclick="cancel()">취소</button></li>
                                     </ul>
                                 </div>
                                 <ul class="go">
@@ -154,14 +154,17 @@
 
                 <%- include('../inc/footer') %>
 
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var sc = new SelectCategory();
+                        sc.init(document.sFrm.cate);
+                        //]]>
+                    </script>
 
-                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
-                    <script type="text/javascript" src="/js/jquery-ui-1.10.3.min.js"></script>
-                    <script type="text/javascript" src="/js/Floating.js"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSearch(f) {
-                            if (isEmpty(f.cate)) {
+                            if (sws.common.isEmpty(f.cate)) {
                                 alert("카테고리를 선택해 주세요.");
                                 return false;
                             }
@@ -292,15 +295,6 @@
                         });
                         //]]>
                     </script>
-
-
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        var sc = new SelectCategory();
-                        sc.init(document.sFrm.cate);
-                        //]]>
-                    </script>
-
                     </body>
 
                     </html>

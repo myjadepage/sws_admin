@@ -301,7 +301,7 @@
 
  //<![CDATA[
  // 가격 계산시 절사단위
- var priceRoundUnit = '-1'.toNumeric();
+
 
  //  <!------------------------- 10.수수료설정 -->
 
@@ -350,6 +350,10 @@
          f.feeRate.readOnly = false;
      }
  }
+
+ //<![CDATA[
+ // 가격 계산시 절사단위
+ var priceRoundUnit = '-1'.toNumeric();
 
  // 가격입력 : 계산
  function calcPrice(caller) {

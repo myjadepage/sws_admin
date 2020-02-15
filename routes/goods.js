@@ -36,6 +36,15 @@ router.get('/goods_icon_pop', function(req, res, next) {
 });
 
 
+router.get('/goods_history_list_popup/:gno', function(req, res, next) {
+    var gno = req.params.gno;
+    res.render('goods/goods_history_list_popup', {
+        path: '/goods/',
+        name: 'goods_history_list_popup',
+        title: '상품이력 '
+    });
+});
+
 router.get('/goods_list', function(req, res, next) {
     res.render('goods/goods_list', {
         path: '/goods/',
@@ -43,6 +52,7 @@ router.get('/goods_list', function(req, res, next) {
         title: '상품목록'
     });
 });
+
 
 router.get('/goods_sort', function(req, res, next) {
     res.render('goods/goods_sort', {

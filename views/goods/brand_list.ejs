@@ -19,27 +19,25 @@
 
 
 
-                <form name="Frm" method="post" action="/goods/brand_list">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="idx">
-                    <input type="hidden" name="params" value="skey=^sword=^page=">
-
-                    <div class="section_head">
-                        <h4>총 <span><strong>9</strong></span>개의 정보가 등록되어있습니다.</h4>
+                <form name="Frm">
+                    <div class="section_head mgb5">
+                        <h4><i class="xi-check-circle"></i> 총 <strong>9</strong>개의 정보가 등록되어있습니다.</h4>
                         <div>
-                            <select id="skey" name="skey"><option value="name">브랜드명</option></select>
+                            <select id="skey" name="skey" class="text_input">
+                                <option value="name">브랜드명</option>
+                            </select>
                             <input type="text" name="sword" value="" class="text_input" style="width:150px">
-                            <span class="button small black"><button type="submit">검색</button></span>
+                            <button type="submit" class="btn btn-sm btn-default">검색</button>
                         </div>
                     </div>
 
                     <table class="t_list">
                         <caption>등록된 배너 리스트</caption>
                         <colgroup>
-                            <col width="50">
-                            <col width="250">
+                            <col width="100">
+                            <col width="300">
                             <col width="*">
-                            <col width="50">
+                            <col width="200">
                         </colgroup>
                         <thead>
                             <tr>
@@ -50,91 +48,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr>
-                                <td>9</td>
-                                <td>PLASTIC ISLAND</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo1.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(17)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(17)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>8</td>
-                                <td>UNIQLO</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo2_1.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(16)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(16)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td>MUJI</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo3.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(12)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(12)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td>PLAC</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo4.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(10)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(10)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td>BARREL</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo5.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(9)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(9)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>Baby Banz</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo6.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(8)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(8)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>PLATFORM</td>
-                                <td>
-                                    <div class="adjust_image_container"><img src="/img/brand_logo7.jpg" ow="182" oh="100"></div>
-                                </td>
-                                <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(7)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(7)">삭제</button></span></div>
-                                </td>
-                            </tr>
-
                             <tr>
                                 <td>2</td>
                                 <td>FRED PERRY</td>
@@ -142,8 +55,9 @@
                                     <div class="adjust_image_container"><img src="/img/brand_logo8.jpg" ow="182" oh="100"></div>
                                 </td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(4)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(4)">삭제</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(4)">수정</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="del(4)">삭제</button>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -154,8 +68,9 @@
                                     <div class="adjust_image_container"><img src="/img/brand_logo9.jpg" ow="182" oh="100"></div>
                                 </td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(1)">수정</button></span></div>
-                                    <div class="mgt3"><span class="button small"><button type="button" onclick="del(1)">삭제</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(1)">수정</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="del(1)">삭제</button>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -166,8 +81,8 @@
                         <span><a href="/goods/brand_list?page=1&skey=&sword="><strong>1</strong></a></span>
                     </div>
 
-                    <div class="btn_right">
-                        <span class="button large black"><button type="button" onclick="reg()">추가하기</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-lg btn-info" onclick="reg()">추가하기</button>
                     </div>
 
                 </form>

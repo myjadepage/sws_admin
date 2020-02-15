@@ -24,25 +24,12 @@
                     <li>이미지 파일은 압축파일(*.zip)로 함께 첨부 바랍니다.</li>
                     <li>상품정보다운로드 메뉴에서 정보수정을 원하시는 상품의 데이터를 다운로드 후, 수정하여 상품정보 일괄수정을 진행하실 수 있습니다.</li>
                 </ul>
-                <style type="text/css">
-                    .t_form td .fields li {
-                        float: left;
-                        width: 20%
-                    }
-                    
-                    .t_form td .fields li.nl {
-                        width: 100%;
-                        font-size: 0;
-                        line-height: 0
-                    }
-                </style>
-
 
                 <form name="FrmReg">
                     <div class="section_head">
-                        <h4>상품정보 일괄등록</h4>
-                        <div>
-                            <span class="button black"><button type="button">샘플 다운로드</button></span>
+                        <h4><i class="xi-check-circle"></i> 상품정보 일괄등록</h4>
+                        <div class="mgb5">
+                            <button type="button" class="btn btn-sm btn-default">샘플 다운로드</button>
                         </div>
                     </div>
                     <table class="t_form">
@@ -64,22 +51,19 @@
                         </tbody>
                     </table>
 
-                    <div id="button_regist" class="btn">
-                        <span class="button large black"><button type="button">업로드</button></span>
+                    <div id="button_regist" class="btn_center">
+                        <button type="button" class="btn btn-lg btn-info">업로드</button>
                     </div>
                 </form>
 
                 <form name="FrmMod">
                     <input type="hidden" name="mode" value="MOD">
                     <div class="section_head">
-                        <h4>상품정보 일괄수정</h4>
+                        <h4><i class="xi-check-circle"></i> 상품정보 일괄수정</h4>
                     </div>
                     <table class="t_form">
                         <caption>출력항목 선택 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
+
                         <tbody>
                             <tr>
                                 <th>엑셀파일</th>
@@ -96,19 +80,17 @@
                         </tbody>
                     </table>
 
-                    <div id="button_modify" class="btn">
-                        <span class="button large black"><button type="button" >업로드</button></span>
+                    <div id="button_regist" class="btn_center">
+                        <button type="button" class="btn btn-lg btn-info">업로드</button>
                     </div>
                 </form>
 
                 <div class="section_head">
-                    <h4>최근 업로드 실패 내역 리스트</h4>
+                    <h4><i class="xi-check-circle"></i> 최근 업로드 실패 내역 리스트</h4>
                     <table id="failList" class="t_form">
                         <caption>업로드 실패 내역 리스트</caption>
                         <colgroup>
-                            <col width="130">
-                            <col width="*">
-                            <col width="130">
+                            <col width="87">
                         </colgroup>
                         <thead>
                             <tr>
