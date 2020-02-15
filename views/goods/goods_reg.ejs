@@ -366,8 +366,6 @@
                                         <div class="fr">
                                             <button type="button" class="btn btn-sm btn-secondary" onclick="addRow('tb_notify');">상품 추가</button>
                                             <button type="button" class="btn btn-sm btn-danger" onclick="delRowList('tb_notify');">상품 삭제</button>
-                                            <!-- <button type="button" class="btn btn-sm btn-secondary" id="addProduct">상품 추가</button>
-                                            <button type="button" class="btn btn-sm btn-danger" id="delProduct">상품 삭제</button> -->
                                         </div>
 
                                         <table id="tb_notify" width="100%" summary="상품정보고시 목록 입니다.">
@@ -381,7 +379,7 @@
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th><input type="checkbox" name="cbNotifyAll"></th>
+                                                    <th><input type="checkbox" name="cbNotifyAll" onclick="sws.common.checkCbAll(this.form.cbNotify, this.checked)"></th>
                                                     <th>항목</th>
                                                     <th class="last">내용</th>
                                                 </tr>
@@ -544,7 +542,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <input type="checkbox" name="cbOptAll100" onclick="checkCbAll(this.form.cbOpt100, this.checked)" disabled>
+                                                        <input type="checkbox" name="cbOptAll100" onclick="sws.common.checkCbAll(this.form.cbOpt100, this.checked)" disabled>
                                                     </th>
                                                     <th>옵션명</th>
                                                     <th colspan="2">옵션항목</th>
@@ -610,7 +608,8 @@
                                 <tr class="addition_container" style="display:none">
                                     <td colspan="2">
                                         <ul class="over_h mgb10">
-                                            <li class="fl"><button type="button" class="btn btn-sm btn-secondary" onclick="cbAdtAll()">전체선택</button>
+                                            <li class="fl">
+                                                <button type="button" class="btn btn-sm btn-secondary" id="allCheck" onclick="cbAdtAll()">전체선택</button>
                                             </li>
                                             <li class="fr">
                                                 <button type="button" class="btn btn-sm btn-default" onclick="addAddition()">추가구성 추가</button>

@@ -909,7 +909,14 @@
  }
 
  function cbAdtAll() {
-     $('input[name="cbAdt"]').prop('checked', true);
+     if ($('input[name="cbAdt"]').prop("checked")) {
+         $('input[name="cbAdt"]').prop("checked", false);
+         $('#allCheck').text('전체선택');
+     } else {
+         $('input[name="cbAdt"]').prop("checked", true);
+         $('#allCheck').text('전체해제');
+     }
+     //  $('input[name="cbAdt"]').prop('checked', true);
  }
 
  function checkCbAdt(obj) {

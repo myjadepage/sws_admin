@@ -397,18 +397,17 @@ $('select[name="productNotice"]').on('change', function() {
         })
         .done(function(data) {
             $('#tb_notify tbody tr').remove();
-
-            var $table = $('#tb_notify');
             var htmls = cellHtmls['tb_notify'];
+            var $table = $('#tb_notify');
             var $tr = $('<tr />');
 
             $.each(data.jsonData.productDetailNotices, function(key, entry) {
-                cellHtmls += `<tr><td><span class="numbering">${key + 1}</span></td>`;
-                cellHtmls += '<td><input type="checkbox" name="cbNotify "></td>';
-                cellHtmls += `<td><input type="text" name="item" class="text_input" value="${entry.item}" data-prdtNoticeDetailSysId="${entry.prdtNoticeDetailSysId}" style="width:90%;" maxlength="100"></td>`;
-                cellHtmls += `<td class="last"><textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)">${entry.content}</textarea></td></tr>`;
+                htmls += `<tr><td><span class="numbering"></span></td>`;
+                htmls += '<td><input type="checkbox" name="cbNotify "></td>';
+                htmls += `<td><input type="text" name="item" class="text_input" value="${entry.item}" data-prdtNoticeDetailSysId="${entry.prdtNoticeDetailSysId}" style="width:90%;" maxlength="100"></td>`;
+                htmls += `<td class="last"><textarea name="content" rows="2" class="text_input" onKeyUp="checkTextLen(this, 2000)">${entry.content}</textarea></td></tr>`;
             });
-            $('#tb_notify tbody').append(cellHtmls);
+            $table.append(htmls);
         })
         .fail(function(request, status, error) {
             msg = request.status + "<br>" + request.responseText + "<br>" + error;
