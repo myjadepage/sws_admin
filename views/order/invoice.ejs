@@ -16,13 +16,9 @@
                     <li>"배송준비" 상태인 주문건에 대한 일괄배송 관리 페이지입니다.</li>
                 </ul>
 
-
-
                 <form name="FrmL">
-                    <input type="hidden" name="invoiceIdx">
-
                     <div class="section_head">
-                        <h4>배송 대상 주문 - 총 <strong class="red">3</strong>건이 조회되었습니다.</h4>
+                        <h4><i class="xi-check-circle"></i> 배송 대상 주문 - 총 <strong class="red">3</strong>건이 조회되었습니다.</h4>
                     </div>
 
                     <table class="t_list">
@@ -94,23 +90,6 @@
                                     <td>57,700원</td>
                                 </tr>
 
-                                <tr class="even">
-                                    <td><input type="checkbox" name="cbList" value="404" onclick="checkLine(this)"></td>
-                                    <td>404</td>
-                                    <td>주문</td>
-                                    <td><a href="javascript:;" onclick="openDetail(251)">A1724353582837</a></td>
-                                    <td>몰스토어</td>
-                                    <td>몰스토어</td>
-                                    <td>
-                                        <div>서울 서초구 신반포로49길 12 (잠원동, 하늘정원빌딩) 4층</div>
-                                        <div>[010-0000-0000]</div>
-                                    </td>
-                                    <td>
-                                        <div><a href="/goods/detail?gno=77" target="_blank">나비리본 목걸이</a></div>
-                                    </td>
-                                    <td>1개</td>
-                                    <td>21,000원</td>
-                                </tr>
 
                                 <tr class="">
                                     <td><input type="checkbox" name="cbList" value="416" onclick="checkLine(this)"></td>
@@ -137,19 +116,19 @@
 
                     <div class="btn_right">
                         선택한 배송 대상 주문건을
-                        <span class="button black"><button type="button" onclick="downExcel()">엑셀로받기</button></span>
+                        <button type="button" class="btn btn-sm btn-default" onclick="downExcel()">엑셀로받기</button></span>
                     </div>
-
                 </form>
 
-                <form name="FrmR" method="post" action="/order/invoice.act" enctype="multipart/form-data">
+                <form name="FrmR">
 
                     <!-- 설명 -->
-                    <div class="mgt20"><img src="/js/icon_tip.gif" alt="TIP"></div>
+                    <div class="mgt20"><img src="/img/icon_tip.gif" alt="TIP"></div>
                     <div class="tip_box2">
-                        <span>배송 대상 주문건 엑셀파일을 다운로드 받아 <em class="red">"송장번호" 입력</em> 및 아래 <em class="red">"일괄배송 입력양식"에 맞추어 정리</em>하신 후, <em class="red">"CSV (쉼표로 분리) (.csv)"로 저장</em>하여 업로드하시면 됩니다.</span>
-                        <span>일괄배송 입력양식</span>
-                        <table cellpadding="0" cellspacing="0" border="0">
+                        <span>-배송 대상 주문건 엑셀파일을 다운로드 받아 <em class="red">"송장번호" 입력</em> 및 아래 <em class="red">"일괄배송 입력양식"에 맞추어 정리</em>하신 후, <em class="red">"CSV (쉼표로 분리) (.csv)"로 저장</em>하여 업로드하시면 됩니다.</span>
+                        <br>
+                        <span>-일괄배송 입력양식</span>
+                        <table>
                             <thead>
                                 <tr>
                                     <th>고유번호</th>
@@ -170,28 +149,27 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <span>일괄배송 입력양식 첫번째 라인의 <em class="red">필드명("고유번호", "주문번호", "송장번호")은 삭제하시면 안됩니다.</em></span>
-                        <span><em class="red">고유번호와 주문번호는 수정하시면 안됩니다.</em> 배송 처리에 사용되는 키값으로 수정하면 배송처리 중 오류가 발생할 수 있습니다.</span>
-                        <span><em class="red">입력 내용 중 쉼표가 있으면 안됩니다.</em> 배송 처리 중 오류가 발생할 수 있습니다.</span>
-                        <span>송장 번호를 입력하지 않은 주문건은 배송처리가 되지 않습니다.</span>
+                        <span>-일괄배송 입력양식 첫번째 라인의 <em class="red">필드명("고유번호", "주문번호", "송장번호")은 삭제하시면 안됩니다.</em></span>
+                        <span>-<em class="red">고유번호와 주문번호는 수정하시면 안됩니다.</em> 배송 처리에 사용되는 키값으로 수정하면 배송처리 중 오류가 발생할 수 있습니다.</span>
+                        <span>-<em class="red">입력 내용 중 쉼표가 있으면 안됩니다.</em> 배송 처리 중 오류가 발생할 수 있습니다.</span>
+                        <span>-송장 번호를 입력하지 않은 주문건은 배송처리가 되지 않습니다.</span>
                     </div>
                     <!-- 설명 -->
 
                     <div class="section_head">
-                        <h4>송장 업로드</h4>
+                        <h4><i class="xi-check-circle"></i> 송장 업로드</h4>
                     </div>
 
                     <table class="t_form">
                         <caption>엑셀 업로드 폼</caption>
-                        <colgroup>
-                            <col width="150">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>배송업체</th>
                                 <td>
-                                    <select id="delivery" name="delivery"><option value="">배송업체선택</option><option value="1">한진택배</option></select>
+                                    <select id="delivery" name="delivery" class="text_input">
+                                        <option value="">배송업체선택</option>
+                                        <option value="1">한진택배</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -203,10 +181,9 @@
                         </tbody>
                     </table>
 
-                    <div id="regist_button" class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    <div id="regist_button" class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="validSubmit()">확인</button>
                     </div>
-
                 </form>
 
 
@@ -232,24 +209,23 @@
                         }
 
                         function openDetail(idx) { // 주문정보 상세보기
-                            openPopup("order_detail.pop.asp?idx=" + idx, "Detail", 820, 600, "scrollbars=1");
+                            var url = "order_detail_pop";
+                            var name = "Detail";
+                            var option = "width=820, height=500, top=100, left=200, location=0,scrollbars=1";
+                            window.open(url, name, option);
                         }
 
                         function downExcel() {
                             var f = document.FrmL;
                             var items = "";
-
                             if (!f.cbList) return false;
-
                             $('input[name="cbList"]:checked', $(f)).each(function() {
                                 items += (items ? "," : "") + this.value;
                             });
-
                             if (items == "") {
                                 alert("배송 대상 주문을 선택해 주세요.");
                                 return false;
                             }
-
                             f.invoiceIdx.value = items;
                             f.target = "frmProc";
                             f.submit();
@@ -262,13 +238,13 @@
                         function validSubmit() {
                             var f = document.FrmR;
 
-                            if (isEmpty(f.delivery)) {
+                            if (sws.common.isEmpty(f.delivery)) {
                                 alert("배송업체를 선택해 주세요.");
                                 f.delivery.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.attach)) {
+                            if (sws.common.isEmpty(f.attach)) {
                                 alert("CSV 파일을 선택해 주세요.");
                                 f.attach.focus();
                                 return false;

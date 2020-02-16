@@ -17,14 +17,22 @@
                 </ul>
 
                 <form name="sFrm">
-
                     <div class="section_head">
-                        <h4>총 <span><strong>13</strong></span>건이 조회 되었습니다.</h4>
-                        <div>
-                            <select id="skey" name="skey"><option value="">선택</option><option value="ordno">주문번호</option><option value="id">아이디</option><option value="name">주문자명</option><option value="tel">주문자 전화번호</option><option value="mobile">주문자 휴대폰번호</option><option value="email">주문자 이메일</option><option value="goods">상품명</option></select>
+                        <h4><i class="xi-check-circle"></i> 총 <strong>13</strong>건이 조회 되었습니다.</h4>
+                        <div class="mgb5">
+                            <select id="skey" name="skey" class="text_input">
+                                <option value="">선택</option>
+                                <option value="ordno">주문번호</option>
+                                <option value="id">아이디</option>
+                                <option value="name">주문자명</option>
+                                <option value="tel">주문자 전화번호</option>
+                                <option value="mobile">주문자 휴대폰번호</option>
+                                <option value="email">주문자 이메일</option>
+                                <option value="goods">상품명</option>
+                            </select>
 
                             <input type="text" name="sword" value="" class="text_input" style="width:200px">
-                            <span class="button small black"><button type="submit">검색</button></span>
+                            <button class="btn btn-sm btn-default" type="submit">검색</button>
                         </div>
                     </div>
                 </form>
@@ -109,13 +117,13 @@
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSearch(f) {
-                            if (isEmpty(f.skey)) {
+                            if (sws.common.isEmpty(f.skey)) {
                                 alert("검색 영역을 선택해 주세요.");
                                 f.skey.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.sword)) {
+                            if (sws.common.isEmpty(f.sword)) {
                                 alert("검색어를 입력해 주세요.");
                                 f.sword.focus();
                                 return false;

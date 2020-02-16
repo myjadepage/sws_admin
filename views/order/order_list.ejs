@@ -236,14 +236,14 @@
                                     <table class="t_order_pro">
                                         <colgroup>
                                             <col width="*">
-                                            <col width="150">
-                                            <col width="150">
-                                            <col width="150">
-                                            <col width="150">
+                                            <col width="100">
+                                            <col width="120">
+                                            <col width="120">
+                                            <col width="120">
                                             <col width="200">
                                             <col width="150">
                                             <col width="25">
-                                            <col width="150">
+                                            <col width="60">
                                         </colgroup>
                                         <thead>
                                             <tr>
@@ -260,8 +260,8 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="goods">
-                                                    <img src="/img/43.jpg " class="photo" onerror="this.src='/images/blank.gif' ">
+                                                <td class="goods tc">
+                                                    <img src="/img/43.jpg " class="photo" onerror="this.src='/img/blank.gif' ">
                                                     <div class="info ">
                                                         <div><a href="" target="_blank ">[NCGN] Sports Goggle</a></div>
                                                         <div class="mgt3 ">
@@ -271,43 +271,30 @@
                                                     </div>
                                                 </td>
                                                 <td>1</td>
-                                                <td>\42,500</td>
-                                                <td>\50,000</td>
-                                                <td rowspan="1 ">\0</td>
-                                                <td rowspan="1 " class="delivery ">
-                                                    <input type="hidden " name="invoiceIdx_284_409 " value="0 ">
-                                                    <div class="mgt5 ">
-                                                        <select id="delivery_284_409 " name="delivery_284_409 " class="vm " style="width:105px;background:#f0f0f0; " disabled="disabled "><option value=" ">배송업체선택</option><optgroup label="----------------
-                                        "></optgroup><option value="7 ">대한통운</option><option value="8 ">로젠택배</option></select>
-                                                        <span class="button small "><button type="button " disabled="disabled ">확인</button></span>
+                                                <td>42,500</td>
+                                                <td>50,000</td>
+                                                <td>0</td>
+                                                <td class="delivery ">
+                                                    <div class="mgt5">
+                                                        <select id="delivery_284_409 " name="delivery_284_409" class="text_input" style="width:105px;background:#f0f0f0;" disabled>
+                                                            <option value=" ">배송업체선택</option>
+                                                            <optgroup label="----------------"></optgroup>
+                                                            <option value="7 ">대한통운</option>
+                                        <option value="8 ">로젠택배</option></select>
+                                                        <button type="button" class="btn btn-sm btn-default" disabled="disabled ">확인</button>
                                                     </div>
                                                     <div class="mgt5 ">
-                                                        <input name="deliveryNo_284_409 " type="text " class="text_input " style="width:135px;background:#f0f0f0; " value=" " maxlength="50 " disabled="disabled ">
+                                                        <input name="deliveryNo_284_409" type="text " class="text_input" style="width:155px;background:#f0f0f0;" maxlength="50 " disabled>
                                                     </div>
 
                                                 </td>
-                                                <td rowspan="1 ">
+                                                <td>
                                                     <div><span style="text-decoration:underline ">입금확인중</span></div>
-                                                    <div class="order_step ">
-                                                    </div>
-                                                    <div class="order_remove ">
-                                                    </div>
-
+                                                    <div class="order_step "></div>
+                                                    <div class="order_remove "></div>
                                                 </td>
-                                                <td rowspan="1 "><input type="checkbox " name="cbGoods " value="409 " onclick="checkCbGoods(this) " disabled=" "></td>
-                                                <td rowspan="1 ">
-                                                    <div>
-                                                        &nbsp;
-                                                    </div>
-                                                    <div class="mgt5 ">
-                                                        &nbsp;
-                                                        <div>
-
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <td rowspan="2"><input type="checkbox" name="cbGoods" value="409 " onclick="checkCbGoods(this)" disabled></td>
                                             </tr>
-
 
 
                                             <!-- 취소/반품/교환 내역 : 시작 -->
@@ -315,7 +302,6 @@
                                                 <td colspan="9 "></td>
                                             </tr>
                                             <!-- 취소/반품/교환 내역 : 끝 //-->
-
 
                                         </tbody>
                                     </table>
@@ -333,35 +319,33 @@
                     </table>
 
                     <div class="paging " style="margin-top:10px ">
-                        <span><a href="/order/order_list?page=1&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10 "><strong>1</strong></a><a href="/order/order_list.asp?page=2&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10
-                                        ">2</a><a href="/order/order_list.asp?page=3&menu=&sstep=&spayway=&sdts=&sdte=&ssprice=&seprice=&scate=0&sdealer=0&snoacct=0&skey=&sword=&psort=orddt&psize=10 ">3</a></span>
+                        <span><a href=""><strong>1</strong></a></span>
                     </div>
 
                     <div class="btn_right ">
-                        <span class="button large black "><button type="button " onclick="checkCbListAll() ">전체선택</button></span>
+                        <button type="button" class="btn btn-default" onclick="checkCbListAll() ">전체선택</button>
                     </div>
 
                     <ul class="order_list_btn ">
-
-                        <li class="title ">일괄수정 :</li>
                         <li>
-                            선택한 주문건을
-                            <select id="batchOrdStep " name="batchOrdStep "><option value=" ">선택</option><option value="100 ">입금확인중</option><option value="200 ">결제완료</option></select> 로(으로)
-                            <span class="button "><button type="button " onclick="setStepList() ">수정하기</button></span>
+                            <strong class="title"><i class="xi-check-circle"></i> 일괄수정 : </strong> 선택한 주문건을
+                            <select id="batchOrdStep" name="batchOrdStep" class="text_input">
+                                <option value=" ">선택</option>
+                                <option value="100">입금확인중</option>
+                                <option value="200">결제완료</option>
+                            </select> 로(으로)
+                            <button type="button" class="btn btn-sm btn-default" onclick="setStepList() ">수정하기</button>
                         </li>
 
-                        <li class="title ">일괄상품수정 :</li>
-                        <li>
-                            선택한 주문 상품을
-                            <span class="button "><button type="button " onclick="setReadyList() ">상품준비중으로 이동</button></span>
+                        <li class="title">
+                            <strong class="title"><i class="xi-check-circle"></i> 일괄상품수정 :</strong> 선택한 주문 상품을
+                            <button type="button" class="btn btn-sm btn-default" onclick="setReadyList() ">상품준비중으로 이동</button>
                         </li>
 
-                        <li class="title ">엑셀다운 :</li>
                         <li>
-                            선택한 주문건을
-                            <span class="button "><button type="button " onclick="downExcel(true) ">엑셀로받기</button></span> 현재 페이지의 모든 주문건을
-                            <span class="button "><button type="button " onclick="downExcel() ">엑셀로받기</button></span>
-                        </li>
+                            <strong class="title"><i class="xi-check-circle"></i> 엑셀다운 :</strong> 선택한 주문건을
+                            <button type="button" class="btn btn-sm btn-default" onclick="downExcel(true) ">엑셀로받기</button> 현재 페이지의 모든 주문건을
+                            <button type="button" class="btn btn-sm btn-default" onclick="downExcel() ">엑셀로받기</button>
                     </ul>
 
                 </form>
@@ -369,20 +353,14 @@
 
                 <!-- 엑셀다운 폼 : 시작 ###################################################################### -->
                 <form name="FrmExcel " method="post ">
-
-                    <input type="hidden " name="mode ">
-                    <input type="hidden " name="idx ">
+                    <input type="hidden" name="mode">
+                    <input type="hidden" name="idx">
                 </form>
                 <!-- 엑셀다운 폼 : 끝 ###################################################################### -->
 
 
                 <%- include('../inc/footer') %>
-                    <script type="text/javascript ">
-                        //<![CDATA[
-                        var sc = new SelectCategory();
-                        sc.init(document.sFrm.scate);
-                        //]]>
-                    </script>
+
                     <!-- 달력관련 -->
                     <script>
                         var today = new Date();
@@ -445,24 +423,6 @@
                         //]]>
                     </script>
 
-
-
-                    <script type="text/javascript ">
-                        //<![CDATA[
-                        ezpop.member.bind('detail', '회원정보', function(uno) {
-                            $.laybox({
-                                type: 'iframe',
-                                source: '../member/member_detail.ifrm?uno=' + uno
-                            });
-                        });
-                        ezpop.member.bind('email', '메일발송', function(uno) {
-                            openPopup("../member/send_email.pop?uno=" + uno, " ezEmail ", 740, 570);
-                        });
-                        ezpop.member.bind('sms', 'SMS전송', function(uno) {
-                            openPopup("../sms/send_sms_direct.pop?uno=" + uno, " ezSms ", 80, 340, "scrollbars=yes ");
-                        });
-                        //]]>
-                    </script>
 
                     <script type="text/javascript ">
                         //<![CDATA[
@@ -555,23 +515,27 @@
                     </script>
 
                     <script type="text/javascript ">
-                        //<![CDATA[
+                        //<![CDATA[                            
                         function openDetail(idx) { // 주문정보 상세보기
-                            openPopup("order_detail.pop.asp?menu=&idx=" + idx, " Detail ", 820, 600, "scrollbars=1 ");
+                            var url = "order_detail_pop";
+                            var name = "Detail";
+                            var option = "width=820, height=500, top=100, left=200, location=0,scrollbars=1";
+                            window.open(url, name, option);
                         }
 
                         function openDeliveryBatch(idx) { // 일괄 발송완료 처리
-                            openPopup("order_delivery_batch.pop.asp?idx=" + idx, " DeliveryBatch ", 618, 500, "scrollbars=1 ");
+                            var url = "order_delivery_batch_pop";
+                            var name = "DeliveryBatch";
+                            var option = "width=618, height=500, top=100, left=200, location=0,scrollbars=1";
+                            window.open(url, name, option);
+                            // openPopup("order_delivery_batch.pop.asp?idx=" + idx, " DeliveryBatch ", 618, 500, "scrollbars=1 ");
                         }
 
                         function openRequestClaim(type, idx, goodsIdx) { // 취소/교환/반품 신청
-                            openPopup(
-                                "../../mypage/order_claim_request.pop.asp?caller=admin&type=" + type + " &idx=" + idx + (typeof(goodsIdx) != 'undefined' ? " &ogidx=" + goodsIdx : ''),
-                                " ClaimOrder ",
-                                800,
-                                750,
-                                "left=0,top=0,scrollbars=1 "
-                            );
+                            var url = "../../mypage/order_claim_request.pop";
+                            var name = "ClaimOrder";
+                            var option = "width=800, height=750, top=0, left=0, location=0,scrollbars=1";
+                            window.open(url, name, option);
                         }
 
                         function setConfirm(idx) { // 입금확인
@@ -605,9 +569,7 @@
                             var items = '';
 
                             if (!f.cbGoods) return false;
-
                             var arrStateGoods = new Array();
-
                             var $ordStepGoods = $(f.ordStepGoods);
 
                             $(f.cbGoods).each(function(index) {
@@ -618,14 +580,13 @@
                             });
 
                             if (items == '') {
-                                alert("주문상품 확인처리를 하실 주문상품을 선택해 주세요. ");
+                                alert("주문상품 확인처리를 하실 주문상품을 선택해 주세요.");
                                 return false;
                             }
 
                             for (var i = 0; i < arrStateGoods.length; i++) {
                                 if (arrStateGoods[i] != '200') {
-                                    alert("진행상태가 \ "
-                                        결제완료\ "인 주문상품만 상품준비중으로 설정이 가능합니다. ");
+                                    alert("진행상태가 결제완료인 주문상품만 상품준비중으로 설정이 가능합니다.");
                                     return false;
                                 }
                             }
@@ -1045,9 +1006,7 @@
 
                                 for (var i = 0; i < arrStep.length; i++) {
                                     if (arrStep[i] != '200' || arrPayway[i] != '128') {
-                                        alert("진행상태가 \ "
-                                            결제완료\ "이고 \ "
-                                            온라인입금\ "으로 결제된 주문만 입금확인중으로 설정이 가능합니다. ");
+                                        alert("진행상태가 결제완료이고 온라인입금으로 결제된 주문만 입금확인중으로 설정이 가능합니다. ");
                                         return false;
                                     }
                                 }
@@ -1059,13 +1018,10 @@
                             else if (stepValue == '200') {
                                 for (var i = 0; i < arrStep.length; i++) {
                                     if (arrStep[i] != '100' && arrStep[i] != '300') {
-                                        alert("진행상태가 \ "
-                                            입금확인중\ " 또는 \ "
-                                            상품준비중\ "인 주문만 결제완료으로 설정이 가능합니다. ");
+                                        alert("진행상태가 입금확인중 또는 상품준비중인 주문만 결제완료으로 설정이 가능합니다.");
                                         return false;
                                     }
                                 }
-
                                 action = "order_confirm.act.asp ";
                             }
 

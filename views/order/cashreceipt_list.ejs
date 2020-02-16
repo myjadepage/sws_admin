@@ -7,7 +7,7 @@
             <div id="contents">
                 <h3>현금영수증신청관리</h3>
                 <ul class="navi">
-                    <li class="home"><a href="/main" target="_top">홈</a></li>
+                    <li class="home"><a href="/" target="_top">홈</a></li>
                     <li>주문/매출관리</li>
                     <li>거래증빙서류관리</li>
                     <li class="on">현금영수증신청관리</li>
@@ -22,46 +22,47 @@
 
                     <table class="t_form">
                         <caption>현금영수증 검색</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>발급상태</th>
                                 <td>
-                                    <select id="sissue" name="sissue" onchange="change();"><option value="">선택</option><option value="400">미신청</option><option value="100">발급신청</option><option value="200">발급처리중</option><option value="900">발급완료</option></select>
+                                    <select id="sissue" name="sissue" class="text_input" onchange="change();">
+                                        <option value="">선택</option>
+                                        <option value="400">미신청</option>
+                                        <option value="100">발급신청</option>
+                                        <option value="200">발급처리중</option>
+                                        <option value="900">발급완료</option>
+                                    </select>
 
                                 </td>
                             </tr>
                             <tr>
                                 <th>기간</th>
                                 <td>
-                                    <div>
-                                        <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                        <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
                                     </div>
-                                    <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't')">오늘</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't', -1)">어제</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -3)">3일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -7)">7일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -10)">10일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -20)">20일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -30)">30일간</button></span>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>직접검색</th>
                                 <td>
-                                    <select id="skey" name="skey"><option value="">전체</option><option value="ordno">주문번호</option><option value="ordname">주문자명</option></select>
+                                    <select id="skey" name="skey" class="text_input">
+                                        <option value="">전체</option>
+                                        <option value="ordno">주문번호</option>
+                                        <option value="ordname">주문자명</option>
+                                    </select>
 
-                                    <input type="text" name="sword" value="" class="text_input" style="width:300px">
-                                    <span class="button small black"><button type="submit">검색</button></span>
+                                    <input type="text" name="sword" class="text_input" style="width:300px">
+                                    <button type="submit" class="btn btn-sm btn-default">검색</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -70,12 +71,10 @@
                 </form>
 
                 <div class="section_head">
-                    <h4>총 <span><strong>19</strong></span>건이 조회 되었습니다.</h4>
+                    <h4><i class="xi-check-circle"></i> 총 <strong>19</strong>건이 조회 되었습니다.</h4>
                 </div>
 
-                <form name="Frm" method="post">
-                    <input type="hidden" name="idx">
-                    <input type="hidden" name="params" value="sissue=&sdts=&sdte=&skey=&sword=&page=">
+                <form name="Frm">
 
                     <table class="t_list">
                         <caption>현금영수증 신청 내역</caption>
@@ -112,7 +111,7 @@
                         </thead>
                         <tbody>
 
-                            <tr bgcolor="#ffffff">
+                            <tr>
                                 <td rowspan="1"><input type="checkbox" name="cbList" value="229"></td>
                                 <td rowspan="1">19</td>
                                 <td rowspan="1">A1929039662520<br>(김기동)</td>
@@ -124,14 +123,14 @@
                                 <td rowspan="1">2019-10-17</td>
                                 <td rowspan="1">미신청</td>
                                 <td rowspan="1">
-                                    <div><span class="button small"><button type="button" onclick="openOrderDetail(284)">주문정보</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="openOrderDetail(284)">주문정보</button></div>
 
                                     <div class="red mgt3 font11">입금전</div>
 
                                 </td>
                             </tr>
 
-                            <tr bgcolor="#fdfae8">
+                            <tr>
                                 <td rowspan="1"><input type="checkbox" name="cbList" value="228"></td>
                                 <td rowspan="1">18</td>
                                 <td rowspan="1">A1929039225477<br>(김기동)</td>
@@ -143,14 +142,14 @@
                                 <td rowspan="1">2019-10-17</td>
                                 <td rowspan="1">미신청</td>
                                 <td rowspan="1">
-                                    <div><span class="button small"><button type="button" onclick="openOrderDetail(283)">주문정보</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="openOrderDetail(283)">주문정보</button></div>
 
                                     <div class="red mgt3 font11">입금전</div>
 
                                 </td>
                             </tr>
 
-                            <tr bgcolor="#ffffff">
+                            <tr>
                                 <td rowspan="1"><input type="checkbox" name="cbList" value="227"></td>
                                 <td rowspan="1">17</td>
                                 <td rowspan="1">A1919165399107<br>(테스트)</td>
@@ -162,7 +161,7 @@
                                 <td rowspan="1">2019-07-10</td>
                                 <td rowspan="1">미신청</td>
                                 <td rowspan="1">
-                                    <div><span class="button small"><button type="button" onclick="openOrderDetail(282)">주문정보</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="openOrderDetail(282)">주문정보</button></div>
 
                                     <div class="red mgt3 font11">입금전</div>
 
@@ -173,19 +172,23 @@
                     </table>
 
                     <div class="paging">
-                        <span><a href="/order/cashreceipt_list?page=1&sissue=&sdts=&sdte=&skey=&sword="><strong>1</strong></a><a href="/order/cashreceipt_list.asp?page=2&sissue=&sdts=&sdte=&skey=&sword=">2</a></span>
+                        <span><a href="/order/cashreceipt_list?page=1&sissue=&sdts=&sdte=&skey=&sword="><strong>1</strong></a>
+                            <a href="/order/cashreceipt_list.asp?page=2&sissue=&sdts=&sdte=&skey=&sword=">2</a></span>
                     </div>
 
                     <ul class="order_list_btn mgt10">
-                        <li class="title">상태수정 :</li>
                         <li>
-                            선택한 항목을
-                            <select id="batchState" name="batchState"><option value="">선택</option><option value="100">발급신청</option><option value="900">발급완료</option></select> 로(으로)
-                            <span class="button"><button type="button" onclick="setStateList()">수정하기</button></span>
+                            <strong class="title"><i class="xi-check-circle"></i>상태수정 :</strong> 선택한 항목을
+                            <select id="batchState" name="batchState" class="text_input">
+                                <option value="">선택</option>
+                                <option value="100">발급신청</option>
+                                <option value="900">발급완료</option>
+                            </select> 로(으로)
+                            <button type="button" class="btn btn-sm btn-default" onclick="setStateList()">수정하기</button>
                         </li>
-                        <li class="title">엑셀다운 :</li>
                         <li>
-                            <span class="button"><button type="button" onclick="downExcel()">엑셀로 받기</button></span>
+                            <strong class="title"><i class="xi-check-circle"></i>엑셀다운 :</strong>
+                            <button type="button" class="btn btn-sm btn-default" onclick="downExcel()">엑셀로 받기</button>
                         </li>
                     </ul>
 
@@ -194,14 +197,32 @@
 
 
                 <%- include('../inc/footer') %>
+                    <!-- 달력관련 -->
+                    <script>
+                        var today = new Date();
+                        var picker = tui.DatePicker.createRangePicker({
+                            language: 'ko',
+                            startpicker: {
+                                date: today,
+                                input: '#startpicker-input',
+                                container: '#startpicker-container'
+                            },
+                            endpicker: {
+                                date: today,
+                                input: '#endpicker-input',
+                                container: '#endpicker-container'
+                            },
+                            selectableRanges: [
+                                [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+                            ]
+                        });
+                    </script>
 
                     <script type="text/javascript">
                         //<![CDATA[
                         function change() {
                             var f = document.sFrm;
-
                             validSearch(f);
-
                             f.submit();
                         }
 
@@ -211,7 +232,10 @@
                         }
 
                         function openOrderDetail(idx) { // 주문정보 상세보기
-                            openPopup("order_detail.pop?idx=" + idx, "Detail", 820, 600, "scrollbars=1");
+                            var url = "order_detail_pop";
+                            var name = "Detail";
+                            var option = "width=820, height=500, top=100, left=200, location=0,scrollbars=1";
+                            window.open(url, name, option);
                         }
 
                         function openDealProof(idx) {

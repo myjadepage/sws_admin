@@ -18,6 +18,15 @@ router.get('/order_list', function(req, res, next) {
     });
 });
 
+router.get('/order_detail_pop', function(req, res, next) {
+    res.render('order/order_detail_pop', {
+        path: '/order/',
+        name: 'order_list',
+        title: ''
+    });
+});
+
+
 router.get('/consult_list', function(req, res, next) {
     res.render('order/consult_list', {
         path: '/order/',
@@ -29,7 +38,7 @@ router.get('/consult_list', function(req, res, next) {
 router.get('/consult_detail', function(req, res, next) {
     res.render('order/consult_detail', {
         path: '/order/',
-        name: 'consult_detail',
+        name: 'consult_list',
         title: ''
     });
 });

@@ -18,7 +18,7 @@
 
 
                 <div class="section_head">
-                    <h4>회원기본정보</h4>
+                    <h4><i class="xi-check-circle"></i> 회원기본정보</h4>
                 </div>
 
                 <table class="t_list">
@@ -53,44 +53,130 @@
                     </tbody>
                 </table>
 
+                <div class="mgt20">
+                    <div class="section_head">
+                        <h4><i class="xi-check-circle"></i> 주문내역</h4>
+                    </div>
+                    <table class="t_list">
+                        <caption>주문내역</caption>
+                        <colgroup>
+                            <col width="30">
+                            <col width="95">
+                            <col width="75">
+                            <col width="75">
+                            <col width="*">
+                            <col width="80">
+                            <col width="80">
+                            <col width="80">
+                            <col width="80">
+                            <col width="50">
+                            <col width="80">
+                            <col width="60">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>주문번호</th>
+                                <th>주문일자</th>
+                                <th>입금일자</th>
+                                <th>주문상품</th>
+                                <th>진행상태</th>
+                                <th>결제상태</th>
+                                <th>결제방법</th>
+                                <th>수령인</th>
+                                <th>수량</th>
+                                <th>금액</th>
+                                <th>메뉴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td colspan="12"> 저장된 주문정보가 존재하지 않습니다.</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <div class="mgt20">
+                    <div class="section_head">
+                        <h4><i class="xi-check-circle"></i> 1:1상담내역</h4>
+                    </div>
+                    <table class="t_list">
+                        <caption>1:1상담내역</caption>
+                        <colgroup>
+                            <col width="30">
+                            <col width="80">
+                            <col width="100">
+                            <col width="*">
+                            <col width="100">
+                            <col width="100">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>구분</th>
+                                <th>문의자</th>
+                                <th>내용</th>
+                                <th>답변자</th>
+                                <th>문의날자</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td colspan="6">저장된 상담내역이 존재하지 않습니다.</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
                 <div style="margin-top:20px">
-                    <iframe id="frmOrder" name="frmOrder" src="/js/consult_detail_order.ifrm.html" marginwidth="0" marginheight="0" frameborder="0" style="width: 100%; height: 134px;"></iframe></div>
+                    <div class="section_head">
+                        <h4><i class="xi-check-circle"></i> 전화상담내역</h4>
+                        <div><span class="button small black"><button type="button" onclick="openRegist()">입력하기</button></span></div>
+                    </div>
+                    <table class="t_list">
+                        <caption>전화상담내역</caption>
+                        <colgroup>
+                            <col width="50">
+                            <col width="20%">
+                            <col width="*">
+                            <col width="11%">
+                            <col width="20%">
+                            <col width="50">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>주제</th>
+                                <th>질문</th>
+                                <th>답변자</th>
+                                <th>문의날짜</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                            <tr>
+                                <td colspan="6">상담내역이 존재하지 않습니다.</td>
+                            </tr>
 
-                <div style="margin-top:20px">
-                    <iframe id="frmQna" name="frmQna" src="/js/consult_detail_inquiry.ifrm.html" width="100%" frameborder="0" marginwidth="0" marginheight="0" scrolling="0" style="height: 150px; width: 100%;"></iframe></div>
-
-
-                <div style="margin-top:20px">
-                    <iframe id="frmTm" name="frmTm" src="/js/consult_detail_tm.ifrm.html" width="100%" frameborder="0" marginwidth="0" marginheight="0" scrolling="0" style="height: 150px; width: 100%;"></iframe></div>
-
-                <div class="btn">
-                    <span class="button large black"><button type="button" onclick="list()">목록으로</button></span>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="btn_center">
+                    <button type="button" class="btn btn-default" onclick="list()">목록으로</button>
                 </div>
 
 
 
 
                 <%- include('../inc/footer') %>
-
-
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        addEvent(window, 'load', function() {
-                            _e('frmOrder').style.width = '100%';
-                            if (_e('frmQna')) _e('frmQna').style.width = '100%';
-                            _e('frmTm').style.width = '100%';
-                        });
-
-                        addEvent(window, 'resize', function() {
-                            _e('frmOrder').style.width = '100%';
-                            if (_e('frmQna')) _e('frmQna').style.width = '100%';
-                            _e('frmTm').style.width = '100%';
-                        });
-                        //]]>
-                    </script>
-
-
 
                     <script type="text/javascript">
                         //<![CDATA[

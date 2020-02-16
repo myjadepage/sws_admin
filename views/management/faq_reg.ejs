@@ -19,21 +19,22 @@
 
 
                 <form name="Frm">
-                    <input type="hidden" name="mode" value="REG">
-                    <input type="hidden" name="idx" value="0">
-                    <input type="hidden" name="params" value="">
-
                     <table class="t_form">
                         <caption>FAQ 등록 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>분류</th>
                                 <td>
-                                    <select id="consult" name="consult"><option value="">선택</option><option value="01">아이디/비밀번호찾기</option><option value="02">회원정보</option><option value="03">배송관련</option><option value="04">상품문의</option><option value="05">반품/교환/취소/환불</option><option value="06">주문결제</option><option value="07">적립금/쿠폰</option></select>
+                                    <select id="consult" name="consult" class="text_input">
+                                        <option value="">선택</option>
+                                        <option value="01">아이디/비밀번호찾기</option>
+                                        <option value="02">회원정보</option>
+                                        <option value="03">배송관련</option>
+                                        <option value="04">상품문의</option>
+                                        <option value="05">반품/교환/취소/환불</option>
+                                        <option value="06">주문결제</option>
+                                        <option value="07">적립금/쿠폰</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
@@ -44,9 +45,8 @@
                             </tr>
                             <tr>
                                 <th>내용</th>
-                                <td align="center" style="padding:0">
-                                    <textarea name="content" style="width: 100%; height: 300px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0" scrolling="no"
-                                        style="width: 100%; height: 347px;" src="/js/SmartEditor2Skin.html"></iframe>
+                                <td>
+                                    <div class="summernote"></div>
 
                                 </td>
                             </tr>
@@ -59,9 +59,9 @@
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
-                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button>
+                        <button type="button" class="btn btn-default" onclick="cancel()">취소</button>
                     </div>
 
                 </form>
@@ -71,33 +71,36 @@
 
 
                 <%- include('../inc/footer') %>
-                    <!-- 에디터 Script -->
-
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        nhn.husky.EZCreator.createInIFrame({
-                            elPlaceHolder: 'content'
+                    <script>
+                        $(document).ready(function() {
+                            $('.summernote').summernote({
+                                height: 300,
+                                tabsize: 2
+                            });
                         });
-                        //]]>
                     </script>
+
+
+
+
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSubmit() {
                             var f = document.Frm
 
-                            if (isEmpty(f.consult)) {
+                            if (sws.common.isEmpty(f.consult)) {
                                 alert("분류를 선택해 주세요.");
                                 f.consult.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.subject)) {
+                            if (sws.common.isEmpty(f.subject)) {
                                 alert("제목을 입력해 주세요.");
                                 f.subject.focus();
                                 return false;
                             }
 
-                            if (isEmpty(f.content)) {
+                            if (sws.common.isEmpty(f.content)) {
                                 alert("내용을 입력해 주세요.");
                                 return false;
                             }

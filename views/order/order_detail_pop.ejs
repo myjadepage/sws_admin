@@ -1,4 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>쉘위샵 관리자사이트</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+    <link href="/css/xeicon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/tui-date-picker.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/css/button.css"> -->
+    <link rel="stylesheet" type="text/css" href="/css/board.css">
+    <link href="/css/summernote.css" rel="stylesheet">
+
+
+</head>
 
 <body>
     <div style="padding:15px">
@@ -62,7 +80,7 @@
             </tbody>
         </table>
 
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" class="t_list mgt10">
+        <table class="t_list mgt10">
             <caption>할인,추가금액 내역</caption>
             <colgroup>
                 <col width="120">
@@ -195,101 +213,7 @@
 
         <!-- 배송정보 -->
 
-        <script type="text/javascript">
-            //<![CDATA[
-            // 우편번호
-            function openZipcode(target) {
-                openPopup("../../common/search_zip.pop.asp?target=" + target, "Zipcode", 100, 100);
-            }
-
-            function inputZipcode(data) {
-                var f = document.FrmInfo;
-                if (data.target == 'ordPost') {
-                    f.ordPost.value = data.zipFront + '-' + data.zipRear;
-                    f.ordAddr.value = data.addr;
-                    f.ordAddrDetail.focus();
-                } else {
-                    f.rcvPost.value = data.zipFront + '-' + data.zipRear;
-                    f.rcvAddr.value = data.addr;
-                    f.rcvAddrDetail.focus();
-                }
-            }
-
-            function validSubmitInfo() {
-                var f = document.FrmInfo;
-                var msg;
-
-                var errMsg = "입력하지 않은 정보가 있습니다.\n--------------------------------------------------------\n";
-                var errCnt = 0;
-
-                if (isEmpty(f.ordName)) {
-                    errMsg += "이름\n";
-                    ++errCnt;
-                }
-                //if (isEmpty(f.ordTel1) || isEmpty(f.ordTel2) || isEmpty(f.ordTel3)) {				errMsg += "전화\n"; ++errCnt;}
-                if (isEmpty(f.ordMobile1) || isEmpty(f.ordMobile2) || isEmpty(f.ordMobile3)) {
-                    errMsg += "휴대전화\n";
-                    ++errCnt;
-                }
-                if (isEmpty(f.ordPost)) {
-                    errMsg += "우편번호\n";
-                    ++errCnt;
-                }
-                if (isEmpty(f.ordAddr)) {
-                    errMsg += "주소\n";
-                    ++errCnt;
-                }
-
-                if (isEmpty(f.rcvName)) {
-                    errMsg += "이름(받는분)\n";
-                    ++errCnt;
-                }
-                //if (isEmpty(f.rcvTel1) || isEmpty(f.rcvTel2) || isEmpty(f.rcvTel3)) {					errMsg += "전화(받는분)\n"; ++errCnt;}
-                if (isEmpty(f.rcvMobile1) || isEmpty(f.rcvMobile2) || isEmpty(f.rcvMobile3)) {
-                    errMsg += "휴대전화(받는분)\n";
-                    ++errCnt;
-                }
-                if (isEmpty(f.rcvPost)) {
-                    errMsg += "우편번호(받는분)\n";
-                    ++errCnt;
-                }
-                if (isEmpty(f.rcvAddr)) {
-                    errMsg += "주소(받는분)\n";
-                    ++errCnt;
-                }
-
-                if (errCnt > 0) {
-                    alert(errMsg);
-                    return;
-                }
-
-                var errMsg = "정확하지 않은 정보가 있습니다.\n--------------------------------------------------------\n";
-                var errCnt = 0;
-
-                if (!isEmpty(f.ordEmail)) {
-                    if (!checkEmail(f.ordEmail.value)) {
-                        errMsg += "형식에 맞지 않는 이메일 주소입니다.\n";
-                        ++errCnt;
-                    }
-                }
-                if (f.ordAddr.value.length < 5) {
-                    errMsg += "주소를 자세히 기입하세요.\n";
-                    ++errCnt;
-                }
-
-                if (confirm("배송정보를 수정하시겠습니까?")) {
-                    f.action = "order_detail.act.asp";
-                    f.submit();
-                }
-            }
-            //]]>
-        </script>
-
         <form name="FrmInfo" method="post">
-            <input type="hidden" name="mode" value="INFO">
-            <input type="hidden" name="menu" value="">
-            <input type="hidden" name="idx" value="271">
-
             <div class="orange mgt20">
                 <strong>주문자 정보</strong>
             </div>
@@ -400,44 +324,7 @@
 
 
 
-        <script type="text/javascript">
-            //<![CDATA[
-            function regMemo() {
-                var f = document.FrmMemo;
-
-                if (isEmpty(f.memo)) {
-                    alert("내용을 입력해 주세요.");
-                    f.memo.focus();
-                    return false;
-                }
-
-                if (confirm("등록하시겠습니까?")) {
-                    f.mode.value = "MEMO_REG";
-                    f.action = "order_detail.act.asp";
-                    f.submit();
-                }
-            }
-
-            function delMemo(mIdx) {
-                var f = document.FrmMemo;
-
-                if (confirm("삭제하시겠습니까?")) {
-                    f.memoIdx.value = mIdx;
-                    f.mode.value = "MEMO_DEL";
-                    f.action = "order_detail.act.asp";
-                    f.submit();
-                }
-            }
-            //]]>
-        </script>
-
-
         <form name="FrmMemo" method="post">
-            <input type="hidden" name="mode">
-            <input type="hidden" name="menu" value="">
-            <input type="hidden" name="idx" value="271">
-            <input type="hidden" name="memoIdx">
-
             <div class="orange mgt20">
                 <strong>관리자 메모</strong>
             </div>
@@ -452,9 +339,11 @@
                 <tbody>
                     <tr>
                         <th>내용</th>
-                        <td><textarea name="memo" rows="5" class="text_input" style="width:98%" onkeyup="checkTextLenByte(this, 2000)"></textarea></td>
                         <td>
-                            <span class="button large blue"><button type="button" onclick="regMemo()">확인</button></span>
+                            <textarea name="memo" rows="5" class="text_input" style="width:98%" onkeyup="checkTextLenByte(this, 2000)"></textarea>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-default" onclick="regMemo()">확인</button>
                         </td>
                     </tr>
                 </tbody>
@@ -463,13 +352,130 @@
         </form>
 
         <div class="btn">
-            <span class="button large black"><button type="button" onclick="self.close()">목록으로</button></span>
-            <span class="button large black"><button type="button" onclick="openPrint()">출력하기</button></span>
-
-            <span class="button large black"><button type="button" onclick="validSubmitInfo()">수정하기</button></span>
-
+            <button type="button" class="btn btn-default" onclick="self.close()">목록으로</button>
+            <button type="button" class="btn btn-default" onclick="openPrint()">출력하기</button>
+            <button type="button" class="btn btn-default" onclick="validSubmitInfo()">수정하기</button>
         </div>
     </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/misc.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/js/tui-date-picker.js"></script>
+    <script src="/js/summernote.js"></script>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/sws.js"></script>
+
+
+
+    <script type="text/javascript">
+        //<![CDATA[         
+
+
+        function validSubmitInfo() {
+            var f = document.FrmInfo;
+            var msg;
+
+            var errMsg = "입력하지 않은 정보가 있습니다.\n--------------------------------------------------------\n";
+            var errCnt = 0;
+
+            if (sws.common.isEmpty(f.ordName)) {
+                errMsg += "이름\n";
+                ++errCnt;
+            }
+            //if (isEmpty(f.ordTel1) || isEmpty(f.ordTel2) || isEmpty(f.ordTel3)) {				errMsg += "전화\n"; ++errCnt;}
+            if (sws.common.isEmpty(f.ordMobile1) || sws.common.isEmpty(f.ordMobile2) || sws.common.isEmpty(f.ordMobile3)) {
+                errMsg += "휴대전화\n";
+                ++errCnt;
+            }
+            if (sws.common.isEmpty(f.ordPost)) {
+                errMsg += "우편번호\n";
+                ++errCnt;
+            }
+            if (sws.common.isEmpty(f.ordAddr)) {
+                errMsg += "주소\n";
+                ++errCnt;
+            }
+
+            if (sws.common.isEmpty(f.rcvName)) {
+                errMsg += "이름(받는분)\n";
+                ++errCnt;
+            }
+            //if (isEmpty(f.rcvTel1) || isEmpty(f.rcvTel2) || isEmpty(f.rcvTel3)) {					errMsg += "전화(받는분)\n"; ++errCnt;}
+            if (sws.common.isEmpty(f.rcvMobile1) || sws.common.isEmpty(f.rcvMobile2) || sws.common.isEmpty(f.rcvMobile3)) {
+                errMsg += "휴대전화(받는분)\n";
+                ++errCnt;
+            }
+            if (sws.common.isEmpty(f.rcvPost)) {
+                errMsg += "우편번호(받는분)\n";
+                ++errCnt;
+            }
+            if (sws.common.isEmpty(f.rcvAddr)) {
+                errMsg += "주소(받는분)\n";
+                ++errCnt;
+            }
+
+            if (errCnt > 0) {
+                alert(errMsg);
+                return;
+            }
+
+            var errMsg = "정확하지 않은 정보가 있습니다.\n--------------------------------------------------------\n";
+            var errCnt = 0;
+
+            if (!sws.common.isEmpty(f.ordEmail)) {
+                if (!checkEmail(f.ordEmail.value)) {
+                    errMsg += "형식에 맞지 않는 이메일 주소입니다.\n";
+                    ++errCnt;
+                }
+            }
+            if (f.ordAddr.value.length < 5) {
+                errMsg += "주소를 자세히 기입하세요.\n";
+                ++errCnt;
+            }
+
+            if (confirm("배송정보를 수정하시겠습니까?")) {
+                f.action = "order_detail.act.asp";
+                f.submit();
+            }
+        }
+        //]]>
+    </script>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+        function regMemo() {
+            var f = document.FrmMemo;
+
+            if (sws.common.isEmpty(f.memo)) {
+                alert("내용을 입력해 주세요.");
+                f.memo.focus();
+                return false;
+            }
+
+            if (confirm("등록하시겠습니까?")) {
+                f.mode.value = "MEMO_REG";
+                f.action = "order_detail.act.asp";
+                f.submit();
+            }
+        }
+
+        function delMemo(mIdx) {
+            var f = document.FrmMemo;
+
+            if (confirm("삭제하시겠습니까?")) {
+                f.memoIdx.value = mIdx;
+                f.mode.value = "MEMO_DEL";
+                f.action = "order_detail.act.asp";
+                f.submit();
+            }
+        }
+        //]]>
+    </script>
+
 </body>
 
 

@@ -4,66 +4,91 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     res.render('management/index', {
-        path: '/management/'
+        path: '/management/',
+        name: '/',
+        title: ''
     });
 });
 
 router.get('/review_list', function(req, res, next) {
     res.render('management/review_list', {
-        path: '/management/'
+        path: '/management/',
+        name: 'review_list',
+        title: ''
     });
 });
 
 router.get('/qna_list', function(req, res, next) {
     res.render('management/qna_list', {
-        path: '/management/'
+        path: '/management/',
+        name: 'qna_list',
+        title: ''
     });
 });
 
 router.get('/faq_list', function(req, res, next) {
     res.render('management/faq_list', {
-        path: '/management/'
+        path: '/management/',
+        name: 'faq_list',
+        title: ''
     });
 });
 
 
 router.get('/faq_reg', function(req, res, next) {
     res.render('management/faq_reg', {
-        path: '/management/'
+        path: '/management/',
+        name: 'faq_reg',
+        title: ''
     });
 });
 
 router.get('/inquiry_list', function(req, res, next) {
     res.render('management/inquiry_list', {
-        path: '/management/'
+        path: '/management/',
+        name: 'inquiry_list',
+        title: ''
     });
 });
 
 router.get('/inquiry_detail', function(req, res, next) {
     res.render('management/inquiry_detail', {
-        path: '/management/'
+        path: '/management/',
+        name: 'inquiry_detail',
+        title: ''
     });
 });
 
 router.get('/board_manage', function(req, res, next) {
     res.render('management/board_manage', {
-        path: '/management/'
+        path: '/management/',
+        name: 'board_manage',
+        title: '게시판 통합관리'
     });
 });
 
 router.get('/board_manage_reg', function(req, res, next) {
-    res.render('management/board_manage_reg');
+    res.render('management/board_manage_reg', {
+        path: '/management/',
+        name: 'board_manage_reg',
+        title: '게시판 통합관리'
+
+    });
 });
 
 router.get('/coupon_list', function(req, res, next) {
     res.render('management/coupon_list', {
-        path: '/management/'
+        path: '/management/',
+        name: 'coupon_list',
+        title: ''
     });
 });
 
 router.get('/coupon_goods_reg', function(req, res, next) {
     res.render('management/coupon_goods_reg', {
-        path: '/management/'
+        path: '/management/',
+        name: 'coupon_goods_reg',
+        title: ''
     });
 });
 

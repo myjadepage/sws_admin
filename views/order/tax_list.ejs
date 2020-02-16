@@ -18,49 +18,46 @@
 
 
                 <form name="sFrm">
-
                     <table class="t_form">
                         <caption>세금계산서 검색</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>발급상태</th>
                                 <td>
-                                    <select id="sissue" name="sissue" onchange="change();"><option value="">선택</option><option value="100">발급신청</option><option value="200">발급처리중</option><option value="900">발급완료</option></select>
-
+                                    <select id="sissue" name="sissue" class="text_input" onchange="change();">
+                                        <option value="">선택</option><option value="100">발급신청</option>
+                                        <option value="200">발급처리중</option>
+                                        <option value="900">발급완료</option>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>
                                 <th>기간</th>
                                 <td>
-                                    <div>
-                                        <input type="text" id="sdts" name="sdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                        <input type="text" id="sdte" name="sdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src="/img/btn_open.gif" onclick="calendar.open(event, 'sdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
                                     </div>
-                                    <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte')">전체</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't')">오늘</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 't', -1)">어제</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -3)">3일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -7)">7일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -10)">10일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -20)">20일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sdts', 'sdte', 'd', -30)">30일간</button></span>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>직접검색</th>
                                 <td>
-                                    <select id="skey" name="skey"><option value="">전체</option><option value="ordno">주문번호</option><option value="ordname">주문자명</option></select>
+                                    <select id="skey" name="skey" class="text_input">
+                                        <option value="">전체</option>
+                                        <option value="ordno">주문번호</option>
+                                        <option value="ordname">주문자명</option>
+                                    </select>
 
                                     <input type="text" name="sword" value="" class="text_input" style="width:300px">
-                                    <span class="button small black"><button type="submit">검색</button></span>
+                                    <button class="btn btn-sm btn-default" type="submit">검색</button></span>
                                 </td>
                             </tr>
                         </tbody>
@@ -69,13 +66,10 @@
                 </form>
 
                 <div class="section_head">
-                    <h4>총 <span><strong>2</strong></span>건이 조회 되었습니다.</h4>
+                    <h4><i class="xi-check-circle"></i> 총 <strong>2</strong>건이 조회 되었습니다.</h4>
                 </div>
 
                 <form name="Frm">
-                    <input type="hidden" name="idx">
-                    <input type="hidden" name="params" value="sissue=&sdts=&sdte=&skey=&sword=&page=">
-
                     <table class="t_list">
                         <caption>세금계산서 신청 내역</caption>
                         <colgroup>
@@ -112,8 +106,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <tr bgcolor="#ffffff">
+                            <tr>
                                 <td rowspan="2"><input type="checkbox" name="cbList" value="205"></td>
                                 <td rowspan="2">2</td>
                                 <td rowspan="2">A1724354044907<br>(몰스토어)</td>
@@ -126,21 +119,22 @@
                                 <td rowspan="2">2017-08-31</td>
                                 <td rowspan="2">발급신청</td>
                                 <td rowspan="2">
-                                    <div><span class="button small"><button type="button" onclick="openOrderDetail(254)">주문정보</button></span></div>
-
-                                    <div class="mgt3"><span class="button green small"><button type="button" onclick="openDealProof(205)">세금계산서</button></span></div>
-                                    <div class="mgt3"><span class="button blue small"><button type="button" onclick="sendTax(205)">메일발송</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="openOrderDetail(254)"> 주 문  정 보 </button></div>
+                                    <div class="mgt3"><button type="button" class="btn btn-sm btn-info" onclick="openDealProof(205)">세금계산서</button>
+                                    </div>
+                                    <div class="mgt3"><button type="button" class="btn btn-sm btn-default" onclick="sendTax(205)"> 메 일  발 송 </button>
+                                    </div>
 
                                 </td>
                             </tr>
 
-                            <tr bgcolor="#ffffff">
+                            <tr>
                                 <td class="left">【EJPXQ54】여-휘트니스</td>
                                 <td>2</td>
                                 <td>10,000</td>
                             </tr>
 
-                            <tr bgcolor="#fdfae8">
+                            <tr>
                                 <td rowspan="2"><input type="checkbox" name="cbList" value="203"></td>
                                 <td rowspan="2">1</td>
                                 <td rowspan="2">A1724353582837<br>(몰스토어)</td>
@@ -153,15 +147,13 @@
                                 <td rowspan="2">2017-08-31</td>
                                 <td rowspan="2">발급신청</td>
                                 <td rowspan="2">
-                                    <div><span class="button small"><button type="button" onclick="openOrderDetail(251)">주문정보</button></span></div>
-
-                                    <div class="mgt3"><span class="button green small"><button type="button" onclick="openDealProof(203)">세금계산서</button></span></div>
-                                    <div class="mgt3"><span class="button blue small"><button type="button" onclick="sendTax(203)">메일발송</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="openOrderDetail(251)"> 주 문  정 보 </button></div>
+                                    <div class="mgt3"><button type="button" class="btn btn-sm btn-info" onclick="openDealProof(203)">세금계산서</button></div>
+                                    <div class="mgt3"><button type="button" class="btn btn-sm btn-default" onclick="sendTax(203)"> 메 일  발 송 </button></div>
 
                                 </td>
                             </tr>
-
-                            <tr bgcolor="#fdfae8">
+                            <tr>
                                 <td class="left">나비리본 목걸이 </td>
                                 <td>1</td>
                                 <td>21,000</td>
@@ -175,105 +167,124 @@
                     </div>
 
                     <ul class="order_list_btn mgt10">
-                        <li class="title">상태수정 :</li>
                         <li>
-                            선택한 항목을
-                            <select id="batchState" name="batchState"><option value="">선택</option><option value="100">발급신청</option><option value="900">발급완료</option></select> 로(으로)
-                            <span class="button"><button type="button" onclick="setStateList()">수정하기</button></span>
+                            <strong class="title"><i class="xi-check-circle"></i>상태수정 :</strong> 선택한 항목을
+                            <select id="batchState" name="batchState" class="text_input">
+                                <option value="">선택</option>
+                                <option value="100">발급신청</option>
+                                <option value="900">발급완료</option>
+                            </select> 로(으로)
+                            <button type="button" class="btn btn-sm btn-default" onclick="setStateList()">수정하기</button>
                         </li>
-                        <li class="title">엑셀다운 :</li>
                         <li>
-                            <span class="button"><button type="button" onclick="downExcel()">엑셀로 받기</button></span>
+                            <strong class="title"><i class="xi-check-circle"></i> 엑셀다운 :</strong>
+                            <button type="button" class="btn btn-sm btn-default" onclick="downExcel()">엑셀로 받기</button>
                         </li>
                     </ul>
 
                 </form>
 
 
-                <div id="footer">
-                    <p>Copyright ⓒ <strong>2020&nbsp;몰인몰</strong> All rights reserved.</p>
-                </div>
-            </div>
 
 
-
-
-            <%- include('../inc/footer') %>
-
-
-                <script type="text/javascript">
-                    //<![CDATA[
-                    function change() {
-                        var f = document.sFrm;
-
-                        validSearch(f);
-
-                        f.submit();
-                    }
-
-                    function validSearch(f) {
-                        if (!isDate(f.sdts.value)) f.sdts.value = "";
-                        if (!isDate(f.sdte.value)) f.sdte.value = "";
-                    }
-
-                    function openOrderDetail(idx) { // 주문정보 상세보기
-                        openPopup("order_detail.pop?idx=" + idx, "Detail", 820, 600, "scrollbars=1");
-                    }
-
-                    function openDealProof(idx) {
-                        openPopup("../../common/dealproof/tax_print.pop?idx=" + idx, "DealProof", 660, 530, "scrollbars=yes");
-                    }
-
-                    function downExcel() {
-                        frmProc.location.replace("tax_list.excel?sissue=&sdts=&sdte=&skey=&sword=");
-                    }
-
-                    function sendTax(idx) {
-                        var f = document.Frm;
-
-                        if (confirm("입력된 고객메일로 세금계산서를 발송 하시겠습니까?")) {
-                            f.idx.value = idx;
-                            f.target = "frmProc";
-                            f.action = "../../common/dealproof/tax_sendmail";
-                            f.submit();
-                        }
-                    }
-
-                    function setStateList() {
-                        var f = document.Frm;
-                        var items = "";
-
-                        var stateText = f.batchState.options[f.batchState.selectedIndex].text;
-                        var stateValue = f.batchState.options[f.batchState.selectedIndex].value;
-
-                        if (!f.cbList) return false;
-
-                        if (stateValue == "") {
-                            alert("수정할 상태를 선택해 주세요.");
-                            f.batchState.focus();
-                            return false;
-                        }
-
-                        $(f.cbList).each(function() {
-                            if (this.checked) {
-                                items += (items ? ',' : '') + this.value;
-                            }
+                <%- include('../inc/footer') %>
+                    <!-- 달력관련 -->
+                    <script>
+                        var today = new Date();
+                        var picker = tui.DatePicker.createRangePicker({
+                            language: 'ko',
+                            startpicker: {
+                                date: today,
+                                input: '#startpicker-input',
+                                container: '#startpicker-container'
+                            },
+                            endpicker: {
+                                date: today,
+                                input: '#endpicker-input',
+                                container: '#endpicker-container'
+                            },
+                            selectableRanges: [
+                                [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+                            ]
                         });
+                    </script>
 
-                        if (items == '') {
-                            alert(stateText + "로(으로) 수정하실 항목을 선택해 주세요.");
-                            return false;
-                        }
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function change() {
+                            var f = document.sFrm;
 
-                        if (confirm("선택한 항목을 " + stateText + "로(으로) 수정하시겠습니까?")) {
-                            f.idx.value = items;
-                            f.action = "tax.act.asp";
+                            validSearch(f);
+
                             f.submit();
                         }
-                    }
-                    //]]>
-                </script>
 
-                </body>
+                        function validSearch(f) {
+                            if (!isDate(f.sdts.value)) f.sdts.value = "";
+                            if (!isDate(f.sdte.value)) f.sdte.value = "";
+                        }
 
-                </html>
+                        function openOrderDetail(idx) { // 주문정보 상세보기
+                            var url = "order_detail_pop";
+                            var name = "Detail";
+                            var option = "width=820, height=500, top=100, left=200, location=0,scrollbars=1";
+                            window.open(url, name, option);
+                        }
+
+                        function openDealProof(idx) {
+                            openPopup("../../common/dealproof/tax_print.pop?idx=" + idx, "DealProof", 660, 530, "scrollbars=yes");
+                        }
+
+                        function downExcel() {
+                            frmProc.location.replace("tax_list.excel?sissue=&sdts=&sdte=&skey=&sword=");
+                        }
+
+                        function sendTax(idx) {
+                            var f = document.Frm;
+
+                            if (confirm("입력된 고객메일로 세금계산서를 발송 하시겠습니까?")) {
+                                f.idx.value = idx;
+                                f.target = "frmProc";
+                                f.action = "../../common/dealproof/tax_sendmail";
+                                f.submit();
+                            }
+                        }
+
+                        function setStateList() {
+                            var f = document.Frm;
+                            var items = "";
+
+                            var stateText = f.batchState.options[f.batchState.selectedIndex].text;
+                            var stateValue = f.batchState.options[f.batchState.selectedIndex].value;
+
+                            if (!f.cbList) return false;
+
+                            if (stateValue == "") {
+                                alert("수정할 상태를 선택해 주세요.");
+                                f.batchState.focus();
+                                return false;
+                            }
+
+                            $(f.cbList).each(function() {
+                                if (this.checked) {
+                                    items += (items ? ',' : '') + this.value;
+                                }
+                            });
+
+                            if (items == '') {
+                                alert(stateText + "로(으로) 수정하실 항목을 선택해 주세요.");
+                                return false;
+                            }
+
+                            if (confirm("선택한 항목을 " + stateText + "로(으로) 수정하시겠습니까?")) {
+                                f.idx.value = items;
+                                f.action = "tax.act.asp";
+                                f.submit();
+                            }
+                        }
+                        //]]>
+                    </script>
+
+                    </body>
+
+                    </html>

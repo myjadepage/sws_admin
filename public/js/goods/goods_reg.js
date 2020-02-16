@@ -223,7 +223,10 @@
 
  // 상품아이콘 등록/수정 오픈
  function openIcon() {
-     openPopup("/goods/goods_icon_pop", "Icon", 498, 500, "scrollbars=1");
+     var url = "/goods/goods_icon_pop";
+     var name = "Icon";
+     var option = "width=498, height=500, top=100, left=200, location=0,scrollbars=1";
+     window.open(url, name, option);
  }
 
 

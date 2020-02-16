@@ -1,0 +1,87 @@
+<div class="modal viewQna" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Q&A 수정</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="section_head" style="margin-top:0">
+                        <h4>Q&A 수정</h4>
+                    </div>
+
+                    <form name="Frm">
+                        <table class="t_form">
+                            <caption>답변 수정&amp;등록 폼</caption>
+                            <colgroup>
+                                <col width="130">
+                                <col width="*">
+                            </colgroup>
+
+                            <tr>
+                                <th>제목</th>
+                                <td>
+                                    <input type="text" name="subject" value="상품 문의" style="width:98%" class="text_input" maxlength="100" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>내용</th>
+                                <td>
+                                    <textarea name="content" rows="5" style="width:98%" class="text_input">상품 문의 합니다.</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>작성자</th>
+                                <td>
+                                    <input type="text" name="writer" value="wonej999" class="text_input" style="width:130px" maxlength="20" />
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="btn_center mgt5">
+                            <button type="button" class="btn btn-info" onClick="validSubmit()">확인</button>
+                        </div>
+
+                    </form>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function validSubmit() {
+        var f = document.Frm;
+
+        if (f.subject && sws.common.isEmpty(f.subject)) {
+            alert("제목을 입력해주세요.");
+            f.subject.focus();
+            return false;
+        }
+
+        if (sws.common.isEmpty(f.content)) {
+            alert("내용을 입력해 주세요.");
+            f.content.focus();
+            return false;
+        }
+
+        if (sws.common.isEmpty(f.writer)) {
+            alert("작성자를 입력해 주세요.");
+            f.writer.focus();
+            return false;
+        }
+
+        if (confirm("등록하시겠습니까?")) {
+            f.action = "qna.act.asp";
+            f.submit();
+        }
+    }
+    //]]>
+</script>

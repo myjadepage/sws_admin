@@ -17,26 +17,31 @@
                 </ul>
 
 
-                <script type="text/javascript">
-                    //<![CDATA[
-                    function change() {
-                        var f = document.sFrm;
-                        f.submit();
-                    }
-                    //]]>
-                </script>
-
                 <form name="sFrm">
 
                     <div class="section_head">
                         <h4>
-                            <select id="sconsult" name="sconsult" onchange="change()"><option value="">전체</option><option value="01">아이디/비밀번호찾기</option><option value="02">회원정보</option><option value="03">배송관련</option><option value="04">상품문의</option><option value="05">반품/교환/취소/환불</option><option value="06">주문결제</option><option value="07">적립금/쿠폰</option><option value="0">기타</option></select>
+                            <select id="sconsult" name="sconsult" class="text_input" onchange="change()">
+                                <option value="">전체</option>
+                                <option value="01">아이디/비밀번호찾기</option>
+                                <option value="02">회원정보</option>
+                                <option value="03">배송관련</option>
+                                <option value="04">상품문의</option>
+                                <option value="05">반품/교환/취소/환불</option>
+                                <option value="06">주문결제</option>
+                                <option value="07">적립금/쿠폰</option>
+                                <option value="0">기타</option>
+                            </select>
                         </h4>
-                        <div>
-                            <select id="skey" name="skey"><option value="subject">제목</option><option value="content">내용</option><option value="id">아이디</option></select>
+                        <div class="mgb5">
+                            <select id="skey" name="skey" class="text_input">
+                                <option value="subject">제목</option>
+                                <option value="content">내용</option>
+                                <option value="id">아이디</option>
+                            </select>
 
                             <input type="text" name="sword" value="" maxlength="50" class="text_input" style="width:150px">
-                            <span class="button small black"><button type="submit">검색</button></span>
+                            <button type="submit" class="btn btn-sm btn-default">검색</button>
                         </div>
                     </div>
 
@@ -101,6 +106,16 @@
 
 
                 <%- include('../inc/footer') %>
+
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        function change() {
+                            var f = document.sFrm;
+                            f.submit();
+                        }
+                        //]]>
+                    </script>
+
 
                     </body>
 

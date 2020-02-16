@@ -19,18 +19,21 @@
 
 
                 <form name="Frm">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="idx">
-                    <input type="hidden" name="aidx">
-                    <input type="hidden" name="params">
-
                     <div class="section_head">
                         <h4>오늘 등록된 상품평은 총 <span><strong>0</strong></span>개입니다.</h4>
-                        <div>
-                            <select id="skey" name="skey"><option value="">전체</option><option value="goods">상품명</option><option value="subject">제목</option><option value="content">내용</option><option value="answer">답변</option><option value="user">평가자</option><option value="dealer">답변자</option></select>
+                        <div class="mgb5">
+                            <select id="skey" name="skey" class="text_input">
+                                <option value="">전체</option>
+                                <option value="goods">상품명</option>
+                                <option value="subject">제목</option>
+                                <option value="content">내용</option>
+                                <option value="answer">답변</option>
+                                <option value="user">평가자</option>
+                                <option value="dealer">답변자</option>
+                            </select>
 
-                            <input type="text" name="sword" value="" maxlength="50" class="text_input" style="width:150px">
-                            <span class="button small black"><button type="submit">검색</button></span>
+                            <input type="text" name="sword" maxlength="50" class="text_input" style="width:150px">
+                            <button type="submit" class="btn btn-sm btn-default">검색</button>
                         </div>
                     </div>
 
@@ -55,7 +58,7 @@
                                 <td style="padding:0">
                                     <div class="over_h" style="padding:10px;">
 
-                                        <div class="fl" style="width:70px;"><img src="/img/201324253665762.jpg" width="50" height="50" border="0"></div>
+                                        <div class="fl" style="width:70px;"><img src="/img/201324253665762.jpg" width="50" height="50"></div>
                                         <div class="fl" style="width:80%;text-align:left;padding-top:10px;"><a href="/goods/detail?gno=75" target="_blank">버든배낭</a></div>
 
                                     </div>
@@ -67,21 +70,20 @@
 
                                     <div style="padding:15px 10px;text-align:left;">
                                         <div><strong>물건 잘 받았습니다</strong></div>
-
                                         <div class="mgt10">만족스럽습니다</div>
                                     </div>
 
                                 </td>
                                 <td>
 
-                                    <div><span class="button small"><button type="button" ezi="2" onclick="ezpop.member.open(event)">회원정보보기</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" id="btnMemberInfo">회원정보보기</button></div>
 
                                     <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="editReview(86)">수정</button></span>
-                                        <span class="button small"><button type="button" onclick="delReview(86)">삭제</button></span>
+                                        <button type="button" class="btn btn-sm btn-default" id="btnReview">수정</button>
+                                        <button type="button" class="btn btn-sm btn-default" onclick="delReview(86)">삭제</button>
                                     </div>
 
-                                    <div class="mgt5"><span class="button small"><button type="button" onclick="regAnswer(86)">답변</button></span></div>
+                                    <div class="mgt5"><button type="button" class="btn btn-sm btn-default" id="btnAnswer">답변</button></div>
 
                                 </td>
                             </tr>
@@ -96,80 +98,65 @@
                 </form>
 
 
-
                 <%- include('../inc/footer') %>
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        ezpop.member.bind('detail', '회원정보', function(uno) {
-                            $.laybox({
-                                type: 'iframe',
-                                source: '../member/member_detail.ifrm?uno=' + uno
-                            });
-                        });
-                        ezpop.member.bind('email', '메일발송', function(uno) {
-                            openPopup("../member/send_email.pop?uno=" + uno, "ezEmail", 740, 570);
-                        });
-                        ezpop.member.bind('sms', 'SMS전송', function(uno) {
-                            openPopup("../sms/send_sms_direct.pop?uno=" + uno, "ezSms", 80, 340, "scrollbars=yes");
-                        });
-                        //]]>
-                    </script>
 
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        function delReview(idx) {
-                            var f = document.Frm;
 
-                            if (confirm("상품평을 삭제하시겠습니까?")) {
-                                f.mode.value = "DEL";
-                                f.idx.value = idx;
-                                f.params.value = "skey=^sword=^page=";
-                                f.method = "post";
-                                f.encoding = "multipart/form-data";
-                                f.action = "review.act";
-                                f.submit();
-                            }
-                        }
+                    <!-- 모달  -->
+                    <%- include('../member/member_detail_pop') %>
+                        <%- include('review_reg_pop') %>
+                            <%- include('review_answer_pop') %>
 
-                        function delAnswer(idx, aidx) {
-                            var f = document.Frm;
 
-                            if (confirm("답변을 삭제하시겠습니까?")) {
-                                f.mode.value = "DEL_ANSWER";
-                                f.idx.value = idx;
-                                f.aidx.value = aidx;
-                                f.params.value = "skey=^sword=^page=";
-                                f.method = "post";
-                                f.encoding = "multipart/form-data";
-                                f.action = "review.act.asp";
-                                f.submit();
-                            }
-                        }
 
-                        function editReview(idx) {
-                            $.laybox({
-                                type: 'iframe',
-                                width: 800,
-                                height: 270,
-                                source: 'review_reg.ifrm?idx=' + idx
-                            });
-                        }
 
-                        function regAnswer(idx) {
-                            $.laybox({
-                                type: 'iframe',
-                                width: 800,
-                                height: 200,
-                                source: 'review_reg.ifrm?mode=ANSWER&idx=' + idx
-                            });
-                        }
+                                <script type="text/javascript">
+                                    $("#btnMemberInfo").click(function() {
+                                        $(".viewMemberInfo").modal("show");
+                                    });
 
-                        $(function() {
-                            $('.adjust_image_container').adjustImage();
-                        });
-                        //]]>
-                    </script>
+                                    $("#btnReview").click(function() {
+                                        $(".editReview").modal("show");
+                                    });
 
-                    </body>
+                                    $("#btnAnswer").click(function() {
+                                        $(".writeAnswer").modal("show");
+                                    });
+                                </script>
 
-                    </html>
+                                <script type="text/javascript">
+                                    //<![CDATA[
+                                    function delReview(idx) {
+                                        var f = document.Frm;
+
+                                        if (confirm("상품평을 삭제하시겠습니까?")) {
+                                            f.mode.value = "DEL";
+                                            f.idx.value = idx;
+                                            f.params.value = "skey=^sword=^page=";
+                                            f.method = "post";
+                                            f.encoding = "multipart/form-data";
+                                            f.action = "review.act";
+                                            f.submit();
+                                        }
+                                    }
+
+                                    function delAnswer(idx, aidx) {
+                                        var f = document.Frm;
+
+                                        if (confirm("답변을 삭제하시겠습니까?")) {
+                                            f.mode.value = "DEL_ANSWER";
+                                            f.idx.value = idx;
+                                            f.aidx.value = aidx;
+                                            f.params.value = "skey=^sword=^page=";
+                                            f.method = "post";
+                                            f.encoding = "multipart/form-data";
+                                            f.action = "review.act.asp";
+                                            f.submit();
+                                        }
+                                    }
+
+                                    //]]>
+                                </script>
+
+                                </body>
+
+                                </html>

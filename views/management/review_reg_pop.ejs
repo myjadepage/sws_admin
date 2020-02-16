@@ -1,0 +1,101 @@
+<div class="modal editReview" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">상품평 수정</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <div>
+                    <div class="section_head" style="margin-top:0">
+                        <h4>상품평 수정</h4>
+                    </div>
+
+                    <form name="Frm">
+                        <table class="t_form">
+
+                            <colgroup>
+                                <col width="100">
+                                <col width="200">
+                                <col width="100">
+                                <col width="*">
+                            </colgroup>
+                            <caption>답변 수정 폼</caption>
+                            <tr>
+                                <th>제목</th>
+                                <td colspan="3">
+                                    <input type="text" name="subject" value="물건 잘 받았습니다" class="text_input" style="width:98%" maxlength="100" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내용</th>
+                                <td colspan="3">
+                                    <textarea name="content" rows="5" class="text_input" style="width:98%">만족스럽습니다</textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>이미지</th>
+                                <td colspan="3">
+                                    <div style="float:left"><input type="file" name="imgReview" /></div>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>작성자</th>
+                                <td>
+                                    <input type="text" name="writer" value="몰스토어" class="text_input" style="width:130px" maxlength="20" />
+                                </td>
+                                <th>별점평가</th>
+                                <td>
+                                    <select id='point' name='point'><option value='5' >★★★★★</option><option value='4' selected >★★★★</option><option value='3' >★★★</option><option value='2' >★★</option><option value='1' >★</option></select>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <div class="btn_center mgt5">
+                            <button type="button" class="btn btn-info" onClick="validSubmit()">확인</button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    function validSubmit() {
+        var f = document.Frm;
+
+        if (f.subject && sws.common.isEmpty(f.subject)) {
+            alert("제목을 입력해주세요.");
+            f.subject.focus();
+            return false;
+        }
+
+        if (sws.common.isEmpty(f.content)) {
+            alert("내용을 입력해주세요.");
+            f.content.focus();
+            return false;
+        }
+
+        if (f.imgReview && !sws.common.isEmpty(f.imgReview)) {
+            if (!checkFileExt(f.imgReview, "gif,jpg,png", "이미지(GIF, JPG, PNG) 파일만 선택해 주세요.")) return false;
+        }
+
+        if (sws.common.isEmpty(f.writer)) {
+            alert("작성자를 입력해주세요.");
+            f.writer.focus();
+            return false;
+        }
+
+        if (confirm("등록하시겠습니까?")) {
+            f.action = "review.act.asp";
+            f.submit();
+        }
+    }
+    //]]>
+</script>

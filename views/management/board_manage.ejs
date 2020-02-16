@@ -18,9 +18,7 @@
                 </ul>
 
 
-                <form name="Frm" method="post">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="idx">
+                <form name="Frm">
 
                     <table class="t_list">
                         <caption>등록된 게시판 리스트</caption>
@@ -52,11 +50,14 @@
                                 </td>
                                 <td>기본형</td>
                                 <td>1</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list?board=notice" target="_blank" class="font11">/board/list.asp?board=notice</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list?board=notice" target="_blank">/board/list.asp?board=notice</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(2)">수정</button></span></div>
-
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=notice" target="_blank">관리</a></span></div>
+                                    <div>
+                                        <button type="button" class="btn btn-sm btn-default" onclick="edit(2)">수정</button>
+                                    </div>
+                                    <div class="mgt5">
+                                        <a href="http://mimd.mallstore.co.kr/board/list.asp?board=notice" class="btn btn-sm btn-info" target="_blank">관리</a>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -64,15 +65,15 @@
                                 <td>community</td>
                                 <td>
                                     <div>고객게시판</div>
-                                    <div style="font-size:11px; color:#FF6666; margin-top:1px;">(기본게시판)</div>
+                                    <div style="color:#FF6666; margin-top:1px;">(기본게시판)</div>
                                 </td>
                                 <td>기본형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=community" target="_blank" class="font11">/board/list.asp?board=community</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=community" target="_blank">/board/list.asp?board=community</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(3)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(3)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=community" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=community" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
@@ -80,15 +81,15 @@
                                 <td>mim_notice</td>
                                 <td>
                                     <div>입점업체 공지사항</div>
-                                    <div style="font-size:11px; color:#FF6666; margin-top:1px;">(기본게시판)</div>
+                                    <div style="color:#FF6666; margin-top:1px;">(기본게시판)</div>
                                 </td>
                                 <td>기본형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_notice" target="_blank" class="font11">/board/list.asp?board=mim_notice</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_notice" target="_blank">/board/list.asp?board=mim_notice</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(4)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(4)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_notice" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_notice" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
@@ -96,15 +97,15 @@
                                 <td>mim_qna</td>
                                 <td>
                                     <div>입점업체 게시판</div>
-                                    <div style="font-size:11px; color:#FF6666; margin-top:1px;">(기본게시판)</div>
+                                    <div style="color:#FF6666; margin-top:1px;">(기본게시판)</div>
                                 </td>
                                 <td>기본형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_qna" target="_blank" class="font11">/board/list.asp?board=mim_qna</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_qna" target="_blank">/board/list.asp?board=mim_qna</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(5)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(5)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_qna" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_qna" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
@@ -112,15 +113,15 @@
                                 <td>mim_pds</td>
                                 <td>
                                     <div>입점업체 자료실</div>
-                                    <div style="font-size:11px; color:#FF6666; margin-top:1px;">(기본게시판)</div>
+                                    <div style="color:#FF6666; margin-top:1px;">(기본게시판)</div>
                                 </td>
                                 <td>자료실형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_pds" target="_blank" class="font11">/board/list.asp?board=mim_pds</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_pds" target="_blank">/board/list.asp?board=mim_pds</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(6)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(6)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_pds" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=mim_pds" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
@@ -132,13 +133,15 @@
                                 </td>
                                 <td>기본형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=qna_board" target="_blank" class="font11">/board/list.asp?board=qna_board</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=qna_board" target="_blank">/board/list.asp?board=qna_board</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(8)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(8)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><button type="button" onclick="del(8)">삭제</button></span></div>
+                                    <div class="mgt5"><button type="button" class="btn btn-sm btn-danger" onclick="del(8)">삭제</button>
+                                    </div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=qna_board" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=qna_board" class="btn btn-sm btn-info" target="_blank">관리</a></span>
+                                    </div>
                                 </td>
                             </tr>
 
@@ -150,13 +153,13 @@
                                 </td>
                                 <td>웹진형</td>
                                 <td>0</td>
-                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=webzine" target="_blank" class="font11">/board/list.asp?board=webzine</a></td>
+                                <td class="left"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=webzine" target="_blank">/board/list.asp?board=webzine</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(9)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(9)">수정</button></div>
 
-                                    <div class="mgt5"><span class="button small"><button type="button" onclick="del(9)">삭제</button></span></div>
+                                    <div class="mgt5"><button type="button" class="btn btn-sm btn-danger" onclick="del(9)">삭제</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=webzine" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="http://mimd.mallstore.co.kr/board/list.asp?board=webzine" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
@@ -168,21 +171,22 @@
                                 </td>
                                 <td>앨범형</td>
                                 <td>0</td>
-                                <td class="left"><a href="/board/list?board=album" target="_blank" class="font11">/board/list.asp?board=album</a></td>
+                                <td class="left"><a href="/board/list?board=album" target="_blank">/board/list.asp?board=album</a></td>
                                 <td>
-                                    <div><span class="button small"><button type="button" onclick="edit(11)">수정</button></span></div>
+                                    <div><button type="button" class="btn btn-sm btn-default" onclick="edit(11)">수정</button>
+                                    </div>
 
-                                    <div class="mgt5"><span class="button small"><button type="button" onclick="del(11)">삭제</button></span></div>
+                                    <div class="mgt5"><button type="button" class="btn btn-sm btn-danger" onclick="del(11)">삭제</button></div>
 
-                                    <div class="mgt5"><span class="button small"><a href="/board/list?board=album" target="_blank">관리</a></span></div>
+                                    <div class="mgt5"><a href="/board/list?board=album" class="btn btn-sm btn-info" target="_blank">관리</a></div>
                                 </td>
                             </tr>
 
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="reg()">게시판추가</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="reg()">게시판추가</button>
                     </div>
 
                 </form>
