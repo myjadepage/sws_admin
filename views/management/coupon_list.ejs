@@ -19,19 +19,20 @@
 
 
                 <form name="sFrm">
-                    <input type="hidden" name="kind" value="100">
 
                     <table class="t_form">
                         <caption>쿠폰 종류</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>쿠폰방식</th>
                                 <td>
-                                    <select id="smethod" name="smethod" onchange="this.form.submit()"><option value="">전체</option><option value="101">상품 발급</option><option value="102">구매보상 발급</option><option value="103">회원선택 발급</option><option value="201">회원가입 발급</option></select>
+                                    <select id="smethod" name="smethod" class="text_input" onchange="this.form.submit()">
+                                        <option value="">전체</option>
+                                        <option value="101">상품 발급</option>
+                                        <option value="102">구매보상 발급</option>
+                                        <option value="103">회원선택 발급</option>
+                                        <option value="201">회원가입 발급</option>
+                                    </select>
 
                                 </td>
                             </tr>
@@ -41,27 +42,19 @@
                 </form>
 
                 <form name="Frm" method="post">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="idx">
-                    <input type="hidden" name="kind" value="100">
-                    <input type="hidden" name="params" value="kind=100^smethod=^page=">
-
                     <table class="t_list mgt20">
                         <caption>등록된 쿠폰 내역</caption>
                         <colgroup>
-                            <col width="25">
+                            <col width="50">
                             <col width="7%">
                             <col width="10%">
                             <col width="*">
-
                             <col width="10%">
-
                             <col width="10%">
                             <col width="13%">
-
                             <col width="10%">
                             <col width="8%">
-                            <col width="50">
+                            <col width="100">
                         </colgroup>
                         <thead>
                             <tr>
@@ -79,7 +72,7 @@
                         </thead>
                         <tbody>
 
-                            <tr onmouseover="this.style.backgroundColor='#fdfae8'" onmouseout="this.style.backgroundColor='#ffffff'">
+                            <tr>
                                 <td><input type="checkbox" name="cbList" value="57"></td>
                                 <td>3</td>
                                 <td>상품 발급</td>
@@ -92,10 +85,10 @@
 
                                 <td><a href="javascript:;" onclick="openIssueList(57); return false;">0/0장</a></td>
                                 <td>2017.08.31</td>
-                                <td><span class="button small"><button type="button" onclick="reg(57)">수정</button></span></td>
+                                <td><button type="button" class="btn btn-sm btn-default" onclick="reg(57)">수정</button></td>
                             </tr>
 
-                            <tr onmouseover="this.style.backgroundColor='#fdfae8'" onmouseout="this.style.backgroundColor='#ffffff'">
+                            <tr>
                                 <td><input type="checkbox" name="cbList" value="56"></td>
                                 <td>2</td>
                                 <td>상품 발급</td>
@@ -108,10 +101,10 @@
 
                                 <td><a href="javascript:;" onclick="openIssueList(56); return false;">0/0장</a></td>
                                 <td>2017.08.31</td>
-                                <td><span class="button small"><button type="button" onclick="reg(56)">수정</button></span></td>
+                                <td><button type="button" class="btn btn-sm btn-default" onclick="reg(56)">수정</button></td>
                             </tr>
 
-                            <tr onmouseover="this.style.backgroundColor='#fdfae8'" onmouseout="this.style.backgroundColor='#ffffff'" style="background-color: rgb(255, 255, 255);">
+                            <tr>
                                 <td><input type="checkbox" name="cbList" value="55"></td>
                                 <td>1</td>
                                 <td>상품 발급</td>
@@ -124,7 +117,7 @@
 
                                 <td><a href="javascript:;" onclick="openIssueList(55); return false;">0/0장</a></td>
                                 <td>2017.08.31</td>
-                                <td><span class="button small"><button type="button" onclick="reg(55)">수정</button></span></td>
+                                <td><button type="button" class="btn btn-sm btn-default" onclick="reg(55)">수정</button></td>
                             </tr>
 
                         </tbody>
@@ -134,9 +127,9 @@
                         <span><a href="/management/coupon_list?page=1&kind=100&smethod="><strong>1</strong></a></span>
                     </div>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="reg()">쿠폰등록</button></span>
-                        <span class="button large black"><button type="button" onclick="delList()">선택삭제</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="reg('100')">쿠폰등록</button>
+                        <button type="button" class="btn btn-danger" onclick="delList()">선택삭제</button>
                     </div>
 
                 </form>
@@ -148,9 +141,8 @@
                         //<![CDATA[
                         function reg(idx) {
                             var f = document.Frm;
-                            var code;
 
-                            switch (f.kind.value) {
+                            switch (idx) {
                                 case '100':
                                     code = 'goods';
                                     break;
@@ -161,7 +153,7 @@
                                     code = 'delivery';
                                     break;
                             }
-                            location.href = "coupon_" + code + "_reg.asp" + (idx ? "?idx=" + idx + "&params=kind=100^smethod=^page=" : '');
+                            location.href = "coupon_" + code + "_reg" + (idx ? "?idx=" + idx + "&params=kind=100^smethod=^page=" : '');
                         }
 
                         function delList() {

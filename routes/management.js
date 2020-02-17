@@ -38,7 +38,7 @@ router.get('/faq_list', function(req, res, next) {
 router.get('/faq_reg', function(req, res, next) {
     res.render('management/faq_reg', {
         path: '/management/',
-        name: 'faq_reg',
+        name: 'faq_list',
         title: ''
     });
 });
@@ -54,7 +54,7 @@ router.get('/inquiry_list', function(req, res, next) {
 router.get('/inquiry_detail', function(req, res, next) {
     res.render('management/inquiry_detail', {
         path: '/management/',
-        name: 'inquiry_detail',
+        name: 'inquiry_list',
         title: ''
     });
 });
@@ -70,7 +70,7 @@ router.get('/board_manage', function(req, res, next) {
 router.get('/board_manage_reg', function(req, res, next) {
     res.render('management/board_manage_reg', {
         path: '/management/',
-        name: 'board_manage_reg',
+        name: 'board_manage',
         title: '게시판 통합관리'
 
     });
@@ -80,15 +80,15 @@ router.get('/coupon_list', function(req, res, next) {
     res.render('management/coupon_list', {
         path: '/management/',
         name: 'coupon_list',
-        title: ''
+        title: '상품쿠폰관리'
     });
 });
 
 router.get('/coupon_goods_reg', function(req, res, next) {
     res.render('management/coupon_goods_reg', {
         path: '/management/',
-        name: 'coupon_goods_reg',
-        title: ''
+        name: 'coupon_list',
+        title: '쿠폰관리'
     });
 });
 

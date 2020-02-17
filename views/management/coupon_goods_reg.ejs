@@ -18,52 +18,50 @@
                 </ul>
 
                 <form name="Frm">
-                    <input type="hidden" name="mode" value="REG">
-                    <input type="hidden" name="idx" value="0">
-                    <input type="hidden" name="kind" value="100">
-                    <input type="hidden" name="params" value="">
-
-                    <input type="hidden" name="issueSize" value="0">
 
                     <table class="t_form">
                         <caption>쿠폰 등록 폼</caption>
                         <colgroup>
-                            <col width="130">
+                            <col width="200">
                             <col width="*">
-                            <col width="130">
+                            <col width="200">
                             <col width="*">
                         </colgroup>
                         <tbody>
                             <tr>
                                 <th><span class="red">*</span> 쿠폰방식</th>
                                 <td colspan="3">
-
                                     <ul class="arrange method">
-                                        <li><input type="radio" id="method_1" name="method" value="101" checked=""><label for="method_1">상품 발급</label></li>
-                                        <li><input type="radio" id="method_2" name="method" value="102"><label for="method_2">구매보상 발급</label></li>
-                                        <li><input type="radio" id="method_3" name="method" value="103"><label for="method_3">회원선택 발급</label></li>
-                                        <li><input type="radio" id="method_5" name="method" value="201"><label for="method_5">회원가입 발급</label></li>
+                                        <li><label for="method_1"><input type="radio" id="method_1" name="method" value="101" checked="">상품 발급</label></li>
+                                        <li class="mgl20"><label for="method_2"><input type="radio" id="method_2" name="method" value="102">구매보상 발급</label></li>
+                                        <li class="mgl20"><label for="method_3"><input type="radio" id="method_3" name="method" value="103">회원선택 발급</label></li>
+                                        <li class="mgl20"><label for="method_4"><input type="radio" id="method_4" name="method" value="201">회원가입 발급</label></li>
                                     </ul>
                                 </td>
                             </tr>
                             <tr>
                                 <th><span class="red">*</span> 쿠폰명</th>
-                                <td>
-                                    <input type="text" name="title" value="" class="text_input" style="width:97%" maxlength="50">
-                                </td>
+                                <td><input type="text" name="title" value="" class="text_input" style="width:97%" maxlength="50"></td>
                                 <th>간략 설명</th>
-                                <td>
-                                    <input type="text" name="summary" value="" class="text_input" style="width:97%" maxlength="100">
-                                </td>
+                                <td><input type="text" name="summary" value="" class="text_input" style="width:97%" maxlength="100"></td>
                             </tr>
 
                             <tr class="method_goods" style="display: table-row;">
                                 <th><span class="red">*</span> 진행기간</th>
                                 <td colspan="3">
-                                    <input type="text" id="startDate" name="startDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10">
-                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'startDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle"> ~
-                                    <input type="text" id="endDate" name="endDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10">
-                                    <img src="/img/btn_open.gif" alt="달력" onclick="calendar.open(event, 'endDate', 'YYYY-MM-DD')" style="cursor:pointer;vertical-align:middle">
+                                    <!-- 달력 -->
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
+                                    </div>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
+                                    </div>
+                                    <!-- 달력 -->
                                 </td>
                             </tr>
 
@@ -71,8 +69,7 @@
                                 <th>쿠폰코드</th>
                                 <td colspan="3">
                                     <div>
-                                        <input type="file" name="csvOffline" onkeydown="blockKey(event)" onkeypress="blockKey(event)" disabled="">
-
+                                        <input type="file" name="csvOffline" onkeydown="blockKey(event)" onkeypress="blockKey(event)" disabled>
                                     </div>
 
                                     <!-- 설명 -->
@@ -111,31 +108,39 @@
                                 <td colspan="3">
                                     <div class="over_h">
                                         <div class="fl" style="width:130px">
-                                            <input type="radio" id="use_limit_day_t" name="isUseLimitDay" value="T" onclick="checkUseLimit()" checked=""><label for="use_limit_day_t">사용일자 설정</label>
+                                            <label for="use_limit_day_t"><input type="radio" id="use_limit_day_t" name="isUseLimitDay" value="T" onclick="checkUseLimit()" checked>
+                                            사용일자 설정 :</label>
                                         </div>
                                         <div class="fl">
                                             <ul class="arrange">
-                                                <li style="padding-top:3px">발행 후</li>
-                                                <li><input type="text" id="useLimitDay" name="useLimitDay" value="" min="0" class="text_input" style="width:35px;" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"></li>
-                                                <li>
-                                                    <button type="button" adjust="+" onclick="controlNum(this, 'useLimitDay');" class="block"><img src="/img/btn_up.gif" alt="+"></button>
-                                                    <button type="button" adjust="-" onclick="controlNum(this, 'useLimitDay');" class="block"><img src="/img/btn_down.gif" alt="-"></button>
-                                                </li>
-                                                <li style="padding-top:3px">일간 사용</li>
+                                                <li>발행 후</li>
+                                                <li><input type="text" id="useLimitDay" name="useLimitDay" min="0" class="text_input" style="width:35px;" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                                    <button type="button" adjust="+" onclick="controlNum(this, 'useLimitDay');"><i class="xi-plus-square" style="font-size: 20px;"></i></button>
+                                                    <button type="button" adjust="-" onclick="controlNum(this, 'useLimitDay');"><i class="xi-minus-square" style="font-size: 20px;"></i></button> 일간 사용</li>
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="over_h mgt5">
+                                    <div class="over_h mgt10">
                                         <div class="fl" style="width:130px">
-                                            <input type="radio" id="use_limit_day_f" name="isUseLimitDay" value="F" onclick="checkUseLimit()"><label for="use_limit_day_f">사용기간 설정</label>
+                                            <label for="use_limit_day_f"><input type="radio" id="use_limit_day_f" name="isUseLimitDay" value="F" onclick="checkUseLimit()">사용기간 설정 :</label>
                                         </div>
                                         <div class="fl">
-                                            <input type="text" id="useStartDate" name="useStartDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10" disabled="">
-                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'useStartDate', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                            <input type="text" id="useEndDate" name="useEndDate" value="" class="text_input" style="width:70px; text-align:center;" maxlength="10" disabled="">
-                                            <img src="/img/btn_open.gif" onclick="calendar.open(event, 'useEndDate', 'YYYY-MM-DD')" style="vertical-align:middle">
-                                            <span style="padding-left:20px"><input type="radio" id="use_weekend_0" name="useWeekend" value="0" checked="" disabled=""><label for="use_weekend_0">고정진행</label></span>
-                                            <input type="radio" id="use_weekend_1" name="useWeekend" value="1" disabled=""><label for="use_weekend_1">주말만 진행</label>
+                                            <!-- 달력 -->
+                                            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                                <input id="startpicker-input" type="text" aria-label="Date">
+                                                <span class="tui-ico-date"></span>
+                                                <div id="startpicker-container" style="margin-left: -1px;"></div>
+                                            </div>
+                                            <span>~</span>
+                                            <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                                <input id="endpicker-input" type="text" aria-label="Date">
+                                                <span class="tui-ico-date"></span>
+                                                <div id="endpicker-container" style="margin-left: -1px;"></div>
+                                            </div>
+                                            <!-- 달력 -->
+
+                                            <label for="use_weekend_0"><input type="radio" id="use_weekend_0" name="useWeekend" value="0" checked disabled>고정진행</label>
+                                            <label for="use_weekend_1"><input type="radio" id="use_weekend_1" name="useWeekend" value="1" disabled>주말만 진행</label>
                                         </div>
                                     </div>
                                 </td>
@@ -143,27 +148,27 @@
                             <tr>
                                 <th><span class="red">*</span> 할인폭</th>
                                 <td colspan="3">
-                                    <input type="text" name="discountValue" class="text_input" style="width:80px;" maxlength="10" value="" onkeyup="toNumericData(this)">
-                                    <input type="radio" name="discountUnit" value="100" checked="" onclick="checkDiscountUnit()"> 원
-                                    <input type="radio" name="discountUnit" value="200" onclick="checkDiscountUnit()"> %
-                                    <span style="padding-left:20px">최대할인금액 : </span>
+                                    <input type="text" name="discountValue" class="text_input" style="width:80px;" maxlength="10" onkeyup="toNumericData(this)">
+                                    <label><input type="radio" name="discountUnit" value="100" checked="" onclick="checkDiscountUnit()"> 원</label>
+                                    <label><input type="radio" name="discountUnit" value="200" onclick="checkDiscountUnit()"> %</label>
+                                    <strong class="mgl20">최대할인금액</strong>
                                     <input type="text" name="maxDiscountPrice" class="text_input" style="width:80px;" value="" disabled="" onkeyup="toCurrency(this)"> 원
-                                    <span class="square_blue">0 또는 미입력시 할인금액 제한안함.</span>
+                                    <span class="square_blue">"0 또는 미입력시 할인금액 제한안함."</span>
                                 </td>
                             </tr>
                             <tr>
                                 <th>쿠폰사용시<br>최저/최대금액</th>
                                 <td colspan="3">
                                     <div>
-                                        <input type="radio" id="use_limit_price_f" name="isUseLimitPrice" value="F" checked=""><label for="use_limit_price_f">제한없음</label>
+                                        <label for="use_limit_price_f"><input type="radio" id="use_limit_price_f" name="isUseLimitPrice" value="F" checked="">제한없음</label>
                                     </div>
                                     <div class="mgt5">
-                                        <input type="radio" id="use_limit_price_t" name="isUseLimitPrice" value="T"><label for="use_limit_price_t">개별 상품의 주문금액<span class="font11">[(판매가＋옵션가) × 수량]</span>이
+                                        <label for="use_limit_price_t"><input type="radio" id="use_limit_price_t" name="isUseLimitPrice" value="T">개별 상품의 주문금액 [ (판매가＋옵션가) × 수량 ] 이
                 <input type="text" name="useLowPrice" class="text_input" style="width:70px;" value="" onkeyup="toCurrency(this)"> 원 이상
                 <input type="text" name="useHighPrice" class="text_input" style="width:70px;" value="" onkeyup="toCurrency(this)"> 원 이하
                 </label>
                                     </div>
-                                    <div class="square_blue" style="margin:3px 0 0 17px">최소, 최대금액중 하나는 0원 이상으로 반드시 입력해야 합니다.</div>
+                                    <div class="square_blue">"최소, 최대금액중 하나는 0원 이상으로 반드시 입력해야 합니다."</div>
                                 </td>
                             </tr>
 
@@ -171,7 +176,7 @@
                                 <th rowspan="2"><span class="red">*</span> 적용등급</th>
                                 <td colspan="3">
                                     <ul class="arrange">
-                                        <li><input type="checkbox" id="member_level_0" onclick="checkCbAll(this.form.memberLevel, this.checked)"><label for="member_level_0"><strong>전체 등급</strong></label></li>
+                                        <li><label for="member_level_0"><input type="checkbox" id="member_level_0" onclick="checkCbAll(this.form.memberLevel, this.checked)"><strong>전체 등급</strong></label></li>
 
                                     </ul>
                                 </td>
@@ -179,8 +184,8 @@
                             <tr class="method_goods" style="display: table-row;">
                                 <td colspan="3">
                                     <ul class="arrange">
-                                        <li class="mgr10"><input type="checkbox" id="member_level_1" name="memberLevel" value="1"><label for="member_level_1">일반회원</label></li>
-                                        <li class="mgr10"><input type="checkbox" id="member_level_4" name="memberLevel" value="4"><label for="member_level_4">코알라회원</label></li>
+                                        <li><label for="member_level_1"><input type="checkbox" id="member_level_1" name="memberLevel">일반회원</label></li>
+                                        <li class="mgl20"><label for="member_level_4"><input type="checkbox" id="member_level_4" name="memberLevel">코알라회원</label></li>
                                     </ul>
 
 
@@ -190,7 +195,6 @@
                             <tr>
                                 <th><span style="color:red;">*</span> 쿠폰이미지</th>
                                 <td colspan="3">
-
                                     <input type="file" name="imgCoupon" onkeydown="blockKey(event)" onkeypress="blockKey(event)">
                                 </td>
                             </tr>
@@ -198,13 +202,13 @@
                             <tr class="method_reward" style="display: none;">
                                 <th>발급상품</th>
                                 <td colspan="3">
-                                    <select id="issueGoods" name="issueGoods" multiple="" size="5" style="width:100%;" disabled=""></select>
+                                    <select id="issueGoods" name="issueGoods" multiple="" size="5" style="width:100%; height: auto;" disabled></select>
                                     <div class="over_h mgt5">
                                         <div class="fl">
-                                            <span class="button small"><button type="button" onclick="delSelect('issueGoods');">삭제</button></span>
+                                            <button type="button" class="btn btn-sm btn-default" onclick="delSelect('issueGoods');">삭제</button>
                                         </div>
                                         <div class="fr">
-                                            <span class="button small"><button type="button" onclick="openSelectGoods('issueGoods');">상품선택</button></span>
+                                            <button type="button" class="btn btn-sm btn-default" onclick="openSelectGoods('issueGoods');">상품선택</button>
                                         </div>
                                     </div>
                                 </td>
@@ -213,14 +217,14 @@
                             <tr class="method_member" style="display: none;">
                                 <th>발급회원</th>
                                 <td colspan="3">
-                                    <select id="issueMember" name="issueMember" multiple="" size="5" style="width:100%;" disabled=""></select>
+                                    <select id="issueMember" name="issueMember" class="text_input" multiple="" size="5" style="width:100%;height: auto;" disabled></select>
 
                                     <div class="over_h mgt5">
                                         <div class="fl">
-                                            <span class="button small"><button type="button" onclick="delSelect('issueMember');">삭제</button></span>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="delSelect('issueMember');">삭제</button>
                                         </div>
                                         <div class="fr">
-                                            <select id="issue_member_selector">
+                                            <select id="issue_member_selector" class="text_input">
 <optgroup label="- 회원별 추가 -------------------------">
 <option value="0">회원 선택</option>
 <option value="-1">전체 회원</option>
@@ -231,7 +235,7 @@
 </optgroup>
 
                     </select>
-                                            <span class="button small"><button type="button" onclick="addMember()">추가</button></span>
+                                            <button type="button" class="btn btn-sm btn-default" onclick="addMember()">추가</button>
                                         </div>
                                     </div>
                                 </td>
@@ -240,21 +244,19 @@
                             <tr>
                                 <th rowspan="3">적용상품</th>
 
-                                <td colspan="3"><input type="radio" id="apply_mode_all" name="applyMode" value="100" onclick="checkApply()" checked=""><label for="apply_mode_all">전체 상품</label></td>
+                                <td colspan="3"><label for="apply_mode_all"><input type="radio" id="apply_mode_all" name="applyMode" value="100" onclick="checkApply()" checked="">전체 상품</label></td>
                             </tr>
                             <tr>
                                 <td colspan="3">
                                     <div class="over_h">
-                                        <div class="fl" style="width:180px"><input type="radio" id="apply_mode_goods" name="applyMode" value="200" onclick="checkApply()"><label for="apply_mode_goods">해당 상품</label></div>
+                                        <div class="fl" style="width:180px"><label for="apply_mode_goods"><input type="radio" id="apply_mode_goods" name="applyMode" value="200" onclick="checkApply()">해당 상품</label></div>
                                         <div class="fl" style="width:70%">
-                                            <select id="applyGoods" name="applyGoods" multiple="" size="5" style="width:100%" disabled=""></select>
+                                            <select id="applyGoods" name="applyGoods" class="text_input" multiple="" size="5" style="width:100%; height: auto;" disabled></select>
 
                                             <div class="over_h mgt5">
-                                                <div class="fl">
-                                                    <span class="button small"><button type="button" onclick="delSelect('applyGoods');">삭제</button></span>
-                                                </div>
-                                                <div class="fr">
-                                                    <span class="button small"><button type="button" onclick="openSelectGoods('applyGoods');">상품선택</button></span>
+                                                <div class="btn_right">
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="delSelect('applyGoods');">삭제</button>
+                                                    <button type="button" class="btn btn-sm btn-default" onclick="openSelectGoods('applyGoods');">상품선택</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -264,17 +266,24 @@
                             <tr>
                                 <td colspan="3">
                                     <div class="over_h">
-                                        <div class="fl" style="width:180px"><input type="radio" id="apply_mode_cate" name="applyMode" value="300" onclick="checkApply()"><label for="apply_mode_cate">해당 카테고리이하 상품</label></div>
-                                        <input type="hidden" name="applyCate" value="" disabled="">
-                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_1" name="applyCate_1" head="선택" depth="1" onchange="sc.get(this)" disabled=""><option value="">선택</option><option value="2">OUTER</option><option value="14">TOP</option><option value="15">BOTTOM</option><option value="7">DRESS</option><option value="12">ACC</option><option value="304">SHOES</option><option value="314">BAG</option></select></div>
-                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_2" name="applyCate_2" head="선택" depth="2" onchange="sc.get(this)" disabled=""><option value="">선택</option></select></div>
-                                        <div class="fl" style="margin-right:5px;"><select id="applyCate_3" name="applyCate_3" head="선택" depth="3" onchange="sc.get(this)" disabled=""><option value="">선택</option></select></div>
-                                        <script type="text/javascript">
-                                            //<![CDATA[
-                                            var sc = new SelectCategory();
-                                            sc.init(document.Frm.applyCate);
-                                            //]]>
-                                        </script>
+                                        <div class="fl" style="width:180px"><label for="apply_mode_cate"><input type="radio" id="apply_mode_cate" name="applyMode" value="300" onclick="checkApply()">해당 카테고리이하 상품</label></div>
+
+                                        <div class="fl mgr20">
+                                            <select id="applyCate_1" name="applyCate_1" class="text_input" style="width: 150px;" onchange="sc.get(this)" disabled>
+                                            <option value="">선택</option>
+                                            </select>
+                                        </div>
+                                        <div class="fl mgr20">
+                                            <select id="applyCate_2" class="text_input" style="width: 150px;" name="applyCate_2" onchange="sc.get(this)" disabled>
+                                            <option value="">선택</option>
+                                        </select>
+                                        </div>
+                                        <div class="fl mgr20">
+                                            <select id="applyCate_3" class="text_input" style="width: 150px;" name="applyCate_3" onchange="sc.get(this)" disabled>
+                                                <option value="">선택</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </td>
                             </tr>
@@ -282,9 +291,9 @@
                             <tr class="method_goods" style="display: table-row;">
                                 <th>쿠폰갯수</th>
                                 <td colspan="3">
-                                    <input type="text" name="issueLimit" value="" class="text_input" style="width:70px;" maxlength="10" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> 개
+                                    <label><input type="text" name="issueLimit" class="text_input" style="width:70px;" maxlength="10" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)"> 개</label>
 
-                                    <span class="square_blue">쿠폰 갯수를 제한하여 선착순으로 발급할 수 있습니다.</span>
+                                    <span class="square_blue">"쿠폰 갯수를 제한하여 선착순으로 발급할 수 있습니다."</span>
                                 </td>
                             </tr>
 
@@ -292,13 +301,13 @@
                                 <th>재발급여부</th>
                                 <td colspan="3">
                                     <ul class="arrange">
-                                        <li><input type="checkbox" id="reissue_none" name="reissue" value="0" checked="" onclick="checkReissue(this)"><label for="reissue_none">재발급 안함</label></li>
-                                        <li class="mgl10"><input type="checkbox" id="reissue_cancel" name="reissue" value="1" onclick="checkReissue(this)"><label for="reissue_cancel">취소시 재발급</label></li>
-                                        <li class="mgl10"><input type="checkbox" id="reissue_return" name="reissue" value="2" onclick="checkReissue(this)"><label for="reissue_return">반품시 재발급</label></li>
+                                        <li><label for="reissue_none"><input type="checkbox" id="reissue_none" name="reissue" value="0" checked="" onclick="checkReissue(this)">재발급 안함</label></li>
+                                        <li class="mgl20"><label for="reissue_cancel"><input type="checkbox" id="reissue_cancel" name="reissue" value="1" onclick="checkReissue(this)">취소시 재발급</label></li>
+                                        <li class="mgl20"><label for="reissue_return"><input type="checkbox" id="reissue_return" name="reissue" value="2" onclick="checkReissue(this)">반품시 재발급</label></li>
                                     </ul>
                                     <ul class="mgt5">
-                                        <li class="square_blue">주문시 사용된 쿠폰에 대해서 취소/반품시 재발급 여부를 설정합니다.</li>
-                                        <li class="square_blue">사용기간이 만료된 쿠폰은 위 설정과 관계없이 재발급되지 않습니다.</li>
+                                        <li class="square_blue">"주문시 사용된 쿠폰에 대해서 취소/반품시 재발급 여부를 설정합니다."</li>
+                                        <li class="square_blue">"사용기간이 만료된 쿠폰은 위 설정과 관계없이 재발급되지 않습니다."</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -306,27 +315,45 @@
                                 <th>사용여부</th>
                                 <td colspan="3">
                                     <ul class="arrange">
-                                        <li><input type="radio" id="use_t" name="isUse" value="T" checked=""><label for="use_t">사용함</label></li>
-                                        <li class="mgl10"><input type="radio" id="use_f" name="isUse" value="F"><label for="use_f">사용하지 않음</label></li>
+                                        <li><label for="use_t"><input type="radio" id="use_t" name="isUse" value="T" checked="">사용함</label></li>
+                                        <li class="mgl20"><label for="use_f"><input type="radio" id="use_f" name="isUse" value="F">사용하지 않음</label></li>
                                     </ul>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
-                        <span class="button large black"><button type="button" onclick="cancel()">취소</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-info" onclick="validSubmit()">확인</button>
+                        <button type="button" class="btn btn-default" onclick="cancel()">취소</button>
                     </div>
 
                 </form>
 
 
                 <%- include('../inc/footer') %>
+                    <!-- 달력관련 -->
+                    <script>
+                        var today = new Date();
+                        var picker = tui.DatePicker.createRangePicker({
+                            language: 'ko',
+                            startpicker: {
+                                date: today,
+                                input: '#startpicker-input',
+                                container: '#startpicker-container'
+                            },
+                            endpicker: {
+                                date: today,
+                                input: '#endpicker-input',
+                                container: '#endpicker-container'
+                            },
+                            selectableRanges: [
+                                [today, new Date(today.getFullYear() + 1, today.getMonth(), today.getDate())]
+                            ]
+                        });
+                    </script>
 
 
-                    <script type="text/javascript" src="/js/SelectCategory.js"></script>
-                    <script type="text/javascript" src="/js/class.js"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         function checkDisabled(obj, target) {
@@ -342,7 +369,6 @@
                             f.startDate.disabled = true;
                             f.endDate.disabled = true;
                             f.csvOffline.disabled = true;
-                            //f.imgBanner.disabled = true;
                             f.issueGoods.disabled = true;
                             f.issueMember.disabled = true;
                             f.issueLimit.disabled = true;
@@ -354,7 +380,6 @@
                                 case '102':
                                     f.startDate.disabled = false;
                                     f.endDate.disabled = false;
-                                    //f.imgBanner.disabled = false;
                                     f.issueLimit.disabled = false;
 
                                     setRadioDisabledAll(f.memberLevel, false);
@@ -492,14 +517,7 @@
                     </script>
 
                     <script type="text/javascript">
-                        //<![CDATA[
-                        function openSelectGoods(elmId) {
-                            var f = document.Frm;
-
-                            if (!f[elmId].disabled) {
-                                openPopup("../../common/select/select_goods.pop.asp?target=" + elmId, "SelectGoods", 900, 545);
-                            }
-                        }
+                        //<![CDATA[           
 
                         function takeSelectGoods(elmId, gno, cate, name) {
                             var objSelect = $('#' + elmId)[0];

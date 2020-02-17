@@ -18,8 +18,7 @@
                     <li>SMS 회원가입을 하실려면 원하는 아이디와 비밀번호를 아래의 환경설정에 입력해 주세요.</li>
                 </ul>
 
-                <form name="Frm" method="post" action="/sms/config.act">
-
+                <form name="Frm">
                     <div class="section_head">
                         <h4>SMS 환경설정</h4>
                     </div>
@@ -34,34 +33,34 @@
                                 <th>사용 여부</th>
                                 <td>
                                     <input type="radio" name="isUse" value="T">사용
-                                    <input type="radio" name="isUse" value="F" checked="">미사용
+                                    <input type="radio" name="isUse" value="F" checked>미사용
                                 </td>
                             </tr>
                             <tr>
                                 <th>몰스토어 ID</th>
                                 <td>
                                     <input type="text" name="bizID" value="mall" class="text_input" style="width:150px" maxlength="25">
-                                    <span class="button small"><a href="http://sms.mallstore.co.kr/" target="_blink">SMS신청하기</a></span>
+                                    <a href="http://sms.mallstore.co.kr/" class="btn btn-sm btn-default" target="_blink">SMS신청하기</a>
                                     <div class="square_blue mgt5">몰스토어 홈페이지 회원님은 홈페이지 아이디를 그대로 입력하시면 됩니다.</div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>패스워드</th>
                                 <td>
-                                    <input type="checkbox" name="isInputPw" value="T" onclick="checkInputPw(this)" style="vertical-align:middle"> 패스워드입력
+                                    <label><input type="checkbox" name="isInputPw" value="T" onclick="checkInputPw(this)" style="vertical-align:middle"> 패스워드입력</label>
                                 </td>
                             </tr>
                             <tr id="bodyPw" style="display:none">
                                 <th>패스워드</th>
                                 <td>
-                                    <input type="password" name="bizPw" value="" class="text_input" style="width:150px" maxlength="25">
+                                    <input type="password" name="bizPw" class="text_input" style="width:150px" maxlength="25">
                                     <div class="square_blue mgt5">패스워드를 적어 주세요! 충전할 떄 사용합니다.</div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>샵 이름</th>
                                 <td>
-                                    <input type="text" name="shopName" class="text_input" value="몰스토어" maxlength="7">
+                                    <input type="text" name="shopName" class="text_input" value="" maxlength="7">
                                     <div class="square_blue mgt5">샵 이름을 적어 주세요 최대 7글자!</div>
                                     <div class="square_blue mgt5">샵 이름은 발송 SMS 하단에 표시됩니다.</div>
                                 </td>
@@ -69,7 +68,7 @@
                             <tr>
                                 <th>발송자 휴대폰</th>
                                 <td>
-                                    <input type="text" name="sendNumber" class="text_input" value="025551344" maxlength="20" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                    <input type="text" name="sendNumber" class="text_input" value="0000" maxlength="20" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
                                     <div class="square_blue mgt5">Ex) 0103483724</div>
                                     <div class="square_blue mgt5">발송될 때의 받는 사람에게 보여지는 번호를 적어주세요.</div>
                                 </td>
@@ -77,15 +76,15 @@
                             <tr>
                                 <th>관리자 휴대폰</th>
                                 <td>
-                                    <input type="text" name="receiveNumber" class="text_input" value="0100000" maxlength="20" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
+                                    <input type="text" name="receiveNumber" class="text_input" value="0000" maxlength="20" onkeypress="blockNotNumber(event)" onkeyup="onlyInt(this)">
                                     <div class="square_blue mgt5">Ex) 관리자가 메세지 받을 핸드폰 번호 </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="validSubmit()">확인</button>
                     </div>
 
                 </form>
