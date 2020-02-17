@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('member/index', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: '/',
         title: ''
     });
 });
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 router.get('/config_member', function(req, res, next) {
     res.render('member/config_member', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: 'config_member',
         title: ''
     });
 });
@@ -21,7 +21,7 @@ router.get('/config_member', function(req, res, next) {
 router.get('/member_list', function(req, res, next) {
     res.render('member/member_list', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: 'member_list',
         title: ''
     });
 });
@@ -29,7 +29,7 @@ router.get('/member_list', function(req, res, next) {
 router.get('/member_delete', function(req, res, next) {
     res.render('member/member_delete', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: 'member_delete',
         title: ''
     });
 });
@@ -38,7 +38,7 @@ router.get('/member_delete', function(req, res, next) {
 router.get('/member_buy_list', function(req, res, next) {
     res.render('member/member_buy_list', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: 'member_buy_list',
         title: ''
     });
 });
@@ -46,7 +46,7 @@ router.get('/member_buy_list', function(req, res, next) {
 router.get('/member_mailing', function(req, res, next) {
     res.render('member/member_mailing', {
         path: '/member/',
-        name: 'board_manage_reg',
+        name: 'member_mailing',
         title: ''
     });
 });

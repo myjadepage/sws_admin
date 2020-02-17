@@ -19,17 +19,13 @@
 
 
                 <form name="Frm">
-
                     <div class="section_head">
-                        <h4>회원가입 정책설정</h4>
+                        <h4><i class="xi-check-circle"></i> 회원가입 정책설정</h4>
                     </div>
 
                     <table class="t_form">
                         <caption>차단 ID설정</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
+
                         <tbody>
                             <tr>
                                 <th rowspan="4">가입 차단 ID</th>
@@ -52,16 +48,16 @@
                     </table>
 
                     <div class="section_head">
-                        <h4>회원가입 기본항목설정</h4>
+                        <h4><i class="xi-check-circle"></i> 회원가입 기본항목설정</h4>
                     </div>
 
                     <table class="fields">
                         <caption>기본항목 설정 폼</caption>
                         <colgroup>
-                            <col width="130">
+                            <col width="200">
                             <col width="*">
                             <col width="*">
-                            <col width="130">
+                            <col width="200">
                             <col width="*">
                             <col width="*">
                         </colgroup>
@@ -76,74 +72,62 @@
                             </tr>
                             <tr>
 
-                                <th>성별<input type="hidden" name="code" value="101">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_101" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>성별</th>
+                                <td><input type="checkbox" name="fieldUse_101" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_101" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th>생일<input type="hidden" name="code" value="102">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_102" value="1" onclick="checkField(this)" class="cb" checked=""></td>
-                                <td><input type="checkbox" name="fieldRequire_102" value="2" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>생일</th>
+                                <td><input type="checkbox" name="fieldUse_102" value="1" onclick="checkField(this)" class="cb" checked></td>
+                                <td><input type="checkbox" name="fieldRequire_102" value="2" onclick="checkField(this)" class="cb" checked></td>
                             </tr>
                             <tr>
 
-                                <th>회사명<input type="hidden" name="code" value="103">
-                                </th>
+                                <th>회사명</th>
                                 <td><input type="checkbox" name="fieldUse_103" value="1" onclick="checkField(this)" class="cb"></td>
                                 <td><input type="checkbox" name="fieldRequire_103" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th>사업자등록번호<input type="hidden" name="code" value="104">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_104" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>사업자등록번호</th>
+                                <td><input type="checkbox" name="fieldUse_104" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_104" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
                             <tr>
 
-                                <th>업태<input type="hidden" name="code" value="105">
-                                </th>
+                                <th>업태</th>
                                 <td><input type="checkbox" name="fieldUse_105" value="1" onclick="checkField(this)" class="cb"></td>
                                 <td><input type="checkbox" name="fieldRequire_105" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th>종목<input type="hidden" name="code" value="106">
-                                </th>
+                                <th>종목</th>
                                 <td><input type="checkbox" name="fieldUse_106" value="1" onclick="checkField(this)" class="cb"></td>
                                 <td><input type="checkbox" name="fieldRequire_106" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
                             <tr>
 
-                                <th>전화번호<input type="hidden" name="code" value="107">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_107" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>전화번호</th>
+                                <td><input type="checkbox" name="fieldUse_107" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_107" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th>팩스번호<input type="hidden" name="code" value="108">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_108" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>팩스번호</th>
+                                <td><input type="checkbox" name="fieldUse_108" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_108" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
                             <tr>
 
-                                <th>휴대폰번호<input type="hidden" name="code" value="109">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_109" value="1" onclick="checkField(this)" class="cb" checked=""></td>
-                                <td><input type="checkbox" name="fieldRequire_109" value="2" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>휴대폰번호</th>
+                                <td><input type="checkbox" name="fieldUse_109" value="1" onclick="checkField(this)" class="cb" checked></td>
+                                <td><input type="checkbox" name="fieldRequire_109" value="2" onclick="checkField(this)" class="cb" checked></td>
 
-                                <th>이메일<input type="hidden" name="code" value="110">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_110" value="1" onclick="checkField(this)" class="cb" checked=""></td>
-                                <td><input type="checkbox" name="fieldRequire_110" value="2" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>이메일</th>
+                                <td><input type="checkbox" name="fieldUse_110" value="1" onclick="checkField(this)" class="cb" checked></td>
+                                <td><input type="checkbox" name="fieldRequire_110" value="2" onclick="checkField(this)" class="cb" checked></td>
                             </tr>
                             <tr>
 
-                                <th>주소<input type="hidden" name="code" value="111">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_111" value="1" onclick="checkField(this)" class="cb" checked=""></td>
-                                <td><input type="checkbox" name="fieldRequire_111" value="2" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>주소</th>
+                                <td><input type="checkbox" name="fieldUse_111" value="1" onclick="checkField(this)" class="cb" checked></td>
+                                <td><input type="checkbox" name="fieldRequire_111" value="2" onclick="checkField(this)" class="cb" checked></td>
 
-                                <th>메모<input type="hidden" name="code" value="112">
-                                </th>
-                                <td><input type="checkbox" name="fieldUse_112" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <th>메모</th>
+                                <td><input type="checkbox" name="fieldUse_112" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_112" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
 
@@ -151,7 +135,7 @@
                     </table>
 
                     <div class="section_head">
-                        <h4>회원가입 추가항목설정</h4>
+                        <h4><i class="xi-check-circle"></i> 회원가입 추가항목설정</h4>
                     </div>
 
                     <table class="fields">
@@ -175,46 +159,46 @@
                             </tr>
                             <tr>
 
-                                <th><input type="hidden" name="code" value="201"> <input type="text" name="fieldTitle_201" value="결혼여부" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_201" value="결혼여부" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_201" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_201" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_201" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th><input type="hidden" name="code" value="202"> <input type="text" name="fieldTitle_202" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_202" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_202" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_202" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_202" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
                             <tr>
 
-                                <th><input type="hidden" name="code" value="203"> <input type="text" name="fieldTitle_203" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_203" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_203" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_203" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_203" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th><input type="hidden" name="code" value="204"> <input type="text" name="fieldTitle_204" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_204" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_204" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_204" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_204" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
                             <tr>
 
-                                <th><input type="hidden" name="code" value="205"> <input type="text" name="fieldTitle_205" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_205" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_205" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_205" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_205" value="2" onclick="checkField(this)" class="cb"></td>
 
-                                <th><input type="hidden" name="code" value="206"> <input type="text" name="fieldTitle_206" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
+                                <th><input type="text" name="fieldTitle_206" value="test1" class="text_input" maxlength="50" style="width:100px; text-align:center;">
                                 </th>
-                                <td><input type="checkbox" name="fieldUse_206" value="1" onclick="checkField(this)" class="cb" checked=""></td>
+                                <td><input type="checkbox" name="fieldUse_206" value="1" onclick="checkField(this)" class="cb" checked></td>
                                 <td><input type="checkbox" name="fieldRequire_206" value="2" onclick="checkField(this)" class="cb"></td>
                             </tr>
 
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="validSubmit()">확인</button>
                     </div>
 
                 </form>

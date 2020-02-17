@@ -23,10 +23,7 @@
 
                     <table class="t_form">
                         <caption>메일 보내기 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
+
                         <tbody>
                             <tr>
                                 <th>제목</th>
@@ -40,7 +37,7 @@
                                     <div><input type="radio" name="group" value="total"> 회원전체 (4명)</div>
                                     <div><input type="radio" name="group" value="sleep"> 휴면회원 (9명)</div>
                                     <div><input type="radio" name="group" value="birthday"> 금일생일자 (0명)</div>
-                                    <div class="mgt5"><input type="radio" name="group" value="" checked=""> 이메일 입력</div>
+                                    <div class="mgt5"><input type="radio" name="group" value="" checked> 이메일 입력</div>
                                     <div style="padding-left:25px"><input type="text" name="email" class="text_input" style="width:98%"></div>
                                 </td>
                             </tr>
@@ -56,15 +53,16 @@
                     <table class="t_form">
                         <tbody>
                             <tr>
-                                <td style="padding:0px;">
-                                    <textarea name="content" style="width: 100%; height: 350px; display: none;" id="content-placeholder"></textarea><iframe id="__se2_frame_content-placeholder" name="__se2_frame_content-placeholder" frameborder="0" scrolling="no"
-                                        style="width: 100%; height: 397px;" src="/js/SmartEditor2Skin.html"></iframe></td>
+                                <td>
+                                    <div class="summernote"></div>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>
 
-                    <div class="btn">
-                        <span class="button large black"><button type="button" onclick="validSubmit()">확인</button></span>
+                    <div class="btn_center">
+                        <button type="button" class="btn btn-default" onclick="validSubmit()">확인</button>
                     </div>
 
                 </form>
@@ -73,20 +71,28 @@
 
 
                     <!-- 에디터 Script -->
+                    <script>
+                        $(document).ready(function() {
+                            $('.summernote').summernote({
+                                height: 300,
+                                tabsize: 2
+                            });
+                        });
+                    </script>
 
                     <script type="text/javascript">
                         //<![CDATA[
                         function validSubmit() {
                             var f = document.Frm;
 
-                            if (isEmpty(f.subject)) {
+                            if (sws.common.isEmpty(f.subject)) {
                                 alert("제목을 입력해 주세요.");
                                 f.subject.focus();
                                 return false;
                             }
 
                             if (getRadio(f.group) == "") {
-                                if (isEmpty(f.email)) {
+                                if (sws.common.isEmpty(f.email)) {
                                     alert("이메일을 입력해 주세요.");
                                     f.email.focus();
                                     return false;
@@ -102,7 +108,7 @@
                                 }
                             }
 
-                            if (isEmpty(f.content)) {
+                            if (sws.common.isEmpty(f.content)) {
                                 alert("내용을 입력해 주세요.");
                                 return false;
                             }

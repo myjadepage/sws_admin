@@ -23,67 +23,61 @@
 
                     <table class="t_form">
                         <caption>회원 검색 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>가입일</th>
                                 <td>
-                                    <div>
-                                        <input type="text" id="sregdts" name="sregdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'sregdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                        <input type="text" id="sregdte" name="sregdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'sregdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
                                     </div>
-                                    <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte')">전체</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 't')">오늘</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 't', -1)">어제</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -3)">3일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -7)">7일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -10)">10일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -20)">20일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('sregdts', 'sregdte', 'd', -30)">30일간</button></span>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>최근접속일</th>
                                 <td>
-                                    <div>
-                                        <input type="text" id="svisitdts" name="svisitdts" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'svisitdts', 'YYYY-MM-DD')" style="vertical-align:middle"> ~
-                                        <input type="text" id="svisitdte" name="svisitdte" value="" maxlength="10" class="text_input" style="width:70px">
-                                        <img src=" /img/btn_open.gif" onclick="calendar.open(event, 'svisitdte', 'YYYY-MM-DD')" style="vertical-align:middle"> 직접 입력시에는 “2007-01-01” 형식으로 입력해주세요.
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="startpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="startpicker-container" style="margin-left: -1px;"></div>
                                     </div>
-                                    <div class="mgt5">
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte')">전체</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 't')">오늘</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 't', -1)">어제</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -3)">3일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -7)">7일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -10)">10일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -20)">20일간</button></span>
-                                        <span class="button small"><button type="button" onclick="inperiod.input('svisitdts', 'svisitdte', 'd', -30)">30일간</button></span>
+                                    <span>~</span>
+                                    <div class="tui-datepicker-input tui-datetime-input tui-has-focus">
+                                        <input id="endpicker-input" type="text" aria-label="Date">
+                                        <span class="tui-ico-date"></span>
+                                        <div id="endpicker-container" style="margin-left: -1px;"></div>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <th>그룹별</th>
                                 <td>
-                                    <select id="slevel" name="slevel" onchange="change();"><option value="">회원등급</option><option value="1">일반회원</option><option value="4">코알라회원</option></select>
-                                    <select id="sgender" name="sgender" onchange="change();"><option value="">성별</option><option value="100">남자</option><option value="200">여자</option></select>
+                                    <select id="slevel" name="slevel" class="text_input" onchange="change();">
+                                        <option value="">회원등급</option>
+                                        <option value="1">일반회원</option>
+                                        <option value="4">코알라회원</option>
+                                    </select>
+                                    <select id="sgender" name="sgender" class="text_input" onchange="change();">
+                                        <option value="">성별</option>
+                                        <option value="100">남자</option>
+                                        <option value="200">여자</option>
+                                    </select>
 
                                 </td>
                             </tr>
                             <tr>
                                 <th>회원상태</th>
                                 <td>
-                                    <input type="radio" name="ssleep" value="0" checked="">전체
-                                    <input type="radio" name="ssleep" value="1">일반
-                                    <input type="radio" name="ssleep" value="2">휴면
+                                    <label><input type="radio" name="ssleep" value="0" checked>전체</label>
+                                    <label><input type="radio" name="ssleep" value="1">일반</label>
+                                    <label><input type="radio" name="ssleep" value="2">휴면</label>
                                 </td>
                             </tr>
                             <tr>
@@ -103,10 +97,17 @@
                             <tr>
                                 <th>직접검색</th>
                                 <td>
-                                    <select id="skey" name="skey"><option value="">전체</option><option value="id">회원아이디</option><option value="name">회원명</option><option value="tel">전화번호</option><option value="mobile">휴대폰번호</option><option value="email">이메일</option></select>
+                                    <select id="skey" name="skey" class="text_input">
+                                        <option value="">전체</option>
+                                        <option value="id">회원아이디</option>
+                                        <option value="name">회원명</option>
+                                        <option value="tel">전화번호</option>
+                                        <option value="mobile">휴대폰번호</option>
+                                        <option value="email">이메일</option>
+                                    </select>
 
-                                    <input type="text" name="sword" value="" class="text_input" style="width:300px">
-                                    <span class="button small black"><button type="submit">검색</button></span>
+                                    <input type="text" name="sword" class="text_input" style="width:300px">
+                                    <button type="submit" class="btn btn-sm btn-default">검색</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -114,20 +115,30 @@
 
                     <div class="section_head">
                         <h4>총 <strong class="red">16</strong> 명의 회원이 조회 되었으며, 오늘 가입한 회원은 <strong class="red">0</strong> 명입니다.</h4>
-                        <div>
-                            <select id="psize" name="psize" onchange="change()"><option value="10" selected="">10줄씩보기</option><option value="20">20줄씩보기</option><option value="30">30줄씩보기</option><option value="50">50줄씩보기</option><option value="100">100줄씩보기</option></select>
-                            <select id="psort" name="psort" onchange="change()"><option value="regdt" selected="">회원가입일</option><option value="visitdt">최근접속일</option><option value="buyprice">총구매금액</option><option value="visitcnt">접속수</option><option value="age">나이순</option><option value="name">이름순</option><option value="cmoney">적립금순</option></select>
+                        <div class="mgb5">
+                            <select id="psize" name="psize" class="text_input" onchange="change()">
+                                <option value="10" selected>10줄씩보기</option>
+                                <option value="20">20줄씩보기</option>
+                                <option value="30">30줄씩보기</option>
+                                <option value="50">50줄씩보기</option>
+                                <option value="100">100줄씩보기</option>
+                            </select>
+                            <select id="psort" name="psort" class="text_input" onchange="change()">
+                                <option value="regdt" selected>회원가입일</option>
+                                <option value="visitdt">최근접속일</option>
+                                <option value="buyprice">총구매금액</option>
+                                <option value="visitcnt">접속수</option>
+                                <option value="age">나이순</option>
+                                <option value="name">이름순</option>
+                                <option value="cmoney">적립금순</option>
+                            </select>
 
                         </div>
                     </div>
                 </form>
 
 
-                <form name="Frm" method="post">
-                    <input type="hidden" name="mode">
-                    <input type="hidden" name="no">
-                    <input type="hidden" name="id">
-                    <input type="hidden" name="params" value="sregdts=^sregdte=^svisitdts=^svisitdte=^slevel=0^sgender=^ssleep=0^sbuyprice=^ebuyprice=^scmoney=^ecmoney=^skey=^sword=^psort=regdt^psize=10^page=">
+                <form name="Frm">
 
                     <table class="t_list">
                         <caption>가입한 회원 목록</caption>
@@ -199,31 +210,27 @@
                     </table>
 
                     <div class="paging">
-                        <span><a href="/member/member_list.asp?page=1&sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10"><strong>1</strong></a><a href="/member/member_list.asp?page=2&sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10">2</a></span>
+                        <span><a href="">1</a></span>
                     </div>
 
                     <div class="section_head">
-                        <h4>회원상태변경</h4>
+                        <h4><i class="xi-check-circle"></i> 회원상태변경</h4>
                     </div>
                     <table class="t_form">
                         <caption>회원상태변경 폼</caption>
-                        <colgroup>
-                            <col width="130">
-                            <col width="*">
-                        </colgroup>
                         <tbody>
                             <tr>
                                 <th>일괄변경</th>
                                 <td>
-                                    선택한 회원을 일반회원으로 <span class="button"><button type="button" onclick="setBatchMember()">전환하기</button></span>
+                                    선택한 회원을 일반회원으로 <button type="button" class="btn btn-sm btn-default" onclick="setBatchMember()">전환하기</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="btn_right">
-                        <span class="button large black"><button type="button" onclick="delList()">선택삭제</button></span>
-                        <span class="button large black"><a href="/member/member_list.excel?sregdts=&sregdte=&svisitdts=&svisitdte=&slevel=0&sgender=&ssleep=0&sbuyprice=&ebuyprice=&scmoney=&ecmoney=&skey=&sword=&psort=regdt&psize=10">엑셀로 받기</a></span>
+                        <button type="button" class="btn btn-default" onclick="delList()">선택삭제</button>
+                        <a href="" class="btn btn-default">엑셀로 받기</a></span>
                     </div>
 
                 </form>
@@ -233,7 +240,6 @@
 
                 <%- include('../inc/footer') %>
 
-                    <script type="text/javascript" src="/js/class.js"></script>
                     <script type="text/javascript">
                         //<![CDATA[
                         function change() {
@@ -253,21 +259,6 @@
                         //]]>
                     </script>
 
-
-                    <script type="text/javascript" src="/js/ezpop.js"></script>
-                    <script type="text/javascript">
-                        //<![CDATA[
-                        ezpop.member.bind('detail', '회원정보', function(uno) {
-                            location.href = "member_detail.asp?no=" + uno + "&params=sregdts=^sregdte=^svisitdts=^svisitdte=^slevel=0^sgender=^ssleep=0^sbuyprice=^ebuyprice=^scmoney=^ecmoney=^skey=^sword=^psort=regdt^psize=10^page=";
-                        });
-                        ezpop.member.bind('email', '메일발송', function(uno) {
-                            openPopup("send_email.pop.asp?uno=" + uno, "ezEmail", 740, 570);
-                        });
-                        ezpop.member.bind('sms', 'SMS전송', function(uno) {
-                            openPopup("../sms/send_sms_direct.pop.asp?uno=" + uno, "ezSms", 80, 340, "scrollbars=yes");
-                        });
-                        //]]>
-                    </script>
 
                     <script type="text/javascript">
                         //<![CDATA[
